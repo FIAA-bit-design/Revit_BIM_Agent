@@ -1,0 +1,45 @@
+=== Regel 4 | 2026-10-03T13:15:21.7181211+02:00 | U_F_BAS_FBU_RIE_XXX ===
+=== Regel 4 v0.0.2 | 2026-10-03T14:37:19.8420151+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 4 v0.0.2: child-elementer 14; kilder 329; matchet 14; fallback 14; uten match 0; verdier skrevet 0; uavklart 0; kilder med mangler/feil 0.
+MATCH child 10720547 til parent 4786909: FOB_ID='--', fallback=True, avstand=1809.0 mm.
+BEVART ElementId 10720547: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720547: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720587 til parent 4786875: FOB_ID='--', fallback=True, avstand=1593.5 mm.
+BEVART ElementId 10720587: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720587: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720751 til parent 4786885: FOB_ID='--', fallback=True, avstand=1205.6 mm.
+BEVART ElementId 10720751: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720751: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720826 til parent 4786876: FOB_ID='--', fallback=True, avstand=1604.0 mm.
+BEVART ElementId 10720826: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720826: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720851 til parent 4786877: FOB_ID='--', fallback=True, avstand=1595.4 mm.
+BEVART ElementId 10720851: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720851: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720886 til parent 4787025: FOB_ID='--', fallback=True, avstand=1288.4 mm.
+BEVART ElementId 10720886: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720886: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720948 til parent 4786866: FOB_ID='--', fallback=True, avstand=1288.4 mm.
+BEVART ElementId 10720948: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720948: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10720956 til parent 4786915: FOB_ID='--', fallback=True, avstand=1303.8 mm.
+BEVART ElementId 10720956: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10720956: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10721016 til parent 4786878: FOB_ID='--', fallback=True, avstand=1764.3 mm.
+BEVART ElementId 10721016: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10721016: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10721064 til parent 4786879: FOB_ID='--', fallback=True, avstand=1575.4 mm.
+BEVART ElementId 10721064: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10721064: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10731440 til parent 4786953: FOB_ID='--', fallback=True, avstand=1710.5 mm.
+BEVART ElementId 10731440: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10731440: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 10732204 til parent 4786799: FOB_ID='--', fallback=True, avstand=1625.6 mm.
+BEVART ElementId 10732204: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 10732204: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 12974497 til parent 4786908: FOB_ID='--', fallback=True, avstand=1581.2 mm.
+BEVART ElementId 12974497: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 12974497: PGF_RIE_BetjenerNavn hadde allerede verdi.
+MATCH child 12974500 til parent 4786874: FOB_ID='--', fallback=True, avstand=1581.1 mm.
+BEVART ElementId 12974500: PGF_RIE_BetjenerMerke hadde allerede verdi.
+BEVART ElementId 12974500: PGF_RIE_BetjenerNavn hadde allerede verdi.

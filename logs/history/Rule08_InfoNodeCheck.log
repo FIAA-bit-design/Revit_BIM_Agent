@@ -1,0 +1,11 @@
+=== Regel 8 v0.0.3 | 2026-10-03T14:41:41.4997590+02:00 | U_F_BAS_FBU_RIE_XXX ===
+InfoNodes 1974; manglende HostID 0; dupliserte HostID-verdier 0; relevante advarsler 0; subs-konflikter 0; tomme subs 0; flyttet par 0; hoppet over par 0; Excel-rader 0.
+Formål: Kontroller InfoNode-hostID/subs og flytt kvalifisert Klimaport under Brannport.
+Dokument: U_F_BAS_FBU_RIE_XXX
+Familie: InfoNode (Specialty Equipment), antall instanser: 1974
+Manglende eller tom InfoNode_hostID: 0
+ID-verdier brukt av flere instanser: 0
+Relevante DuplicateInstances-advarsler med minst to InfoNodes: 0
+Advarsler med ulike utfylte InfoNode_subs: 0
+Instanser med tom eller manglende InfoNode_subs i disse advarslene: 0
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agnet\Slette duplikater infonoder funn 20261003_144141_601.xlsx

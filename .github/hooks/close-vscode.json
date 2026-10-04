@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "agentStop": [
+      {
+        "type": "command",
+        "powershell": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github/hooks/close-vscode-after-agent.ps1",
+        "timeoutSec": 15
+      }
+    ]
+  }
+}

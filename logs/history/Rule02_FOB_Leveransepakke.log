@@ -1,0 +1,286 @@
+=== Regel 2 v0.0.2 | 2026-10-03T13:12:49.6763082+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Instanser 19244; mål 284; kandidater 12277; parameter mangler 6683; feil lagringstype 0; oppdatert 225; uavklart 59; skrivebeskyttet 0; fallback 109
+UAVKLART ElementId 9203185: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11010120: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012550: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012597: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11186128: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11187772: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 11215042: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 14390939: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 15804775: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15810880: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16200327: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607432: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607434: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607435: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607437: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607440: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607448: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607449: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607451: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607452: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607455: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607456: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17041459: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041461: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041463: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041464: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041465: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041466: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041467: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041468: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041476: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041477: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041478: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041479: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041482: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041486: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041487: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041488: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041489: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041490: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041493: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041494: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041495: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041496: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041497: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041498: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041499: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041501: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041502: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041504: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041505: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041506: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041507: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17178903: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17180111: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17180114: kandidater 5; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17180115: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17180116: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17509925: kandidater 0; årsak: ingen kandidat innen 3000 mm
+OPPDATERT ElementId 4050019: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 4050135: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 4050143: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 4050153: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 4213383: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 4214742: pakke 'LPE161', kandidater 4, fallback
+OPPDATERT ElementId 4214762: pakke 'LPE161', kandidater 1, fallback
+OPPDATERT ElementId 5955862: pakke 'LPE191', kandidater 2, fallback
+OPPDATERT ElementId 5955863: pakke 'LPE191', kandidater 1
+OPPDATERT ElementId 5955864: pakke 'LPE191', kandidater 2
+OPPDATERT ElementId 5955865: pakke 'LPE191', kandidater 2
+OPPDATERT ElementId 5955866: pakke 'LPE191', kandidater 2
+OPPDATERT ElementId 5955917: pakke 'LPE191', kandidater 3, fallback
+OPPDATERT ElementId 5955936: pakke 'LPE191', kandidater 3, fallback
+OPPDATERT ElementId 6903998: pakke 'LPE181', kandidater 5, fallback
+OPPDATERT ElementId 6904076: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 6904408: pakke 'LPE181', kandidater 1, fallback
+OPPDATERT ElementId 6904409: pakke 'LPE181', kandidater 2, fallback
+OPPDATERT ElementId 7977241: pakke 'LPE181', kandidater 4, fallback
+OPPDATERT ElementId 7991726: pakke 'LPE191', kandidater 5, fallback
+OPPDATERT ElementId 7991862: pakke 'LPE191', kandidater 5, fallback
+OPPDATERT ElementId 8759855: pakke 'LPE191', kandidater 6
+OPPDATERT ElementId 8761674: pakke 'LPE191', kandidater 6
+OPPDATERT ElementId 8766261: pakke 'LPE281', kandidater 4
+OPPDATERT ElementId 8766282: pakke 'LPE281', kandidater 4
+OPPDATERT ElementId 9159753: pakke 'LPE191', kandidater 2, fallback
+OPPDATERT ElementId 9162376: pakke 'LPE191', kandidater 2
+OPPDATERT ElementId 10400980: pakke 'LPE161', kandidater 2, fallback
+OPPDATERT ElementId 11007392: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 11007629: pakke 'LPE191', kandidater 5
+OPPDATERT ElementId 11007817: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 11008373: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 11008374: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 11008375: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 11008376: pakke 'LPE191', kandidater 1
+OPPDATERT ElementId 11008398: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 11008712: pakke 'LPE191', kandidater 2
+OPPDATERT ElementId 11009008: pakke 'LPE191', kandidater 3
+OPPDATERT ElementId 11009057: pakke 'LPE181', kandidater 5
+OPPDATERT ElementId 11009221: pakke 'LPE181', kandidater 4
+OPPDATERT ElementId 11009313: pakke 'LPE181', kandidater 3
+OPPDATERT ElementId 11009786: pakke 'LPE181', kandidater 5
+OPPDATERT ElementId 11009882: pakke 'LPE181', kandidater 2
+OPPDATERT ElementId 11010169: pakke 'LPE181', kandidater 3
+OPPDATERT ElementId 11010236: pakke 'LPE281', kandidater 1
+OPPDATERT ElementId 11010267: pakke 'LPE281', kandidater 1
+OPPDATERT ElementId 11010275: pakke 'LPE281', kandidater 3
+OPPDATERT ElementId 11010474: pakke 'LPE281', kandidater 5
+OPPDATERT ElementId 11010509: pakke 'LPE281', kandidater 4
+OPPDATERT ElementId 11010557: pakke 'LPE281', kandidater 1
+OPPDATERT ElementId 11010619: pakke 'LPE281', kandidater 2
+OPPDATERT ElementId 11010647: pakke 'LPE281', kandidater 4
+OPPDATERT ElementId 11010760: pakke 'LPE281', kandidater 3
+OPPDATERT ElementId 11010794: pakke 'LPE281', kandidater 6
+OPPDATERT ElementId 11010849: pakke 'LPE281', kandidater 4
+OPPDATERT ElementId 11010870: pakke 'LPE281', kandidater 3
+OPPDATERT ElementId 11011721: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 11011755: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 11011818: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 11011891: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 11012310: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 11012367: pakke 'LPE162', kandidater 2
+OPPDATERT ElementId 11012867: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 11012910: pakke 'LPE271', kandidater 1
+OPPDATERT ElementId 11012941: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 11013023: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 11013040: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 11013058: pakke 'LPE271', kandidater 1
+OPPDATERT ElementId 11013105: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 11013241: pakke 'LPE271', kandidater 4
+OPPDATERT ElementId 11057785: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 11171303: pakke 'LPE371', kandidater 1
+OPPDATERT ElementId 11181108: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 11181109: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 11181112: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 11181113: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 11181116: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 11181117: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 11181378: pakke 'LPE381', kandidater 3, fallback
+OPPDATERT ElementId 11181426: pakke 'LPE371', kandidater 5, fallback
+OPPDATERT ElementId 11182450: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 11183848: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 11183849: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 11183946: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 11183947: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 11184011: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 11184180: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 11185151: pakke 'LPE171', kandidater 5
+OPPDATERT ElementId 11185243: pakke 'LPE02', kandidater 4, fallback
+OPPDATERT ElementId 11185379: pakke 'LPE02', kandidater 4, fallback
+OPPDATERT ElementId 11185478: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 11185859: pakke 'LPE271', kandidater 1
+OPPDATERT ElementId 11186831: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 11186893: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 11187031: pakke 'LP033', kandidater 1, fallback
+OPPDATERT ElementId 11187059: pakke 'LPE02', kandidater 3, fallback
+OPPDATERT ElementId 11855028: pakke 'LPE05', kandidater 4, fallback
+OPPDATERT ElementId 12551673: pakke 'LP053', kandidater 2
+OPPDATERT ElementId 12555497: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 12555526: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 12555534: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 12555544: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 12556478: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 12556482: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 12556485: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556585: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556587: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 12556590: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556592: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 12556595: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556598: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556601: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 12556604: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556607: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 12556610: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556613: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556616: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556648: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556675: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556676: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556689: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556690: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 12556701: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12556702: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 12556745: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12556747: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 12725506: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 12726052: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 12726053: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 12726054: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 12736819: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 12756112: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 12756281: pakke 'LP053', kandidater 3, fallback
+OPPDATERT ElementId 12979895: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 12987490: pakke 'LPE191', kandidater 5, fallback
+OPPDATERT ElementId 13266492: pakke 'LPE162', kandidater 4
+OPPDATERT ElementId 13292538: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 13651633: pakke 'LPE161', kandidater 5
+OPPDATERT ElementId 15247336: pakke 'LPE281', kandidater 2
+OPPDATERT ElementId 15535185: pakke 'LPE161', kandidater 2, fallback
+OPPDATERT ElementId 15804847: pakke 'LPE02', kandidater 3, fallback
+OPPDATERT ElementId 15804986: pakke 'LPE05', kandidater 4, fallback
+OPPDATERT ElementId 15805003: pakke 'LPE05', kandidater 4, fallback
+OPPDATERT ElementId 15810913: pakke 'LPE05', kandidater 3, fallback
+OPPDATERT ElementId 15811480: pakke 'LPEF3', kandidater 1
+OPPDATERT ElementId 15845332: pakke 'LPE02', kandidater 3, fallback
+OPPDATERT ElementId 15859878: pakke 'LPE05', kandidater 1, fallback
+OPPDATERT ElementId 16200097: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 16200618: pakke 'LPE161', kandidater 4, fallback
+OPPDATERT ElementId 16201041: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 16215477: pakke 'LPE02', kandidater 4, fallback
+OPPDATERT ElementId 16217820: pakke 'LPE381', kandidater 1
+OPPDATERT ElementId 16365210: pakke 'LPE161', kandidater 4, fallback
+OPPDATERT ElementId 16525272: pakke 'LPE191', kandidater 1
+OPPDATERT ElementId 16564119: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 16605566: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 16607433: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 16607438: pakke 'LPE271', kandidater 1, fallback
+OPPDATERT ElementId 16607439: pakke 'LPE271', kandidater 1, fallback
+OPPDATERT ElementId 16607441: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 16607443: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 16607445: pakke 'LPE02', kandidater 3, fallback
+OPPDATERT ElementId 16607454: pakke 'LPE05', kandidater 3, fallback
+OPPDATERT ElementId 16607457: pakke 'LPE371', kandidater 5, fallback
+OPPDATERT ElementId 16607458: pakke 'LPE05', kandidater 4, fallback
+OPPDATERT ElementId 16607459: pakke 'LPE371', kandidater 3, fallback
+OPPDATERT ElementId 16607460: pakke 'LPE371', kandidater 5, fallback
+OPPDATERT ElementId 16607461: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 16607462: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 16607472: pakke 'LPE161', kandidater 2, fallback
+OPPDATERT ElementId 16607473: pakke 'LPE161', kandidater 1, fallback
+OPPDATERT ElementId 16607474: pakke 'LPE162', kandidater 1, fallback
+OPPDATERT ElementId 16698896: pakke 'LPE02', kandidater 1
+OPPDATERT ElementId 17041460: pakke 'LPEF3', kandidater 1
+OPPDATERT ElementId 17041462: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 17041469: pakke 'LPE271', kandidater 1, fallback
+OPPDATERT ElementId 17041470: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 17041471: pakke 'LPE271', kandidater 5, fallback
+OPPDATERT ElementId 17041472: pakke 'LPE271', kandidater 5, fallback
+OPPDATERT ElementId 17041473: pakke 'LPE271', kandidater 4, fallback
+OPPDATERT ElementId 17041474: pakke 'LPE161', kandidater 1, fallback
+OPPDATERT ElementId 17041475: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 17041480: pakke 'LPE271', kandidater 3, fallback
+OPPDATERT ElementId 17041481: pakke 'LPE271', kandidater 2, fallback
+OPPDATERT ElementId 17041483: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 17041484: pakke 'LPE371', kandidater 1
+OPPDATERT ElementId 17041485: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 17041491: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 17041492: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 17041500: pakke 'LPEF3', kandidater 1
+OPPDATERT ElementId 17041503: pakke 'LPE271', kandidater 4, fallback
+OPPDATERT ElementId 17041508: pakke 'LPE161', kandidater 1, fallback
+OPPDATERT ElementId 17041509: pakke 'LPE161', kandidater 1, fallback
+OPPDATERT ElementId 17179032: pakke 'LPE371', kandidater 3, fallback
+OPPDATERT ElementId 17179050: pakke 'LPE271', kandidater 1, fallback
+OPPDATERT ElementId 17179731: pakke 'LPE271', kandidater 1, fallback
+OPPDATERT ElementId 17180112: pakke 'LPE02', kandidater 2, fallback
+OPPDATERT ElementId 17180113: pakke 'LPE02', kandidater 3, fallback
+OPPDATERT ElementId 17180117: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 17180118: pakke 'LPE05', kandidater 4, fallback
+OPPDATERT ElementId 17180119: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 17180120: pakke 'LPE05', kandidater 2, fallback
+OPPDATERT ElementId 17180121: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 17180122: pakke 'LPE05', kandidater 5, fallback
+OPPDATERT ElementId 17180123: pakke 'LPE371', kandidater 1, fallback
+OPPDATERT ElementId 17180124: pakke 'LPE371', kandidater 5, fallback
+OPPDATERT ElementId 17509919: pakke 'LPE371', kandidater 1
+OPPDATERT ElementId 17509920: pakke 'LPE271', kandidater 1
+OPPDATERT ElementId 17509921: pakke 'LPE271', kandidater 1
+OPPDATERT ElementId 17509922: pakke 'LPE191', kandidater 1
+OPPDATERT ElementId 17509923: pakke 'LPE191', kandidater 1
+OPPDATERT ElementId 17509924: pakke 'LPE191', kandidater 1
+OPPDATERT ElementId 17509926: pakke 'LPE161', kandidater 1
+OPPDATERT ElementId 17509928: pakke 'LPE371', kandidater 1
+OPPDATERT ElementId 17509929: pakke 'LPE371', kandidater 1
+OPPDATERT ElementId 17607368: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 17607369: pakke 'LPE161', kandidater 4
+OPPDATERT ElementId 17642194: pakke 'LPE191', kandidater 5
+OPPDATERT ElementId 17642195: pakke 'LPE191', kandidater 5
+OPPDATERT ElementId 17642196: pakke 'LPE191', kandidater 5
+OPPDATERT ElementId 17642197: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 17642198: pakke 'LPE161', kandidater 3
+OPPDATERT ElementId 17691736: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 17691746: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 17693673: pakke 'LPE161', kandidater 5, fallback

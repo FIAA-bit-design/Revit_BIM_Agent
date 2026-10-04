@@ -1,0 +1,115 @@
+=== C#-regler for RIE BIM-kontroll ===
+
+Versjons- og historikkprinsipp:
+- C#-implementasjoner i denne mappen er den kjørbare kilden for Revit-agenten.
+- Python-skript omtalt i instruksjonene er kun historiske referanser og skal ikke kjøres.
+- Endringsoppføringer legges til; tidligere historikk slettes eller overskrives ikke.
+
+[2026-10-02] Regel 1 v0.0.1 - Første C#-implementasjon av GUID-synkronisering.
+- Kildeoppførsel: gjennomgå instanser og synkroniser PGF_RIE_ElementId med elementets ElementId.
+- Sikkerhet: kun instansparameter; int/double skriving avvises når ElementId.Value ikke kan representeres nøyaktig.
+- Transaksjon: velg endrede elementer først etter bekreftet commit; rapporter selection-feil separat.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 1 v0.0.2 - Tilpasset Revit-host-inngangspunkt GeneratedAction.Execute.
+- Endring: C#-implementasjonen bruker nå inngangspunktet som kjøres av Revit-host-verktøyet.
+- Berørte områder: C#-navnerom, klassenavn og versjon.
+
+[2026-10-02] Regel 2 v0.0.1 - Første C#-implementasjon av FOB_Leveransepakke-fylling.
+- Kilde for oppførsel: gjeldende instruksjonsregel 2; eldre Python-referanse avviker og kjøres ikke.
+- Søk: 1500 mm primært, 3000 mm kun når primærsøket ikke har kandidater; fem nærmeste med 1 mm tie-inclusion og strengt flertall.
+- Sikkerhet: eksisterende verdier overskrives ikke; uavklarte tilfeller logges med ElementId, kandidatantall og årsak; transaksjonsfeil rulles tilbake.
+- Logg: append-only CSharpRules/Rule02_FOB_Leveransepakke.log.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 2 v0.0.2 - Logg faktisk kandidatantall for skrivebeskyttede mål.
+- Endring: skrivebeskyttet status vurderes etter nærliggende kandidater er beregnet.
+
+[2026-10-02] Regel 9 v0.0.1 - Første C#-regel for Fire Alarm Devices.
+- Oppførsel: sammenlign instansparameterne FOB_FysiskMerke og PGF_RIE_Alarmsystemer; skriv målverdien lik kildeverdien ved avvik.
+- Sammenligning: eksakt strengsammenligning; tom kildeverdi synkroniseres som tom tekst.
+- Sikkerhet: duplikater, manglende parametere, feil lagringstype og skrivebeskyttede mål rapporteres; transaksjonsfeil rulles tilbake.
+- Logg: append-only CSharpRules/Rule09_SyncAlarmSystemMark.log.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 9 v0.0.2 - Skill manglende parametere fra dupliserte parameternavn i tellingen.
+
+[2026-10-02] Regel 4 v0.0.1 - Første C#-implementasjon av brannalarm-child mot kule-parent i RIS_BAS-lenke.
+- Matching: FOB_ID mot FOB_Merkestreng; blank/-- FOB_ID bruker avstandsfallback med 1000 mm start, 250 mm steg og 5000 mm maks.
+- Sikkerhet: eksisterende BetjenerMerke/BetjenerNavn bevares; FOB_ID endres ikke; kun instansparametere brukes.
+- Geometri: linked-parent posisjoner transformeres til vertsdokumentets koordinater; punkt, kurvemidtpunkt eller bounding-box-sentrum.
+- Logg: append-only CSharpRules/Rule04_CopyAlarmParentData.log.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 6 v0.0.1 - Første C#-implementasjon av MEK-koblingspunktvask.
+- Filtre: Electrical Fixtures og Communication Devices; fire angitte familier.
+- Sikkerhet: instansparametere, rapportering av manglende/dupliserte/feiltypede/skrivebeskyttede felt, én Revit-transaksjon.
+- Logg: append-only CSharpRules/Rule06_CleanMekConnectionPoints.log; Python-historikkfiler berøres ikke.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 6 v0.0.2 - Tell bare vellykkede Parameter.Set-kall som oppdateringer.
+
+[2026-10-02] Regel 8 v0.0.1 - Første C#-implementasjon av InfoNode-kontroll og portflytting.
+- Kontroller: manglende/dupliserte InfoNode_hostID og InfoNode_subs-konflikter fra DuplicateInstances-advarsler.
+- Flytting: Klimaport kan flyttes under Brannport med 50 mm klaring; eksisterende Y-akseforutsetning beholdes og etterkontrolleres i én transaksjon.
+- Rapport: tidsstemplet XLSX med Funn-ark og append-only C#-logg; ingen elementer slettes.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 8 v0.0.2 - Returner loggbanen til sluttrapporten.
+
+[2026-10-02] Regel 7 v0.0.1 - Første C#-implementasjon av mengdeberegning for føringsveier.
+- Filtre: Conduit/Cable Tray rette strekk og tilhørende fittings for valgt FOB_Entreprise.
+- Mengde: lengde i millimeter konverteres til meter og avrundes til to desimaler; støtter Double, Integer og String.
+- Rapport: Excel-rapport fjernet; append-only logg inneholder old/new-verdier per oppdatert element.
+- Selvtest: compile-only mot Revit 2026 API-assemblies.
+
+[2026-10-02] Regel 7 v0.0.2 - Skill Parameter.Set-feil fra ikke-støttet lagringstype.
+
+[2026-10-02] Regel 7 v0.0.3 - Ta med skrivefeil i loggoppsummeringen.
+
+[2026-10-03] Regel 3 v0.0.1 - Første C#-implementasjon av parameterutfylling og revisjonskontroll.
+- Kilde for parameterlisten: tabellen under regel 3 i agentinstruksjonen.
+- Fagregler: faste verdier, føringsveimengde/enhet, typeverdier, PGF_Mengdetype og revisjonsverdier per pakke.
+- Revisjonsoppslag: eksakt fanenavn; Parameternavn/Verdi-kolonner oppdages via overskriftene, ikke faste radnumre.
+- Sikkerhet: bevarer utfylte felt, hopper over FOB_Leveransepakke og håndterer den separat i regel 2; uavklarte revisjonsdata logges uten å gjette.
+- Logg: append-only CSharpRules/Rule03_ParameterFill.log.
+- Selvtest: compile-only mot Revit 2026 API-emulering.
+
+[2026-10-03] Regel 5 v0.0.1 - Første C#-implementasjon av lastenavn for datakurser.
+- Oppførsel: Spredenett-parent/child-matching og connector-validering, med romdata, Datarack-unntak og én samlet transaksjon.
+- Sikkerhet: eksisterende parent-prioritet og eksplisitt Datarack-unntak beholdes; feil ruller tilbake transaksjonen.
+- Logg: append-only CSharpRules/Rule05_LoadNameToDataCircuits.log; historiske Python-logger berøres ikke.
+- Selvtest: compile-only mot Revit 2026 API-emulering; ingen modellkjøring.
+
+[2026-10-03] Regel 3 v0.0.2 - Bekreft revisjonskontroll først etter vellykket skriving og commit.
+- Endring: revisjonsfelt som planlegges skrevet telles ikke som kontrollert før transaksjonen er committed; skrivefeil og rollback telles som blokkert/uavklart.
+- Selvtest: compile-only mot Revit 2026 API-assemblies; ingen modellkjøring.
+
+[2026-10-03] Regel 4 v0.0.2 - Match lenken fra Manage Links-skjermbildet med eksakt filnavn.
+- Endring: bruk `U_F_BAS_FBU_RIS_XXX.rvt` via normalisert eksakt treff; ikke krev delstrengen `RIS_BAS`.
+- Sikkerhet: null treff eller flere RevitLinkInstance-forekomster stopper regelen uten modellendringer.
+- Selvtest: compile-only mot Revit 2026 API-emulering; ingen modellkjøring.
+
+[2026-10-03] Regel 3 v0.0.4 - Håndter Revit-dialog for omfattende workset-checkout.
+- Endring: under regel 3-transaksjonen velges `Check Out Worksets` automatisk bare når TaskDialog-meldingen inneholder den spesifikke teksten om et stort antall elementer.
+- Sikkerhet: DialogBoxShowing-handleren kobles fra etter transaksjonen og overstyrer ingen andre dialoger.
+- Selvtest: compile-only mot Revit 2026 API-assemblies; ingen modellkjøring.
+
+[2026-10-03] Regel 3 v0.0.3 - Gjør Excel XML-parsing kompatibel med C#-hostens referanser.
+- Endring: les XML-struktur via refleksjon mot System.Xml.ReaderWriter, uten direkte kompileringreferanser til System.Xml/XDocument.
+- Selvtest: compile-only mot Revit 2026 API-assemblies; ingen modellkjøring i selvtesten.
+
+[2026-10-03] Regel 7 v0.0.5 - Begrens mengdeberegningen til entreprise K5B.
+- Endring: bare elementer med én instansparameter FOB_Entreprise av typen String og eksakt verdi K5B inngår i transaksjonen.
+- Sikkerhet: andre entrepriseverdier ignoreres uten logging; manglende, blanke, dupliserte og feiltypede entrepriseparametere telles og logges som uavklarte.
+- Selvtest: compile-only mot Revit 2026 API-emulering; ingen modellkjøring.
+
+[2026-10-03] Regel 7 v0.0.6 - Håndter spesifikk Revit-dialog for workset-checkout.
+- Endring: under K5B-transaksjonen velges `Check Out Worksets` automatisk bare ved den spesifikke TaskDialog-meldingen om et stort antall elementer.
+- Sikkerhet: DialogBoxShowing-handleren kobles fra etter transaksjonen og overstyrer ingen andre dialoger.
+- Selvtest: compile-only mot Revit 2026 API-assemblies; ingen modellkjøring.
+
+[2026-10-03] Regel 8 v0.0.3 - Håndter spesifikk workset-checkout-dialog under portflytting.
+- Endring: velg `Check Out Worksets` automatisk bare ved den spesifikke TaskDialog-meldingen om et stort antall elementer.
+- Sikkerhet: DialogBoxShowing-handleren er avgrenset til flyttedelen og kobles fra etterpå.
+- Selvtest: compile-only mot Revit 2026 API-assemblies; ingen modellkjøring.

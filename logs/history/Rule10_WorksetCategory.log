@@ -1,0 +1,40 @@
+=== Regel 10 v0.0.1 | 2026-10-03T18:40:00.2940173+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Kontrollen er skrivebeskyttet.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\Workset liste.xlsx
+Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18932; workset-avvik: 7676; blokkeringer: 3.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\Rapporter\Workset kategori kontroll 20261003_184001_121.csv
+BLOKKERING: Workset finnes ikke i modellen: RIE 400 Lys (Lightning Fixtures).
+BLOKKERING: Workset finnes ikke i modellen: RIE 400 Lys (Lightning Devices).
+BLOKKERING: Workset finnes ikke i modellen: RIE xxx Infononde (Specialty Equipment).
+
+=== Regel 10 v0.0.1 | 2026-10-03T18:42:39.7881126+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Kontrollen er skrivebeskyttet.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\Workset liste.xlsx
+Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18932; workset-avvik: 7676; blokkeringer: 3.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\Rapporter\Workset kategori kontroll 20261003_184240_173.csv
+BLOKKERING: Workset finnes ikke i modellen: RIE 400 Lys (Lightning Fixtures).
+BLOKKERING: Workset finnes ikke i modellen: RIE 400 Lys (Lightning Devices).
+BLOKKERING: Workset finnes ikke i modellen: RIE xxx Infononde (Specialty Equipment).
+
+=== Regel 10 v0.0.2 | 2026-10-03T18:47:05.1526858+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\Workset liste.xlsx
+Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18932; flyttet: 1918; uløste avvik: 5758; blokkeringer: 3.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\Rapporter\Workset kategori kontroll 20261003_184735_426.csv
+BLOKKERING: Workset finnes ikke i modellen: RIE 400 Lys (Lightning Fixtures).
+BLOKKERING: Workset finnes ikke i modellen: RIE 400 Lys (Lightning Devices).
+BLOKKERING: Workset finnes ikke i modellen: RIE xxx Infononde (Specialty Equipment).
+
+=== Regel 10 v0.0.3 | 2026-10-03T18:56:22.5644337+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\Workset liste.xlsx
+Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18932; flyttet: 269; uløste avvik: 1974; blokkeringer: 1.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\Rapporter\Workset kategori kontroll 20261003_185628_809.csv
+BLOKKERING: Workset finnes ikke i modellen: RIE xxx Infononde (Specialty Equipment).
+
+=== Regel 10 v0.0.4 | 2026-10-03T19:02:08.7474281+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\Workset liste.xlsx
+Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18932; flyttet: 0; uløste avvik: 0; blokkeringer: 0.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\Rapporter\Workset kategori kontroll 20261003_190208_973.csv
+

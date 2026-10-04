@@ -1,0 +1,54 @@
+=== Oppsett skript med historikk ===
+
+Navn: Felles BIM-kontroll logg historikk
+Opprettet: 2026-10-02
+
+Versjonspolitikk:
+- Gjeldende skriptversjon: 0.0.3
+- Neste skriptoppdatering: 0.0.4
+
+Fast oppdateringsregel for historikk:
+- Ved hver skriptendring skal denne historikkloggen oppdateres.
+- Historikkoppføringer skal bare legges til; eldre oppføringer skal bevares.
+- Historikkloggen skal ikke oppdateres automatisk ved vanlig kjøring.
+
+Aktive premiss:
+- Skriptet leser kun instansparametere fra aktivt Revit-dokument.
+- Skriptet åpner ingen transaksjon og endrer ikke modellen.
+- En rad skrives når minst én av de tre rapporterte parameterne finnes på instansen.
+- Loggen inneholder FOB_Leveransepakke, PGF_Mengdetype, FOB_Merkestreng og ElementId.
+- Tomme eller manglende verdier vises som blanke felt og telles i sammendraget.
+- Tomme verdier og `--`-plassholdere regnes som manglende i sammendraget; den faktiske feltverdien beholdes i raden.
+- Parameterobjekter som ikke finnes på instansen telles separat og regnes ikke som manglende parameterverdier.
+- En unik tidsstemplet UTF-8-logg skrives til D:\Revit\Python\Revit_BIM_Agnet.
+- Kun Revit 2026 støttes: bruk ElementId.Value, ikke ElementId.IntegerValue.
+
+Endringslogg:
+[2026-10-02] v0.0.3 Skiller parameter som mangler fra manglende verdi.
+- Endring: Mangeltall økes bare når parameterobjektet finnes og verdien er blank eller `--`; fravær av parameter telles separat.
+- Årsak: Elementer uten aktuell parameter skal ikke gi falske mangeltreff.
+- Berørte felt/parametere: FOB_Leveransepakke, PGF_Mengdetype, FOB_Merkestreng.
+- Forventet effekt: Sluttrapporten skiller ikke-relevante elementer fra reelle manglende verdier.
+- Eventuell rollback: Sett SCRIPT_VERSION tilbake til 0.0.2 og tell parameterfravær som blankt.
+
+[2026-10-02] v0.0.2 Teller `--` som manglende verdi.
+- Endring: Oppsummeringen teller blanke felt og `--`-plassholdere som manglende.
+- Årsak: `--` er ikke en utfylt fagverdi og må ikke skjule mangler i sluttrapporten.
+- Berørte felt/parametere: FOB_Leveransepakke, PGF_Mengdetype, FOB_Merkestreng.
+- Forventet effekt: Mangeltallene viser både blanke verdier og plassholdere.
+- Eventuell rollback: Sett SCRIPT_VERSION tilbake til 0.0.1 og fjern `is_missing_value`-kontrollen.
+
+[2026-10-02] v0.0.1 Opprettet read-only felles sluttlogg for RIE BIM-kontroll.
+- Endring: Nytt skript lager tidsstemplet TSV-lignende UTF-8-logg fra aktiv modell.
+- Årsak: Samle relevante pakkedata etter at kontrollreglene er kjørt.
+- Berørte felt/parametere: FOB_Leveransepakke, PGF_Mengdetype, FOB_Merkestreng, ElementId.
+- Forventet effekt: Én samlet modelloversikt med antall rader og manglende feltverdier.
+- Eventuell rollback: Fjern Rule 9 og det nye rapportskriptet.
+
+Mal for neste oppføring:
+[YYYY-MM-DD] Kort tittel
+- Endring:
+- Årsak:
+- Berørte felt/parametere:
+- Forventet effekt:
+- Eventuell rollback:

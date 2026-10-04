@@ -1,0 +1,176 @@
+
+---
+description: "Bruk ved BIM-kontroll av RIE-Revit-modeller før leveranse, særlig når parametere, GUID-er, parameterlister eller leveranseskript skal kontrolleres."
+name: "RIE BIM-kontroll før leveranse"
+---
+
+> Arkivert fulltekst. Prosjektets kanoniske instruksjon er `rie-bim-agent/rie-bim-kontroll.instructions.md`; bruk modulfilene der for gjeldende regler.
+
+# RIE BIM-kontroll før leveranse
+
+Felles standarder for senterlinjer, connectorer, worksharing og opprydding finnes i den modulære [RIE BIM-agentinstruksjonen](rie-bim-agent/rie-bim-kontroll.instructions.md).
+
+## Obligatorisk Revit-preflight
+
+Før enhver Revit-relatert regel, skriptkjøring eller modellkontroll skal Revit-tilkoblingen kontrolleres via MCP. Hent og bekreft aktivt dokument, og list tilgjengelige Revit-verktøy før videre arbeid.
+
+Hvis hosten midlertidig ikke finner en aktiv Revit-instans, gjenta den lesende tilkoblingskontrollen et par ganger før du konkluderer. Hvis tilkoblingen fortsatt mangler, stopp; ikke kjør skript eller utfør modellkontroll. Preflight er kun en tilkoblingskontroll og erstatter ikke en modellkontroll som er del av forespørselen.
+
+## Kanonisk utføringsregel
+
+Denne BIM-kontrollagenten er den eneste arbeidsflyten for reglene nedenfor. Utfør Revit-lesing og modellendringer med C# via Revit-host eller en vedlikeholdt C#-implementasjon.
+
+Hvis en regel ikke har en tilsvarende C#-implementasjon, rapporter at regelen må implementeres i C# før den kan kjøres gjennom agenten. Ikke rapporter en regel som utført uten at den er gjennomført via den godkjente arbeidsflyten.
+
+## Selvstendig feilsøking, retting og etterkontroll
+
+Dette er standard arbeidsflyt i ordinære agentoppdrag. Når brukeren har gitt et modellkontroll- eller retteoppdrag, har agenten stående fullmakt til å undersøke avvik og rette entydige feil innenfor oppdragets bekreftede omfang og dokumenterte fagregler, uten å be om ny bekreftelse for hvert delsteg. Et oppdrag om kodeendring eller kompilering alene gir ikke tillatelse til generell modellretting. Å lese eller redigere denne instruksjonen i VS Code starter ikke en modellkontroll.
+
+1. Bekreft Revit-host og riktig dokument, og fastslå gjeldende entreprise-, leveransepakke-, kategori- og worksetavgrensning. Hold både mål og datakilder innenfor avtalte avgrensninger. Andre entrepriser i et K5B-avgrenset oppdrag ignoreres stille og endres ikke. Senterlinjer utelates.
+2. Undersøk årsaken i faktiske modelldata, ikke bare antall avvik. Les instansparametere, connectorer og relevante plasseringer. Klassifiser hva som kan rettes entydig, hva som er en teknisk feil, og hva som trenger faglig avklaring. Bruk FIAA til en separat, lesende kvalitetssjekk ved ikke-trivielle kodeendringer eller modellrettinger. Hovedagenten er ansvarlig for å verifisere konklusjonene.
+3. Rett entydige feil uten å vente på brukeren. Bevar gyldige eksisterende verdier med mindre en uttrykkelig fagregel krever korrigering. Ikke velg en verdi fordi den er vanligst når fagregelen krever et entydig treff. Fyll datakilder før avhengige elementer, for eksempel rettstrekk før bend, og les verdiene på nytt etter bekreftet commit.
+4. Ved endret skriptlogikk eller en ny muterende C#-handling skal en midlertidig C#-byggkontroll bestå `dotnet build` med 0 feil før modellkjøring. En kompileringstest er ikke en modelltest. Kontroller host og dokument igjen før skriving, og lås handlingen til undersøkt dokument og element-/connectorutvalg.
+5. Bruk transaksjoner og isolerte delforsøk. Bekreft commit og rollback med faktisk transaksjonsstatus; `Pending` er ikke en bekreftelse på noen av delene. Ved connectorretting skal en ytre `TransactionGroup` kunne tilbakeføre også avvik som oppdages etter hovedcommit. Ved `RegenerationFailedException` skal hele forsøket avbrytes og tilbakeføres; ikke fortsett dokumentlesing eller nye delforsøk etter denne fatale feilen.
+6. Gjør en separat, lesende etterkontroll av resultatet i modellen etter hver retting eller avgrenset batch. Kontroller faktisk effekt og at eksisterende forbindelser, øvrige elementer og avtalte avgrensninger er bevart. Ved feil: undersøk rotårsaken, reparer samme avgrensede logikk og prøv igjen bare når gjeldende modelltilstand er verifisert og retry er trygg. Bruk maksimalt tre målrettede forsøk per konkret feil, ikke en ubegrenset løkke.
+7. Oppdater avviksrapporten fra etterkontrollen, ikke fra gamle snapshots. Skill mellom rettet og verifisert, tilbakeført, teknisk blokkert og faglig uavklart. Ta med ElementId, leveransepakke, årsak og eventuelle kilde-ID-er/verdier. Lag tidsstemplet Excel-liste når manuell kontroll er nødvendig eller oppdraget bruker Excel som avviksrapport. Bevar tidligere rapporter og brukerens manuelle notater; historikklogger er append-only UTF-8. Kontroller at Excel-filen kan åpnes og at radantall, ID-er og verdier stemmer.
+8. Avslutt med en kort oppsummering av det som faktisk er rettet, verifisert og fortsatt uavklart. Brukeren skal bare trenge å vurdere reelle faglige valg, tvetydige data eller tiltak utenfor fullmakten, ikke be om vanlig feilsøking eller etterkontroll. Ikke lagre eller synkroniser modellen automatisk uten særskilt tillatelse. Rydd agentens egne midlertidige test-/eksportfiler.
+
+### Kontroll av eksisterende rørforbindelser
+
+For eksisterende, gjensidig fysisk tilkoblede rette rør og bend med samsvarende rund profil og diameter skal vinkel mellom connectorenes retninger alene ikke gi feil, avvik eller faglig vurderingspunkt. Bekreft `IsConnectedTo` i begge retninger og sammenlign faktisk profil og diameter før denne regelen brukes. Regelen gjelder generelt i agentens tilkoblingskontroller og rapporter, også ved kontroll knyttet til `Logg av endringer`. Den innfører ingen ny vinkeltoleranse for oppretting av forbindelser og endrer ikke kravene til connectorretting nedenfor. Parameterfeil, profil-/størrelsesavvik, brutte forbindelser og andre selvstendige feil kontrolleres fortsatt.
+
+Brukeren har godkjent vinkelobservasjonene for `10331953/0 ↔ 10332036/2` (25 mm) og `15248526/0 ↔ 15248541/2` (50 mm) i dokumentet `U_F_BAS_FBU_RIE_XXX`. Begge par er verifisert gjensidig tilkoblet med samsvarende rund profil og null connectoravstand 2026-10-04. De skal ikke rapporteres som feil eller vurderingspunkter på grunn av vinkel alene. Dette er ikke et generelt fritak for element-ID-ene eller for tilsvarende ID-er i andre dokumenter.
+
+Ved tilkoblingskontroll knyttet til `Logg av endringer` skal agenten lese `connector_control` i den tilhørende `Logg av endringer.settings.json` som kontrollpolicy. Feltet brukes av agenten, ikke som en innebygd geometrikontroll. `approved_angle_observations` dokumenterer de godkjente forbindelsene; verifiser gjeldende dokument, forbindelse, profil og diameter før godkjenningen anvendes. Policyen utvider ikke entreprise- eller leveransepakkeomfanget. Bevar gamle rapporter, og skriv en ny tidsstemplet korreksjonsrapport når tidligere vinkelobservasjoner godkjennes.
+
+### Entydig connectorretting
+
+En åpen bendende er en korrekt modelleringsforutsetning, ikke i seg selv en feil. Agenten skal ikke automatisk koble en slik ende eller rapportere den som et modelleringsavvik. Bruk den allerede tilkoblede enden som kilde for parameterutfylling. Connectorretting kan bare gjøres når en konkret manglende forbindelse er bekreftet som feil, eller brukeren særskilt ber om retting av den aktuelle forbindelsen; nærhet eller en åpen ende er ikke tilstrekkelig grunnlag.
+
+Ved en slik bekreftet connectorretting brukes bare ledige fysiske `ConnectorType.End`-connectorer, med samme entreprise, utfylte leveransepakke, føringsveikategori, domain, profil og størrelse. Maksimal avstand er 1 mm, størrelsesavvik maksimalt 0,01 mm, og retningene skal være motsatte (BasisZ-skalarprodukt høyst -0,9998). Rektangulære profiler må også ha samsvarende akser (absolutt BasisX-skalarprodukt minst 0,9998). Treffet skal være gjensidig entydig; en connector som passer til flere ender, utelates.
+
+Bruk `ConnectTo` med et isolert delforsøk, og bekreft fysisk tilkobling med `IsConnectedTo` i begge retninger etter commit. Bevar alle eksisterende forbindelser. Kontroller posisjoner, kurver, connectorgeometri, elementtyper og element-ID-utvalg før og etter; toleranse for uendret geometri er 0,000001 fot. Tilbakefør hvis Revit flytter/forlenger elementer, bytter typer, oppretter/sletter elementer eller bryter andre forbindelser. Ikke utvid avstandsterskelen, flytt geometri eller opprett nye fittings uten særskilt tillatelse. Nærhet alene er aldri bevis på riktig tilkobling. Koble ikke elementer som er eid av andre brukere.
+
+## Standardfilter for senterlinjer
+
+`Center line`-elementer (senterlinjer) skal ikke sjekkes. Utelat kategorier der `BuiltInCategory`-navnet slutter på `CenterLine`, blant annet `OST_ConduitCenterLine` og `OST_ConduitFittingCenterLine`. Bruk kategori-ID (`ElementId.Value`) for filtrering, ikke det språkavhengige visningsnavnet.
+
+Dette gjelder alle parameterkontroller, utfylling, kildesøk, avvikstelling og sluttrapporter i agentarbeidsflyten. Filtrer før parameterverdier leses, slik at senterlinjer heller ikke rapporteres som manglende eller feil. Ikke endre eller slett selve senterlinjeelementene. Andre elementkategorier og øvrige filtre skal ikke endres av denne regelen.
+
+Nye Revit-skript fra standardmalen skal bruke `collect_control_elements(doc)` eller samme kategorifilter ved innsamling til kontroller.
+
+## Løpende opprydding av arbeidsmappen
+
+Når du oppretter eller oppdaterer filer i arbeidsmappen, og når brukeren ber om opprydding, kontroller nærliggende skript og genererte filer for tydelige, foreldede kopier. Søk etter referanser i instruksjoner og kode før sletting.
+
+- `Start BIM-agent` er kanonisk startskript. Slett automatisk UUID-navngitte sesjonskopier når de ikke er referert, og den kanoniske starteren er samme eller nyere versjon. Slett også eksakte duplikater av andre startkopier når minst én kopi beholdes.
+- Fjern midlertidige bygg- og testfiler som agenten selv har opprettet, etter at den tilhørende kontrollen er ferdig.
+- Fjern tomme, urefererte arbeidskataloger og regenererbare cache-kataloger som `__pycache__`. Bevar kataloger med innhold og tomme målmapper som er eksplisitt referert i instruksjoner eller kode, for eksempel `Rapporter` og `.agent-autoload-selftest`. Hvis formålet med en tom katalog er uklart, vis den som kandidat før sletting.
+- Bevar tidsstemplede rapporter, CSV-snapshots, historikk- og regel-logger, revisjonslisten, `.agent-autoload-selftest/Start-Agent-SelfTest` og kanoniske eller unike skript. Ikke slett en unik, ureferert fil automatisk hvis den kan ha manuell eller ekstern bruk; rapporter den som kandidat og be om avklaring.
+- Oppsummer slettede filer og viktige kandidater som ble beholdt.
+
+### Kjøring av C#-implementasjoner
+
+`run-csharp-script` mottar C#-kildekode, ikke en filbane. Når en vedlikeholdt `.cs`-regel skal kjøres, les og send hele kildefilen som `request`, inkludert `using`-direktiver, navnerom, `GeneratedAction` og forventet `Execute(UIApplication, Document?)`-inngangspunkt. Ikke send bare filbanen, en `#load`-direktiv eller en wrapper som utelater regelkoden.
+
+Hvis hosten uttrykkelig avviser kildeformatet eller melder `invalid_source`/`CompileFailed` før `Execute` starter, klassifiser dette som en feil i agentens kallform eller kildeinnsending, ikke som en feil eller blokkering i BIM-regelen. Ingen regelkjøring eller modellendring har da skjedd. Rett kallformen ved å sende komplett kildekode, og prøv samme regel på nytt. Ikke stopp eller gå videre til neste regel før dette forsøket er gjort. Hvis komplett kildekode fortsatt ikke kompilerer, fang hele diagnostikken, inspiser og rett en entydig kildefeil før ny innsending.
+
+Skill alltid mellom avvisning før kjøring, kompileringsfeil og runtime-feil etter at `Execute` har startet. Bare runtime-feil kan ha rukket å endre modellen; vurder transaksjonsresultat og gjeldende modelltilstand før retry.
+
+## Regel 1: Synkroniser GUID først
+
+Dette skal være første kontroll og kjøring i arbeidsflyten, før de øvrige reglene:
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule01SynchronizeElementId.cs`
+
+Bekreft at aktivt Revit-dokument er riktig leveransemodell før kjøring. Skriptet oppdaterer instansparameteren `PGF_RIE_ElementId` slik at den samsvarer med elementets `ElementId`, og velger elementene som ble endret. Rapporter antall oppdaterte elementer og eventuelle feil.
+
+## Regel 2: Fyll manglende FOB_Leveransepakke fra nærliggende elementer
+
+Kjør denne regelen før den generelle parameterutfyllingen i regel 3. `FOB_Leveransepakke` skal ikke være tom. For denne regelen regnes en eksisterende instansparameter med blank verdi eller `--` som manglende; parameterobjekt som ikke finnes, utelates. Prøv å fylle manglende verdi ved å bruke nærmeste naboelement med en utfylt `FOB_Leveransepakke`. Revisjonslisten brukes kun til revisjonskontrollen i regel 3, ikke som hviteliste for pakkeutfyllingen. Denne tolkningen av `--` gjelder bare regel 2.
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule02FillMissingPackage.cs`
+
+Finn elementer i andre familier med utfylt `FOB_Leveransepakke` ved å bruke 3D-avstand mellom plasseringer. Bruk punktplassering, kurvens midtpunkt eller bounding-box-sentrum når punktplassering mangler. Søk først innen 1500 mm; bruk 3000 mm som fallback bare når primærsøket ikke gir kandidater. Vurder de fem nærmeste kandidatene, og ta med alle kandidater innen 1 mm fra femteplass. Fyll inn bare hvis én pakkenavnverdi har strengt flertall, altså mer enn halvparten av kandidatene. Hvis primærsøket har kandidater uten strengt flertall, skal fallback ikke brukes.
+
+Hvis kandidatene ikke gir et strengt flertall, treff mangler innen 3000 mm, parameteren ikke kan skrives eller plassering mangler, ikke gjett og ikke skriv `--`. La verdien stå tom, logg ElementId, kandidattelling og årsak, og rapporter at leveransepakken må avklares. Eksisterende `FOB_Leveransepakke`-verdier skal ikke overskrives.
+
+## Regel 3: Parameterkontroll
+
+Regel 3 kontrollerer og fyller ut prosjektparametere etter definerte fagregler. Bruk dokumentene nedenfor som eneste kilder for parameterlisten og de tilhørende kontrollreglene:
+
+1. [Parameterliste og generelle utfyllingsregler](rie-bim-agent/parameter-rules/parameter-list.md)
+2. [Brukerfiltre for mengdelistepostkontrollen](rie-bim-agent/parameter-rules/user-filters.md)
+3. [Regler for mengdelistepost og connectorbasert oppslag](rie-bim-agent/parameter-rules/quantity-post-rules.md)
+4. [Revisjonsregler per leveransepakke](rie-bim-agent/parameter-rules/revision-rules.md)
+
+Kjør i denne rekkefølgen: bruk parameterlisten til å fastslå hvilke parametere og generelle utfyllingsregler som gjelder; anvend brukerfiltrene før du velger mål eller kilder for mengdelistepostkontrollen; fyll og kontroller `FOB_Mengdelistepost` etter de spesialiserte connectorreglene; utfør revisjonskontrollen til slutt, også på allerede utfylte revisjonsverdier.
+
+## Regel 4: Koble brannalarmens child-familie til parent-familien kule
+
+Familien `Brannalarm tilkoblingspunkt magnethold glideskinne` skal brukes som child. Bruk den lastede Revit-lenken med filnavnet `U_F_BAS_FBU_RIS_XXX.rvt` som kildemodell. Match eksakt filnavn fra lenkenavnet eller den lenkede dokumenttittelen, uten hensyn til store/små bokstaver; `.rvt`-endelsen og et Revit-instanssuffiks på formen ` : <tall>` kan normaliseres bort. Ikke søk etter den generiske delstrengen `RIS_BAS`. Hvis lenken ikke finnes/er lastet, eller flere lenkeinstanser matcher, stopp uten modellendringer og rapporter blokkeringen.
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule04CopyAlarmParentData.cs`
+
+Bruk den etablerte malens match- og kopieringslogikk samt samme parameterkobling:
+
+- Bruk `FOB_ID` på child som treffnøkkel mot parent-parameteren `FOB_Merkestreng`.
+- Kopier `FOB_Merkestreng` fra parent til `PGF_RIE_BetjenerMerke` på child.
+- Kopier `PGF_Mengdetype` fra parent til `PGF_RIE_BetjenerNavn` på child.
+
+`FOB_ID` er treffnøkkel, ikke en av verdiene som kopieres. Håndter manglende treff og avstandsmatching etter den etablerte logikken. Ikke overskriv eksisterende måldata uten at oppgaven uttrykkelig ber om det. Bruk instansparametere; ikke skriv `FOB_ID` eller bruk typeparameter-fallback.
+
+## Regel 5: Kjør skript for lastenavn til datakurser
+
+Ved kontroll før leveranse skal den vedlikeholdte C#-implementasjonen kjøres mot den aktive leveransemodellen:
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule05LoadNameToDataCircuits.cs`
+
+Bekreft aktivt Revit-dokument via obligatorisk preflight før kjøring. C#-regelen endrer data i modellen; rapporter kjøringen og eventuelle feil tydelig.
+
+C#-regelen skal skrive logg append-only til `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule05_LoadNameToDataCircuits.log`. Ikke bruk, opprett, endre eller skriv til standardhistorikken `D:\Revit\Python\Load name til datakurser for fordelinger\Load name til datakurser for fordelinger historikk.log` eller manuellhistorikken `D:\Revit\Python\Load name til datakurser for fordelinger\Load name til datakurser for fordelinger historikk manuell.log`. Begge historikkfilene skal forbli urørt av C#-regelen.
+
+## Regel 6: Vask koblingspunkter for MEK
+
+Ved relevant RIE-kontroll før leveranse skal du kjøre dette skriptet:
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule06CleanMekConnectionPoints.cs`
+
+Bekreft at aktivt Revit-dokument er riktig leveransemodell før kjøring. C#-regelen skriver parameterverdier i modellen; rapporter utfallet og eventuelle feil etter kjøring. Bevar standard historikklogg `D:\Revit\Python\Vask koblingspunkter MEK\Vask koblingspunkter MEK historikk.log`; ikke slett eller overskriv historikk manuelt.
+
+## Regel 7: Kjør mengdeberegning for føringsveier
+
+Ved relevant RIE-kontroll før leveranse skal den vedlikeholdte C#-implementasjonen brukes:
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule07QuantityForingsways.cs`
+
+Regelen gjelder kun elementinstanser med nøyaktig én instansparameter `FOB_Entreprise` av lagringstype String, der tekstverdien er eksakt `K5B` (ordinal sammenligning, uten trimming). Endre aldri `FOB_Mengde` for andre entrepriseverdier; ignorer dem stille uten telling eller loggføring. Manglende eller blank `FOB_Entreprise`, dupliserte parametere og feil lagringstype skal utelates, telles og logges som uavklart med ElementId og årsak.
+
+Bekreft at aktivt Revit-dokument er riktig leveransemodell før kjøring. C#-regelen endrer `FOB_Mengde` bare for K5B og lager ikke Excel-rapport. Under transaksjonen skal den automatisk velge `Check Out Worksets` bare dersom Revit viser TaskDialog-meldingen om at et stort antall elementer forsøkes sjekket ut; andre dialoger skal ikke overstyres. Loggen skal inneholde antall oppdaterte, uendrede og uavklarte elementer, og én detaljrad per oppdatert element med `FOB_Leveransepakke`, `PGF_RIE_ElementId`, `FOB_Merkestreng`, `FOB_Mengdelistepost`, gammel og ny `FOB_Mengde`, Revit-ElementId og kategori. Rapporter resultatet, eventuelle feil og loggbanen.
+
+## Regel 8: Kontroller dupliserte infonoder
+
+Ved relevant RIE-kontroll før leveranse skal du kjøre dette skriptet:
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule08CheckInfoNodes.cs`
+- Excel-rapport: `D:\Revit\Python\Revit_BIM_Agnet\Rapporter`
+
+Bekreft at aktivt Revit-dokument er riktig leveransemodell før kjøring. Skriptet rapporterer manglende eller dupliserte `InfoNode_hostID`-verdier og konflikter i `InfoNode_subs`, og lager en Excel-rapport. Til tross for filnavnet sletter ikke skriptet dupliserte infonoder; det kan flytte Klimaport under Brannport med 50 mm klaring. C#-implementasjonen følger kildens eksisterende forutsetning om at negativ Y-retning er «ned» for klaringsberegningen. Under flyttingen skal den automatisk velge `Check Out Worksets` bare dersom Revit viser TaskDialog-meldingen om at et stort antall elementer forsøkes sjekket ut; andre dialoger skal ikke overstyres. Rapporter funn, eventuelle flyttinger, feil og hvor rapporten ble lagret.
+
+## Regel 9: Synkroniser brannalarmens fysiske merke
+
+Kontroller alle instanser i familiekategorien `Fire Alarm Devices` (`OST_FireAlarmDevices`). Begge parameterne er instansparametere; ikke slå opp eller bruk typeparametere.
+
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule09SyncAlarmSystemMark.cs`
+
+Sammenlign `FOB_FysiskMerke` og `PGF_RIE_Alarmsystemer` som tekstverdier. Hvis verdiene er ulike, overskriv `PGF_RIE_Alarmsystemer` med verdien fra `FOB_FysiskMerke`. Sammenlign eksakt, uten trimming eller endring av store/små bokstaver. En tom kildeverdi synkroniseres som tom tekst. Ikke endre `FOB_FysiskMerke`. Rapporter elementer der en parameter mangler, har duplikatnavn, feil lagringstype eller målparameteren er skrivebeskyttet.
+
+## Regel 10: Lag felles sluttrapport
+
+Kjør denne regelen sist, etter at relevante regler 1–9 er ferdig kjørt og eventuelle modellendringer er utført:
+
+- Utførelse: C# via Revit-host.
+
+Skriptet lager en skrivebeskyttet sluttsnapshot av aktiv modell. Loggen inneholder én rad per instans der minst én av parameterne finnes, med kolonnene `FOB_Leveransepakke`, `PGF_Mengdetype`, `FOB_Merkestreng` og `ElementId`. Blanke felt og `--`-plassholdere telles som manglende bare når parameteren finnes på instansen. Hvis parameterobjektet ikke finnes, telles dette separat og regnes ikke som en manglende verdi. Radene viser den faktiske verdien fra modellen. Loggen får et tidsstemplet navn og lagres i `D:\Revit\Python\Revit_BIM_Agnet\Rapporter`.
+
+Rapporter antall rader, manglende verdier per felt, antall instanser der parameteren ikke finnes, og den fullstendige loggbanen. Sluttrapporten dokumenterer modellens tilstand etter kontrollene, men erstatter ikke utføringen eller resultatrapporteringen fra reglene 1–9.

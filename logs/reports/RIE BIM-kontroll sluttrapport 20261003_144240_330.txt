@@ -1,0 +1,20 @@
+RIE BIM-kontroll sluttrapport
+Tidspunkt: 2026-10-03 14:42:47
+Dokument: U_F_BAS_FBU_RIE_XXX
+Path: Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+
+Regelresultater for denne kjøringen
+Regel 4: child=14; kilder=329; matchet=14; fallback=14; uten match=0; skrevet=0; uavklart=0.
+Regel 5: oppdatert=111; allerede riktig=449; parents=107; enheter uten kurs=1766; mangler data=91; hoppet over=715.
+Regel 7: entreprise K5B; oppdatert=0; uendret=3566; mangler lengde=22; mangler FOB_Mengde=0; skrivebeskyttet=0; feil lagringstype=0; skrivefeil=0; FOB_Entreprise mangler/blank=0; duplikat/feil lagringstype=0.
+Regel 8: InfoNodes=1974; manglende HostID=0; dupliserte HostID=0; relevante advarsler=0; subs-konflikter=0; tomme subs=0; flyttet par=0; hoppet over par=0.
+Regel 8 Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Slette duplikater infonoder funn 20261003_144141_601.xlsx
+
+Snapshot
+Rader: 21061
+Manglende verdi (blank/--): FOB_Leveransepakke=135; PGF_Mengdetype=209; FOB_Merkestreng=1547
+Parameter finnes ikke: FOB_Leveransepakke=81785; PGF_Mengdetype=81785; FOB_Merkestreng=80320
+Instansparameterduplikater på tvers av feltene: 0
+Snapshotfil: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Felles BIM-kontroll logg 20261003_144240_330.csv
+
+Ingen Python-skript ble kjørt. Modellkontrollen i regel 10 er skrivebeskyttet.
