@@ -6,6 +6,10 @@ name: "RIE BIM-kontroll før leveranse"
 
 Denne filen er inngangen til den modulære RIE BIM-agentinstruksjonen. Les alltid relevante filer i `core/`, `rules/`, `parameter-rules/` og `standards/` før du utfører oppgaven. Ved full kontroll før leveranse leses hele regelrekken 1–10 og alle tilhørende fagregler.
 
+## Filhistorikk
+
+GitHub-committhistorikken er eneste kilde for revisjonshistorikk av prosjektfiler. Ikke opprett eller vedlikehold parallelle lokale filhistorikker eller versjonsnotater. Eksisterende Revit-kjørelogger og kontrollrapporter følger fortsatt sine fagregler; ikke slett dem som følge av denne regelen.
+
 ## Obligatorisk arbeidsflyt
 
 - Følg [preflight](core/preflight.md) før enhver Revit-relatert kontroll eller regel.
