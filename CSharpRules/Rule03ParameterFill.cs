@@ -15,7 +15,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.5";
+        private const string ScriptVersion = "0.0.6";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
         private const string RevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Revisjonsliste.xlsx";
@@ -23,6 +23,11 @@ namespace CW.Assistant.Generated
         private const string ParameterListPath = @"D:\Revit\Python\Revit_BIM_Agent\rie-bim-agent\parameter-rules\parameter-list.md";
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
         private static readonly string[] TypeControlledParameterNames = { "FOB_Funksjonskode", "FOB_Merkesystem", "FOB_System" };
+        private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
+            Enum.GetValues(typeof(BuiltInCategory))
+                .Cast<BuiltInCategory>()
+                .Where(category => category.ToString().EndsWith("CenterLine", StringComparison.Ordinal))
+                .Select(category => new ElementId(category).Value));
 
         private sealed class PendingWrite
         {
@@ -119,7 +124,7 @@ namespace CW.Assistant.Generated
             List<Element> instances = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
                 .ToElements()
-                .Where(element => element is not null)
+                .Where(element => element is not null && !IsCenterLine(element))
                 .OrderBy(element => element.Id.Value)
                 .ToList();
             var writes = new List<PendingWrite>();
@@ -933,6 +938,12 @@ namespace CW.Assistant.Generated
         private static bool IsCategory(Element element, BuiltInCategory category)
         {
             return element.Category is not null && element.Category.Id.Value == (long)category;
+        }
+
+        private static bool IsCenterLine(Element element)
+        {
+            long categoryId = element.Category?.Id.Value ?? long.MinValue;
+            return CenterLineCategoryIds.Contains(categoryId);
         }
 
         private static string FormatIssue(Element element, string parameterName, string reason)

@@ -12,13 +12,18 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.2";
+        private const string ScriptVersion = "0.0.3";
         private const string ParameterName = "FOB_Leveransepakke";
         private const double PrimaryRadiusMm = 1500.0;
         private const double FallbackRadiusMm = 3000.0;
         private const double TieToleranceMm = 1.0;
         private const int MajorityCandidateLimit = 5;
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule02_FOB_Leveransepakke.log";
+        private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
+            Enum.GetValues(typeof(BuiltInCategory))
+                .Cast<BuiltInCategory>()
+                .Where(category => category.ToString().EndsWith("CenterLine", StringComparison.Ordinal))
+                .Select(category => new ElementId(category).Value));
 
         private sealed class Candidate
         {
@@ -81,6 +86,7 @@ namespace CW.Assistant.Generated
                 .OfClass(typeof(FamilyInstance))
                 .WhereElementIsNotElementType()
                 .Cast<FamilyInstance>()
+                .Where(instance => !IsCenterLine(instance))
                 .ToList();
             var targets = new List<FamilyInstance>();
             var candidates = new List<Candidate>();
@@ -336,6 +342,12 @@ namespace CW.Assistant.Generated
             }
 
             return result + " " + logResult;
+        }
+
+        private static bool IsCenterLine(Element element)
+        {
+            long categoryId = element.Category?.Id.Value ?? long.MinValue;
+            return CenterLineCategoryIds.Contains(categoryId);
         }
     }
 }

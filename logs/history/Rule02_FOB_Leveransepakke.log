@@ -284,3 +284,75 @@ OPPDATERT ElementId 17642198: pakke 'LPE161', kandidater 3
 OPPDATERT ElementId 17691736: pakke 'LPE161', kandidater 5, fallback
 OPPDATERT ElementId 17691746: pakke 'LPE161', kandidater 5, fallback
 OPPDATERT ElementId 17693673: pakke 'LPE161', kandidater 5, fallback
+=== Regel 2 v0.0.3 | 2026-10-05T10:53:05.1378388+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Instanser 19240; mål 70; kandidater 12487; parameter mangler 6683; feil lagringstype 0; oppdatert 13; uavklart 57; skrivebeskyttet 0; fallback 3
+UAVKLART ElementId 9203185: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11010120: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012550: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012597: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11186128: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11187772: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15804775: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15810880: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16200327: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607432: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607434: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607435: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607437: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607440: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607448: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607449: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607451: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607452: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607455: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607456: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17041459: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041463: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041464: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041465: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041466: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041467: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041468: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041476: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041477: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041478: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041479: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041482: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041486: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041487: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041488: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041489: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041490: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041493: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041494: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041495: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041496: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041497: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041498: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041499: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041501: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041502: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041504: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041505: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041506: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041507: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17178903: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17180111: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17180114: kandidater 5; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17180115: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17180116: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17509925: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17759915: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+OPPDATERT ElementId 11215042: pakke 'LPE271', kandidater 1, fallback
+OPPDATERT ElementId 14390939: pakke 'LPE161', kandidater 5, fallback
+OPPDATERT ElementId 17041461: pakke 'LPE02', kandidater 1, fallback
+OPPDATERT ElementId 17759972: pakke 'LPE281', kandidater 3
+OPPDATERT ElementId 17760069: pakke 'LPE281', kandidater 4
+OPPDATERT ElementId 17760180: pakke 'LPE181', kandidater 3
+OPPDATERT ElementId 17760381: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 17760457: pakke 'LPE191', kandidater 4
+OPPDATERT ElementId 17760712: pakke 'LPE271', kandidater 1
+OPPDATERT ElementId 17760721: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 17760864: pakke 'LPE271', kandidater 2
+OPPDATERT ElementId 17762784: pakke 'LPE271', kandidater 3
+OPPDATERT ElementId 17762785: pakke 'LPE271', kandidater 5

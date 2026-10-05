@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
@@ -10,8 +11,13 @@ namespace CW.Assistant.Generated
     internal sealed class GeneratedAction
     {
         private const string ParameterName = "PGF_RIE_ElementId";
-        private const string ScriptVersion = "0.0.2";
+        private const string ScriptVersion = "0.0.3";
         private const long MaxExactlyRepresentableIntegerAsDouble = 9007199254740992L;
+        private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
+            Enum.GetValues(typeof(BuiltInCategory))
+                .Cast<BuiltInCategory>()
+                .Where(category => category.ToString().EndsWith("CenterLine", StringComparison.Ordinal))
+                .Select(category => new ElementId(category).Value));
 
         private sealed class PendingWrite
         {
@@ -88,7 +94,7 @@ namespace CW.Assistant.Generated
                 .WhereElementIsNotElementType()
                 .ToElements())
             {
-                if (element is null)
+                if (element is null || IsCenterLine(element))
                 {
                     continue;
                 }
@@ -291,6 +297,12 @@ namespace CW.Assistant.Generated
                 outOfRangeCount,
                 selectionSucceeded,
                 selectionSucceeded ? string.Empty : " (" + selectionFailure + ")");
+        }
+
+        private static bool IsCenterLine(Element element)
+        {
+            long categoryId = element.Category?.Id.Value ?? long.MinValue;
+            return CenterLineCategoryIds.Contains(categoryId);
         }
     }
 }
