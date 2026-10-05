@@ -5,19 +5,69 @@ using System.Globalization;
 using System.Linq;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
 
 namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
         private const string ParameterName = "PGF_RIE_ElementId";
-        private const string ScriptVersion = "0.0.3";
+        private const string ScriptVersion = "0.0.4";
         private const long MaxExactlyRepresentableIntegerAsDouble = 9007199254740992L;
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
             Enum.GetValues(typeof(BuiltInCategory))
                 .Cast<BuiltInCategory>()
                 .Where(category => category.ToString().EndsWith("CenterLine", StringComparison.Ordinal))
                 .Select(category => new ElementId(category).Value));
+
+        private sealed class WorksetCheckoutDialogHandler
+        {
+            private const string TriggerMessage = "trying to check out a large number of elements";
+            private readonly Action<string> log;
+
+            internal WorksetCheckoutDialogHandler(Action<string> log)
+            {
+                this.log = log;
+            }
+
+            internal int HandledCount { get; private set; }
+
+            internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
+            {
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog) return;
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(TriggerMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+
+                try
+                {
+                    if (eventArgs.OverrideResult((int)TaskDialogResult.CommandLink1))
+                    {
+                        HandledCount++;
+                        log("WORKSHARING: valgte Check Out Worksets for Revit-dialogen om mange elementer.");
+                    }
+                    else
+                    {
+                        log("WORKSHARING-BLOKKERING: Revit godtok ikke automatisk valg av Check Out Worksets.");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    log("WORKSHARING-BLOKKERING: kunne ikke svare på Check Out Worksets-dialogen: " + exception.Message);
+                }
+            }
+        }
 
         private sealed class PendingWrite
         {
@@ -186,82 +236,92 @@ namespace CW.Assistant.Generated
             }
 
             TransactionStatus commitStatus;
-            using (var transaction = new Transaction(activeDocument, "Synkroniser PGF_RIE_ElementId med ElementId"))
+            var worksharingLog = new List<string>();
+            var worksetDialogHandler = new WorksetCheckoutDialogHandler(worksharingLog.Add);
+            uiApplication.DialogBoxShowing += worksetDialogHandler.HandleDialogBoxShowing;
+            try
             {
-                TransactionStatus startStatus = transaction.Start();
-                if (startStatus != TransactionStatus.Started)
+                using (var transaction = new Transaction(activeDocument, "Synkroniser PGF_RIE_ElementId med ElementId"))
                 {
-                    return string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Regel 1 v{0}: Transaksjonen startet ikke (status {1}); ingen endringer ble forsøkt.",
-                        ScriptVersion,
-                        startStatus);
-                }
-
-                try
-                {
-                    foreach (PendingWrite write in pendingWrites)
+                    TransactionStatus startStatus = transaction.Start();
+                    if (startStatus != TransactionStatus.Started)
                     {
-                        try
-                        {
-                            bool succeeded;
-                            switch (write.StorageType)
-                            {
-                                case StorageType.ElementId:
-                                    succeeded = write.Parameter.Set(write.ElementIdValue);
-                                    break;
-                                case StorageType.Integer:
-                                    succeeded = write.Parameter.Set(write.IntegerValue);
-                                    break;
-                                case StorageType.Double:
-                                    succeeded = write.Parameter.Set(write.DoubleValue);
-                                    break;
-                                case StorageType.String:
-                                    succeeded = write.Parameter.Set(write.StringValue);
-                                    break;
-                                default:
-                                    succeeded = false;
-                                    break;
-                            }
+                        return string.Format(
+                            CultureInfo.InvariantCulture,
+                            "Regel 1 v{0}: Transaksjonen startet ikke (status {1}); ingen endringer ble forsøkt.",
+                            ScriptVersion,
+                            startStatus);
+                    }
 
-                            if (succeeded)
+                    try
+                    {
+                        foreach (PendingWrite write in pendingWrites)
+                        {
+                            try
                             {
-                                changedIds.Add(write.Owner.Id);
+                                bool succeeded;
+                                switch (write.StorageType)
+                                {
+                                    case StorageType.ElementId:
+                                        succeeded = write.Parameter.Set(write.ElementIdValue);
+                                        break;
+                                    case StorageType.Integer:
+                                        succeeded = write.Parameter.Set(write.IntegerValue);
+                                        break;
+                                    case StorageType.Double:
+                                        succeeded = write.Parameter.Set(write.DoubleValue);
+                                        break;
+                                    case StorageType.String:
+                                        succeeded = write.Parameter.Set(write.StringValue);
+                                        break;
+                                    default:
+                                        succeeded = false;
+                                        break;
+                                }
+
+                                if (succeeded)
+                                {
+                                    changedIds.Add(write.Owner.Id);
+                                }
+                                else
+                                {
+                                    failedWriteCount++;
+                                }
                             }
-                            else
+                            catch
                             {
                                 failedWriteCount++;
                             }
                         }
-                        catch
+
+                        commitStatus = transaction.Commit();
+                        if (commitStatus != TransactionStatus.Committed)
                         {
-                            failedWriteCount++;
+                            return string.Format(
+                                CultureInfo.InvariantCulture,
+                                "Regel 1 v{0}: Transaksjonen ble ikke committed (status {1}); endrede elementer ble ikke valgt.",
+                                ScriptVersion,
+                                commitStatus);
                         }
                     }
-
-                    commitStatus = transaction.Commit();
-                    if (commitStatus != TransactionStatus.Committed)
+                    catch (Exception exception)
                     {
+                        if (transaction.GetStatus() == TransactionStatus.Started)
+                        {
+                            transaction.RollBack();
+                        }
                         return string.Format(
                             CultureInfo.InvariantCulture,
-                            "Regel 1 v{0}: Transaksjonen ble ikke committed (status {1}); endrede elementer ble ikke valgt.",
+                            "Regel 1 v{0}: Transaksjonsfeil i '{1}': {2}",
                             ScriptVersion,
-                            commitStatus);
+                            activeDocument.Title,
+                            exception.Message);
                     }
                 }
-                catch (Exception exception)
-                {
-                    if (transaction.GetStatus() == TransactionStatus.Started)
-                    {
-                        transaction.RollBack();
-                    }
-                    return string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Regel 1 v{0}: Transaksjonsfeil i '{1}': {2}",
-                        ScriptVersion,
-                        activeDocument.Title,
-                        exception.Message);
-                }
+            }
+            finally
+            {
+                uiApplication.DialogBoxShowing -= worksetDialogHandler.HandleDialogBoxShowing;
             }
 
             bool selectionSucceeded = false;
@@ -284,7 +344,7 @@ namespace CW.Assistant.Generated
                 selectionFailure = "Aktiv UIDocument samsvarer ikke med dokumentet som ble oppdatert.";
             }
 
-            return string.Format(
+            string result = string.Format(
                 CultureInfo.InvariantCulture,
                 "Regel 1 v{0}: Dokument '{1}'. Vellykket oppdaterte parameterverdier: {2}; mislykkede skrivinger: {3}; parameter mangler: {4}; skrivebeskyttet: {5}; ikke støttet lagringstype: {6}; utenfor verdiområde: {7}; utvalg satt: {8}{9}",
                 ScriptVersion,
@@ -297,6 +357,7 @@ namespace CW.Assistant.Generated
                 outOfRangeCount,
                 selectionSucceeded,
                 selectionSucceeded ? string.Empty : " (" + selectionFailure + ")");
+            return result + (worksharingLog.Count == 0 ? string.Empty : " " + string.Join(" ", worksharingLog));
         }
 
         private static bool IsCenterLine(Element element)

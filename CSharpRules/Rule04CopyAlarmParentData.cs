@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
 
 namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.2";
+        private const string ScriptVersion = "0.0.3";
         private const string TargetLinkedModelName = "U_F_BAS_FBU_RIS_XXX";
         private const string ParentFamilyToken = "kule";
         private const string ChildFamilyName = "Brannalarm tilkoblingspunkt magnethold glideskinne";
@@ -25,6 +26,48 @@ namespace CW.Assistant.Generated
         private const double RadiusStepMm = 250.0;
         private const double MaximumRadiusMm = 5000.0;
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule04_CopyAlarmParentData.log";
+
+        private sealed class WorksetCheckoutDialogHandler
+        {
+            private const string TriggerMessage = "trying to check out a large number of elements";
+            private readonly List<string> log;
+
+            internal int HandledCount { get; private set; }
+
+            internal WorksetCheckoutDialogHandler(List<string> log) => this.log = log;
+
+            internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
+            {
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog) return;
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(TriggerMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log.Add("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log.Add("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                try
+                {
+                    if (eventArgs.OverrideResult((int)TaskDialogResult.CommandLink1))
+                    {
+                        HandledCount++;
+                        log.Add("WORKSHARING: Revit godtok Check Out Worksets.");
+                    }
+                    else log.Add("WORKSHARING-BLOKKERING: Revit godtok ikke Check Out Worksets.");
+                }
+                catch (Exception exception)
+                {
+                    log.Add("WORKSHARING-BLOKKERING: kunne ikke velge Check Out Worksets: " + exception.Message);
+                }
+            }
+        }
 
         private sealed class SourceData
         {
@@ -242,41 +285,47 @@ namespace CW.Assistant.Generated
 
             if (writes.Count > 0)
             {
-                using (var transaction = new Transaction(activeDocument, "Kopier brannalarmdata fra kule i RIS_BAS"))
+                var dialogHandler = new WorksetCheckoutDialogHandler(log);
+                uiApplication.DialogBoxShowing += dialogHandler.HandleDialogBoxShowing;
+                try
                 {
-                    TransactionStatus startStatus = transaction.Start();
-                    if (startStatus != TransactionStatus.Started)
+                    using (var transaction = new Transaction(activeDocument, "Kopier brannalarmdata fra kule i RIS_BAS"))
                     {
-                        log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
-                        return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": transaksjonen startet ikke; ingen endringer utført.");
-                    }
-
-                    try
-                    {
-                        foreach (PendingWrite write in writes)
+                        TransactionStatus startStatus = transaction.Start();
+                        if (startStatus != TransactionStatus.Started)
                         {
-                            if (!write.Parameter.Set(write.Value))
+                            log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
+                            return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": transaksjonen startet ikke; ingen endringer utført.");
+                        }
+
+                        try
+                        {
+                            foreach (PendingWrite write in writes)
                             {
-                                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Parameter.Set feilet for ElementId {0}, parameter {1}.", write.Element.Id.Value, write.ParameterName));
+                                if (!write.Parameter.Set(write.Value))
+                                {
+                                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Parameter.Set feilet for ElementId {0}, parameter {1}.", write.Element.Id.Value, write.ParameterName));
+                                }
+                            }
+
+                            TransactionStatus commitStatus = transaction.Commit();
+                            if (commitStatus != TransactionStatus.Committed)
+                            {
+                                throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
                             }
                         }
-
-                        TransactionStatus commitStatus = transaction.Commit();
-                        if (commitStatus != TransactionStatus.Committed)
+                        catch (Exception exception)
                         {
-                            throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
+                            if (transaction.GetStatus() == TransactionStatus.Started)
+                            {
+                                transaction.RollBack();
+                            }
+                            log.Add("TRANSAKSJONSFEIL: " + exception.Message);
+                            return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": transaksjonen ble rullet tilbake; 0 verdier lagret. " + exception.Message);
                         }
-                    }
-                    catch (Exception exception)
-                    {
-                        if (transaction.GetStatus() == TransactionStatus.Started)
-                        {
-                            transaction.RollBack();
-                        }
-                        log.Add("TRANSAKSJONSFEIL: " + exception.Message);
-                        return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": transaksjonen ble rullet tilbake; 0 verdier lagret. " + exception.Message);
                     }
                 }
+                finally { uiApplication.DialogBoxShowing -= dialogHandler.HandleDialogBoxShowing; }
 
                 foreach (PendingWrite write in writes)
                 {

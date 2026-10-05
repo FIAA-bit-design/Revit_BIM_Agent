@@ -624,3 +624,5 @@ OPPDATERT ElementId 17706002: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskM
 OPPDATERT ElementId 17759498: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
 === Regel 9 | 2026-10-03T13:16:04.6910137+02:00 | U_F_BAS_FBU_RIE_XXX ===
 Fire Alarm Devices 698; avvik 0; oppdatert 0; kilde mangler 0; mål mangler 0; tvetydige 0; feil lagringstype 0; skrivebeskyttede avvik 0
+=== Regel 9 v0.0.2 | 2026-10-05T12:04:39.1156384+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.2: Fire Alarm Devices kontrollert 695; avvik 0; oppdatert 0; kildeparameter mangler 0; målparameter mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0.

@@ -10,12 +10,13 @@ using System.Text;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
 
 namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.1";
+        private const string ScriptVersion = "0.0.2";
         private const string FamilyPrefix = "Spredenett";
         private const string MarkerParameter = "FOB_Merkestreng";
         private const string RoomNumberParameter = "dRofus_RoomfunctionNo";
@@ -38,6 +39,48 @@ namespace CW.Assistant.Generated
             BuiltInCategory.OST_ElectricalEquipment,
             BuiltInCategory.OST_FireAlarmDevices
         };
+
+        private sealed class WorksetCheckoutDialogHandler
+        {
+            private const string TriggerMessage = "trying to check out a large number of elements";
+            private readonly Action<string> log;
+
+            internal int HandledCount { get; private set; }
+
+            internal WorksetCheckoutDialogHandler(Action<string> log) => this.log = log;
+
+            internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
+            {
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog) return;
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(TriggerMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                try
+                {
+                    if (eventArgs.OverrideResult((int)TaskDialogResult.CommandLink1))
+                    {
+                        HandledCount++;
+                        log("WORKSHARING: Revit godtok Check Out Worksets.");
+                    }
+                    else log("WORKSHARING-BLOKKERING: Revit godtok ikke Check Out Worksets.");
+                }
+                catch (Exception exception)
+                {
+                    log("WORKSHARING-BLOKKERING: kunne ikke velge Check Out Worksets: " + exception.Message);
+                }
+            }
+        }
 
         private sealed class CandidateUpdate
         {
@@ -295,40 +338,46 @@ namespace CW.Assistant.Generated
 
                 if (updates.Count > 0)
                 {
-                    using (var transaction = new Transaction(activeDocument, "Oppdater Load Name for datakurser"))
+                    var dialogHandler = new WorksetCheckoutDialogHandler(line => AppendLine(log, line));
+                    uiApplication.DialogBoxShowing += dialogHandler.HandleDialogBoxShowing;
+                    try
                     {
-                        TransactionStatus startStatus = transaction.Start();
-                        if (startStatus != TransactionStatus.Started)
+                        using (var transaction = new Transaction(activeDocument, "Oppdater Load Name for datakurser"))
                         {
-                            throw new InvalidOperationException("Transaksjonen startet ikke: " + startStatus);
-                        }
-                        try
-                        {
-                            foreach (KeyValuePair<long, CandidateUpdate> item in updates.OrderBy(item => item.Key))
+                            TransactionStatus startStatus = transaction.Start();
+                            if (startStatus != TransactionStatus.Started)
                             {
-                                CheckTimeout(started, "transaksjon");
-                                Parameter? parameter = GetLoadNameParameter(item.Value.Circuit);
-                                if (parameter is null || parameter.IsReadOnly || parameter.StorageType != StorageType.String)
+                                throw new InvalidOperationException("Transaksjonen startet ikke: " + startStatus);
+                            }
+                            try
+                            {
+                                foreach (KeyValuePair<long, CandidateUpdate> item in updates.OrderBy(item => item.Key))
                                 {
-                                    throw new InvalidOperationException("Load Name mangler, er skrivebeskyttet eller er ikke tekst på kurs " + item.Key.ToString(CultureInfo.InvariantCulture));
+                                    CheckTimeout(started, "transaksjon");
+                                    Parameter? parameter = GetLoadNameParameter(item.Value.Circuit);
+                                    if (parameter is null || parameter.IsReadOnly || parameter.StorageType != StorageType.String)
+                                    {
+                                        throw new InvalidOperationException("Load Name mangler, er skrivebeskyttet eller er ikke tekst på kurs " + item.Key.ToString(CultureInfo.InvariantCulture));
+                                    }
+                                    if (!parameter.Set(item.Value.LoadName))
+                                    {
+                                        throw new InvalidOperationException("Parameter.Set feilet for kurs " + item.Key.ToString(CultureInfo.InvariantCulture));
+                                    }
                                 }
-                                if (!parameter.Set(item.Value.LoadName))
+                                TransactionStatus commitStatus = transaction.Commit();
+                                if (commitStatus != TransactionStatus.Committed)
                                 {
-                                    throw new InvalidOperationException("Parameter.Set feilet for kurs " + item.Key.ToString(CultureInfo.InvariantCulture));
+                                    throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
                                 }
                             }
-                            TransactionStatus commitStatus = transaction.Commit();
-                            if (commitStatus != TransactionStatus.Committed)
+                            catch
                             {
-                                throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
+                                if (transaction.GetStatus() == TransactionStatus.Started) transaction.RollBack();
+                                throw;
                             }
-                        }
-                        catch
-                        {
-                            if (transaction.GetStatus() == TransactionStatus.Started) transaction.RollBack();
-                            throw;
                         }
                     }
+                    finally { uiApplication.DialogBoxShowing -= dialogHandler.HandleDialogBoxShowing; }
                 }
 
                 foreach (KeyValuePair<long, CandidateUpdate> item in updates.OrderBy(item => item.Key))

@@ -15,7 +15,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.6";
+        private const string ScriptVersion = "0.0.8";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
         private const string RevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Revisjonsliste.xlsx";
@@ -28,6 +28,23 @@ namespace CW.Assistant.Generated
                 .Cast<BuiltInCategory>()
                 .Where(category => category.ToString().EndsWith("CenterLine", StringComparison.Ordinal))
                 .Select(category => new ElementId(category).Value));
+        private static readonly HashSet<long> ElectricalCategoryIds = new HashSet<long>(
+            new[]
+            {
+                BuiltInCategory.OST_CableTray,
+                BuiltInCategory.OST_CableTrayFitting,
+                BuiltInCategory.OST_Conduit,
+                BuiltInCategory.OST_ConduitFitting,
+                BuiltInCategory.OST_DataDevices,
+                BuiltInCategory.OST_FireAlarmDevices,
+                BuiltInCategory.OST_ElectricalEquipment,
+                BuiltInCategory.OST_ElectricalFixtures,
+                BuiltInCategory.OST_LightingFixtures,
+                BuiltInCategory.OST_LightingDevices,
+                BuiltInCategory.OST_CommunicationDevices,
+                BuiltInCategory.OST_SecurityDevices
+            }
+            .Select(category => new ElementId(category).Value));
 
         private sealed class PendingWrite
         {
@@ -61,11 +78,25 @@ namespace CW.Assistant.Generated
 
             internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
             {
-                if (eventArgs is not TaskDialogShowingEventArgs taskDialog
-                    || taskDialog.Message.IndexOf(LargeCheckoutMessage, StringComparison.OrdinalIgnoreCase) < 0)
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog)
                 {
                     return;
                 }
+
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(LargeCheckoutMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log.Add("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log.Add("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
 
                 try
                 {
@@ -124,7 +155,7 @@ namespace CW.Assistant.Generated
             List<Element> instances = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
                 .ToElements()
-                .Where(element => element is not null && !IsCenterLine(element))
+                .Where(element => element is not null && !IsCenterLine(element) && IsElectricalDisciplineElement(element))
                 .OrderBy(element => element.Id.Value)
                 .ToList();
             var writes = new List<PendingWrite>();
@@ -944,6 +975,12 @@ namespace CW.Assistant.Generated
         {
             long categoryId = element.Category?.Id.Value ?? long.MinValue;
             return CenterLineCategoryIds.Contains(categoryId);
+        }
+
+        private static bool IsElectricalDisciplineElement(Element element)
+        {
+            long categoryId = element.Category?.Id.Value ?? long.MinValue;
+            return ElectricalCategoryIds.Contains(categoryId);
         }
 
         private static string FormatIssue(Element element, string parameterName, string reason)

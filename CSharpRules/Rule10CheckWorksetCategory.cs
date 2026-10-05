@@ -15,7 +15,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.4";
+        private const string ScriptVersion = "0.0.5";
         private const string WorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx";
         private const string OutputDirectory = @"D:\Revit\Python\Revit_BIM_Agent\logs\csv";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule10_WorksetCategory.log";
@@ -85,11 +85,25 @@ namespace CW.Assistant.Generated
 
             internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
             {
-                if (eventArgs is not TaskDialogShowingEventArgs taskDialog
-                    || taskDialog.Message.IndexOf(LargeCheckoutMessage, StringComparison.OrdinalIgnoreCase) < 0)
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog)
                 {
                     return;
                 }
+
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(LargeCheckoutMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log.Add("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log.Add("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
 
                 try
                 {

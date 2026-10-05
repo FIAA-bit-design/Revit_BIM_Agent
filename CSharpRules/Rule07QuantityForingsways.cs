@@ -13,7 +13,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.6";
+        private const string ScriptVersion = "0.0.7";
         private const string EnterpriseParameterName = "FOB_Entreprise";
         private const string TargetEnterprise = "K5B";
         private const string QuantityParameterName = "FOB_Mengde";
@@ -43,11 +43,25 @@ namespace CW.Assistant.Generated
 
             internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
             {
-                if (eventArgs is not TaskDialogShowingEventArgs taskDialog
-                    || taskDialog.Message.IndexOf(LargeCheckoutMessage, StringComparison.OrdinalIgnoreCase) < 0)
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog)
                 {
                     return;
                 }
+
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(LargeCheckoutMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log.Add("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log.Add("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
 
                 try
                 {

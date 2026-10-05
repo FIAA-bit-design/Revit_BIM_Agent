@@ -3,18 +3,62 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
 
 namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.2";
+        private const string ScriptVersion = "0.0.3";
         private const string SourceParameterName = "FOB_FysiskMerke";
         private const string TargetParameterName = "PGF_RIE_Alarmsystemer";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule09_SyncAlarmSystemMark.log";
+
+        private sealed class WorksetCheckoutDialogHandler
+        {
+            private const string TriggerMessage = "trying to check out a large number of elements";
+            private readonly Action<string> log;
+
+            internal int HandledCount { get; private set; }
+
+            internal WorksetCheckoutDialogHandler(Action<string> log) => this.log = log;
+
+            internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
+            {
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog) return;
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(TriggerMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                try
+                {
+                    if (eventArgs.OverrideResult((int)TaskDialogResult.CommandLink1))
+                    {
+                        HandledCount++;
+                        log("WORKSHARING: Revit godtok Check Out Worksets.");
+                    }
+                    else log("WORKSHARING-BLOKKERING: Revit godtok ikke Check Out Worksets.");
+                }
+                catch (Exception exception)
+                {
+                    log("WORKSHARING-BLOKKERING: kunne ikke velge Check Out Worksets: " + exception.Message);
+                }
+            }
+        }
 
         private sealed class PendingWrite
         {
@@ -114,41 +158,47 @@ namespace CW.Assistant.Generated
 
             if (writes.Count > 0)
             {
-                using (var transaction = new Transaction(activeDocument, "Synkroniser alarmmerkeparametere"))
+                var worksetDialogHandler = new WorksetCheckoutDialogHandler(log.Add);
+                uiApplication.DialogBoxShowing += worksetDialogHandler.HandleDialogBoxShowing;
+                try
                 {
-                    TransactionStatus startStatus = transaction.Start();
-                    if (startStatus != TransactionStatus.Started)
+                    using (var transaction = new Transaction(activeDocument, "Synkroniser alarmmerkeparametere"))
                     {
-                        log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
-                        return SaveAndReturn(log, "Regel 9 v" + ScriptVersion + ": transaksjonen startet ikke; ingen endringer utført.");
-                    }
-
-                    try
-                    {
-                        foreach (PendingWrite write in writes)
+                        TransactionStatus startStatus = transaction.Start();
+                        if (startStatus != TransactionStatus.Started)
                         {
-                            if (!write.TargetParameter.Set(write.SourceValue))
+                            log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
+                            return SaveAndReturn(log, "Regel 9 v" + ScriptVersion + ": transaksjonen startet ikke; ingen endringer utført.");
+                        }
+
+                        try
+                        {
+                            foreach (PendingWrite write in writes)
                             {
-                                throw new InvalidOperationException("Parameter.Set returnerte false for ElementId " + write.Element.Id.Value.ToString(CultureInfo.InvariantCulture));
+                                if (!write.TargetParameter.Set(write.SourceValue))
+                                {
+                                    throw new InvalidOperationException("Parameter.Set returnerte false for ElementId " + write.Element.Id.Value.ToString(CultureInfo.InvariantCulture));
+                                }
+                            }
+
+                            TransactionStatus commitStatus = transaction.Commit();
+                            if (commitStatus != TransactionStatus.Committed)
+                            {
+                                throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
                             }
                         }
-
-                        TransactionStatus commitStatus = transaction.Commit();
-                        if (commitStatus != TransactionStatus.Committed)
+                        catch (Exception exception)
                         {
-                            throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
+                            if (transaction.GetStatus() == TransactionStatus.Started)
+                            {
+                                transaction.RollBack();
+                            }
+                            log.Add("TRANSAKSJONSFEIL: " + exception.Message);
+                            return SaveAndReturn(log, "Regel 9 v" + ScriptVersion + ": transaksjonen ble rullet tilbake; 0 verdier lagret. " + exception.Message);
                         }
-                    }
-                    catch (Exception exception)
-                    {
-                        if (transaction.GetStatus() == TransactionStatus.Started)
-                        {
-                            transaction.RollBack();
-                        }
-                        log.Add("TRANSAKSJONSFEIL: " + exception.Message);
-                        return SaveAndReturn(log, "Regel 9 v" + ScriptVersion + ": transaksjonen ble rullet tilbake; 0 verdier lagret. " + exception.Message);
                     }
                 }
+                finally { uiApplication.DialogBoxShowing -= worksetDialogHandler.HandleDialogBoxShowing; }
 
                 foreach (PendingWrite write in writes)
                 {

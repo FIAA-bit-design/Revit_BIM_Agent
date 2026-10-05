@@ -43,3 +43,5 @@ BEVART ElementId 12974497: PGF_RIE_BetjenerNavn hadde allerede verdi.
 MATCH child 12974500 til parent 4786874: FOB_ID='--', fallback=True, avstand=1581.1 mm.
 BEVART ElementId 12974500: PGF_RIE_BetjenerMerke hadde allerede verdi.
 BEVART ElementId 12974500: PGF_RIE_BetjenerNavn hadde allerede verdi.
+=== Regel 4 v0.0.2 | 2026-10-05T12:00:48.3189790+02:00 | U_F_BAS_FBU_RIE_XXX ===
+STOPPET: ingen lenke med filnavnet 'U_F_BAS_FBU_RIS_XXX.rvt'. Ingen modellverdier endret.

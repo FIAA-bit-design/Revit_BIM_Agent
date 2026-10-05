@@ -57,3 +57,32 @@ FOB_Entreprise mangler/blank: 0; duplikat/feil lagringstype: 0.
 Elementdetaljer for oppdaterte verdier (tab-separert):
 FOB_Leveransepakke	PGF_RIE_ElementId	FOB_Merkestreng	FOB_Mengdelistepost	FOB_Mengde gammel	FOB_Mengde ny	ElementId	Kategori
 
+=== Regel 7 v0.0.6 | 2026-10-05T12:03:17.1600692+02:00 | U_F_BAS_FBU_RIE_XXX ===
+FOB_Entreprise-filter: eksakt instansverdi K5B; andre verdier ignoreres.
+Excel-rapport er fjernet; endringer logges per element nedenfor.
+Oppdatert 20; uendret 3541; mangler lengde 25; mangler FOB_Mengde 0; skrivebeskyttet 0; feil lagringstype 0; skrivefeil 0.
+K5B-målsett: rette føringsveier 2504; fittings 1082.
+FOB_Entreprise mangler/blank: 0; duplikat/feil lagringstype: 0.
+Elementdetaljer for oppdaterte verdier (tab-separert):
+FOB_Leveransepakke	PGF_RIE_ElementId	FOB_Merkestreng	FOB_Mengdelistepost	FOB_Mengde gammel	FOB_Mengde ny	ElementId	Kategori
+LPE281	5982343	BYG200-460-KAF-0144	120000.40.411.7	1,99	2	5982343	Cable Trays
+LPE281	5982366	BYG200-460-KAF-0144	120000.40.411.7	2,02	1,99	5982366	Cable Trays
+LPE271	6923386	BYG201-460-KAF-1041	120000.40.411.9	3,99	3,97	6923386	Cable Trays
+LPE271	7570426	BYG201-460-KAF-1041	120000.40.411.9	17,30	17,31	7570426	Cable Trays
+LPE191	8053019	BYG204-460-TRR-663	120000.40.411.17	6,08	6,09	8053019	Conduits
+LPE191	8053020	BYG204-460-TRR-718	120000.40.411.16	0,66	0,67	8053020	Conduits
+LPE191	8053656	BYG204-460-TRR-664	120000.40.411.17	6,08	6,09	8053656	Conduits
+LPE191	8053658	BYG204-460-TRR-722	120000.40.411.16	0,66	0,67	8053658	Conduits
+LPE271	12187234	BYG201-854-LUF-917	120000.50.542.20	0,21	0,48	12187234	Conduits
+	17759915	--	120000.40.411.7	1	0,04	17759915	Cable Tray Fittings
+LPE281	17759972	--	120000.40.411.7	1	0,47	17759972	Cable Tray Fittings
+LPE281	17760069	--	120000.40.411.7	1	0,12	17760069	Cable Tray Fittings
+LPE181	17760180	--	120000.40.411.7	1	0,32	17760180	Cable Tray Fittings
+LPE271	17760712	--	120000.40.411.9	1	0,05	17760712	Cable Tray Fittings
+LPE271	17760721	--	120000.40.411.9	1	0,06	17760721	Cable Tray Fittings
+LPE271	17762352	BYG201-460-KAF-1068	120000.40.411.8	10,83	8,92	17762352	Cable Trays
+LPE271	17762543	BYG201-460-KAF-1068	120000.40.411.8	10,83	1,42	17762543	Cable Trays
+LPE271	17762614	BYG201-460-KAF-1068	120000.40.411.8	10,83	0,54	17762614	Cable Trays
+LPE271	17762784	--	120000.40.411.8	1	0,37	17762784	Cable Tray Fittings
+LPE271	17762785	--	120000.40.411.8	1	0,37	17762785	Cable Tray Fittings
+
