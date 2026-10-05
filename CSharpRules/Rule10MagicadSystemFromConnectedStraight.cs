@@ -7,14 +7,57 @@ using System.Linq;
 using System.Text;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
 
 namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.1";
-        private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule11_MagicadSystemFromConnectedStraight.log";
+        private const string ScriptVersion = "0.0.3";
+        private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule10_MagicadSystemFromConnectedStraight.log";
         private static readonly string[] SystemParameters = { "MC System Code", "MC System Name" };
+
+        private sealed class WorksetCheckoutDialogHandler
+        {
+            private const string TriggerMessage = "trying to check out a large number of elements";
+            private readonly List<string> log;
+
+            internal int HandledCount { get; private set; }
+
+            internal WorksetCheckoutDialogHandler(List<string> log) => this.log = log;
+
+            internal void HandleDialogBoxShowing(object? sender, DialogBoxShowingEventArgs eventArgs)
+            {
+                if (eventArgs is not TaskDialogShowingEventArgs taskDialog) return;
+                string message = taskDialog.Message ?? string.Empty;
+                string normalizedMessage = new string(message.Where(char.IsLetterOrDigit).ToArray());
+                string normalizedTrigger = new string(TriggerMessage.Where(char.IsLetterOrDigit).ToArray());
+                if (normalizedMessage.IndexOf(normalizedTrigger, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    if (normalizedMessage.IndexOf("checkout", StringComparison.OrdinalIgnoreCase) >= 0
+                        && normalizedMessage.IndexOf("workset", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        log.Add("WORKSHARING-DIAGNOSTIK: ikke-gjenkjent checkout-dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                    }
+                    return;
+                }
+
+                log.Add("WORKSHARING-DIAGNOSTIK: gjenkjent dialog: " + message.Substring(0, Math.Min(500, message.Length)).Replace("\r", " ").Replace("\n", " "));
+                try
+                {
+                    if (eventArgs.OverrideResult((int)TaskDialogResult.CommandLink1))
+                    {
+                        HandledCount++;
+                        log.Add("WORKSHARING: Revit godtok Check Out Worksets.");
+                    }
+                    else log.Add("WORKSHARING-BLOKKERING: Revit godtok ikke Check Out Worksets.");
+                }
+                catch (Exception exception)
+                {
+                    log.Add("WORKSHARING-BLOKKERING: kunne ikke velge Check Out Worksets: " + exception.Message);
+                }
+            }
+        }
 
         private sealed class PendingWrite
         {
@@ -34,11 +77,11 @@ namespace CW.Assistant.Generated
 
         public string Execute(UIApplication uiApplication, Document? activeDocument)
         {
-            if (activeDocument is null) return "FEIL: Ingen aktiv Revit-modell. Regel 11 stoppet.";
+            if (activeDocument is null) return "FEIL: Ingen aktiv Revit-modell. Regel 10 stoppet.";
 
             var log = new List<string>
             {
-                string.Format(CultureInfo.InvariantCulture, "=== Regel 11 Magicad v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title)
+                string.Format(CultureInfo.InvariantCulture, "=== Regel 10 Magicad v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title)
             };
             var writes = new List<PendingWrite>();
             int checkedCount = 0;
@@ -107,47 +150,55 @@ namespace CW.Assistant.Generated
             int updated = 0;
             if (writes.Count > 0)
             {
-                using var transaction = new Transaction(activeDocument, "Regel 11 - Magicad systemverdier fra tilkoblet rettstrekk");
-                TransactionStatus startStatus = transaction.Start();
-                if (startStatus != TransactionStatus.Started)
-                {
-                    log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
-                    return SaveAndReturn(log, "Regel 11 stoppet uten endringer: transaksjonen startet ikke.");
-                }
-
+                var dialogHandler = new WorksetCheckoutDialogHandler(log);
+                uiApplication.DialogBoxShowing += dialogHandler.HandleDialogBoxShowing;
                 try
                 {
-                    foreach (PendingWrite write in writes)
+                    using (var transaction = new Transaction(activeDocument, "Regel 10 - Magicad systemverdier fra tilkoblet rettstrekk"))
                     {
-                        if (!write.Parameter.Set(write.Value))
+                        TransactionStatus startStatus = transaction.Start();
+                        if (startStatus != TransactionStatus.Started)
                         {
-                            throw new InvalidOperationException("Parameter.Set returnerte false for ElementId " + write.Owner.Id.Value + ", " + write.Parameter.Definition.Name + ".");
+                            log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
+                            return SaveAndReturn(log, "Regel 10 stoppet uten endringer: transaksjonen startet ikke.");
                         }
-                        updated++;
-                        log.Add(string.Format(CultureInfo.InvariantCulture,
-                            "OPPDATERT ElementId {0}, {1} = '{2}' fra {3}.",
-                            write.Owner.Id.Value, write.Parameter.Definition.Name, EscapeLog(write.Value), write.SourceInfo));
-                    }
 
-                    TransactionStatus commitStatus = transaction.Commit();
-                    if (commitStatus != TransactionStatus.Committed)
-                    {
-                        throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
+                        try
+                        {
+                            foreach (PendingWrite write in writes)
+                            {
+                                if (!write.Parameter.Set(write.Value))
+                                {
+                                    throw new InvalidOperationException("Parameter.Set returnerte false for ElementId " + write.Owner.Id.Value + ", " + write.Parameter.Definition.Name + ".");
+                                }
+                                updated++;
+                                log.Add(string.Format(CultureInfo.InvariantCulture,
+                                    "OPPDATERT ElementId {0}, {1} = '{2}' fra {3}.",
+                                    write.Owner.Id.Value, write.Parameter.Definition.Name, EscapeLog(write.Value), write.SourceInfo));
+                            }
+
+                            TransactionStatus commitStatus = transaction.Commit();
+                            if (commitStatus != TransactionStatus.Committed)
+                            {
+                                throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            if (transaction.GetStatus() == TransactionStatus.Started) transaction.RollBack();
+                            log.Add("TRANSAKSJONSFEIL: " + exception);
+                            return SaveAndReturn(log, "Regel 10 ble ikke bekreftet committed: " + exception.Message);
+                        }
                     }
                 }
-                catch (Exception exception)
-                {
-                    if (transaction.GetStatus() == TransactionStatus.Started) transaction.RollBack();
-                    log.Add("TRANSAKSJONSFEIL: " + exception);
-                    return SaveAndReturn(log, "Regel 11 ble ikke bekreftet committed: " + exception.Message);
-                }
+                finally { uiApplication.DialogBoxShowing -= dialogHandler.HandleDialogBoxShowing; }
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture,
                 "Oppsummering: føringsveifittings {0}; kontrollert med manglende Magicad-verdi {1}; oppdatert {2}; eksisterende verdier bevart {3}; uavklart {4}.",
                 fittings.Count, checkedCount, updated, preservedCount, unresolvedCount));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 11 v{0}: oppdatert {1}; uavklart {2}; logg: {3}.", ScriptVersion, updated, unresolvedCount, LogPath));
+                "Regel 10 v{0}: oppdatert {1}; uavklart {2}; logg: {3}.", ScriptVersion, updated, unresolvedCount, LogPath));
         }
 
         private static bool TryGetConnectedStraightSources(Element fitting, out List<Element> sources, out string issue)

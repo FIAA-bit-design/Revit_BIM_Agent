@@ -1,0 +1,13 @@
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\bin\Debug\net8.0-windows\Rule10Compile.deps.json
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\bin\Debug\net8.0-windows\Rule10Compile.dll
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\bin\Debug\net8.0-windows\Rule10Compile.pdb
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.csproj.AssemblyReference.cache
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.GeneratedMSBuildEditorConfig.editorconfig
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.AssemblyInfoInputs.cache
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.AssemblyInfo.cs
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.csproj.CoreCompileInputs.cache
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.sourcelink.json
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.dll
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\refint\Rule10Compile.dll
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\Rule10Compile.pdb
+D:\Revit\Python\Revit_BIM_Agent\CSharpRules\.selftest\obj\Debug\net8.0-windows\ref\Rule10Compile.dll

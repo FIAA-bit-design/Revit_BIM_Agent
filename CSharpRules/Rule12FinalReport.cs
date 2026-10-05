@@ -12,7 +12,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.1";
+        private const string ScriptVersion = "0.0.3";
         private const string OutputDirectory = @"D:\Revit\Python\Revit_BIM_Agent\logs\csv";
         private static readonly string[] ParameterNames =
         {
@@ -46,7 +46,7 @@ namespace CW.Assistant.Generated
         {
             if (activeDocument is null)
             {
-                return "FEIL: Ingen aktiv Revit-modell. Regel 10 stoppet før elementlesing.";
+                return "FEIL: Ingen aktiv Revit-modell. Regel 12 stoppet før elementlesing.";
             }
 
             var rows = new List<SnapshotRow>();
@@ -109,12 +109,12 @@ namespace CW.Assistant.Generated
             }
             catch (Exception exception)
             {
-                return "Regel 10 v" + ScriptVersion + ": rapporten kunne ikke skrives: " + exception.Message;
+                return "Regel 12 v" + ScriptVersion + ": rapporten kunne ikke skrives: " + exception.Message;
             }
 
             return string.Format(
                 CultureInfo.InvariantCulture,
-                "Regel 10 v{0}: skrivebeskyttet snapshot; instanser undersøkt {1}; elementrader {2}; manglende verdier Leveransepakke/Mengdetype/Merkestreng {3}/{4}/{5}; parametere ikke til stede {6}/{7}/{8}; rapport {9}.",
+                "Regel 12 v{0}: skrivebeskyttet snapshot; instanser undersøkt {1}; elementrader {2}; manglende verdier Leveransepakke/Mengdetype/Merkestreng {3}/{4}/{5}; parametere ikke til stede {6}/{7}/{8}; rapport {9}.",
                 ScriptVersion,
                 totalInstances,
                 rows.Count,

@@ -15,10 +15,10 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.5";
+        private const string ScriptVersion = "0.0.6";
         private const string WorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx";
         private const string OutputDirectory = @"D:\Revit\Python\Revit_BIM_Agent\logs\csv";
-        private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule10_WorksetCategory.log";
+        private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule11_WorksetCategory.log";
         private const string MainNamespace = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
         private const string RelationshipNamespace = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
         private const string PackageRelationshipNamespace = "http://schemas.openxmlformats.org/package/2006/relationships";
@@ -144,7 +144,7 @@ namespace CW.Assistant.Generated
         {
             if (activeDocument is null)
             {
-                return "FEIL: Ingen aktiv Revit-modell. Regel 10 stoppet før elementlesing.";
+                return "FEIL: Ingen aktiv Revit-modell. Regel 11 stoppet før elementlesing.";
             }
             if (!activeDocument.IsWorkshared)
             {
@@ -153,7 +153,7 @@ namespace CW.Assistant.Generated
 
             var log = new List<string>
             {
-                string.Format(CultureInfo.InvariantCulture, "=== Regel 10 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title),
+                string.Format(CultureInfo.InvariantCulture, "=== Regel 11 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title),
                 "Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.",
                 "Arbeidsbok: " + WorkbookPath
             };
@@ -290,7 +290,7 @@ namespace CW.Assistant.Generated
                 var failedChanges = new List<Tuple<PendingChange, string>>();
                 try
                 {
-                    transaction = new Transaction(activeDocument, "Regel 10: rett workset etter Excel-listen");
+                    transaction = new Transaction(activeDocument, "Regel 11: rett workset etter Excel-listen");
                     if (transaction.Start() != TransactionStatus.Started)
                     {
                         throw new InvalidOperationException("Revit startet ikke transaksjonen for workset-retting.");
@@ -300,8 +300,9 @@ namespace CW.Assistant.Generated
                     {
                         try
                         {
-                            if (!change.Parameter.Set(change.TargetWorkset.Id.IntegerValue)
-                                || change.Parameter.AsInteger() != change.TargetWorkset.Id.IntegerValue)
+                            int targetWorksetId = change.TargetWorkset.Id.IntegerValue;
+                            if (!change.Parameter.Set(targetWorksetId)
+                                || change.Parameter.AsInteger() != targetWorksetId)
                             {
                                 throw new InvalidOperationException("Revit bekreftet ikke den nye workset-verdien.");
                             }
@@ -390,7 +391,7 @@ namespace CW.Assistant.Generated
             catch (Exception exception)
             {
                 log.Add("RAPPORTFEIL: " + exception.Message);
-                return SaveAndReturn(log, "Regel 10 kunne ikke opprette rapport: " + exception.Message);
+                return SaveAndReturn(log, "Regel 11 kunne ikke opprette rapport: " + exception.Message);
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture, "Mappinger lest: {0}; kategorier kontrollert: {1}; elementer kontrollert: {2}; flyttet: {3}; uløste avvik: {4}; blokkeringer: {5}.", mappings.Count, expected.Count, checkedCount, changedCount, unresolvedCount, blockers.Count));
@@ -398,7 +399,7 @@ namespace CW.Assistant.Generated
             foreach (string blocker in blockers.Distinct(StringComparer.Ordinal)) log.Add("BLOKKERING: " + blocker);
             string status = blockers.Count > 0 ? changedCount > 0 ? "DELVIS UTFØRT" : "BLOKKERT" : unresolvedCount > 0 ? "AVVIK" : "OK";
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 10 v{0}: {1}; kategorier {2}; elementer {3}; flyttet {4}; uløste avvik {5}; blokkeringer {6}; rapport {7}.",
+                "Regel 11 v{0}: {1}; kategorier {2}; elementer {3}; flyttet {4}; uløste avvik {5}; blokkeringer {6}; rapport {7}.",
                 ScriptVersion, status, expected.Count, checkedCount, changedCount, unresolvedCount, blockers.Count, reportPath));
         }
 
