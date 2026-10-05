@@ -16,4 +16,4 @@ Finn eksisterende fysisk tilkoblede ender og bruk de tilhørende rettstrekkene s
 
 Logg kilde-ID-er og verdier, konflikter og manglende brukbare kildeverdier i egen append-only UTF-8 kontrollogg. Åpne fittingender er ikke avvik og skal ikke telles som feil i logg eller Excel-rapport. Rapporter fortsatt manglende `PGF_Mengdetype`, men la ikke manglende PGF-søkefelt hindre et ellers entydig connector-oppslag for disse fittingene. Senterlinjefilteret gjelder fortsatt. Ved kjøring knyttet til `Logg av endringer` utelates andre entrepriser enn K5B både som mål og kilder, slik kontrollens etablerte filter angir.
 
-Se også [connectorstandardene](../standards/connector-rules.md) for krav til eventuell connectorretting. Åpne ender gir ikke i seg selv fullmakt til å koble.
+Se også [connectorstandardene](../standards/connector-standards.md) for krav til eventuell connectorretting. Åpne ender gir ikke i seg selv fullmakt til å koble.

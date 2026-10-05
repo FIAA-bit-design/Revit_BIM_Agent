@@ -17,6 +17,18 @@ Når brukeren har gitt et modellkontroll- eller retteoppdrag, kan entydige feil 
 7. Oppdater avviksrapporten fra etterkontrollen, ikke fra gamle snapshots. Skill mellom rettet og verifisert, tilbakeført, teknisk blokkert og faglig uavklart. Ta med ElementId, leveransepakke, årsak og eventuelle kilde-ID-er/verdier. Se [rapporteringsreglene](reporting.md).
 8. Avslutt med en kort oppsummering av det som faktisk er rettet, verifisert og fortsatt uavklart. Brukeren skal bare trenge å vurdere reelle faglige valg, tvetydige data eller tiltak utenfor fullmakten. Ikke lagre eller synkroniser modellen automatisk uten særskilt tillatelse. Rydd agentens egne midlertidige test-/eksportfiler.
 
+## Worksharing for muterende C#-regler
+
+Dette er et felles utføringskrav for muterende C#-regler 1–12, inkludert regel 3 og revisjonskontrollen i regel 12; det er ikke et eget kjøringstrinn.
+
+Reglene skal håndtere den spesifikke Revit-TaskDialog-en som sier at mange worksets/elementer skal sjekkes ut. Bruk `UIApplication.DialogBoxShowing` og velg `Check Out Worksets` med `TaskDialogResult.CommandLink1` bare når meldingen inneholder teksten `trying to check out a large number of elements` etter normalisering. Normaliseringen er skiftleiefri og fjerner tegnsetting og mellomrom, slik at både `checkout` og `check out` gjenkjennes.
+
+Logg et avgrenset utdrag av dialogmeldingen og om Revit godtok eller avviste valget. Hvis en TaskDialog nevner både checkout og workset, men ikke matcher den forventede storutcheckingsmeldingen, logg den som uavklart diagnostikk og ikke overstyr den. Ikke svar automatisk på andre Revit-dialoger.
+
+Koble dialoghandleren til umiddelbart før den aktuelle transaksjonen, og koble den alltid fra i `finally`, også ved feil eller tidlig retur. Regelkjøringen skal rapportere om automatisk valg ble akseptert, avvist eller feilet.
+
+Ved connectorretting skal elementer som eies av andre brukere ikke kobles. Følg også [connectorstandarden](../standards/connector-standards.md) og transaksjons-/rollbackkravene ovenfor.
+
 ## Kjøring av C#-implementasjoner
 
 `run-csharp-script` mottar C#-kildekode, ikke en filbane. Når en vedlikeholdt `.cs`-regel skal kjøres, les og send hele kildefilen som `request`, inkludert `using`-direktiver, navnerom, `GeneratedAction` og forventet `Execute(UIApplication, Document?)`-inngangspunkt. Ikke send bare filbanen, en `#load`-direktiv eller en wrapper som utelater regelkoden.

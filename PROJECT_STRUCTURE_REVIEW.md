@@ -1,12 +1,13 @@
 # Prosjektstrukturvurdering
 
 Dato: 2026-10-04
+Sist oppdatert: 2026-10-05
 
 ## Sammendrag
 
 Prosjektet har allerede en modulær instruksjonsstruktur, men den gamle, fullstendige instruksjonen ligger også i prosjektroten. Arbeidsbøkene ligger i roten, C#-historikk ligger under kildekoden, og genererte rapporter ligger både i roten og i `Rapporter/`. Flere kjørende regler bruker absolutte filbaner.
 
-Anbefalingen er én kanonisk instruksjon i `rie-bim-agent/rie-bim-kontroll.instructions.md`, arbeidsbøker i `config/` og logger/rapporter i `logs/`. Historiske filer flyttes uten sletting. De C#- og Python-kodeendringene som er nødvendige, begrenses til stikonstanter og valg av parameterlistens fil; regelalgoritmene endres ikke.
+Anbefalingen er én kanonisk instruksjon i `rie-bim-agent/rie-bim-kontroll.instructions.md`, arbeidsbøker og parameterregister i `config/` og logger/rapporter i `logs/`. Historiske filer flyttes uten sletting. De C#- og Python-kodeendringene som er nødvendige, begrenses til stikonstanter og valg av parameterlistens fil; regelalgoritmene endres ikke.
 
 ## Nåværende struktur
 
@@ -18,6 +19,9 @@ Revit_BIM_Agent/
 ├── CSharpRules/                    # Revit-regler og 10 eksisterende .log-filer
 ├── Rapporter/                      # 5 historiske workset-CSV-er
 ├── rie-bim-agent/                  # modulære core/, rules/, parameter-rules/, standards/
+│   ├── rules/rule12-revision-parameters.md
+│   ├── rules/rule13-final-report.md
+│   └── standards/                  # senterlinje- og connectorstandarder
 ├── rie-bim-kontroll.instructions.md # eldre full instruksjon
 ├── Revisjonsliste.xlsx
 ├── Workset liste.xlsx
@@ -38,16 +42,17 @@ Revit_BIM_Agent/
 ├── CSharpRules/                    # beholdes; anbefalt teknisk modul, ikke flyttet
 ├── config/
 │   ├── Revisjonsliste.xlsx
-│   └── Workset liste.xlsx
+│   ├── Workset liste.xlsx
+│   └── Parameterliste.xlsx          # autoritativ parameterliste for Regel 3
 ├── logs/
 │   ├── history/                    # append-only .log-filer
 │   ├── csv/                        # eksisterende og nye CSV-rapporter/snapshots
 │   └── reports/                    # Excel- og tekstrapporter
 ├── rie-bim-agent/
 │   ├── core/
-│   ├── rules/
+│   ├── rules/                      # kjørbare regler 1–12, sluttrapport 13 sist
 │   ├── parameter-rules/
-│   ├── standards/
+│   ├── standards/                  # senterlinje- og connectorstandarder
 │   └── rie-bim-kontroll.instructions.md  # eneste kanoniske instruksjon
 ├── rie-bim-kontroll.instructions.legacy.txt # bevart arkivkopi; ikke kanonisk
 └── PROJECT_STRUCTURE_REVIEW.md
@@ -63,7 +68,7 @@ Den eksisterende `Rapporter/`-mappen beholdes tom etter flytting; den slettes ik
 
 ## Risikoer og konsekvenser
 
-- `Rule03ParameterFill.cs` leser i dag parameternavn fra tabellen under Regel 3 i en instruksjonsfil. Etter flytting må den lese samme tabell fra `rie-bim-agent/parameter-rules/parameter-list.md`. Bare kildebane og tabellavgrensning endres; parameterliste, behandling og fagregler skal være uendret. Hvis dette ikke oppdateres, finner regelen ingen parameternavn etter at rotfilen er arkivert.
+- `Rule03ParameterFill.cs` leser nå parameternavn fra `config/Parameterliste.xlsx`. Arbeidsboken må beholde fanen `Parameterliste` og kolonnene `Parameternavn`, `Fagregel / forutsetning` og `Regelreferanse`; manglende eller dupliserte parameternavn blokkerer regelen før elementlesing.
 - `Rule03ParameterFill.cs` og `Rule10CheckWorksetCategory.cs` har absolutte baner til arbeidsbøkene. Når arbeidsbøkene flyttes, oppdateres bare disse banekonstantene og dokumentreferansene. Feil sti vil blokkere revisjons- eller worksetkontrollen.
 - C#-reglenes absolutte loggbaner og rapportbaner oppdateres før tilhørende historikk-/rapportfiler flyttes. Logginnhold, filnavnsmønstre og append-only-egenskap beholdes. Nye rapporter går til riktig `logs/`-undermappe.
 - Python-generert felleslogg får en endret output-katalog, men logikk og filnavnsmønster beholdes. Skriptet kjøres ikke som del av denne oppryddingen.
@@ -74,6 +79,7 @@ Den eksisterende `Rapporter/`-mappen beholdes tom etter flytting; den slettes ik
 ## Filer som flyttes
 
 - `Revisjonsliste.xlsx` og `Workset liste.xlsx` til `config/`.
+- `Parameterliste.xlsx` opprettes i `config/` som autoritativ parameterliste for Regel 3.
 - Eksisterende `.log`-filer i roten og `CSharpRules/` til `logs/history/`.
 - Den eksisterende rot-snapshoten og de fem CSV-filene i `Rapporter/` til `logs/csv/`.
 - Den eksisterende infonode-Excel-rapporten og sluttrapporten `.txt` til `logs/reports/`.
@@ -93,26 +99,26 @@ Før flytting var følgende aktive referanser identifisert: `Rule03ParameterFill
 Brutte eller foreldede referanser som ble funnet og rettet:
 
 - C#-dokumentreferanser brukte den feilskrevne prosjektbanen `Revit_BIM_Agnet`; aktive regelreferanser bruker nå relative stier.
-- Regel 3s C#-leser hentet parameterkolonnen fra den gamle rotinstruksjonen; den leser nå samme tabell fra `parameter-rules/parameter-list.md`.
+- Regel 3s C#-leser ble først flyttet fra rotinstruksjonen til `parameter-rules/parameter-list.md`; fra 2026-10-05 leser den parameternavn fra `config/Parameterliste.xlsx`.
 - C#-baner til arbeidsbøkene, loggene og rapportmappene pekte til gamle plasseringer; de peker nå til `config/` og `logs/`.
 - Den arkiverte sluttrapporten pekte til gamle plasseringer for snapshot og Excel-rapport; de to pekerne er oppdatert.
 - Startskriptet og Regel 3-dokumentet peker nå til den modulære kanoniske instruksjonen.
 
 Etter oppryddingen finnes ingen brutte aktive Markdown-lenker eller manglende flyttede filer. Arkivkopien beholdes for historikk; eventuelle gamle filbaner inne i denne uttrykkelig ikke-kanoniske kopien er ikke kjørende referanser. Ingen Revit-modelloperasjon inngår.
 
-## Standardnavn
+## Worksharing-reglenes plassering
 
-**Anbefaling: behold `standards/`.** Innholdet er normerende tekniske standarder for senterlinjer, connectorer og worksharing. `shared-rules/` kan forveksles med kjørbare BIM-regler, og `common-rules/` sier mindre om at innholdet er standarder. En omdøping gir ingen tydelig gevinst og krever oppdatering av lenker fra hovedinstruksjonen og regel-/parameterdokumentene. Ingen omdøping gjøres.
+**Oppdatert 2026-10-05:** Worksharing-kravene ligger i `core/execution-rules.md` fordi de styrer gjennomføringen av muterende regler og ikke er en selvstendig kontroll. Revisjonskontrollen er en egen Regel 12 fordi den slår opp mot `Revisjonsliste.xlsx`; sluttrapporten er Regel 13. `standards/` beholdes for senterlinje- og connectorstandardene.
 
-## Parameterliste i Markdown eller Excel
+Den tidligere anbefalingen om å beholde `standards/` gjaldt katalogen og de normerende tekniske standardene. Den endres ikke for de gjenværende filene.
 
-**Anbefaling: behold `parameter-rules/parameter-list.md` som autoritativ kilde. Ingen migrering til Excel gjøres.**
+## Parameterliste i Excel
 
-Fordeler med Excel: enklere tabellredigering, sortering og filtrering; kan gi strukturert input for fremtidige verktøy.
+**Oppdatert 2026-10-05:** `config/Parameterliste.xlsx` er autoritativ for parameternavn og fagregeltekster. Den inneholder 39 parametere med filter, låst topptekst, tekstbryting og egen kolonne for utdypende regelreferanser. `parameter-rules/parameter-list.md` beskriver generelle utfyllingsregler, men dupliserer ikke lenger tabellen.
 
-Ulemper: fagregler er tekst med unntak og kryssreferanser; Excel krever ny parsing og validering i Regel 3, er mindre synlig i diff/review og introduserer en ekstra filavhengighet. Duplisering mellom Markdown og Excel ville skape tvil om autoritativ kilde.
+`Rule03ParameterFill.cs` leser kolonnen `Parameternavn` fra fanen `Parameterliste` og validerer overskrifter, tomme rader med innhold og duplikater. De naturlige språkbeskrivelsene i Excel dokumenterer forutsetningene; de endrer ikke automatisk C#-regelens utførbare logikk.
 
-Påvirkede deler ved en eventuell senere migrering: `Rule03ParameterFill.cs`, `parameter-list.md`, Regel 3-inngangen og dokumentene for revisjoner, mengdelistepost og brukerfiltre. Krever eksplisitt godkjenning og migreringstest.
+De tre revisjonsfeltene kontrolleres separat av `Rule12RevisionParameters.cs` mot fanene og verdiene i `config/Revisjonsliste.xlsx`. Regel 3 skriver ikke lenger disse feltene.
 
 ## C#-modul
 
@@ -122,7 +128,7 @@ Påvirkede deler ved en eventuell senere migrering: `Rule03ParameterFill.cs`, `p
 
 1. Opprett målmapper og registrer filbanekonsekvenser i denne rapporten. **Fullført.**
 2. Flytt arbeidsbøker til `config/`, og oppdater de to C#-konstantene og dokumentreferansene. **Fullført.**
-3. Pek Regel 3-leseren direkte på parameterlisten i Markdown-modulen, med samme navneuttrekk. **Fullført; compile-only-emulering bygget med 0 feil.**
+3. Pek Regel 3-leseren direkte på parameterlisten i Markdown-modulen, med samme navneuttrekk. **Fullført i forrige migrering; senere erstattet av Excel-kilden nedenfor.**
 4. Oppdater logg-/rapportbanekonstanter og produsentbanen for fellesloggen. **Fullført; kun stier og skriptversjon ble endret.**
 5. Flytt historiske logger og rapporter; oppdater sluttrapportens filreferanser. **Fullført; alle kildedata og historiske filer er bevart.**
 6. Arkiver rotinstruksjonen uten sletting, oppdater prosjektinterne lenker og bruk den modulære filen som kanonisk. **Fullført.**
@@ -130,7 +136,7 @@ Påvirkede deler ved en eventuell senere migrering: `Rule03ParameterFill.cs`, `p
 
 ## Status etter gjennomføring
 
-- To arbeidsbøker ligger i `config/`.
+- Tre arbeidsbøker/registre ligger i `config/`, inkludert den nye `Parameterliste.xlsx`.
 - 11 historikkfiler ligger i `logs/history/`, 6 CSV-filer i `logs/csv/` og 2 rapportfiler i `logs/reports/`.
 - Ingen eksisterende prosjektfiler ble slettet. Rotinstruksjonen er bevart som `rie-bim-kontroll.instructions.legacy.txt`; den kanoniske instruksjonen ligger kun i `rie-bim-agent/`.
 - `Rapporter/` står igjen som en tom mappe; den er ikke slettet.

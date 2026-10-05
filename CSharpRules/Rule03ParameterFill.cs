@@ -15,12 +15,12 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.8";
+        private const string ScriptVersion = "0.0.10";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
-        private const string RevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Revisjonsliste.xlsx";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule03_ParameterFill.log";
-        private const string ParameterListPath = @"D:\Revit\Python\Revit_BIM_Agent\rie-bim-agent\parameter-rules\parameter-list.md";
+        private const string ParameterWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Parameterliste.xlsx";
+        private const string ParameterWorksheetName = "Parameterliste";
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
         private static readonly string[] TypeControlledParameterNames = { "FOB_Funksjonskode", "FOB_Merkesystem", "FOB_System" };
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
@@ -52,15 +52,13 @@ namespace CW.Assistant.Generated
             internal Parameter Parameter { get; }
             internal string Value { get; }
             internal string Reason { get; }
-            internal bool IsRevisionCheck { get; }
 
-            internal PendingWrite(Element owner, Parameter parameter, string value, string reason, bool isRevisionCheck)
+            internal PendingWrite(Element owner, Parameter parameter, string value, string reason)
             {
                 Owner = owner;
                 Parameter = parameter;
                 Value = value;
                 Reason = reason;
-                IsRevisionCheck = isRevisionCheck;
             }
         }
 
@@ -136,20 +134,8 @@ namespace CW.Assistant.Generated
             }
             catch (Exception exception)
             {
-                log.Add("BLOKKERING: Kunne ikke lese parametertabellen: " + exception.Message);
+                log.Add("BLOKKERING: Kunne ikke lese parameterlisten fra Excel: " + exception.Message);
                 return SaveAndReturn(log, "Regel 3 stoppet: parameterlisten kunne ikke leses.");
-            }
-
-            Dictionary<string, Dictionary<string, string>> revisions;
-            try
-            {
-                revisions = ReadRevisionWorkbook(RevisionWorkbookPath);
-                log.Add(string.Format(CultureInfo.InvariantCulture, "Revisjonsliste lest: {0} faner.", revisions.Count));
-            }
-            catch (Exception exception)
-            {
-                revisions = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
-                log.Add("BLOKKERING: Revisjonslisten kunne ikke leses; revisjonsfeltene blir ikke endret: " + exception.Message);
             }
 
             List<Element> instances = new FilteredElementCollector(activeDocument)
@@ -164,8 +150,6 @@ namespace CW.Assistant.Generated
             int readOnlyCount = 0;
             int unresolvedCount = 0;
             int preservedCount = 0;
-            int revisionChecked = 0;
-            int revisionBlocked = 0;
             var processedTypes = new HashSet<long>();
 
             foreach (Element instance in instances)
@@ -175,8 +159,6 @@ namespace CW.Assistant.Generated
                 {
                     ProcessTypeParameters(instance, typeElement, parameterNames, writes, scheduled, absentCounts, log, ref readOnlyCount, ref unresolvedCount);
                 }
-
-                ProcessRevisionParameters(instance, parameterNames, revisions, writes, scheduled, log, ref revisionChecked, ref revisionBlocked, ref readOnlyCount, ref unresolvedCount);
 
                 foreach (string name in parameterNames)
                 {
@@ -225,9 +207,6 @@ namespace CW.Assistant.Generated
 
             int updated = 0;
             int failedWrites = 0;
-            int successfulRevisionWrites = 0;
-            int failedRevisionWrites = 0;
-            int scheduledRevisionWrites = writes.Count(write => write.IsRevisionCheck);
             if (writes.Count > 0)
             {
                 var worksetDialogHandler = new WorksetCheckoutDialogHandler(log);
@@ -239,8 +218,6 @@ namespace CW.Assistant.Generated
                         TransactionStatus startStatus = transaction.Start();
                         if (startStatus != TransactionStatus.Started)
                         {
-                            revisionBlocked += scheduledRevisionWrites;
-                            unresolvedCount += scheduledRevisionWrites;
                             log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
                             return SaveAndReturn(log, "Regel 3: ingen verdier ble skrevet fordi transaksjonen ikke startet.");
                         }
@@ -252,14 +229,12 @@ namespace CW.Assistant.Generated
                                 if (TrySetParameter(write.Parameter, write.Value))
                                 {
                                     updated++;
-                                    if (write.IsRevisionCheck) successfulRevisionWrites++;
                                     log.Add(string.Format(CultureInfo.InvariantCulture, "OPPDATERT ElementId {0}, {1} = '{2}' ({3}).", write.Owner.Id.Value, write.Parameter.Definition.Name, EscapeLog(write.Value), write.Reason));
                                 }
                                 else
                                 {
                                     failedWrites++;
-                                    if (write.IsRevisionCheck) failedRevisionWrites++;
-                                    else unresolvedCount++;
+                                    unresolvedCount++;
                                     log.Add(FormatIssue(write.Owner, write.Parameter.Definition.Name, "Parameter.SetValueString/Set returnerte false"));
                                 }
                             }
@@ -270,9 +245,6 @@ namespace CW.Assistant.Generated
                                 throw new InvalidOperationException("Transaksjonen ble ikke committed: " + commitStatus);
                             }
 
-                            revisionChecked += successfulRevisionWrites;
-                            revisionBlocked += failedRevisionWrites;
-                            unresolvedCount += failedRevisionWrites;
                         }
                         catch (Exception exception)
                         {
@@ -286,8 +258,6 @@ namespace CW.Assistant.Generated
                                     rollbackStatus = transaction.GetStatus();
                                 }
                             }
-                            revisionBlocked += scheduledRevisionWrites;
-                            unresolvedCount += scheduledRevisionWrites;
                             log.Add("TRANSAKSJONSFEIL: " + exception);
                             string result = rollbackStatus == TransactionStatus.RolledBack
                                 ? "Regel 3 ble rullet tilbake; ingen endringer ble lagret. " + exception.Message
@@ -313,54 +283,26 @@ namespace CW.Assistant.Generated
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture,
-                "Oppsummering: instanser {0}; parameternavn {1}; oppdatert {2}; eksisterende verdier bevart {3}; revisjonsfelt kontrollert {4}; revisjonspakker blokkert {5}; skrivebeskyttet {6}; uavklart {7}; skrivefeil {8}.",
-                instances.Count, parameterNames.Count, updated, preservedCount, revisionChecked, revisionBlocked, readOnlyCount, unresolvedCount, failedWrites));
+                "Oppsummering: instanser {0}; parameternavn {1}; oppdatert {2}; eksisterende verdier bevart {3}; skrivebeskyttet {4}; uavklart {5}; skrivefeil {6}.",
+                instances.Count, parameterNames.Count, updated, preservedCount, readOnlyCount, unresolvedCount, failedWrites));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 3 v{0}: oppdatert {1}; eksisterende verdier bevart {2}; revisjonsfelt kontrollert {3}; blokkeringer {4}; logg: {5}.",
-                ScriptVersion, updated, preservedCount, revisionChecked, revisionBlocked + unresolvedCount + failedWrites, LogPath));
+                "Regel 3 v{0}: oppdatert {1}; eksisterende verdier bevart {2}; blokkeringer {3}; logg: {4}.",
+                ScriptVersion, updated, preservedCount, unresolvedCount + failedWrites, LogPath));
         }
 
         private static List<string> LoadParameterNames()
         {
-            string path = ParameterListPath;
+            string path = ParameterWorkbookPath;
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException("Fant ikke parameterlisten.", path);
+                throw new FileNotFoundException("Fant ikke den autoritative parameterlisten i Excel.", path);
             }
 
-            var names = new List<string>();
-            bool inTable = false;
-            foreach (string line in File.ReadAllLines(path, Encoding.UTF8))
-            {
-                string trimmed = line.Trim();
-                if (!inTable)
-                {
-                    if (trimmed.Equals("# Parameterliste", StringComparison.Ordinal)
-                        || trimmed.StartsWith("## Regel 3:", StringComparison.Ordinal)) inTable = true;
-                    continue;
-                }
-                if (trimmed.StartsWith("## Generelle regler", StringComparison.Ordinal)
-                    || trimmed.StartsWith("## Regel ", StringComparison.Ordinal)) break;
-                if (!trimmed.StartsWith("|", StringComparison.Ordinal)) continue;
-                int first = trimmed.IndexOf('`');
-                int last = first < 0 ? -1 : trimmed.IndexOf('`', first + 1);
-                if (first >= 0 && last > first + 1)
-                {
-                    string name = trimmed.Substring(first + 1, last - first - 1);
-                    if (!names.Contains(name, StringComparer.Ordinal)) names.Add(name);
-                }
-            }
-            if (names.Count == 0) throw new InvalidDataException("Fant ingen parameternavn i tabellen under regel 3.");
-            return names;
-        }
-
-        private static Dictionary<string, Dictionary<string, string>> ReadRevisionWorkbook(string path)
-        {
             Dictionary<string, string> entries = ReadZipEntries(path);
             if (!entries.TryGetValue("xl/workbook.xml", out string? workbookXml)
                 || !entries.TryGetValue("xl/_rels/workbook.xml.rels", out string? relationshipsXml))
             {
-                throw new InvalidDataException("Arbeidsboken mangler workbook.xml eller workbook.xml.rels.");
+                throw new InvalidDataException("Parameterarbeidsboken mangler workbook.xml eller workbook.xml.rels.");
             }
 
             List<string> sharedStrings = ReadSharedStrings(entries);
@@ -371,74 +313,73 @@ namespace CW.Assistant.Generated
             const string packageRelationshipNs = "http://schemas.openxmlformats.org/package/2006/relationships";
             var targets = GetDescendants(relationships, "Relationship", packageRelationshipNs)
                 .ToDictionary(node => GetXmlAttribute(node, "Id"), node => GetXmlAttribute(node, "Target"), StringComparer.Ordinal);
-            var result = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
-
-            foreach (object sheet in GetDescendants(workbook, "sheet", mainNs))
+            object? parameterSheet = GetDescendants(workbook, "sheet", mainNs)
+                .FirstOrDefault(sheet => string.Equals(GetXmlAttribute(sheet, "name"), ParameterWorksheetName, StringComparison.Ordinal));
+            if (parameterSheet is null)
             {
-                string sheetName = GetXmlAttribute(sheet, "name");
-                string relationId = GetXmlAttribute(sheet, "id", relationshipNs);
-                if (!targets.TryGetValue(relationId, out string? target) || string.IsNullOrEmpty(target))
-                {
-                    throw new InvalidDataException("Fant ingen worksheet-relasjon for fanen '" + sheetName + "'.");
-                }
-                string partName = ResolvePartName("xl", target);
-                if (!entries.TryGetValue(partName, out string? sheetXml))
-                {
-                    throw new InvalidDataException("Fant ikke worksheet-delen for fanen '" + sheetName + "'.");
-                }
-                result.Add(sheetName, ReadRevisionSheet(sheetXml, sharedStrings));
+                throw new InvalidDataException("Fant ikke fanen '" + ParameterWorksheetName + "' i parameterarbeidsboken.");
             }
-            return result;
-        }
 
-        private static Dictionary<string, string> ReadRevisionSheet(string xml, List<string> sharedStrings)
-        {
-            object document = LoadXml(xml);
-            const string ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
-            List<object> rows = GetDescendants(document, "row", ns).ToList();
+            string relationId = GetXmlAttribute(parameterSheet, "id", relationshipNs);
+            if (!targets.TryGetValue(relationId, out string? target) || string.IsNullOrEmpty(target))
+            {
+                throw new InvalidDataException("Fant ingen worksheet-relasjon for parameterfanen.");
+            }
+            string worksheetPart = ResolvePartName("xl", target);
+            if (!entries.TryGetValue(worksheetPart, out string? worksheetXml))
+            {
+                throw new InvalidDataException("Fant ikke regnearket for parameterfanen.");
+            }
+
+            List<object> rows = GetDescendants(LoadXml(worksheetXml), "row", mainNs).ToList();
             int parameterColumn = -1;
-            int valueColumn = -1;
+            int ruleColumn = -1;
+            int referenceColumn = -1;
             int headerRowIndex = -1;
             for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
             {
-                Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings, ns);
+                Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings, mainNs);
                 foreach (KeyValuePair<int, string> cell in cells)
                 {
                     string header = cell.Value.Trim();
                     if (string.Equals(header, "Parameternavn", StringComparison.Ordinal)) parameterColumn = cell.Key;
-                    if (string.Equals(header, "Verdi", StringComparison.Ordinal)) valueColumn = cell.Key;
+                    if (string.Equals(header, "Fagregel / forutsetning", StringComparison.Ordinal)) ruleColumn = cell.Key;
+                    if (string.Equals(header, "Regelreferanse", StringComparison.Ordinal)) referenceColumn = cell.Key;
                 }
-                if (parameterColumn >= 0 && valueColumn >= 0)
+                if (parameterColumn >= 0 && ruleColumn >= 0 && referenceColumn >= 0)
                 {
                     headerRowIndex = rowIndex;
                     break;
                 }
             }
-            if (headerRowIndex < 0) throw new InvalidDataException("Fant ikke kolonneoverskriftene Parameternavn og Verdi.");
+            if (headerRowIndex < 0)
+            {
+                throw new InvalidDataException("Fant ikke kolonneoverskriftene Parameternavn, Fagregel / forutsetning og Regelreferanse.");
+            }
 
-            var approved = new Dictionary<string, string>(StringComparer.Ordinal);
-            var occurrences = new Dictionary<string, int>(StringComparer.Ordinal);
+            var names = new List<string>();
+            var uniqueNames = new HashSet<string>(StringComparer.Ordinal);
             for (int rowIndex = headerRowIndex + 1; rowIndex < rows.Count; rowIndex++)
             {
-                Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings, ns);
-                if (!cells.TryGetValue(parameterColumn, out string? parameterName)) continue;
-                if (!RevisionParameterNames.Contains(parameterName.Trim(), StringComparer.Ordinal)) continue;
-                string value = cells.TryGetValue(valueColumn, out string? cellValue) ? cellValue.Trim() : string.Empty;
-                occurrences[parameterName.Trim()] = occurrences.TryGetValue(parameterName.Trim(), out int count) ? count + 1 : 1;
-                approved[parameterName.Trim()] = NormalizeApprovedValue(parameterName.Trim(), value);
-            }
-            foreach (string requiredName in RevisionParameterNames)
-            {
-                if (!occurrences.TryGetValue(requiredName, out int count) || count != 1)
+                Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings, mainNs);
+                if (!cells.Values.Any(value => !string.IsNullOrWhiteSpace(value)))
                 {
-                    throw new InvalidDataException("Parameternavnet '" + requiredName + "' mangler eller forekommer flere ganger.");
+                    continue;
                 }
-                if (string.IsNullOrWhiteSpace(approved[requiredName]))
+                string rowNumber = GetXmlAttribute(rows[rowIndex], "r");
+                if (!cells.TryGetValue(parameterColumn, out string? rawName) || string.IsNullOrWhiteSpace(rawName))
                 {
-                    throw new InvalidDataException("Godkjent verdi for '" + requiredName + "' er tom.");
+                    throw new InvalidDataException("Rad " + rowNumber + " har innhold, men mangler parameternavn.");
                 }
+                string name = rawName.Trim();
+                if (!uniqueNames.Add(name))
+                {
+                    throw new InvalidDataException("Parameternavnet '" + name + "' forekommer flere ganger i arbeidsboken.");
+                }
+                names.Add(name);
             }
-            return approved;
+            if (names.Count == 0) throw new InvalidDataException("Fant ingen parameternavn i parameterarbeidsboken.");
+            return names;
         }
 
         private static Dictionary<int, string> ReadCells(object row, List<string> sharedStrings, string ns)
@@ -482,7 +423,7 @@ namespace CW.Assistant.Generated
 
         private static Dictionary<string, string> ReadZipEntries(string path)
         {
-            if (!File.Exists(path)) throw new FileNotFoundException("Fant ikke revisjonslisten.", path);
+            if (!File.Exists(path)) throw new FileNotFoundException("Fant ikke arbeidsboken.", path);
             Assembly compression = Assembly.Load("System.IO.Compression");
             Type archiveType = compression.GetType("System.IO.Compression.ZipArchive", true)!;
             Type modeType = compression.GetType("System.IO.Compression.ZipArchiveMode", true)!;
@@ -605,18 +546,6 @@ namespace CW.Assistant.Generated
             return letters == 0 ? -1 : value - 1;
         }
 
-        private static string NormalizeApprovedValue(string parameterName, string value)
-        {
-            if (parameterName == "FOB_Revisjonsdato"
-                && double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double serial)
-                && serial > 0 && serial < 2958466)
-            {
-                try { return DateTime.FromOADate(serial).ToString("yyyy.MM.dd", CultureInfo.InvariantCulture); }
-                catch { return value; }
-            }
-            return value;
-        }
-
         private static void ProcessTypeParameters(Element instance, Element typeElement, List<string> parameterNames,
             List<PendingWrite> writes, HashSet<string> scheduled, Dictionary<string, int> absentCounts, List<string> log,
             ref int readOnlyCount, ref int unresolvedCount)
@@ -648,49 +577,6 @@ namespace CW.Assistant.Generated
             if (name == "FOB_Merkesystem" && (cableTray || conduit)) return "SPV";
             if (name == "FOB_System" && (cableTray || conduit)) return "460";
             return "--";
-        }
-
-        private static void ProcessRevisionParameters(Element instance, List<string> parameterNames,
-            Dictionary<string, Dictionary<string, string>> revisions, List<PendingWrite> writes, HashSet<string> scheduled,
-            List<string> log, ref int revisionChecked, ref int revisionBlocked, ref int readOnlyCount, ref int unresolvedCount)
-        {
-            if (!parameterNames.Contains(PackageParameter, StringComparer.Ordinal)) return;
-            if (!TryGetSingleParameter(instance, PackageParameter, out Parameter? packageParameter, out string packageIssue)
-                || packageParameter is null)
-            {
-                return;
-            }
-            string package = GetParameterText(packageParameter);
-            if (string.IsNullOrWhiteSpace(package) || package == "--") return;
-            if (!revisions.TryGetValue(package, out Dictionary<string, string>? approved)) return;
-
-            foreach (string name in RevisionParameterNames)
-            {
-                if (!parameterNames.Contains(name, StringComparer.Ordinal)) continue;
-                if (!TryGetSingleParameter(instance, name, out Parameter? parameter, out string issue) || parameter is null)
-                {
-                    revisionBlocked++;
-                    unresolvedCount++;
-                    log.Add(FormatIssue(instance, name, issue));
-                    continue;
-                }
-                string approvedValue = approved[name];
-                string currentValue = GetParameterText(parameter);
-                if (string.Equals(currentValue, approvedValue, StringComparison.Ordinal))
-                {
-                    revisionChecked++;
-                    continue;
-                }
-                if (parameter.IsReadOnly)
-                {
-                    revisionBlocked++;
-                    readOnlyCount++;
-                    unresolvedCount++;
-                    log.Add(FormatIssue(instance, name, "avviker fra godkjent verdi, men parameteren er skrivebeskyttet"));
-                    continue;
-                }
-                ScheduleWrite(instance, parameter, approvedValue, "godkjent revisjon for pakke '" + EscapeLog(package) + "'", writes, scheduled, log, ref readOnlyCount, ref unresolvedCount, isRevisionCheck: true);
-            }
         }
 
         private static string? ResolveValue(Document document, Element instance, Element? typeElement, string name, List<string> log, ref int unresolvedCount)
@@ -890,8 +776,7 @@ namespace CW.Assistant.Generated
         }
 
         private static void ScheduleWrite(Element owner, Parameter parameter, string value, string reason,
-            List<PendingWrite> writes, HashSet<string> scheduled, List<string> log, ref int readOnlyCount, ref int unresolvedCount,
-            bool isRevisionCheck = false)
+            List<PendingWrite> writes, HashSet<string> scheduled, List<string> log, ref int readOnlyCount, ref int unresolvedCount)
         {
             if (parameter.IsReadOnly)
             {
@@ -901,7 +786,7 @@ namespace CW.Assistant.Generated
                 return;
             }
             string key = owner.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + parameter.Definition.Name;
-            if (scheduled.Add(key)) writes.Add(new PendingWrite(owner, parameter, value, reason, isRevisionCheck));
+            if (scheduled.Add(key)) writes.Add(new PendingWrite(owner, parameter, value, reason));
         }
 
         private static bool TrySetParameter(Parameter parameter, string value)

@@ -8,4 +8,4 @@
 - Ikke gjett ved tvetydige data, manglende godkjente revisjonsverdier eller flere motstridende kilder. Rapporter konkret blokkering og berørte ID-er.
 - Begrens retry til maksimalt tre målrettede forsøk per konkret feil. Før hvert forsøk må gjeldende modelltilstand og retry-sikkerhet verifiseres.
 
-Se [utføringsreglene](execution-rules.md), [revisjonsreglene](../parameter-rules/revision-rules.md) og [connectorreglene](../standards/connector-rules.md) for de fullstendige betingelsene.
+Se [utføringsreglene](execution-rules.md), [revisjonsreglene](../parameter-rules/revision-rules.md) og [connectorstandarden](../standards/connector-standards.md) for de fullstendige betingelsene.
