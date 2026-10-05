@@ -12,6 +12,6 @@ Parameternavnet skal være `FOB_Entreprise` uten avsluttende mellomrom.
 
 Parameternavnene i Excel-kolonnen `Parameternavn` er kontrollens parameterliste. Fagreglene i kolonnen `Fagregel / forutsetning` er styrende for hva som skal fylles ut og hvordan.
 
-Standardregelen er å fylle tomme parametere og bevare eksisterende verdier. Revisjonsfeltene er unntak: [regel 12](../rules/rule12-revision-parameters.md) kontrollerer dem også når de allerede har verdier, og fyller eller korrigerer dem etter [revisjonsreglene](revision-rules.md).
+Standardregelen er å fylle tomme parametere og bevare eksisterende verdier. Revisjonsfeltene er unntak: [regel 12](../rules/regel12-kontroller-revisjonsparametere-per-leveransepakke.md) kontrollerer dem også når de allerede har verdier, og fyller eller korrigerer dem etter [revisjonsreglene](revision-rules.md).
 
 Vurder om parameteren er tom på riktig nivå, for eksempel instans eller type. Ikke finn på en alternativ parameterliste eller fagregler ved gjetting. En gjennomført kjøring betyr ikke i seg selv at alle tomme parametere er håndtert. Hvis en instruksjon ikke blir fulgt, rapporter konkret hva som gjenstår. Hvis en instruksjon er tom, tvetydig eller ikke kan følges, rapporter dette før kontrollen markeres som ferdig.

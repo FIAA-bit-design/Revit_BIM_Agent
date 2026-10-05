@@ -1,6 +1,6 @@
 # Revisjonskontroll per leveransepakke
 
-Disse reglene utføres av [regel 12](../rules/rule12-revision-parameters.md), etter Regel 11 og før sluttrapporten i Regel 13.
+Disse reglene utføres av [regel 12](../rules/regel12-kontroller-revisjonsparametere-per-leveransepakke.md), etter Regel 11 og før sluttrapporten i Regel 13.
 
 Bruk [revisjonslisten](../../config/Revisjonsliste.xlsx). Hver fane er navngitt etter en leveransepakke. Behandle kun pakker som finnes som faner i arbeidsboken; ikke kontroller, endre eller rapporter andre pakker i modellen. Bruk verdien i `FOB_Leveransepakke` til å velge fanen med nøyaktig samme navn. Finn hver godkjent verdi ved å slå opp parameternavnet i kolonnen `Parameternavn`, og les verdien fra kolonnen `Verdi`; ikke baser oppslaget på faste radnumre.
 

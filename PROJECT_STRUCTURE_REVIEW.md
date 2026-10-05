@@ -19,8 +19,8 @@ Revit_BIM_Agent/
 ├── CSharpRules/                    # Revit-regler og 10 eksisterende .log-filer
 ├── Rapporter/                      # 5 historiske workset-CSV-er
 ├── rie-bim-agent/                  # modulære core/, rules/, parameter-rules/, standards/
-│   ├── rules/rule12-revision-parameters.md
-│   ├── rules/rule13-final-report.md
+│   ├── rules/regel12-kontroller-revisjonsparametere-per-leveransepakke.md
+│   ├── rules/regel13-lag-felles-sluttrapport.md
 │   └── standards/                  # senterlinje- og connectorstandarder
 ├── rie-bim-kontroll.instructions.md # eldre full instruksjon
 ├── Revisjonsliste.xlsx
