@@ -1,11 +1,11 @@
 # Prosjektstrukturvurdering
 
 Dato: 2026-10-04
-Sist oppdatert: 2026-10-05
+Sist oppdatert: 2026-10-06
 
 ## Sammendrag
 
-Prosjektet har allerede en modulær instruksjonsstruktur, men den gamle, fullstendige instruksjonen ligger også i prosjektroten. Arbeidsbøkene ligger i roten, C#-historikk ligger under kildekoden, og genererte rapporter ligger både i roten og i `Rapporter/`. Flere kjørende regler bruker absolutte filbaner.
+Prosjektet har allerede en modulær instruksjonsstruktur, men den gamle, fullstendige instruksjonen ligger også i prosjektroten. Arbeidsbøkene ligger i roten, C#-historikk ligger under kildekoden, og genererte rapporter ligger nå under `logs/`. Flere kjørende regler bruker absolutte filbaner.
 
 Anbefalingen er én kanonisk instruksjon i `rie-bim-agent/rie-bim-kontroll.instructions.md`, arbeidsbøker og parameterregister i `config/` og logger/rapporter i `logs/`. Historiske filer flyttes uten sletting. De C#- og Python-kodeendringene som er nødvendige, begrenses til stikonstanter og valg av parameterlistens fil; regelalgoritmene endres ikke.
 
@@ -17,7 +17,7 @@ Revit_BIM_Agent/
 ├── .github/hooks/                  # VS Code-livssykluskroker
 ├── .vscode/settings.json
 ├── CSharpRules/                    # Revit-regler og 10 eksisterende .log-filer
-├── Rapporter/                      # 5 historiske workset-CSV-er
+├── Rapporter/                      # tom, ubrukt restmappe; kan fjernes
 ├── rie-bim-agent/                  # modulære core/, rules/, parameter-rules/, standards/
 │   ├── rules/regel12-kontroller-revisjonsparametere-per-leveransepakke.md
 │   ├── rules/regel13-lag-felles-sluttrapport.md
@@ -58,7 +58,7 @@ Revit_BIM_Agent/
 └── PROJECT_STRUCTURE_REVIEW.md
 ```
 
-Den eksisterende `Rapporter/`-mappen beholdes tom etter flytting; den slettes ikke automatisk.
+`Rapporter/` er tom, og ingen aktive skript bruker den som outputmål. Den arkiverte legacy-instruksjonen og eldre logger omtaler den tidligere plasseringen; dette er historiske referanser. Katalogen kan fjernes uten å slette rapportdata.
 
 ## Identifiserte duplikater
 
@@ -90,7 +90,7 @@ Den eksisterende `Rapporter/`-mappen beholdes tom etter flytting; den slettes ik
 - `CSharpRules/*.cs`, `.github/`, `.vscode/`, `.agent-autoload-selftest/`, Python-skript og alle historiske datafiler beholdes.
 - `rie-bim-agent/core/`, `rules/`, `parameter-rules/` og `standards/` beholdes uendret i struktur.
 - `CSharpRules/` flyttes ikke i denne endringen.
-- `Rapporter/` beholdes som tom mappe; ingen sletting gjøres.
+- `Rapporter/` er en tom, ubrukt restmappe utenfor målstrukturen og kan fjernes.
 
 ## Referanser og status
 
@@ -139,6 +139,6 @@ De tre revisjonsfeltene kontrolleres separat av `Rule12RevisionParameters.cs` mo
 - Tre arbeidsbøker/registre ligger i `config/`, inkludert den nye `Parameterliste.xlsx`.
 - 11 historikkfiler ligger i `logs/history/`, 6 CSV-filer i `logs/csv/` og 2 rapportfiler i `logs/reports/`.
 - Ingen eksisterende prosjektfiler ble slettet. Rotinstruksjonen er bevart som `rie-bim-kontroll.instructions.legacy.txt`; den kanoniske instruksjonen ligger kun i `rie-bim-agent/`.
-- `Rapporter/` står igjen som en tom mappe; den er ikke slettet.
+- `Rapporter/` står fortsatt tom; katalogen er ubrukt og kan slettes uten å påvirke aktive skript eller rapportdata.
 - Den fellesloggens Python-skriptversjon er økt fra `0.0.3` til `0.0.4` for stioppdateringen; skriptet ble ikke kjørt.
 - Alle dokumentlenker og flyttede kilde-/outputbaner ble validert. Python-syntakskontrollen fant ingen feil. C#-emuleringens `dotnet build` fullførte med 0 feil og 0 advarsler.

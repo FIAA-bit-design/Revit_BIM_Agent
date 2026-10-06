@@ -13,10 +13,28 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.3";
-        private const string SourceParameterName = "FOB_FysiskMerke";
-        private const string TargetParameterName = "PGF_RIE_Alarmsystemer";
+        private const string ScriptVersion = "0.0.5";
+        private const string SequenceSourceParameterName = "PGF_RIE_Sekvensnummer";
+        private const string SequenceTargetParameterName = "FOB_Sekvensnummer";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule09_SyncAlarmSystemMark.log";
+
+        private sealed class ParameterPair
+        {
+            internal string SourceName { get; }
+            internal string TargetName { get; }
+
+            internal ParameterPair(string sourceName, string targetName)
+            {
+                SourceName = sourceName;
+                TargetName = targetName;
+            }
+        }
+
+        private static readonly ParameterPair[] ParameterPairs =
+        {
+            new ParameterPair("FOB_FysiskMerke", "PGF_RIE_Alarmsystemer"),
+            new ParameterPair(SequenceSourceParameterName, SequenceTargetParameterName)
+        };
 
         private sealed class WorksetCheckoutDialogHandler
         {
@@ -65,12 +83,16 @@ namespace CW.Assistant.Generated
             internal Element Element { get; }
             internal Parameter TargetParameter { get; }
             internal string SourceValue { get; }
+            internal string SourceName { get; }
+            internal string TargetName { get; }
 
-            internal PendingWrite(Element element, Parameter targetParameter, string sourceValue)
+            internal PendingWrite(Element element, Parameter targetParameter, string sourceValue, string sourceName, string targetName)
             {
                 Element = element;
                 TargetParameter = targetParameter;
                 SourceValue = sourceValue;
+                SourceName = sourceName;
+                TargetName = targetName;
             }
         }
 
@@ -96,64 +118,78 @@ namespace CW.Assistant.Generated
             int unsupportedStorageCount = 0;
             int mismatchCount = 0;
             int readOnlyCount = 0;
+            int emptySequenceSourceCount = 0;
 
             foreach (Element element in elements)
             {
-                bool hasSource = TryGetSingleParameter(element, SourceParameterName, out Parameter? source, out string sourceIssue);
-                bool hasTarget = TryGetSingleParameter(element, TargetParameterName, out Parameter? target, out string targetIssue);
-
-                if (!hasSource)
+                foreach (ParameterPair pair in ParameterPairs)
                 {
-                    if (sourceIssue == "parameter mangler")
+                    bool hasSource = TryGetSingleParameter(element, pair.SourceName, out Parameter? source, out string sourceIssue);
+                    bool hasTarget = TryGetSingleParameter(element, pair.TargetName, out Parameter? target, out string targetIssue);
+
+                    if (!hasSource)
                     {
-                        missingSourceCount++;
+                        if (sourceIssue == "parameter mangler")
+                        {
+                            missingSourceCount++;
+                        }
+                        else
+                        {
+                            ambiguousParameterCount++;
+                        }
+                        log.Add(FormatIssue(element.Id.Value, pair.SourceName, sourceIssue));
                     }
-                    else
+                    if (!hasTarget)
                     {
-                        ambiguousParameterCount++;
+                        if (targetIssue == "parameter mangler")
+                        {
+                            missingTargetCount++;
+                        }
+                        else
+                        {
+                            ambiguousParameterCount++;
+                        }
+                        log.Add(FormatIssue(element.Id.Value, pair.TargetName, targetIssue));
                     }
-                    log.Add(FormatIssue(element.Id.Value, SourceParameterName, sourceIssue));
-                }
-                if (!hasTarget)
-                {
-                    if (targetIssue == "parameter mangler")
+                    if (hasSource
+                        && source is not null
+                        && pair.SourceName == SequenceSourceParameterName
+                        && source.StorageType == StorageType.String
+                        && IsEmptySequence(source.AsString()))
                     {
-                        missingTargetCount++;
+                        emptySequenceSourceCount++;
+                        log.Add("FEIL ElementId " + element.Id.Value.ToString(CultureInfo.InvariantCulture) + ": " + SequenceSourceParameterName + " er tom eller '--'; " + SequenceTargetParameterName + " ble ikke endret.");
+                        continue;
                     }
-                    else
+                    if (!hasSource || !hasTarget || source is null || target is null)
                     {
-                        ambiguousParameterCount++;
+                        continue;
                     }
-                    log.Add(FormatIssue(element.Id.Value, TargetParameterName, targetIssue));
-                }
-                if (!hasSource || !hasTarget || source is null || target is null)
-                {
-                    continue;
-                }
 
-                if (source.StorageType != StorageType.String || target.StorageType != StorageType.String)
-                {
-                    unsupportedStorageCount++;
-                    log.Add(FormatIssue(element.Id.Value, TargetParameterName, "begge parametere må ha lagringstypen String"));
-                    continue;
-                }
+                    if (source.StorageType != StorageType.String || target.StorageType != StorageType.String)
+                    {
+                        unsupportedStorageCount++;
+                        log.Add(FormatIssue(element.Id.Value, pair.TargetName, "begge parametere må ha lagringstypen String"));
+                        continue;
+                    }
 
-                string sourceValue = source.AsString() ?? string.Empty;
-                string targetValue = target.AsString() ?? string.Empty;
-                if (string.Equals(sourceValue, targetValue, StringComparison.Ordinal))
-                {
-                    continue;
-                }
+                    string sourceValue = source.AsString() ?? string.Empty;
+                    string targetValue = target.AsString() ?? string.Empty;
+                    if (string.Equals(sourceValue, targetValue, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
 
-                mismatchCount++;
-                if (target.IsReadOnly)
-                {
-                    readOnlyCount++;
-                    log.Add(FormatIssue(element.Id.Value, TargetParameterName, "verdien avviker, men målparameteren er skrivebeskyttet"));
-                    continue;
-                }
+                    mismatchCount++;
+                    if (target.IsReadOnly)
+                    {
+                        readOnlyCount++;
+                        log.Add(FormatIssue(element.Id.Value, pair.TargetName, "verdien avviker, men målparameteren er skrivebeskyttet"));
+                        continue;
+                    }
 
-                writes.Add(new PendingWrite(element, target, sourceValue));
+                    writes.Add(new PendingWrite(element, target, sourceValue, pair.SourceName, pair.TargetName));
+                }
             }
 
             if (writes.Count > 0)
@@ -162,7 +198,7 @@ namespace CW.Assistant.Generated
                 uiApplication.DialogBoxShowing += worksetDialogHandler.HandleDialogBoxShowing;
                 try
                 {
-                    using (var transaction = new Transaction(activeDocument, "Synkroniser alarmmerkeparametere"))
+                    using (var transaction = new Transaction(activeDocument, "Synkroniser brannalarmparametere"))
                     {
                         TransactionStatus startStatus = transaction.Start();
                         if (startStatus != TransactionStatus.Started)
@@ -202,13 +238,13 @@ namespace CW.Assistant.Generated
 
                 foreach (PendingWrite write in writes)
                 {
-                    log.Add("OPPDATERT ElementId " + write.Element.Id.Value.ToString(CultureInfo.InvariantCulture) + ": " + TargetParameterName + " synkronisert fra " + SourceParameterName + ".");
+                    log.Add("OPPDATERT ElementId " + write.Element.Id.Value.ToString(CultureInfo.InvariantCulture) + ": " + write.TargetName + " synkronisert fra " + write.SourceName + ".");
                 }
             }
 
             string summary = string.Format(
                 CultureInfo.InvariantCulture,
-                "Regel 9 v{0}: Fire Alarm Devices kontrollert {1}; avvik {2}; oppdatert {3}; kildeparameter mangler {4}; målparameter mangler {5}; tvetydige parametere {6}; feil lagringstype {7}; skrivebeskyttede avvik {8}.",
+                "Regel 9 v{0}: Fire Alarm Devices kontrollert {1}; parameteravvik {2}; oppdateringer planlagt {3}; kildeparametere mangler {4}; målparametere mangler {5}; tvetydige parametere {6}; feil lagringstype {7}; skrivebeskyttede avvik {8}; tomme sekvenskilder {9}.",
                 ScriptVersion,
                 elements.Count,
                 mismatchCount,
@@ -217,7 +253,8 @@ namespace CW.Assistant.Generated
                 missingTargetCount,
                 ambiguousParameterCount,
                 unsupportedStorageCount,
-                readOnlyCount);
+                readOnlyCount,
+                emptySequenceSourceCount);
             log.Insert(1, summary);
             return SaveAndReturn(log, summary);
         }
@@ -241,6 +278,12 @@ namespace CW.Assistant.Generated
             parameter = matches[0];
             issue = string.Empty;
             return true;
+        }
+
+        private static bool IsEmptySequence(string? value)
+        {
+            return string.IsNullOrWhiteSpace(value)
+                || string.Equals(value.Trim(), "--", StringComparison.Ordinal);
         }
 
         private static string FormatIssue(long elementId, string parameterName, string reason)

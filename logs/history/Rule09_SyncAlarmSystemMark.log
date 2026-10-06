@@ -626,3 +626,570 @@ OPPDATERT ElementId 17759498: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskM
 Fire Alarm Devices 698; avvik 0; oppdatert 0; kilde mangler 0; mål mangler 0; tvetydige 0; feil lagringstype 0; skrivebeskyttede avvik 0
 === Regel 9 v0.0.2 | 2026-10-05T12:04:39.1156384+02:00 | U_F_BAS_FBU_RIE_XXX ===
 Regel 9 v0.0.2: Fire Alarm Devices kontrollert 695; avvik 0; oppdatert 0; kildeparameter mangler 0; målparameter mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0.
+=== Regel 9 v0.0.3 | 2026-10-06T08:04:09.6327983+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.3: Fire Alarm Devices kontrollert 696; avvik 7; oppdatert 7; kildeparameter mangler 0; målparameter mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0.
+OPPDATERT ElementId 14819508: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+OPPDATERT ElementId 17326015: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+OPPDATERT ElementId 17679382: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+OPPDATERT ElementId 17695133: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+OPPDATERT ElementId 17701979: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+OPPDATERT ElementId 17704471: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+OPPDATERT ElementId 17764681: PGF_RIE_Alarmsystemer synkronisert fra FOB_FysiskMerke.
+=== Regel 9 v0.0.5 | 2026-10-06T08:51:33.0963836+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.5: Fire Alarm Devices kontrollert 696; parameteravvik 488; oppdateringer planlagt 488; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 68.
+FEIL ElementId 6482983: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 7493862: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 7494108: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 7494120: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 7494210: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 7494339: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9314399: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9316169: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9319499: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9319756: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9325739: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9341587: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9341610: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9455599: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9455611: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9455619: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9455627: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9680687: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9680812: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9680919: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9680967: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9681035: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9681036: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9681092: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9726053: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9726155: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9733324: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9733594: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9733691: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9740821: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9850868: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887074: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887094: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887127: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887131: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887312: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887328: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9887361: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9888553: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9888568: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9888780: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9888805: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9888824: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9888840: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9895802: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9895825: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9896233: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9896298: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9900898: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9900924: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9901005: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 9901073: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 13507698: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 13641520: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 14822007: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 14822052: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 14822062: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 14822070: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 14822078: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 14822088: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15540941: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15976313: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15976314: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15976363: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15976364: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15976399: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 15976400: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+FEIL ElementId 17679550: PGF_RIE_Sekvensnummer er tom eller '--'; FOB_Sekvensnummer ble ikke endret.
+OPPDATERT ElementId 7969411: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8694846: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8719201: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8719452: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8723452: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8723920: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8739043: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8899237: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 8900646: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9455510: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9455657: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9455832: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9653506: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9653641: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9679152: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9679289: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9679463: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9679628: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9681187: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9681229: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9706507: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9706603: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9706753: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9706867: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9706947: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707031: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707178: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707210: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707722: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707739: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707769: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707790: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9707801: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708049: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708070: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708073: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708328: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708707: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708719: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708868: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708886: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9708979: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9709061: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9710426: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9711793: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9711901: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9712212: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9712545: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9713125: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9713350: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9713351: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9724732: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9724832: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9725506: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9725676: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9733639: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9741058: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9752913: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9752914: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9752932: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9753099: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9753242: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9753252: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9767241: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9767282: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9767318: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9767329: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9767376: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9781197: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9781199: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9781211: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9781212: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9781214: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9781216: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9787652: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9787653: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9787654: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9787655: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9787656: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9787657: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9790999: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9791862: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9821678: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9822288: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9823313: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9824052: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9825495: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9826310: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9827180: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9830353: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831406: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831695: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831857: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831872: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831873: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831887: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831888: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831934: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831935: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831966: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831986: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9831987: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9832012: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9832013: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9832061: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9832187: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833045: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833281: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833329: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833496: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833497: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833626: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833627: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833662: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833663: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833676: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833677: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833789: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833790: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833868: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833869: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833943: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9833944: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9834033: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9835473: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9836907: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837146: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837175: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837326: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837454: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837536: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837618: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837634: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837663: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837689: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837700: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9837758: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840250: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840310: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840578: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840723: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840724: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840739: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840740: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840975: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840976: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9840977: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9841412: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9841588: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9848900: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9849961: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9850924: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9850942: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9887246: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9887258: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9887385: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9887416: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9887417: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9887454: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888264: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888437: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888495: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888513: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888649: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888663: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888702: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888703: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9888723: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9900498: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9900502: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9900532: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9910141: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9910244: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9910271: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9910399: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9910607: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 9910781: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10361970: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362003: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362087: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362131: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362302: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362344: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362362: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362374: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362525: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362679: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10362702: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10679555: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10680960: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10681184: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10690224: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10708180: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10708203: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10720986: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10721018: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10721066: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10949365: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10949425: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 10949479: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11089165: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11097668: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11097707: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11104504: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11104566: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11104686: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11106897: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11106905: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11107982: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11108036: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11850235: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 11957399: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12081820: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12081821: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12202943: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12203087: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12203099: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12203194: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12203703: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12209532: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12209650: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12209901: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211234: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211287: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211355: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211469: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211543: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211553: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211612: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211732: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211841: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211899: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12211972: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12212067: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12212187: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222151: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222262: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222315: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222323: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222337: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222618: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222657: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222669: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222681: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222693: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222705: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222719: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222731: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12222781: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12464303: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12464930: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12464960: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12464983: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12517356: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12519861: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12519932: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12520906: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12521359: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523397: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523420: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523437: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523468: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523490: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523494: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523495: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523502: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523531: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12523544: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524102: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524134: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524153: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524154: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524205: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524299: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524407: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524601: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12524812: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12525890: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12525898: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12525911: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526159: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526253: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526258: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526267: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526280: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526285: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526303: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526331: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526494: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526586: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526723: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526843: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12526895: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527034: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527092: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527135: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527276: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527323: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527474: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527497: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527574: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527712: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527808: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527868: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12527931: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12528144: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12528238: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535051: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535060: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535071: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535072: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535085: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535086: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535105: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535134: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535141: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535154: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535167: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535634: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535644: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535689: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535700: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535701: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535702: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535703: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535704: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535705: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12535706: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536278: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536279: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536292: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536293: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536294: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536295: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536320: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536382: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12536398: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537936: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537938: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537940: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537941: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537942: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537943: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537945: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537950: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537951: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537952: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537953: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537954: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537955: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537956: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12537957: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12733117: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12733139: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12733162: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12733184: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12823849: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12823855: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12823863: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12823871: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 12823877: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13192814: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13192832: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13192841: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13225185: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13225911: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13226208: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13226314: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13226347: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13226398: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13227145: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13227987: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13231442: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13231443: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13483342: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13507701: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13507702: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13778890: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13779021: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13779138: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13779182: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13779193: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13779206: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13779219: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13942492: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13942760: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13942849: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13942902: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13942985: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13943107: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13943553: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13950952: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951173: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951174: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951175: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951287: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951522: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951631: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951692: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951798: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951907: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13951984: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952058: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952117: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952248: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952366: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952451: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952526: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952651: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952704: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952759: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952819: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952850: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13952986: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953145: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953175: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953305: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953365: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953462: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953686: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13953940: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13954018: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13954110: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13954289: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13954745: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13954959: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13956423: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13956554: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13956616: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13956702: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13956783: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13956841: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13957057: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13957163: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13957239: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13957315: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 13957440: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14166302: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14169922: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14169923: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14220294: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14220295: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14334693: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14334703: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14545449: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14815524: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14819455: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14819496: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14819508: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 14819703: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15504564: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15610527: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15610869: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15610972: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15611200: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15612081: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15612307: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 15619238: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16137487: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16369060: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16525530: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16526259: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16527094: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16527571: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16527674: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16527887: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16528025: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16531011: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16531157: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16531351: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16531435: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16531562: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16538894: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16541745: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 16679307: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17326015: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17679382: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17682709: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17682878: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17682977: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17683006: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17695133: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17701979: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17703633: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17704471: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17706002: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17759498: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
+OPPDATERT ElementId 17764681: FOB_Sekvensnummer synkronisert fra PGF_RIE_Sekvensnummer.
