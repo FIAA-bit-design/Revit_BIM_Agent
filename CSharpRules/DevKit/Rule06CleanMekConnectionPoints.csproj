@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule06CleanMekConnectionPoints.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule06CleanMekConnectionPoints.cs" Link="Rule06CleanMekConnectionPoints.cs" />
+  </ItemGroup>
+</Project>

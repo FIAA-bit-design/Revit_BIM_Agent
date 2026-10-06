@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule01SynchronizeElementId.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule01SynchronizeElementId.cs" Link="Rule01SynchronizeElementId.cs" />
+  </ItemGroup>
+</Project>

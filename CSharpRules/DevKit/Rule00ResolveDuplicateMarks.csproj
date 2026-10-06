@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule00ResolveDuplicateMarks.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule00ResolveDuplicateMarks.cs" Link="Rule00ResolveDuplicateMarks.cs" />
+  </ItemGroup>
+</Project>

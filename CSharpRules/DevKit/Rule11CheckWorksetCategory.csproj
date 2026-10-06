@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule11CheckWorksetCategory.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule11CheckWorksetCategory.cs" Link="Rule11CheckWorksetCategory.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule07QuantityForingsways.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule07QuantityForingsways.cs" Link="Rule07QuantityForingsways.cs" />
+  </ItemGroup>
+</Project>

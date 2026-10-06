@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule05LoadNameToDataCircuits.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule05LoadNameToDataCircuits.cs" Link="Rule05LoadNameToDataCircuits.cs" />
+  </ItemGroup>
+</Project>

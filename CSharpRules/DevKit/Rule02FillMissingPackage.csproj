@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule02FillMissingPackage.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule02FillMissingPackage.cs" Link="Rule02FillMissingPackage.cs" />
+  </ItemGroup>
+</Project>

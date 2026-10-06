@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule08CheckInfoNodes.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule08CheckInfoNodes.cs" Link="Rule08CheckInfoNodes.cs" />
+  </ItemGroup>
+</Project>

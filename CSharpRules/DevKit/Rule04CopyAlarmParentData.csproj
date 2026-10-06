@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule04CopyAlarmParentData.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule04CopyAlarmParentData.cs" Link="Rule04CopyAlarmParentData.cs" />
+  </ItemGroup>
+</Project>

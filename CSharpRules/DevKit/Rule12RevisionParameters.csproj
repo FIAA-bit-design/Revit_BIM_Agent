@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Rule12RevisionParameters.DevKit</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Rule12RevisionParameters.cs" Link="Rule12RevisionParameters.cs" />
+  </ItemGroup>
+</Project>
