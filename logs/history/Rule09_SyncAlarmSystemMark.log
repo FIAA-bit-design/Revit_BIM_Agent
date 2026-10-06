@@ -1205,3 +1205,9 @@ Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 202610
 === Regel 9 v0.0.8 | 2026-10-06T10:50:04.7508136+02:00 | U_F_BAS_FBU_RIE_XXX ===
 Regel 9 v0.0.8: Fire Alarm Devices kontrollert 696; feilende elementer 4; synkroniseringer fullført 23; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 4.
 Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261006_105005_929.xlsx
+=== Regel 9 v0.0.9 | 2026-10-06T11:49:14.5855878+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.9: Fire Alarm Devices kontrollert 696; feilende elementer 1; synkroniseringer fullført 287; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 1.
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261006_114915_522.xlsx
+=== Regel 9 v0.0.11 | 2026-10-06T11:56:11.3148170+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.11: Fire Alarm Devices kontrollert 696; feilende elementer 0; synkroniseringer fullført 0; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 0.
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261006_115611_860.xlsx

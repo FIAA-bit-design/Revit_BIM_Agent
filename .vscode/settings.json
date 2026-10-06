@@ -1,3 +1,4 @@
 {
-  "chat.permissions.default": "autoApprove"
+  "chat.permissions.default": "autoApprove",
+  "dotnet.defaultSolution": "Revit_BIM_Agent.sln"
 }

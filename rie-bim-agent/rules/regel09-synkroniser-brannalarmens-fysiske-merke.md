@@ -2,7 +2,7 @@
 
 Kontroller bare instanser i familiekategorien `Fire Alarm Devices` (`OST_FireAlarmDevices`). Alle parameterne er instansparametere; ikke slå opp eller bruk typeparametere.
 
-Ignorer familien med eksakt navn `Beredskapspanel sikkerhetsventilasjon` (sammenlign familienavnet uten hensyn til store/små bokstaver). Den skal ikke kontrolleres, endres eller tas med i Excel-avviksrapporten.
+Ignorer familien med navnet `Beredskapspanel sikkerhetsventilasjon`, uten hensyn til store/små bokstaver. Modellen har også en familie med stavemåten `Beredeskapspanel sikkerhetsventilasjon`; den faktiske modellstavemåten skal behandles som samme ignorerte familie. Disse skal ikke kontrolleres, endres eller tas med i Excel-avviksrapporten.
 
 - C#-implementasjon: `../../CSharpRules/Rule09SyncAlarmSystemMark.cs`
 

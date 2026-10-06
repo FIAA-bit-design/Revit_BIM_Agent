@@ -14,8 +14,9 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.9";
+        private const string ScriptVersion = "0.0.11";
         private const string IgnoredFamilyName = "Beredskapspanel sikkerhetsventilasjon";
+        private const string IgnoredFamilyNameAsModeled = "Beredeskapspanel sikkerhetsventilasjon";
         private const string PlaceholderSequenceValue = "--";
         private const string ExtinguishingSystemFamilyPrefix = "Slokkeanlegg";
         private const string InertGasFamilyPrefix = "Inertgass";
@@ -133,7 +134,7 @@ namespace CW.Assistant.Generated
             foreach (Element element in elements)
             {
                 string familyName = (element as FamilyInstance)?.Symbol?.Family?.Name ?? string.Empty;
-                if (string.Equals(familyName, IgnoredFamilyName, StringComparison.OrdinalIgnoreCase))
+                if (IsIgnoredFamily(familyName))
                 {
                     continue;
                 }
@@ -376,6 +377,12 @@ namespace CW.Assistant.Generated
                 || familyName.StartsWith(InertGasFamilyPrefix, StringComparison.OrdinalIgnoreCase)
                 || IsGaseousExtinguishingFamily(familyName);
         }
+
+            private static bool IsIgnoredFamily(string familyName)
+            {
+                return string.Equals(familyName, IgnoredFamilyName, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(familyName, IgnoredFamilyNameAsModeled, StringComparison.OrdinalIgnoreCase);
+            }
 
         private static bool IsGaseousExtinguishingFamily(string familyName)
         {
