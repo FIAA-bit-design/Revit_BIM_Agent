@@ -14,10 +14,12 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.7";
+        private const string ScriptVersion = "0.0.9";
+        private const string IgnoredFamilyName = "Beredskapspanel sikkerhetsventilasjon";
         private const string PlaceholderSequenceValue = "--";
         private const string ExtinguishingSystemFamilyPrefix = "Slokkeanlegg";
         private const string InertGasFamilyPrefix = "Inertgass";
+        private const string GaseousExtinguishingFamilyToken = "Slokkegass";
         private const string SequenceSourceParameterName = "PGF_RIE_Sekvensnummer";
         private const string SequenceTargetParameterName = "FOB_Sekvensnummer";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule09_SyncAlarmSystemMark.log";
@@ -131,7 +133,12 @@ namespace CW.Assistant.Generated
             foreach (Element element in elements)
             {
                 string familyName = (element as FamilyInstance)?.Symbol?.Family?.Name ?? string.Empty;
+                if (string.Equals(familyName, IgnoredFamilyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
                 bool fixedPlaceholderSequence = IsPlaceholderSequenceFamily(familyName);
+                bool fixedPhysicalMark = IsGaseousExtinguishingFamily(familyName);
                 reportContextByElement[element.Id.Value] = new[]
                 {
                     GetContextValue(element, "PGF_Mengdetype"),
@@ -143,6 +150,10 @@ namespace CW.Assistant.Generated
                     PlanFixedValueWrite(element, "FOB_Merkestreng", PlaceholderSequenceValue, false, writes, errorsByElement, ref missingSourceCount, ref missingTargetCount, ref ambiguousParameterCount, ref unsupportedStorageCount, ref readOnlyCount);
                     PlanFixedValueWrite(element, SequenceSourceParameterName, PlaceholderSequenceValue, true, writes, errorsByElement, ref missingSourceCount, ref missingTargetCount, ref ambiguousParameterCount, ref unsupportedStorageCount, ref readOnlyCount);
                     PlanFixedValueWrite(element, SequenceTargetParameterName, PlaceholderSequenceValue, false, writes, errorsByElement, ref missingSourceCount, ref missingTargetCount, ref ambiguousParameterCount, ref unsupportedStorageCount, ref readOnlyCount);
+                }
+                if (fixedPhysicalMark)
+                {
+                    PlanFixedValueWrite(element, "FOB_FysiskMerke", PlaceholderSequenceValue, true, writes, errorsByElement, ref missingSourceCount, ref missingTargetCount, ref ambiguousParameterCount, ref unsupportedStorageCount, ref readOnlyCount);
                 }
 
                 foreach (ParameterPair pair in ParameterPairs)
@@ -204,7 +215,9 @@ namespace CW.Assistant.Generated
                         continue;
                     }
 
-                    string sourceValue = source.AsString() ?? string.Empty;
+                    string sourceValue = fixedPhysicalMark && pair.SourceName == "FOB_FysiskMerke"
+                        ? PlaceholderSequenceValue
+                        : source.AsString() ?? string.Empty;
                     string targetValue = target.AsString() ?? string.Empty;
                     if (string.Equals(sourceValue, targetValue, StringComparison.Ordinal))
                     {
@@ -360,7 +373,13 @@ namespace CW.Assistant.Generated
         private static bool IsPlaceholderSequenceFamily(string familyName)
         {
             return familyName.StartsWith(ExtinguishingSystemFamilyPrefix, StringComparison.OrdinalIgnoreCase)
-                || familyName.StartsWith(InertGasFamilyPrefix, StringComparison.OrdinalIgnoreCase);
+                || familyName.StartsWith(InertGasFamilyPrefix, StringComparison.OrdinalIgnoreCase)
+                || IsGaseousExtinguishingFamily(familyName);
+        }
+
+        private static bool IsGaseousExtinguishingFamily(string familyName)
+        {
+            return familyName.IndexOf(GaseousExtinguishingFamilyToken, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private static void PlanFixedValueWrite(
