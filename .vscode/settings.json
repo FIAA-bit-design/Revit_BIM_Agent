@@ -1,4 +1,5 @@
 {
   "chat.permissions.default": "autoApprove",
-  "dotnet.defaultSolution": "Revit_BIM_Agent.sln"
+  "dotnet.defaultSolution": "Revit_BIM_Agent.sln",
+  "chat.agent.maxRequests": 300
 }

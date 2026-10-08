@@ -3402,3 +3402,13 @@ OPPDATERT ElementId 17762614, pakke 'LPE271', FOB_Revisjonsdato = '2026.08.24' (
 OPPDATERT ElementId 17762784, pakke 'LPE271', FOB_Revisjonsdato = '2026.08.24' (godkjent revisjonsverdi).
 OPPDATERT ElementId 17762785, pakke 'LPE271', FOB_Revisjonsdato = '2026.08.24' (godkjent revisjonsverdi).
 Oppsummering: elektriske instanser 16653; revisjonsverdier samsvarte 28433; oppdatert 3400; blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.
+=== Regel 12 v0.0.1 | 2026-10-08T15:29:49.4771715+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Dokument: U_F_BAS_FBU_RIE_XXX
+Revisjonsliste lest: 7 faner.
+OPPDATERT ElementId 17772698, pakke 'LPE161', FOB_Revisjonsdato = '2026.10.15' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772698, pakke 'LPE161', PGF_Revisjonsign = 'FIAA' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772698, pakke 'LPE161', PGF_Revisjonsindeks = '03B' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772717, pakke 'LPE161', FOB_Revisjonsdato = '2026.10.15' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772717, pakke 'LPE161', PGF_Revisjonsign = 'FIAA' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772717, pakke 'LPE161', PGF_Revisjonsindeks = '03B' (godkjent revisjonsverdi).
+Oppsummering: elektriske instanser 16687; revisjonsverdier samsvarte 31923; oppdatert 6; blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.

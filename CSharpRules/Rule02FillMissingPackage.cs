@@ -13,8 +13,9 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.4";
+        private const string ScriptVersion = "0.0.5";
         private const string ParameterName = "FOB_Leveransepakke";
+        private const string IfcExcludeParameterName = "MC Exclude From IFC View";
         private const double PrimaryRadiusMm = 1500.0;
         private const double FallbackRadiusMm = 3000.0;
         private const double TieToleranceMm = 1.0;
@@ -138,9 +139,16 @@ namespace CW.Assistant.Generated
             var candidates = new List<Candidate>();
             int missingParameterCount = 0;
             int unsupportedParameterCount = 0;
+            int excludedFromIfcCount = 0;
 
             foreach (FamilyInstance instance in instances)
             {
+                if (IsExcludedFromIfc(instance))
+                {
+                    excludedFromIfcCount++;
+                    continue;
+                }
+
                 Parameter? parameter = instance.LookupParameter(ParameterName);
                 if (parameter is null)
                 {
@@ -295,8 +303,9 @@ namespace CW.Assistant.Generated
 
             log.Insert(1, string.Format(
                 CultureInfo.InvariantCulture,
-                "Instanser {0}; mål {1}; kandidater {2}; parameter mangler {3}; feil lagringstype {4}; oppdatert {5}; uavklart {6}; skrivebeskyttet {7}; fallback {8}",
+                "Instanser {0}; ekskludert IFC {1}; mål {2}; kandidater {3}; parameter mangler {4}; feil lagringstype {5}; oppdatert {6}; uavklart {7}; skrivebeskyttet {8}; fallback {9}",
                 instances.Count,
+                excludedFromIfcCount,
                 targets.Count,
                 candidates.Count,
                 missingParameterCount,
@@ -308,14 +317,24 @@ namespace CW.Assistant.Generated
 
             return SaveAndReturn(log, string.Format(
                 CultureInfo.InvariantCulture,
-                "Regel 2 v{0}: oppdatert {1}, uavklart {2}, fallback {3}, parameter mangler {4}, feil lagringstype {5}.",
+                "Regel 2 v{0}: oppdatert {1}, uavklart {2}, fallback {3}, parameter mangler {4}, feil lagringstype {5}, ekskludert IFC {6}.",
                 ScriptVersion,
                 updatedCount,
                 unresolvedCount,
                 fallbackCount,
                 missingParameterCount,
-                unsupportedParameterCount));
+                unsupportedParameterCount,
+                excludedFromIfcCount));
         }
+
+            private static bool IsExcludedFromIfc(FamilyInstance instance)
+            {
+                IList<Parameter> parameters = instance.GetParameters(IfcExcludeParameterName);
+                return parameters.Count == 1
+                && parameters[0].StorageType == StorageType.Integer
+                && parameters[0].HasValue
+                && parameters[0].AsInteger() != 0;
+            }
 
         private static List<Match> FindMajorityCandidates(
             FamilyInstance target,

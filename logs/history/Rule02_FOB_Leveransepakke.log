@@ -356,3 +356,106 @@ OPPDATERT ElementId 17760721: pakke 'LPE271', kandidater 2
 OPPDATERT ElementId 17760864: pakke 'LPE271', kandidater 2
 OPPDATERT ElementId 17762784: pakke 'LPE271', kandidater 3
 OPPDATERT ElementId 17762785: pakke 'LPE271', kandidater 5
+=== Regel 2 v0.0.4 | 2026-10-08T14:00:24.3888698+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Instanser 19270; mål 59; kandidater 12527; parameter mangler 6684; feil lagringstype 0; oppdatert 2; uavklart 57; skrivebeskyttet 0; fallback 1
+UAVKLART ElementId 9203185: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11010120: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012550: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012597: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11186128: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11187772: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15804775: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15810880: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16200327: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607432: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607434: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607435: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607437: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16607440: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607448: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607449: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607451: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607452: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607455: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 16607456: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17041459: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041463: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041464: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041465: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041466: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041467: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041468: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041476: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041477: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041478: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041479: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041482: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041486: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041487: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041488: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041489: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041490: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041493: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041494: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041495: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041496: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041497: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041498: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041499: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041501: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041502: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041504: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041505: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041506: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041507: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17178903: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17180111: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17180114: kandidater 5; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 17180115: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17180116: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17509925: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17759915: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+OPPDATERT ElementId 17772698: pakke 'LPE161', kandidater 2
+OPPDATERT ElementId 17772717: pakke 'LPE161', kandidater 6, fallback
+=== Regel 2 v0.0.5 | 2026-10-08T17:54:05.4988882+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Instanser 19269; ekskludert IFC 224; mål 40; kandidater 12321; parameter mangler 6684; feil lagringstype 0; oppdatert 1; uavklart 39; skrivebeskyttet 0; fallback 0
+UAVKLART ElementId 11010120: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012550: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012597: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11186128: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11187772: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15804775: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15810880: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16200327: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041459: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041463: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041464: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041465: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041466: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041467: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041468: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041476: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041477: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041478: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041479: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041482: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041486: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041487: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041488: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041489: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041490: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041493: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041494: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041495: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041496: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041497: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041498: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041499: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041501: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041502: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041504: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041505: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041506: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041507: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17759915: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+OPPDATERT ElementId 9203185: pakke 'LPEF3', kandidater 1

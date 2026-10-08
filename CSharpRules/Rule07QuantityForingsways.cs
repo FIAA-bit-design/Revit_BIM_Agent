@@ -13,13 +13,14 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.7";
+        private const string ScriptVersion = "0.0.14";
         private const string EnterpriseParameterName = "FOB_Entreprise";
         private const string TargetEnterprise = "K5B";
         private const string QuantityParameterName = "FOB_Mengde";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule07_QuantityForingsways.log";
         private static readonly BuiltInCategory[] StraightCategories = { BuiltInCategory.OST_Conduit, BuiltInCategory.OST_CableTray };
         private static readonly BuiltInCategory[] FittingCategories = { BuiltInCategory.OST_ConduitFitting, BuiltInCategory.OST_CableTrayFitting };
+        private static readonly HashSet<long> ConduitBendLengthOverrideIds = new HashSet<long> { 17760381L, 17760457L };
 
         private enum EnterpriseStatus
         {
@@ -106,6 +107,20 @@ namespace CW.Assistant.Generated
             }
         }
 
+        private sealed class CableTrayRunLength
+        {
+            internal double TotalMillimeters { get; }
+            internal List<long> CableTrayElementIds { get; }
+            internal List<long> BranchFittingIds { get; }
+
+            internal CableTrayRunLength(double totalMillimeters, List<long> cableTrayElementIds, List<long> branchFittingIds)
+            {
+                TotalMillimeters = totalMillimeters;
+                CableTrayElementIds = cableTrayElementIds;
+                BranchFittingIds = branchFittingIds;
+            }
+        }
+
         public string Execute(UIApplication uiApplication, Document? activeDocument)
         {
             if (activeDocument is null)
@@ -113,12 +128,21 @@ namespace CW.Assistant.Generated
                 return "FEIL: Ingen aktiv Revit-modell. Regel 7 stoppet før elementlesing.";
             }
 
-            List<Element> allStraight = CollectElements(activeDocument, StraightCategories);
-            List<Element> allFittings = CollectElements(activeDocument, FittingCategories);
+            List<Element> allCollectedStraight = CollectElements(activeDocument, StraightCategories);
+            List<Element> allCollectedFittings = CollectElements(activeDocument, FittingCategories);
+            int aspirationExcludedCount = allCollectedStraight.Concat(allCollectedFittings).Count(IsAspirationElement);
+            int ignoredStrømskinneBends = allCollectedFittings.Count(element =>
+                IsStrømskinneBend(element) && GetEnterpriseStatus(element, out _) == EnterpriseStatus.K5B);
+            List<Element> allStraight = allCollectedStraight.Where(element => !IsAspirationElement(element)).ToList();
+            List<Element> allFittings = allCollectedFittings
+                .Where(element => !IsAspirationElement(element) && !IsStrømskinneBend(element))
+                .ToList();
             var log = new List<string>
             {
                 string.Format(CultureInfo.InvariantCulture, "=== Regel 7 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title),
                 EnterpriseParameterName + "-filter: eksakt instansverdi " + TargetEnterprise + "; andre verdier ignoreres.",
+                "Aspirasjonsfamilier/-typer utelatt før enterprise- og lengdekontroll: " + aspirationExcludedCount.ToString(CultureInfo.InvariantCulture) + ".",
+                "Strømskinne-bend utelatt fra mengdeberegning: " + ignoredStrømskinneBends.ToString(CultureInfo.InvariantCulture) + ".",
                 "Excel-rapport er fjernet; endringer logges per element nedenfor."
             };
             var k5bElementIds = new HashSet<long>();
@@ -149,6 +173,13 @@ namespace CW.Assistant.Generated
 
             int updated = 0;
             int unchanged = 0;
+            int skippedCableTrayUnions = 0;
+            int skippedCableTrayRunFittings = 0;
+            int calculatedCableTrayRunLengths = 0;
+            int unresolvedCableTrayRunLengths = 0;
+            int branchQuantityUpdated = 0;
+            int branchUnitUpdated = 0;
+            int branchQuantityUnchanged = 0;
             int missingLength = 0;
             int missingParameter = 0;
             int readOnlyParameter = 0;
@@ -156,8 +187,66 @@ namespace CW.Assistant.Generated
             int writeFailures = 0;
             var changes = new List<ChangeRecord>();
             List<Element> targets = straightElements.Concat(fittingElements).OrderBy(element => element.Id.Value).ToList();
+            var quantityTargets = new List<Element>();
+            var branchQuantityTargets = new List<FamilyInstance>();
+            var cableTrayRunLengths = new Dictionary<long, CableTrayRunLength>();
+            var resolvedBranchFittings = new HashSet<long>();
+            var unresolvedBranchFittings = new HashSet<long>();
 
-            if (targets.Count > 0)
+            foreach (Element element in targets)
+            {
+                if (IsCableTrayUnion(element))
+                {
+                    skippedCableTrayUnions++;
+                    log.Add(string.Format(CultureInfo.InvariantCulture,
+                        "UNION UTELATT ElementId {0}: kabelbro-/kabelstige-skjøt; eksisterende FOB_Mengde '{1}' bevart.",
+                        element.Id.Value, GetParameterText(element, QuantityParameterName)));
+                    continue;
+                }
+
+                if (IsCableTrayRunLengthFitting(element))
+                {
+                    skippedCableTrayRunFittings++;
+                    if (element is FamilyInstance branchFitting)
+                    {
+                        branchQuantityTargets.Add(branchFitting);
+                    }
+                    if (cableTrayRunLengths.TryGetValue(element.Id.Value, out CableTrayRunLength? cachedRun))
+                    {
+                        calculatedCableTrayRunLengths++;
+                        LogCableTrayRunLength(log, element, cachedRun);
+                    }
+                    else if (unresolvedBranchFittings.Contains(element.Id.Value))
+                    {
+                        unresolvedCableTrayRunLengths++;
+                    }
+                    else if (TryGetCableTrayRunLength(element, out CableTrayRunLength? runLength, out string issue)
+                        && runLength is not null)
+                    {
+                        foreach (long fittingId in runLength.BranchFittingIds)
+                        {
+                            cableTrayRunLengths[fittingId] = runLength;
+                            resolvedBranchFittings.Add(fittingId);
+                        }
+                        calculatedCableTrayRunLengths++;
+                        LogCableTrayRunLength(log, element, runLength);
+                    }
+                    else
+                    {
+                        unresolvedCableTrayRunLengths++;
+                        foreach (long fittingId in runLength?.BranchFittingIds ?? new List<long> { element.Id.Value })
+                        {
+                            unresolvedBranchFittings.Add(fittingId);
+                        }
+                        log.Add(FormatIssue(element, "FOB_Mengde", "kunne ikke beregne samlet lengde fra fysisk tilkoblede kabelbroelementer: " + issue));
+                    }
+                    continue;
+                }
+
+                quantityTargets.Add(element);
+            }
+
+            if (quantityTargets.Count > 0 || branchQuantityTargets.Count > 0)
             {
                 var dialogHandler = new WorksetCheckoutDialogHandler(log);
                 uiApplication.DialogBoxShowing += dialogHandler.HandleDialogBoxShowing;
@@ -174,7 +263,7 @@ namespace CW.Assistant.Generated
 
                         try
                         {
-                            foreach (Element element in targets)
+                            foreach (Element element in quantityTargets)
                             {
                                 bool isFitting = IsInCategories(element, FittingCategories);
                                 double? lengthMillimeters = GetElementLengthMillimeters(element, isFitting);
@@ -222,6 +311,94 @@ namespace CW.Assistant.Generated
                                 }
                             }
 
+                            foreach (FamilyInstance fitting in branchQuantityTargets)
+                            {
+                                if (!TryGetSingleParameter(fitting, QuantityParameterName, out Parameter? quantityParameter, out string quantityIssue)
+                                    || quantityParameter is null)
+                                {
+                                    missingParameter++;
+                                    log.Add(FormatIssue(fitting, QuantityParameterName, quantityIssue));
+                                    continue;
+                                }
+                                if (!TryGetSingleParameter(fitting, "FOB_Mengdeenhet", out Parameter? unitParameter, out string unitIssue)
+                                    || unitParameter is null)
+                                {
+                                    missingParameter++;
+                                    log.Add(FormatIssue(fitting, "FOB_Mengdeenhet", unitIssue));
+                                    continue;
+                                }
+                                if (quantityParameter.StorageType != StorageType.String
+                                    || unitParameter.StorageType != StorageType.String)
+                                {
+                                    unsupportedStorage++;
+                                    log.Add(FormatIssue(fitting, QuantityParameterName + "/FOB_Mengdeenhet", "begge målparameterne må ha lagringstypen String"));
+                                    continue;
+                                }
+                                if (quantityParameter.IsReadOnly || unitParameter.IsReadOnly)
+                                {
+                                    readOnlyParameter++;
+                                    log.Add(FormatIssue(fitting, QuantityParameterName + "/FOB_Mengdeenhet", "minst én målparameter er skrivebeskyttet"));
+                                    continue;
+                                }
+
+                                string oldQuantity = quantityParameter.AsString() ?? string.Empty;
+                                string oldUnit = unitParameter.AsString() ?? string.Empty;
+                                bool quantityChanged = !string.Equals(oldQuantity, "1", StringComparison.Ordinal);
+                                bool unitChanged = !string.Equals(oldUnit, "stk", StringComparison.Ordinal);
+                                if (!quantityChanged && !unitChanged)
+                                {
+                                    branchQuantityUnchanged++;
+                                    continue;
+                                }
+
+                                using (var subTransaction = new SubTransaction(activeDocument))
+                                {
+                                    TransactionStatus subStatus = subTransaction.Start();
+                                    if (subStatus != TransactionStatus.Started)
+                                    {
+                                        writeFailures++;
+                                        log.Add(FormatIssue(fitting, QuantityParameterName + "/FOB_Mengdeenhet", "subtransaksjonen startet ikke (" + subStatus + ")"));
+                                        continue;
+                                    }
+                                    try
+                                    {
+                                        if (quantityChanged && !quantityParameter.Set("1"))
+                                        {
+                                            throw new InvalidOperationException("FOB_Mengde kunne ikke settes til 1.");
+                                        }
+                                        if (unitChanged && !unitParameter.Set("stk"))
+                                        {
+                                            throw new InvalidOperationException("FOB_Mengdeenhet kunne ikke settes til stk.");
+                                        }
+                                        TransactionStatus subCommit = subTransaction.Commit();
+                                        if (subCommit != TransactionStatus.Committed)
+                                        {
+                                            throw new InvalidOperationException("subtransaksjonen ble ikke committed (" + subCommit + ").");
+                                        }
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        if (subTransaction.GetStatus() == TransactionStatus.Started)
+                                        {
+                                            subTransaction.RollBack();
+                                        }
+                                        writeFailures++;
+                                        log.Add(FormatIssue(fitting, QuantityParameterName + "/FOB_Mengdeenhet", exception.Message));
+                                        continue;
+                                    }
+                                }
+
+                                if (quantityChanged)
+                                {
+                                    branchQuantityUpdated++;
+                                    changes.Add(new ChangeRecord(fitting, oldQuantity, "1"));
+                                }
+                                if (unitChanged) branchUnitUpdated++;
+                                log.Add(string.Format(CultureInfo.InvariantCulture,
+                                    "OPPDATERT T/KRYSS ElementId {0}: FOB_Mengde '{1}' -> '1'; FOB_Mengdeenhet '{2}' -> 'stk'.",
+                                    fitting.Id.Value, oldQuantity, oldUnit));
+                            }
+
                             TransactionStatus commitStatus = transaction.Commit();
                             if (commitStatus != TransactionStatus.Committed)
                             {
@@ -252,8 +429,11 @@ namespace CW.Assistant.Generated
 
             log.Insert(3, string.Format(
                 CultureInfo.InvariantCulture,
-                "Oppdatert {0}; uendret {1}; mangler lengde {2}; mangler FOB_Mengde {3}; skrivebeskyttet {4}; feil lagringstype {5}; skrivefeil {6}.",
-                updated, unchanged, missingLength, missingParameter, readOnlyParameter, unsupportedStorage, writeFailures));
+                "Aspirasjon utelatt {0}; strømskinne-bend utelatt {1}; oppdatert {2}; uendret {3}; Union utelatt {4}; T/kryss fittinger {5}; T/kryss FOB_Mengde satt til 1 {6}; FOB_Mengdeenhet satt til stk {7}; T/kryss mengde uendret {8}; tilkoblet runlengde beregnet {9}; runlengde uavklart {10}; mangler lengde {11}; mangler FOB_Mengde {12}; skrivebeskyttet {13}; feil lagringstype {14}; skrivefeil {15}.",
+                aspirationExcludedCount, ignoredStrømskinneBends, updated, unchanged, skippedCableTrayUnions, skippedCableTrayRunFittings,
+                branchQuantityUpdated, branchUnitUpdated, branchQuantityUnchanged, calculatedCableTrayRunLengths,
+                unresolvedCableTrayRunLengths,
+                missingLength, missingParameter, readOnlyParameter, unsupportedStorage, writeFailures));
             log.Add("Elementdetaljer for oppdaterte verdier (tab-separert):");
             log.Add("FOB_Leveransepakke\tPGF_RIE_ElementId\tFOB_Merkestreng\tFOB_Mengdelistepost\tFOB_Mengde gammel\tFOB_Mengde ny\tElementId\tKategori");
             foreach (ChangeRecord change in changes)
@@ -273,8 +453,11 @@ namespace CW.Assistant.Generated
 
             return SaveAndReturn(log, string.Format(
                 CultureInfo.InvariantCulture,
-                "Regel 7 v{0}: entreprise {1}; oppdatert {2}; uendret {3}; mangler lengde {4}; mangler FOB_Mengde {5}; skrivebeskyttet {6}; feil lagringstype {7}; skrivefeil {8}; FOB_Entreprise mangler/blank {9}; duplikat/feil lagringstype {10}.",
-                ScriptVersion, TargetEnterprise, updated, unchanged, missingLength, missingParameter, readOnlyParameter, unsupportedStorage, writeFailures, missingEnterprise, invalidEnterprise));
+                "Regel 7 v{0}: entreprise {1}; aspirasjon utelatt {2}; strømskinne-bend utelatt {3}; oppdatert {4}; uendret {5}; Union utelatt {6}; T/kryss fittinger {7}; mengde satt til 1 {8}; enhet satt til stk {9}; runlengde beregnet {10}; runlengde uavklart {11}; mangler lengde {12}; mangler FOB_Mengde {13}; skrivebeskyttet {14}; feil lagringstype {15}; skrivefeil {16}; FOB_Entreprise mangler/blank {17}; duplikat/feil lagringstype {18}.",
+                ScriptVersion, TargetEnterprise, aspirationExcludedCount, ignoredStrømskinneBends, updated, unchanged, skippedCableTrayUnions, skippedCableTrayRunFittings,
+                branchQuantityUpdated, branchUnitUpdated, calculatedCableTrayRunLengths, unresolvedCableTrayRunLengths,
+                missingLength, missingParameter, readOnlyParameter, unsupportedStorage,
+                writeFailures, missingEnterprise, invalidEnterprise));
         }
 
         private static EnterpriseStatus GetEnterpriseStatus(Element element, out string issue)
@@ -321,6 +504,17 @@ namespace CW.Assistant.Generated
 
         private static double? GetElementLengthMillimeters(Element element, bool fitting)
         {
+            if (ConduitBendLengthOverrideIds.Contains(element.Id.Value)
+                && element.Category?.Id.Value == new ElementId(BuiltInCategory.OST_ConduitFitting).Value)
+            {
+                IList<Parameter> conduitLengthParameters = element.GetParameters("Conduit Length");
+                if (conduitLengthParameters.Count == 1)
+                {
+                    double? conduitLength = GetLengthMillimeters(conduitLengthParameters[0]);
+                    if (conduitLength is not null && conduitLength.Value > 0.0) return conduitLength;
+                }
+            }
+
             if (!fitting)
             {
                 Parameter? curveLength = element.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH);
@@ -428,6 +622,210 @@ namespace CW.Assistant.Generated
         {
             long categoryId = element.Category?.Id.Value ?? long.MinValue;
             return categories.Any(category => categoryId == new ElementId(category).Value);
+        }
+
+        private static bool IsCableTrayUnion(Element element)
+        {
+            if (element.Category?.Id.Value != new ElementId(BuiltInCategory.OST_CableTrayFitting).Value)
+            {
+                return false;
+            }
+            if (element is not FamilyInstance familyInstance) return false;
+
+            Parameter? partTypeParameter = familyInstance.Symbol?.Family?.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE)
+                ?? familyInstance.Symbol?.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE)
+                ?? element.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE);
+            if (partTypeParameter is null || !partTypeParameter.HasValue
+                || partTypeParameter.StorageType != StorageType.Integer)
+            {
+                return false;
+            }
+
+            string? partType = Enum.GetName(typeof(PartType), partTypeParameter.AsInteger());
+            return partType is "Union" or "ChannelCableTrayUnion" or "LadderCableTrayUnion";
+        }
+
+        private static bool IsAspirationElement(Element element)
+        {
+            if (element is not FamilyInstance instance) return false;
+            string familyName = instance.Symbol?.Family?.Name ?? string.Empty;
+            string typeName = instance.Symbol?.Name ?? string.Empty;
+            string instanceName = element.Name ?? string.Empty;
+            return ContainsAspirationToken(familyName)
+                || ContainsAspirationToken(typeName)
+                || ContainsAspirationToken(instanceName);
+        }
+
+        private static bool IsStrømskinneBend(Element element)
+        {
+            if (element.Category?.Id.Value != new ElementId(BuiltInCategory.OST_CableTrayFitting).Value
+                || element is not FamilyInstance instance)
+            {
+                return false;
+            }
+            string familyName = instance.Symbol?.Family?.Name ?? string.Empty;
+            string typeName = instance.Symbol?.Name ?? string.Empty;
+            string partType = GetCableTrayPartTypeName(instance);
+            bool isBend = partType.IndexOf("Elbow", StringComparison.Ordinal) >= 0;
+            bool isStrømskinne = familyName.IndexOf("strømskinne", StringComparison.OrdinalIgnoreCase) >= 0
+                || typeName.IndexOf("strømskinne", StringComparison.OrdinalIgnoreCase) >= 0;
+            return isBend && isStrømskinne;
+        }
+
+        private static bool ContainsAspirationToken(string value)
+        {
+            return value.IndexOf("aspirasjon", StringComparison.OrdinalIgnoreCase) >= 0
+                || value.IndexOf("aspiration", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool IsCableTrayRunLengthFitting(Element element)
+        {
+            if (element.Category?.Id.Value != new ElementId(BuiltInCategory.OST_CableTrayFitting).Value
+                || element is not FamilyInstance familyInstance)
+            {
+                return false;
+            }
+
+            Parameter? partTypeParameter = familyInstance.Symbol?.Family?.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE)
+                ?? familyInstance.Symbol?.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE)
+                ?? element.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE);
+            if (partTypeParameter is null || !partTypeParameter.HasValue
+                || partTypeParameter.StorageType != StorageType.Integer)
+            {
+                return false;
+            }
+
+            string? partType = Enum.GetName(typeof(PartType), partTypeParameter.AsInteger());
+            return partType is "Tee" or "Cross" or "ChannelCableTrayTee" or "ChannelCableTrayCross"
+                or "LadderCableTrayTee" or "LadderCableTrayCross";
+        }
+
+        private static bool TryGetCableTrayRunLength(
+            Element startFitting,
+            out CableTrayRunLength? runLength,
+            out string issue)
+        {
+            runLength = null;
+            issue = "fitting mangler tilgjengelige MEP-koblinger";
+            if (startFitting is not FamilyInstance startInstance || startInstance.MEPModel?.ConnectorManager is null)
+            {
+                return false;
+            }
+
+            try
+            {
+                var visited = new HashSet<long> { startFitting.Id.Value };
+                var pending = new Queue<Element>();
+                var cableTrayLengths = new Dictionary<long, double>();
+                var branchFittingIds = new HashSet<long>();
+                pending.Enqueue(startFitting);
+
+                while (pending.Count > 0)
+                {
+                    Element current = pending.Dequeue();
+                    long categoryId = current.Category?.Id.Value ?? long.MinValue;
+                    bool isStraightCableTray = categoryId == new ElementId(BuiltInCategory.OST_CableTray).Value;
+                    bool isCableTrayFitting = categoryId == new ElementId(BuiltInCategory.OST_CableTrayFitting).Value;
+                    if (!isStraightCableTray && !isCableTrayFitting) continue;
+
+                    if (isStraightCableTray)
+                    {
+                        if (current.Location is not LocationCurve locationCurve || locationCurve.Curve is null)
+                        {
+                            issue = "rett kabelbro ElementId " + current.Id.Value.ToString(CultureInfo.InvariantCulture) + " mangler LocationCurve";
+                            return false;
+                        }
+                        cableTrayLengths[current.Id.Value] = UnitUtils.ConvertFromInternalUnits(
+                            locationCurve.Curve.Length, UnitTypeId.Millimeters);
+                    }
+                    else if (IsCableTrayRunLengthFitting(current))
+                    {
+                        branchFittingIds.Add(current.Id.Value);
+                    }
+
+                    ConnectorManager? connectorManager = GetConnectorManager(current);
+                    if (connectorManager is null)
+                    {
+                        if (isCableTrayFitting)
+                        {
+                            issue = "kabelbrofitting ElementId " + current.Id.Value.ToString(CultureInfo.InvariantCulture) + " mangler MEP-koblinger";
+                            return false;
+                        }
+                        issue = "rett kabelbro ElementId " + current.Id.Value.ToString(CultureInfo.InvariantCulture) + " mangler connector-manager";
+                        return false;
+                    }
+
+                    foreach (Connector connector in connectorManager.Connectors)
+                    {
+                        if (connector.ConnectorType != ConnectorType.End) continue;
+                        foreach (Connector connected in connector.AllRefs)
+                        {
+                            Element owner = connected.Owner;
+                            long ownerCategory = owner.Category?.Id.Value ?? long.MinValue;
+                            if (owner.Id.Value == current.Id.Value
+                                || connected.ConnectorType != ConnectorType.End
+                                || !connector.IsConnectedTo(connected)
+                                || !connected.IsConnectedTo(connector)
+                                || IsAspirationElement(owner)
+                                || (ownerCategory != new ElementId(BuiltInCategory.OST_CableTray).Value
+                                    && ownerCategory != new ElementId(BuiltInCategory.OST_CableTrayFitting).Value)
+                                || GetEnterpriseStatus(owner, out _) != EnterpriseStatus.K5B)
+                            {
+                                continue;
+                            }
+                            if (visited.Add(owner.Id.Value)) pending.Enqueue(owner);
+                        }
+                    }
+                }
+
+                if (cableTrayLengths.Count == 0)
+                {
+                    issue = "fant ingen fysisk tilkoblet kabelbro med LocationCurve i K5B-nettverket";
+                    return false;
+                }
+
+                runLength = new CableTrayRunLength(
+                    cableTrayLengths.Values.Sum(),
+                    cableTrayLengths.Keys.OrderBy(id => id).ToList(),
+                    branchFittingIds.OrderBy(id => id).ToList());
+                issue = string.Empty;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                issue = "connector-/geometrilesing feilet: " + exception.Message;
+                return false;
+            }
+        }
+
+        private static ConnectorManager? GetConnectorManager(Element element)
+        {
+            if (element is MEPCurve curve) return curve.ConnectorManager;
+            if (element is FamilyInstance familyInstance) return familyInstance.MEPModel?.ConnectorManager;
+            return null;
+        }
+
+        private static void LogCableTrayRunLength(List<string> log, Element fitting, CableTrayRunLength runLength)
+        {
+            string partType = fitting is FamilyInstance familyInstance
+                ? GetCableTrayPartTypeName(familyInstance)
+                : "<unknown>";
+            log.Add(string.Format(CultureInfo.InvariantCulture,
+                "RUNLENGDE T/KRYSS ElementId {0}; deltype {1}; unike kabelbroelementer {2}; samlet nettverkslengde {3:F3} m; segment-ID-er {4}; nettverkslengden skrives ikke på fitting.",
+                fitting.Id.Value, partType, runLength.CableTrayElementIds.Count,
+                runLength.TotalMillimeters / 1000.0,
+                string.Join(",", runLength.CableTrayElementIds)));
+        }
+
+        private static string GetCableTrayPartTypeName(FamilyInstance familyInstance)
+        {
+            Parameter? partTypeParameter = familyInstance.Symbol?.Family?.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE)
+                ?? familyInstance.Symbol?.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE)
+                ?? familyInstance.get_Parameter(BuiltInParameter.FAMILY_CONTENT_PART_TYPE);
+            return partTypeParameter is not null && partTypeParameter.HasValue
+                && partTypeParameter.StorageType == StorageType.Integer
+                ? Enum.GetName(typeof(PartType), partTypeParameter.AsInteger()) ?? "<unknown>"
+                : "<unknown>";
         }
 
         private static string EscapeLogField(string value)

@@ -1,0 +1,6 @@
+=== Regel 11 v0.0.6 | 2026-10-08T15:28:58.8803883+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx
+Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18961; flyttet: 25; uløste avvik: 0; blokkeringer: 0.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Workset kategori kontroll 20261008_152900_192.csv
+
