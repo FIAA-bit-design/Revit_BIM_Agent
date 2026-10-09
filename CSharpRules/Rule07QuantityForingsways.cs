@@ -13,7 +13,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.14";
+        private const string ScriptVersion = "0.0.15";
         private const string EnterpriseParameterName = "FOB_Entreprise";
         private const string TargetEnterprise = "K5B";
         private const string QuantityParameterName = "FOB_Mengde";
@@ -121,6 +121,22 @@ namespace CW.Assistant.Generated
             }
         }
 
+        private sealed class BillOfQuantityPostWrite
+        {
+            internal Element Element { get; }
+            internal Parameter Parameter { get; }
+            internal string Value { get; }
+            internal long[] SourceIds { get; }
+
+            internal BillOfQuantityPostWrite(Element element, Parameter parameter, string value, long[] sourceIds)
+            {
+                Element = element;
+                Parameter = parameter;
+                Value = value;
+                SourceIds = sourceIds;
+            }
+        }
+
         public string Execute(UIApplication uiApplication, Document? activeDocument)
         {
             if (activeDocument is null)
@@ -187,6 +203,10 @@ namespace CW.Assistant.Generated
             int writeFailures = 0;
             var changes = new List<ChangeRecord>();
             List<Element> targets = straightElements.Concat(fittingElements).OrderBy(element => element.Id.Value).ToList();
+            int unresolvedBillOfQuantityPostCopies = 0;
+            List<BillOfQuantityPostWrite> billOfQuantityPostWrites = PlanCableTrayBillOfQuantityPosts(
+                targets, log, out unresolvedBillOfQuantityPostCopies);
+            int updatedBillOfQuantityPosts = 0;
             var quantityTargets = new List<Element>();
             var branchQuantityTargets = new List<FamilyInstance>();
             var cableTrayRunLengths = new Dictionary<long, CableTrayRunLength>();
@@ -246,7 +266,7 @@ namespace CW.Assistant.Generated
                 quantityTargets.Add(element);
             }
 
-            if (quantityTargets.Count > 0 || branchQuantityTargets.Count > 0)
+            if (quantityTargets.Count > 0 || branchQuantityTargets.Count > 0 || billOfQuantityPostWrites.Count > 0)
             {
                 var dialogHandler = new WorksetCheckoutDialogHandler(log);
                 uiApplication.DialogBoxShowing += dialogHandler.HandleDialogBoxShowing;
@@ -263,6 +283,22 @@ namespace CW.Assistant.Generated
 
                         try
                         {
+                            foreach (BillOfQuantityPostWrite write in billOfQuantityPostWrites)
+                            {
+                                if (!write.Parameter.Set(write.Value))
+                                {
+                                    writeFailures++;
+                                    unresolvedBillOfQuantityPostCopies++;
+                                    log.Add(FormatIssue(write.Element, "FOB_Mengdelistepost", "Parameter.Set returnerte false for connectorbasert kopiering"));
+                                    continue;
+                                }
+
+                                updatedBillOfQuantityPosts++;
+                                log.Add(string.Format(CultureInfo.InvariantCulture,
+                                    "OPPDATERT FOB_Mengdelistepost ElementId {0} = '{1}' fra fysisk tilkoblede ElementId-er {2}.",
+                                    write.Element.Id.Value, EscapeLogField(write.Value), string.Join(",", write.SourceIds)));
+                            }
+
                             foreach (Element element in quantityTargets)
                             {
                                 bool isFitting = IsInCategories(element, FittingCategories);
@@ -434,6 +470,9 @@ namespace CW.Assistant.Generated
                 branchQuantityUpdated, branchUnitUpdated, branchQuantityUnchanged, calculatedCableTrayRunLengths,
                 unresolvedCableTrayRunLengths,
                 missingLength, missingParameter, readOnlyParameter, unsupportedStorage, writeFailures));
+            log.Add(string.Format(CultureInfo.InvariantCulture,
+                "FOB_Mengdelistepost connector-kopiering: oppdatert {0}; uavklart {1}.",
+                updatedBillOfQuantityPosts, unresolvedBillOfQuantityPostCopies));
             log.Add("Elementdetaljer for oppdaterte verdier (tab-separert):");
             log.Add("FOB_Leveransepakke\tPGF_RIE_ElementId\tFOB_Merkestreng\tFOB_Mengdelistepost\tFOB_Mengde gammel\tFOB_Mengde ny\tElementId\tKategori");
             foreach (ChangeRecord change in changes)
@@ -453,11 +492,11 @@ namespace CW.Assistant.Generated
 
             return SaveAndReturn(log, string.Format(
                 CultureInfo.InvariantCulture,
-                "Regel 7 v{0}: entreprise {1}; aspirasjon utelatt {2}; strømskinne-bend utelatt {3}; oppdatert {4}; uendret {5}; Union utelatt {6}; T/kryss fittinger {7}; mengde satt til 1 {8}; enhet satt til stk {9}; runlengde beregnet {10}; runlengde uavklart {11}; mangler lengde {12}; mangler FOB_Mengde {13}; skrivebeskyttet {14}; feil lagringstype {15}; skrivefeil {16}; FOB_Entreprise mangler/blank {17}; duplikat/feil lagringstype {18}.",
+                "Regel 7 v{0}: entreprise {1}; aspirasjon utelatt {2}; strømskinne-bend utelatt {3}; oppdatert {4}; uendret {5}; Union utelatt {6}; T/kryss fittinger {7}; mengde satt til 1 {8}; enhet satt til stk {9}; runlengde beregnet {10}; runlengde uavklart {11}; mangler lengde {12}; mangler FOB_Mengde {13}; skrivebeskyttet {14}; feil lagringstype {15}; skrivefeil {16}; FOB_Entreprise mangler/blank {17}; duplikat/feil lagringstype {18}; FOB_Mengdelistepost kopiert {19}; uavklart postkopiering {20}.",
                 ScriptVersion, TargetEnterprise, aspirationExcludedCount, ignoredStrømskinneBends, updated, unchanged, skippedCableTrayUnions, skippedCableTrayRunFittings,
                 branchQuantityUpdated, branchUnitUpdated, calculatedCableTrayRunLengths, unresolvedCableTrayRunLengths,
                 missingLength, missingParameter, readOnlyParameter, unsupportedStorage,
-                writeFailures, missingEnterprise, invalidEnterprise));
+                writeFailures, missingEnterprise, invalidEnterprise, updatedBillOfQuantityPosts, unresolvedBillOfQuantityPostCopies));
         }
 
         private static EnterpriseStatus GetEnterpriseStatus(Element element, out string issue)
@@ -803,6 +842,138 @@ namespace CW.Assistant.Generated
             if (element is MEPCurve curve) return curve.ConnectorManager;
             if (element is FamilyInstance familyInstance) return familyInstance.MEPModel?.ConnectorManager;
             return null;
+        }
+
+        private static List<BillOfQuantityPostWrite> PlanCableTrayBillOfQuantityPosts(
+            List<Element> targets,
+            List<string> log,
+            out int unresolvedCount)
+        {
+            unresolvedCount = 0;
+            var writes = new List<BillOfQuantityPostWrite>();
+            List<Element> cableTrayElements = targets
+                .Where(element => element.Category?.Id.Value == new ElementId(BuiltInCategory.OST_CableTray).Value
+                    || element.Category?.Id.Value == new ElementId(BuiltInCategory.OST_CableTrayFitting).Value)
+                .ToList();
+            var adjacency = cableTrayElements.ToDictionary(element => element.Id.Value, _ => new HashSet<long>());
+            var elementsById = cableTrayElements.ToDictionary(element => element.Id.Value);
+
+            foreach (Element element in cableTrayElements)
+            {
+                ConnectorManager? connectorManager = GetConnectorManager(element);
+                if (connectorManager is null) continue;
+                foreach (Connector connector in connectorManager.Connectors)
+                {
+                    if (connector.ConnectorType != ConnectorType.End) continue;
+                    foreach (Connector connected in connector.AllRefs)
+                    {
+                        long connectedId = connected.Owner.Id.Value;
+                        if (connectedId == element.Id.Value
+                            || !adjacency.ContainsKey(connectedId)
+                            || connected.ConnectorType != ConnectorType.End
+                            || !connector.IsConnectedTo(connected)
+                            || !connected.IsConnectedTo(connector))
+                        {
+                            continue;
+                        }
+                        adjacency[element.Id.Value].Add(connectedId);
+                        adjacency[connectedId].Add(element.Id.Value);
+                    }
+                }
+            }
+
+            var visited = new HashSet<long>();
+            foreach (long startId in adjacency.Keys.OrderBy(id => id))
+            {
+                if (!visited.Add(startId)) continue;
+                var pending = new Queue<long>();
+                var component = new List<long>();
+                pending.Enqueue(startId);
+                while (pending.Count > 0)
+                {
+                    long currentId = pending.Dequeue();
+                    component.Add(currentId);
+                    foreach (long neighborId in adjacency[currentId])
+                    {
+                        if (visited.Add(neighborId)) pending.Enqueue(neighborId);
+                    }
+                }
+
+                var sourceValues = new List<(long Id, string Value)>();
+                var missingTargets = new List<long>();
+                foreach (long elementId in component)
+                {
+                    Element element = elementsById[elementId];
+                    if (!TryGetSingleParameter(element, "FOB_Mengdelistepost", out Parameter? parameter, out string issue)
+                        || parameter is null)
+                    {
+                        missingTargets.Add(elementId);
+                        if (issue != "parameteren mangler")
+                        {
+                            unresolvedCount++;
+                            log.Add(FormatIssue(element, "FOB_Mengdelistepost", issue));
+                        }
+                        continue;
+                    }
+                    if (parameter.StorageType != StorageType.String)
+                    {
+                        unresolvedCount++;
+                        log.Add(FormatIssue(element, "FOB_Mengdelistepost", "parameteren må ha lagringstypen String"));
+                        continue;
+                    }
+
+                    string value = (parameter.AsString() ?? string.Empty).Trim();
+                    if (string.IsNullOrWhiteSpace(value) || string.Equals(value, "--", StringComparison.Ordinal))
+                    {
+                        missingTargets.Add(elementId);
+                    }
+                    else
+                    {
+                        sourceValues.Add((elementId, value));
+                    }
+                }
+
+                if (missingTargets.Count == 0) continue;
+                var distinctValues = sourceValues.Select(source => source.Value).Distinct(StringComparer.Ordinal).ToList();
+                if (sourceValues.Count < 2 || distinctValues.Count != 1)
+                {
+                    string reason = sourceValues.Count < 2
+                        ? "færre enn to gyldige FOB_Mengdelistepost-kilder i connectorgruppen"
+                        : "motstridende FOB_Mengdelistepost-kilder: "
+                            + string.Join(", ", sourceValues.Select(source => source.Id.ToString(CultureInfo.InvariantCulture) + "='" + EscapeLogField(source.Value) + "'"));
+                    foreach (long targetId in missingTargets)
+                    {
+                        unresolvedCount++;
+                        log.Add(FormatIssue(elementsById[targetId], "FOB_Mengdelistepost", reason));
+                    }
+                    continue;
+                }
+
+                string resolvedValue = distinctValues[0];
+                long[] sourceIds = sourceValues.Select(source => source.Id).OrderBy(id => id).ToArray();
+                foreach (long targetId in missingTargets)
+                {
+                    Element target = elementsById[targetId];
+                    if (!TryGetSingleParameter(target, "FOB_Mengdelistepost", out Parameter? parameter, out string issue)
+                        || parameter is null)
+                    {
+                        unresolvedCount++;
+                        log.Add(FormatIssue(target, "FOB_Mengdelistepost", issue));
+                        continue;
+                    }
+                    if (parameter.StorageType != StorageType.String || parameter.IsReadOnly)
+                    {
+                        unresolvedCount++;
+                        log.Add(FormatIssue(target, "FOB_Mengdelistepost", parameter.IsReadOnly
+                            ? "parameteren er skrivebeskyttet"
+                            : "parameteren må ha lagringstypen String"));
+                        continue;
+                    }
+                    writes.Add(new BillOfQuantityPostWrite(target, parameter, resolvedValue, sourceIds));
+                }
+            }
+
+            return writes;
         }
 
         private static void LogCableTrayRunLength(List<string> log, Element fitting, CableTrayRunLength runLength)

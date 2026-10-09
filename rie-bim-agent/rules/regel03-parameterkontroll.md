@@ -10,4 +10,6 @@ Før generell parameterutfylling kontrollerer Regel 3 `OST_CableTray` og `OST_Ca
 
 Forløperen følger det historiske skriptets scope: den behandler kabelbroer og fittings i hele den aktive modellen, ikke bare K5B. Strømskinner, typefunksjonskode `STS` og `FOB_Status = S5` utelates/beskyttes. Eksisterende sekvensgrupper kan omnummereres for å løse duplikater og lukke sekvensgap. Dette er en muterende del av Regel 3-kjøringen og skal synliggjøres i rapporten.
 
+For elementer med eksakt instansverdi `FOB_Entreprise = K5B` håndheves `FOB_Status = S4` også når eksisterende status er blank, `--` eller en annen verdi. `FOB_Status = S5` bevares som lås og skal ikke endres. Andre entrepriseverdier berøres ikke av denne statusregelen.
+
 Hver kjøring lager `../../logs/reports/Rule03_ParameterFill <tid>.txt` med kjøringsoppsummering, oppdateringer og uavklarte parameterfunn. Append-only historikklogg bevares separat.

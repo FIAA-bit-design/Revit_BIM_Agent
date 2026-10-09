@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ExtensionId>Rule03Runner</ExtensionId>
+    <Authors>AEC AB</Authors>
+    <Version>0.0.1</Version>
+    <Title>Rule03Runner</Title>
+    <Description>Runs the maintained C# Rule 3 parameter check and cable-tray marking prepass on the verified BAS model.</Description>
+    <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIconUrl></PackageIconUrl>
+    <!-- 
+    Adjust MainRevitVersion to get IntelliSense for the correct version do a 
+    dotnet restore to restore the correct nuget packages for the selected Revit version.
+    -->
+    <MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2026</MainRevitVersion>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+
+  <Import Project=".\Configurations.targets" />
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CSharpRules\Rule03ParameterFill.cs" Link="Rule03ParameterFill.cs" />
+    <Compile Include="..\CSharpRules\CableTrayMarkingEngine.cs" Link="CableTrayMarkingEngine.cs" />
+  </ItemGroup>
+
+</Project>

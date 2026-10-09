@@ -1,0 +1,7 @@
+=== Regel 12 v0.0.1 | 2026-10-09T18:34:33.6487296+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Dokument: U_F_BAS_FBU_RIE_XXX
+Revisjonsliste lest: 7 faner.
+OPPDATERT ElementId 17772686, pakke 'LPE161', FOB_Revisjonsdato = '2026.10.15' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772686, pakke 'LPE161', PGF_Revisjonsign = 'FIAA' (godkjent revisjonsverdi).
+OPPDATERT ElementId 17772686, pakke 'LPE161', PGF_Revisjonsindeks = '03B' (godkjent revisjonsverdi).
+Oppsummering: elektriske instanser 16677; revisjonsverdier samsvarte 31905; oppdatert 3; blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.

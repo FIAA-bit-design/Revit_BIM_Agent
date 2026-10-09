@@ -234,7 +234,24 @@ namespace CW.Assistant.Generated
                     }
                     bool missingMengdelistepost = string.Equals(name, "FOB_Mengdelistepost", StringComparison.Ordinal)
                         && string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal);
-                    if (!IsParameterEmpty(parameter) && !missingMengdelistepost)
+                    bool k5bStatus = string.Equals(name, "FOB_Status", StringComparison.Ordinal)
+                        && HasExactEnterprise(instance, "K5B");
+                    if (k5bStatus && parameter.StorageType != StorageType.String)
+                    {
+                        unresolvedCount++;
+                        log.Add(FormatIssue(instance, name, "K5B-status må være en tekstparameter for å håndheve S4"));
+                        continue;
+                    }
+                    if (k5bStatus && string.Equals(GetParameterText(parameter), "S5", StringComparison.Ordinal))
+                    {
+                        preservedCount++;
+                        log.Add("BESKYTTET ElementId " + instance.Id.Value.ToString(CultureInfo.InvariantCulture)
+                            + ": FOB_Status=S5 bevares som lås for kabelbromerking.");
+                        continue;
+                    }
+                    bool correctK5bStatus = k5bStatus
+                        && !string.Equals(GetParameterText(parameter), "S4", StringComparison.Ordinal);
+                    if (!IsParameterEmpty(parameter) && !missingMengdelistepost && !correctK5bStatus)
                     {
                         preservedCount++;
                         continue;
@@ -245,7 +262,9 @@ namespace CW.Assistant.Generated
                     {
                         continue;
                     }
-                    ScheduleWrite(instance, parameter, value, "tom parameter", writes, scheduled, log, ref readOnlyCount, ref unresolvedCount);
+                    ScheduleWrite(instance, parameter, value,
+                        correctK5bStatus ? "FOB_Status settes alltid til S4 for K5B" : "tom parameter",
+                        writes, scheduled, log, ref readOnlyCount, ref unresolvedCount);
                 }
             }
 
@@ -919,6 +938,14 @@ namespace CW.Assistant.Generated
                 .Any(name => !TryGetSingleParameter(element, name, out Parameter? parameter, out string issue)
                     || parameter is null || issue == "mangler" || IsParameterEmpty(parameter)
                     || string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal));
+        }
+
+        private static bool HasExactEnterprise(Element element, string expectedEnterprise)
+        {
+            return TryGetSingleParameter(element, "FOB_Entreprise", out Parameter? parameter, out _)
+                && parameter is not null
+                && parameter.StorageType == StorageType.String
+                && string.Equals(parameter.AsString(), expectedEnterprise, StringComparison.Ordinal);
         }
 
         private static bool IsForingsveiFitting(Element element)

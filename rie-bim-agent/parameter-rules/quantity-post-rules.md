@@ -4,6 +4,10 @@
 
 `FOB_Mengdelistepost` skal ikke være blank eller `--`. For øvrige elementer kopieres bare én entydig gyldig instansverdi fra samme `PGF_Mengdetype` og `PGF_Spesialbeskrivelse`; blank og `--` spesialbeskrivelse matcher hverandre. Bevar utfylte målverdier.
 
+## K5B-kabelbrogrupper i Regel 7
+
+For `OST_CableTray` og `OST_CableTrayFitting` kan Regel 7 fylle blanke eller `--`-verdier fra samme fysiske, connector-tilkoblede K5B-komponent. Krev minst to eksisterende gyldige instansverdier i komponenten, og krev at alle gyldige verdier er identiske. Bruk bare gjensidig tilkoblede `ConnectorType.End`-forbindelser; ikke bruk nærhet eller familie-/typeverdier. Bevar gyldige målverdier. Ved færre enn to gyldige kilder, motstridende verdier, manglende connectorer eller ugyldig målparameter skal verdien stå uendret og avviket logges med ElementId og kilde-ID-er. Denne komponentregelen gjelder ikke trekkerør.
+
 ## Connector-baserte fittings
 
 Alle typer bend i kabelbro/kabelstige og trekkerør kan være korrekt modellert med en åpen ende. Det er ikke krav om at begge ender er tilkoblet. Identifiser bend med fittingkategori og familiens innebygde `FAMILY_CONTENT_PART_TYPE`: `Elbow`, `ChannelCableTrayElbow`, `ChannelCableTrayVerticalElbow`, `LadderCableTrayElbow` og `LadderCableTrayVerticalElbow`. Dette er deltypeklassifisering, ikke typeparameter-fallback for prosjektets parameterverdier.
