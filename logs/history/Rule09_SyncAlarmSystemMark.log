@@ -1214,3 +1214,13 @@ Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 202610
 === Regel 9 v0.0.11 | 2026-10-08T15:26:47.1295523+02:00 | U_F_BAS_FBU_RIE_XXX ===
 Regel 9 v0.0.11: Fire Alarm Devices kontrollert 723; feilende elementer 0; synkroniseringer fullført 731; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 0.
 Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261008_152649_510.xlsx
+=== Regel 9 v0.0.11 | 2026-10-09T15:20:23.8138608+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.11: Fire Alarm Devices kontrollert 713; feilende elementer 0; synkroniseringer fullført 764; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 0.
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261009_152025_916.xlsx
+=== Regel 9 v0.0.11 | 2026-10-09T15:32:56.5943454+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.11: Fire Alarm Devices kontrollert 713; feilende elementer 0; synkroniseringer fullført 321; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 0.
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261009_153257_675.xlsx
+MANGELFOB-SEKVENS | 2026-10-09T15:46:47.0608057+02:00 | U_F_BAS_FBU_RIE_XXX | Fire Alarm Devices=713; ignorert=1; tomme mål=226; planlagt=226; committed=226; ugyldig/manglende kilde=0; skrivebeskyttet=0; manglende/tvetydig mål=0; feil mållagringstype=0; transaksjonsfeil=ingen
+=== Regel 9 v0.0.11 | 2026-10-09T16:01:43.3466026+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 9 v0.0.11: Fire Alarm Devices kontrollert 713; feilende elementer 0; synkroniseringer fullført 3; kildeparametere mangler 0; målparametere mangler 0; tvetydige parametere 0; feil lagringstype 0; skrivebeskyttede avvik 0; tomme sekvenskilder 0.
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Regel 9 avvik 20261009_160144_270.xlsx

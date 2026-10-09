@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <AssemblyName>Rule13FinalReport.DevKit</AssemblyName>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\Rule13FinalReport.cs" Link="Rule13FinalReport.cs" />
-  </ItemGroup>
-</Project>

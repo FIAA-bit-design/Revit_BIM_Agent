@@ -358,14 +358,25 @@ namespace CW.Assistant.Generated
 
         private static string SaveAndReturn(List<string> log, string result)
         {
+            string reportResult;
+            try
+            {
+                string reportDirectory = Path.Combine(Path.GetDirectoryName(LogPath)!, "..", "reports");
+                Directory.CreateDirectory(reportDirectory);
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+                string reportPath = Path.Combine(reportDirectory, "Rule06_CleanMekConnectionPoints " + timestamp + ".txt");
+                File.WriteAllLines(reportPath, log, new UTF8Encoding(false));
+                reportResult = "Rapport: " + reportPath;
+            }
+            catch (Exception exception) { reportResult = "Rapport kunne ikke skrives: " + exception.Message; }
             try
             {
                 File.AppendAllText(LogPath, string.Join(Environment.NewLine, log) + Environment.NewLine, new UTF8Encoding(false));
-                return result + " Logg: " + LogPath;
+                return result + " " + reportResult + " Logg: " + LogPath;
             }
             catch (Exception exception)
             {
-                return result + " Logg kunne ikke skrives: " + exception.Message;
+                return result + " " + reportResult + " Logg kunne ikke skrives: " + exception.Message;
             }
         }
     }

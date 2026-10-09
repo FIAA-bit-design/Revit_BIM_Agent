@@ -16,3 +16,5 @@ Oppsummering: føringsveifittings 1817; kontrollert med manglende Magicad-verdi 
 OPPDATERT ElementId 17772717, MC System Code = '460.6' fra direkte tilkoblede rettstrekk ElementId 7927487,17772686.
 OPPDATERT ElementId 17772717, MC System Name = 'Føringsvei forbeholt felles IKT/EL' fra direkte tilkoblede rettstrekk ElementId 7927487,17772686.
 Oppsummering: føringsveifittings 1819; kontrollert med manglende Magicad-verdi 1; oppdatert 2; eksisterende verdier bevart 2166; uavklart 0.
+=== Regel 10 Magicad v0.0.3 | 2026-10-09T16:02:32.5461399+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Oppsummering: føringsveifittings 1818; kontrollert med manglende Magicad-verdi 0; oppdatert 0; eksisterende verdier bevart 2166; uavklart 0.

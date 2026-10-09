@@ -247,3 +247,66 @@ OPPDATERT; Kurs ElementId=17794151; Load Name=Brannalarm adresseledd BYG203--AIE
 SUMMARY: Resultat: Load Name oppdatert på 51 kurs(er).
 SUMMARY: Varighet sekunder: 5.8
 
+=== Regel 5 v0.0.2 | 2026-10-09T15:57:12.9753016+02:00 ===
+Dokument: U_F_BAS_FBU_RIE_XXX
+SUMMARY: Spredenett-parents i modell: 107
+SUMMARY: Parent uten kurs: 0
+SUMMARY: Parent uten child: 0
+SUMMARY: Parent uten match: 0
+SUMMARY: Connector devices uten datakurs: 1770
+SUMMARY: Connector devices mangler markør/rom/familie: 91
+SUMMARY: Connector devices hoppet over: 697
+SUMMARY: Kurser allerede riktige: 539
+OPPDATERT; Kurs ElementId=13015715; Load Name=Adgangskontroll sentral BYG204-854-DAT-012 - L2U1.12 Tele og Automatisering; Kilde=data_device_validation; Parent=; Child=; Device=16687076
+OPPDATERT; Kurs ElementId=13066784; Load Name=Slukkesentral inertgass BYG204-733-RJB-002 - L2U1.06 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=7493430
+OPPDATERT; Kurs ElementId=13066890; Load Name=Slukkesentral inertgass BYG204-733-RJB-006 - L2U1.13 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=7493820
+OPPDATERT; Kurs ElementId=13180409; Load Name=Underfordeling teknisk automatikk BYG202-730-RJB-002 - M3G1.08 Ventilasjonsrom; Kilde=data_device_validation; Parent=; Child=; Device=6578575
+OPPDATERT; Kurs ElementId=13180474; Load Name=Underfordeling teknisk automatikk BYG202-730-RJB-005 - M3G1.04 Ventilasjonsrom; Kilde=data_device_validation; Parent=; Child=; Device=10952347
+OPPDATERT; Kurs ElementId=13252096; Load Name=Underfordeling teknisk brannport P14-752-RJB-003 - L4S.28 Vendesløyfe P14; Kilde=data_device_validation; Parent=; Child=; Device=7767884
+OPPDATERT; Kurs ElementId=13346852; Load Name=Slukkesentral inertgass BYG202-733-RJB-001 - M3G1.07 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=9850786
+OPPDATERT; Kurs ElementId=13347152; Load Name=Slukkesentral inertgass BYG201-733-RJB-002 - L3S.06 Driftsbase Sporvedlikehold; Kilde=data_device_validation; Parent=; Child=; Device=9680129
+OPPDATERT; Kurs ElementId=14037631; Load Name=Røyklukesentral BYG204-751-RJB-002 - M3H1.28 Beredskapsrom; Kilde=data_device_validation; Parent=; Child=; Device=17584154
+OPPDATERT; Kurs ElementId=14065513; Load Name=Underfordeling teknisk automatikk BYG200-730-RJB-002 - F2K.01 Kulvert; Kilde=data_device_validation; Parent=; Child=; Device=13390014
+OPPDATERT; Kurs ElementId=14326185; Load Name=Underfordeling teknisk automatikk BYG204-730-RJB-002 - L2U1.04 Ventilasjonsrom; Kilde=data_device_validation; Parent=; Child=; Device=6649052
+OPPDATERT; Kurs ElementId=14906162; Load Name=Brannalarm røykdetektor optisk BYG200-854-RØK-01.028 - E7K.04 Pauserom; Kilde=data_device_validation; Parent=; Child=; Device=8719201
+OPPDATERT; Kurs ElementId=14907710; Load Name=Brannalarm røykdetektor optisk BYG200-854-RØK-02.021 - E7K.06 Stillerom; Kilde=data_device_validation; Parent=; Child=; Device=8719452
+OPPDATERT; Kurs ElementId=14907973; Load Name=Brannalarm klokke BYG200-854-BRK-05.001 - L4K.06 Oljeutskiller; Kilde=data_device_validation; Parent=; Child=; Device=12523490
+OPPDATERT; Kurs ElementId=14908000; Load Name=Brannalarm klokke BYG200-854-BRK-06.003 - E1K.02 Oljeutskiller; Kilde=data_device_validation; Parent=; Child=; Device=12537951
+OPPDATERT; Kurs ElementId=14908710; Load Name=Brannalarm manuell melder påvegg BYG201-854-MBV-03.007 - E8S.01 Gjennomkjøringsspor P1; Kilde=data_device_validation; Parent=; Child=; Device=9831887
+OPPDATERT; Kurs ElementId=14908780; Load Name=Brannalarm klokke BYG201-854-BRK-07.005 - E8S.01 Gjennomkjøringsspor P1; Kilde=data_device_validation; Parent=; Child=; Device=9831888
+OPPDATERT; Kurs ElementId=14908926; Load Name=Brannalarm manuell melder påvegg BYG201-854-MBV-03.027 - E8S.01 Gjennomkjøringsspor P1; Kilde=data_device_validation; Parent=; Child=; Device=9707210
+OPPDATERT; Kurs ElementId=14909124; Load Name=Brannalarm klokke og led BYG201-854-BRK-08.008 - E1S.01 Innvendig vask P4-P5; Kilde=data_device_validation; Parent=; Child=; Device=9752914
+OPPDATERT; Kurs ElementId=14910524; Load Name=Brannalarm røykdetektor optisk BYG202-854-RØK-01.013 - L3S.18 Inertgass 2; Kilde=data_device_validation; Parent=; Child=; Device=9653641
+OPPDATERT; Kurs ElementId=14910947; Load Name=Brannalarm elektronisk sirene med blinklys rød linse lav sokkel BYG202-854-BRK-02.001 - M3G1.11 Hovedtavle prioritert; Kilde=data_device_validation; Parent=; Child=; Device=9850924
+OPPDATERT; Kurs ElementId=14910962; Load Name=Brannalarm manuell melder påvegg BYG202-854-MBV-05.018 - L3S.02 Verkstedhall; Kilde=data_device_validation; Parent=; Child=; Device=9781197
+OPPDATERT; Kurs ElementId=14911093; Load Name=Brannalarm røykdetektor optisk BYG204-854-RØK-01.049 - M3H2.11 Tavlerom; Kilde=data_device_validation; Parent=; Child=; Device=9221346
+OPPDATERT; Kurs ElementId=14911695; Load Name=Brannalarm klokke BYG201-854-BRK-04.005 - L3S.06 Driftsbase Sporvedlikehold; Kilde=data_device_validation; Parent=; Child=; Device=9681229
+OPPDATERT; Kurs ElementId=14911762; Load Name=Brannalarm klokke BYG202-854-BRK-05.005 - L3S.02 Verkstedhall; Kilde=data_device_validation; Parent=; Child=; Device=9781212
+OPPDATERT; Kurs ElementId=14912807; Load Name=Brannalarm elektronisk sirene med blinklys rød linse lav sokkel BYG204-854-BRK-02.005 - L2U1.15 Signalrom; Kilde=data_device_validation; Parent=; Child=; Device=7696013
+OPPDATERT; Kurs ElementId=14912860; Load Name=Brannalarm klokke BYG204-854-BRK-03.003 - L2U1.03 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=9901131
+OPPDATERT; Kurs ElementId=14913034; Load Name=Brannalarm klokke BYG204-854-BRK-04.005 - M3H1.02 Kontorlandskap; Kilde=data_device_validation; Parent=; Child=; Device=9910914
+OPPDATERT; Kurs ElementId=14933609; Load Name=Brannalarm psu 24vdc BYG200-854-PWR-007 - E7K.01 Kulvert; Kilde=data_device_validation; Parent=; Child=; Device=14342288
+OPPDATERT; Kurs ElementId=14947910; Load Name=Adgangskontroll grensesnittboks BYG202-854-IAL-016 - L3S.18 Inertgass 2; Kilde=data_device_validation; Parent=; Child=; Device=14866301
+OPPDATERT; Kurs ElementId=14948057; Load Name=Adgangskontroll grensesnittboks BYG201-854-IAL-022 - L3S.07 Knivbryterrom; Kilde=data_device_validation; Parent=; Child=; Device=14866293
+OPPDATERT; Kurs ElementId=14950012; Load Name=Adgangskontroll grensesnittboks BYG202-854-IAL-021 - M3G2.03 Verkstedhall; Kilde=data_device_validation; Parent=; Child=; Device=14866309
+OPPDATERT; Kurs ElementId=14963605; Load Name=Adgangskontroll grensesnittboks P14-854-IAL-004 - L4S.28 Vendesløyfe; Kilde=data_device_validation; Parent=; Child=; Device=14926441
+OPPDATERT; Kurs ElementId=14966255; Load Name=Adgangskontroll grensesnittboks BYG201-854-IAL-023 - E1S.01 Innvendig vask P4-P5; Kilde=data_device_validation; Parent=; Child=; Device=14866307
+OPPDATERT; Kurs ElementId=14968089; Load Name=Adgangskontroll grensesnittboks BYG201-854-IAL-026 - E3U2.01 Ventilasjonsrom; Kilde=data_device_validation; Parent=; Child=; Device=14967961
+OPPDATERT; Kurs ElementId=14969361; Load Name=Adgangskontroll grensesnittboks BYG202-854-IAL-029 - L4U2.10 VVS sjakt; Kilde=data_device_validation; Parent=; Child=; Device=14866281
+OPPDATERT; Kurs ElementId=14970502; Load Name=Adgangskontroll grensesnittboks BYG203-854-IAL-024 - L4U2.07 Sprinklerrom; Kilde=data_device_validation; Parent=; Child=; Device=14866278
+OPPDATERT; Kurs ElementId=14983282; Load Name=Adgangskontroll grensesnittboks BYG203-854-IAL-019 - L3U2.03 Varemottak; Kilde=data_device_validation; Parent=; Child=; Device=14866271
+OPPDATERT; Kurs ElementId=14984901; Load Name=Adgangskontroll grensesnittboks BYG204-854-IAL-016 - L2U1.01 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=14866270
+OPPDATERT; Kurs ElementId=14985002; Load Name=Adgangskontroll psu 24vdc BYG201-854-PWR-004 - N1U1.01 Tavlerom; Kilde=data_device_validation; Parent=; Child=; Device=15165299
+OPPDATERT; Kurs ElementId=14985222; Load Name=Adgangskontroll grensesnittboks BYG204-854-IAL-041 - L2U1.07 Inertgass 1; Kilde=data_device_validation; Parent=; Child=; Device=14985548
+OPPDATERT; Kurs ElementId=14986586; Load Name=Adgangskontroll grensesnittboks BYG204-854-IAL-044 - M3H1.18 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=14986074
+OPPDATERT; Kurs ElementId=14987148; Load Name=Adgangskontroll grensesnittboks BYG204-854-IAL-009 - M3H0.01 Trapperom; Kilde=data_device_validation; Parent=; Child=; Device=14866265
+OPPDATERT; Kurs ElementId=14988080; Load Name=Adgangskontroll grensesnittboks BYG204-854-IAL-051 - M3H2.04 Forrom; Kilde=data_device_validation; Parent=; Child=; Device=14987984
+OPPDATERT; Kurs ElementId=14988753; Load Name=Brannalarm psu 24vdc BYG200-854-PWR-005 - L4K.01 Kulvert; Kilde=data_device_validation; Parent=; Child=; Device=14342174
+OPPDATERT; Kurs ElementId=14989559; Load Name=Adgangskontroll kontrollenhet BYG201-854-IAL-005 - E8S.01 Gjennomkjøringsspor P1; Kilde=data_device_validation; Parent=; Child=; Device=11744754
+OPPDATERT; Kurs ElementId=15529330; Load Name=Adgangskontroll grensesnittboks BYG203-854-IAL-029 - L4U2.14 Varemottak; Kilde=data_device_validation; Parent=; Child=; Device=14969714
+OPPDATERT; Kurs ElementId=15663240; Load Name=Brannalarm røykdetektor optisk P14-854-RØK-01.001 - L4S.28 Vendesløyfe P14; Kilde=data_device_validation; Parent=; Child=; Device=14228833
+OPPDATERT; Kurs ElementId=15666750; Load Name=Brannalarm røykdetektor optisk U02S0952-854-RØK-01.001 - U02S0949 Servicetunnel brannport; Kilde=data_device_validation; Parent=; Child=; Device=14598047
+OPPDATERT; Kurs ElementId=17477679; Load Name=Brannalarm brannsentral for branndører U02S0952-854-SBV-001 - U02S0949 Servicetunnel brannport; Kilde=data_device_validation; Parent=; Child=; Device=14597848
+SUMMARY: Resultat: Load Name oppdatert på 50 kurs(er).
+SUMMARY: Varighet sekunder: 5.5
+

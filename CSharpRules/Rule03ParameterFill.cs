@@ -15,7 +15,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.10";
+        private const string ScriptVersion = "0.0.11";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule03_ParameterFill.log";
@@ -151,6 +151,41 @@ namespace CW.Assistant.Generated
             int unresolvedCount = 0;
             int preservedCount = 0;
             var processedTypes = new HashSet<long>();
+            bool cableTrayRuleHandled = false;
+            CableTrayMarkingEngine.Plan? cableTrayPlan = null;
+
+            if (instances.Any(HasMissingCableTrayRuleValue))
+            {
+                cableTrayRuleHandled = true;
+                try
+                {
+                    cableTrayPlan = CableTrayMarkingEngine.CreatePlan(activeDocument);
+                    foreach (string line in cableTrayPlan.Log)
+                    {
+                        log.Add("KABELBROMERKING: " + line);
+                        if (line.StartsWith("UAVKLART", StringComparison.Ordinal)
+                            || line.StartsWith("BLOKKERING", StringComparison.Ordinal))
+                        {
+                            unresolvedCount++;
+                        }
+                    }
+                    foreach (CableTrayMarkingEngine.PlannedWrite write in cableTrayPlan.Writes)
+                    {
+                        string key = write.Owner.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + write.Parameter.Definition.Name;
+                        if (scheduled.Add(key))
+                        {
+                            writes.Add(new PendingWrite(write.Owner, write.Parameter, write.Value, write.Reason));
+                        }
+                    }
+                    log.Add("KABELBROMERKING: C#-forløper planla " + cableTrayPlan.Writes.Count.ToString(CultureInfo.InvariantCulture)
+                        + " endringer før generell Regel 3-utfylling.");
+                }
+                catch (Exception exception)
+                {
+                    unresolvedCount++;
+                    log.Add("BLOKKERING: Kabelbroforløperen kunne ikke lage en trygg plan: " + exception);
+                }
+            }
 
             foreach (Element instance in instances)
             {
@@ -162,6 +197,15 @@ namespace CW.Assistant.Generated
 
                 foreach (string name in parameterNames)
                 {
+                    if (cableTrayRuleHandled
+                        && IsCableTrayMarkingElement(instance)
+                        && (string.Equals(name, "FOB_Sekvensnummer", StringComparison.Ordinal)
+                            || string.Equals(name, "FOB_Merkestreng", StringComparison.Ordinal)
+                            || string.Equals(name, "FOB_Omraade", StringComparison.Ordinal)))
+                    {
+                        continue;
+                    }
+
                     if (TypeControlledParameterNames.Contains(name, StringComparer.Ordinal)
                         || RevisionParameterNames.Contains(name, StringComparer.Ordinal)
                         || string.Equals(name, PackageParameter, StringComparison.Ordinal)
@@ -207,6 +251,7 @@ namespace CW.Assistant.Generated
 
             int updated = 0;
             int failedWrites = 0;
+            bool transactionCommitted = writes.Count == 0;
             if (writes.Count > 0)
             {
                 var worksetDialogHandler = new WorksetCheckoutDialogHandler(log);
@@ -265,6 +310,7 @@ namespace CW.Assistant.Generated
                             return SaveAndReturn(log, result);
                         }
                     }
+                    transactionCommitted = true;
                 }
                 finally
                 {
@@ -274,6 +320,20 @@ namespace CW.Assistant.Generated
                 if (worksetDialogHandler.HandledCount > 0)
                 {
                     log.Add(string.Format(CultureInfo.InvariantCulture, "WORKSHARING: automatisk håndterte Check Out Worksets-dialoger {0}.", worksetDialogHandler.HandledCount));
+                }
+            }
+
+            if (transactionCommitted && cableTrayPlan is { Triggered: true, RegistryRows.Count: > 0 })
+            {
+                try
+                {
+                    CableTrayMarkingEngine.PersistRegistryRows(cableTrayPlan.RegistryRows);
+                    log.Add("KABELBROMERKING: statusregister oppdatert med " + cableTrayPlan.RegistryRows.Count.ToString(CultureInfo.InvariantCulture) + " nye/promoterte oppføringer.");
+                }
+                catch (Exception exception)
+                {
+                    unresolvedCount++;
+                    log.Add("UAVKLART: statusregisteret kunne ikke oppdateres etter commit: " + exception.Message);
                 }
             }
 
@@ -846,6 +906,21 @@ namespace CW.Assistant.Generated
             return IsCategory(element, BuiltInCategory.OST_Conduit) || IsCategory(element, BuiltInCategory.OST_CableTray);
         }
 
+        private static bool IsCableTrayMarkingElement(Element element)
+        {
+            return IsCategory(element, BuiltInCategory.OST_CableTray)
+                || IsCategory(element, BuiltInCategory.OST_CableTrayFitting);
+        }
+
+        private static bool HasMissingCableTrayRuleValue(Element element)
+        {
+            if (!IsCableTrayMarkingElement(element)) return false;
+            return new[] { "FOB_Sekvensnummer", "FOB_Merkestreng", "FOB_Omraade" }
+                .Any(name => !TryGetSingleParameter(element, name, out Parameter? parameter, out string issue)
+                    || parameter is null || issue == "mangler" || IsParameterEmpty(parameter)
+                    || string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal));
+        }
+
         private static bool IsForingsveiFitting(Element element)
         {
             return IsCategory(element, BuiltInCategory.OST_ConduitFitting) || IsCategory(element, BuiltInCategory.OST_CableTrayFitting);
@@ -880,15 +955,26 @@ namespace CW.Assistant.Generated
 
         private static string SaveAndReturn(List<string> lines, string result)
         {
+            string reportResult;
+            try
+            {
+                string reportDirectory = Path.Combine(Path.GetDirectoryName(LogPath)!, "..", "reports");
+                Directory.CreateDirectory(reportDirectory);
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+                string reportPath = Path.Combine(reportDirectory, "Rule03_ParameterFill " + timestamp + ".txt");
+                File.WriteAllLines(reportPath, lines, new UTF8Encoding(false));
+                reportResult = "Rapport: " + reportPath;
+            }
+            catch (Exception exception) { reportResult = "Rapport kunne ikke skrives: " + exception.Message; }
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(LogPath)!);
                 File.AppendAllLines(LogPath, lines, new UTF8Encoding(false));
-                return result;
+                return result + " " + reportResult;
             }
             catch (Exception exception)
             {
-                return result + " Logg kunne ikke skrives: " + exception.Message;
+                return result + " " + reportResult + " Logg kunne ikke skrives: " + exception.Message;
             }
         }
     }

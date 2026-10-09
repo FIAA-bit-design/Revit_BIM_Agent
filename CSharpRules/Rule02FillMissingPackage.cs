@@ -13,14 +13,17 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.5";
+        private const string ScriptVersion = "0.0.6";
         private const string ParameterName = "FOB_Leveransepakke";
+        private const string EnterpriseParameterName = "FOB_Entreprise";
+        private const string TargetEnterprise = "K5B";
         private const string IfcExcludeParameterName = "MC Exclude From IFC View";
         private const double PrimaryRadiusMm = 1500.0;
         private const double FallbackRadiusMm = 3000.0;
         private const double TieToleranceMm = 1.0;
         private const int MajorityCandidateLimit = 5;
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule02_FOB_Leveransepakke.log";
+        private const string ReportDirectory = @"D:\Revit\Python\Revit_BIM_Agent\logs\reports";
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
             Enum.GetValues(typeof(BuiltInCategory))
                 .Cast<BuiltInCategory>()
@@ -74,12 +77,12 @@ namespace CW.Assistant.Generated
 
         private sealed class Candidate
         {
-            internal FamilyInstance Element { get; }
+            internal Element Element { get; }
             internal string FamilyName { get; }
             internal string Package { get; }
             internal XYZ Point { get; }
 
-            internal Candidate(FamilyInstance element, string familyName, string package, XYZ point)
+            internal Candidate(Element element, string familyName, string package, XYZ point)
             {
                 Element = element;
                 FamilyName = familyName;
@@ -102,13 +105,13 @@ namespace CW.Assistant.Generated
 
         private sealed class PendingWrite
         {
-            internal FamilyInstance Element { get; }
+            internal Element Element { get; }
             internal Parameter Parameter { get; }
             internal string Package { get; }
             internal int CandidateCount { get; }
             internal bool UsedFallback { get; }
 
-            internal PendingWrite(FamilyInstance element, Parameter parameter, string package, int candidateCount, bool usedFallback)
+            internal PendingWrite(Element element, Parameter parameter, string package, int candidateCount, bool usedFallback)
             {
                 Element = element;
                 Parameter = parameter;
@@ -129,58 +132,71 @@ namespace CW.Assistant.Generated
             {
                 string.Format(CultureInfo.InvariantCulture, "=== Regel 2 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title)
             };
-            var instances = new FilteredElementCollector(activeDocument)
-                .OfClass(typeof(FamilyInstance))
+            var elements = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
-                .Cast<FamilyInstance>()
-                .Where(instance => !IsCenterLine(instance))
+                .ToElements()
+                .Where(element => !IsCenterLine(element))
                 .ToList();
-            var targets = new List<FamilyInstance>();
+            var targets = new List<Element>();
             var candidates = new List<Candidate>();
             int missingParameterCount = 0;
             int unsupportedParameterCount = 0;
             int excludedFromIfcCount = 0;
+            int k5bElementCount = 0;
+            int unresolvedCount = 0;
 
-            foreach (FamilyInstance instance in instances)
+            foreach (Element element in elements)
             {
-                if (IsExcludedFromIfc(instance))
+                IList<Parameter> enterpriseParameters = element.GetParameters(EnterpriseParameterName);
+                if (enterpriseParameters.Count != 1
+                    || enterpriseParameters[0].StorageType != StorageType.String
+                    || !string.Equals(enterpriseParameters[0].AsString(), TargetEnterprise, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+                k5bElementCount++;
+
+                if (IsExcludedFromIfc(element))
                 {
                     excludedFromIfcCount++;
                     continue;
                 }
 
-                Parameter? parameter = instance.LookupParameter(ParameterName);
+                Parameter? parameter = element.LookupParameter(ParameterName);
                 if (parameter is null)
                 {
                     missingParameterCount++;
+                    unresolvedCount++;
+                    log.Add(FormatIssue(element.Id.Value, 0, "FOB_Leveransepakke-parameteren mangler"));
                     continue;
                 }
                 if (parameter.StorageType != StorageType.String)
                 {
                     unsupportedParameterCount++;
+                    unresolvedCount++;
+                    log.Add(FormatIssue(element.Id.Value, 0, "FOB_Leveransepakke har feil lagringstype"));
                     continue;
                 }
 
                 string? value = parameter.AsString();
                 if (IsMissing(value))
                 {
-                    targets.Add(instance);
+                    targets.Add(element);
                     continue;
                 }
 
-                XYZ? point = GetPlacementPoint(instance);
+                XYZ? point = GetPlacementPoint(element);
                 if (point is not null)
                 {
-                    candidates.Add(new Candidate(instance, GetFamilyName(instance), value!, point));
+                    candidates.Add(new Candidate(element, GetFamilyName(activeDocument, element), value!, point));
                 }
             }
 
             var writes = new List<PendingWrite>();
-            int unresolvedCount = 0;
             int readOnlyCount = 0;
             int fallbackCount = 0;
 
-            foreach (FamilyInstance target in targets)
+            foreach (Element target in targets)
             {
                 Parameter? parameter = target.LookupParameter(ParameterName);
                 if (parameter is null || parameter.StorageType != StorageType.String)
@@ -189,7 +205,7 @@ namespace CW.Assistant.Generated
                     log.Add(FormatIssue(target.Id.Value, 0, "målparameteren mangler eller har feil lagringstype"));
                     continue;
                 }
-                string familyName = GetFamilyName(target);
+                string familyName = GetFamilyName(activeDocument, target);
                 XYZ? point = GetPlacementPoint(target);
                 if (point is null)
                 {
@@ -303,8 +319,9 @@ namespace CW.Assistant.Generated
 
             log.Insert(1, string.Format(
                 CultureInfo.InvariantCulture,
-                "Instanser {0}; ekskludert IFC {1}; mål {2}; kandidater {3}; parameter mangler {4}; feil lagringstype {5}; oppdatert {6}; uavklart {7}; skrivebeskyttet {8}; fallback {9}",
-                instances.Count,
+                "Elementer {0}; K5B-elementer {1}; ekskludert IFC {2}; mål {3}; kandidater {4}; parameter mangler {5}; feil lagringstype {6}; oppdatert {7}; uavklart {8}; skrivebeskyttet {9}; fallback {10}",
+                elements.Count,
+                k5bElementCount,
                 excludedFromIfcCount,
                 targets.Count,
                 candidates.Count,
@@ -327,17 +344,17 @@ namespace CW.Assistant.Generated
                 excludedFromIfcCount));
         }
 
-            private static bool IsExcludedFromIfc(FamilyInstance instance)
-            {
-                IList<Parameter> parameters = instance.GetParameters(IfcExcludeParameterName);
-                return parameters.Count == 1
+        private static bool IsExcludedFromIfc(Element element)
+        {
+            IList<Parameter> parameters = element.GetParameters(IfcExcludeParameterName);
+            return parameters.Count == 1
                 && parameters[0].StorageType == StorageType.Integer
                 && parameters[0].HasValue
                 && parameters[0].AsInteger() != 0;
-            }
+        }
 
         private static List<Match> FindMajorityCandidates(
-            FamilyInstance target,
+            Element target,
             string targetFamilyName,
             XYZ targetPoint,
             List<Candidate> candidates,
@@ -362,7 +379,7 @@ namespace CW.Assistant.Generated
             return inRadius.Where(match => match.Distance <= inclusionDistance).ToList();
         }
 
-        private static XYZ? GetPlacementPoint(FamilyInstance instance)
+        private static XYZ? GetPlacementPoint(Element instance)
         {
             if (instance.Location is LocationPoint pointLocation)
             {
@@ -379,11 +396,23 @@ namespace CW.Assistant.Generated
                 : (bounds.Min + bounds.Max) * 0.5;
         }
 
-        private static string GetFamilyName(FamilyInstance instance)
+        private static string GetFamilyName(Document document, Element element)
         {
             try
             {
-                return instance.Symbol?.Family?.Name ?? string.Empty;
+                if (element is FamilyInstance instance)
+                {
+                    return instance.Symbol?.Family?.Name ?? string.Empty;
+                }
+
+                ElementType? elementType = document.GetElement(element.GetTypeId()) as ElementType;
+                if (!string.IsNullOrWhiteSpace(elementType?.FamilyName))
+                {
+                    return elementType.FamilyName;
+                }
+
+                string categoryId = element.Category?.Id.Value.ToString(CultureInfo.InvariantCulture) ?? "unknown";
+                return categoryId + ":" + (elementType?.Name ?? element.Name);
             }
             catch
             {
@@ -404,6 +433,16 @@ namespace CW.Assistant.Generated
 
         private static string SaveAndReturn(List<string> log, string result)
         {
+            string reportResult;
+            try
+            {
+                reportResult = "Rapport: " + WriteRunReport(log);
+            }
+            catch (Exception exception)
+            {
+                reportResult = "Rapport kunne ikke skrives: " + exception.Message;
+            }
+
             string logResult;
             try
             {
@@ -415,7 +454,22 @@ namespace CW.Assistant.Generated
                 logResult = "Logg kunne ikke skrives: " + exception.Message;
             }
 
-            return result + " " + logResult;
+            return result + " " + reportResult + " " + logResult;
+        }
+
+        private static string WriteRunReport(List<string> log)
+        {
+            Directory.CreateDirectory(ReportDirectory);
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+            string path = Path.Combine(ReportDirectory, "Regel 2 rapport " + timestamp + ".txt");
+            int suffix = 1;
+            while (File.Exists(path))
+            {
+                path = Path.Combine(ReportDirectory, "Regel 2 rapport " + timestamp + "_" + suffix.ToString(CultureInfo.InvariantCulture) + ".txt");
+                suffix++;
+            }
+            File.WriteAllLines(path, log, new UTF8Encoding(false));
+            return path;
         }
 
         private static bool IsCenterLine(Element element)

@@ -1,0 +1,5 @@
+=== Regel 2 v0.0.6 | 2026-10-09T16:52:02.4633940+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer 99946; K5B-elementer 13430; ekskludert IFC 217; mål 2; kandidater 13210; parameter mangler 1; feil lagringstype 0; oppdatert 2; uavklart 1; skrivebeskyttet 0; fallback 0
+UAVKLART ElementId 49504: kandidater 0; årsak: FOB_Leveransepakke-parameteren mangler
+OPPDATERT ElementId 17759915: pakke 'LPE281', kandidater 5
+OPPDATERT ElementId 17772686: pakke 'LPE161', kandidater 4

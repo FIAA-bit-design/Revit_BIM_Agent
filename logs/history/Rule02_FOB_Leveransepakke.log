@@ -459,3 +459,49 @@ UAVKLART ElementId 17041506: kandidater 0; årsak: ingen kandidat innen 3000 mm
 UAVKLART ElementId 17041507: kandidater 0; årsak: ingen kandidat innen 3000 mm
 UAVKLART ElementId 17759915: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
 OPPDATERT ElementId 9203185: pakke 'LPEF3', kandidater 1
+=== Regel 2 v0.0.5 | 2026-10-09T15:52:42.0269188+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Instanser 19260; ekskludert IFC 224; mål 39; kandidater 12313; parameter mangler 6684; feil lagringstype 0; oppdatert 0; uavklart 39; skrivebeskyttet 0; fallback 0
+UAVKLART ElementId 11010120: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012550: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11012597: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11186128: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 11187772: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15804775: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 15810880: kandidater 2; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+UAVKLART ElementId 16200327: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041459: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041463: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041464: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041465: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041466: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041467: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041468: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041476: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041477: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041478: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041479: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041482: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041486: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041487: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041488: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041489: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041490: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041493: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041494: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041495: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041496: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041497: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041498: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041499: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041501: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041502: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041504: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041505: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041506: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17041507: kandidater 0; årsak: ingen kandidat innen 3000 mm
+UAVKLART ElementId 17759915: kandidater 4; årsak: ingen streng pakke-majoritet; fallback brukes ikke
+=== Regel 2 v0.0.6 | 2026-10-09T16:52:02.4633940+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer 99946; K5B-elementer 13430; ekskludert IFC 217; mål 2; kandidater 13210; parameter mangler 1; feil lagringstype 0; oppdatert 2; uavklart 1; skrivebeskyttet 0; fallback 0
+UAVKLART ElementId 49504: kandidater 0; årsak: FOB_Leveransepakke-parameteren mangler
+OPPDATERT ElementId 17759915: pakke 'LPE281', kandidater 5
+OPPDATERT ElementId 17772686: pakke 'LPE161', kandidater 4

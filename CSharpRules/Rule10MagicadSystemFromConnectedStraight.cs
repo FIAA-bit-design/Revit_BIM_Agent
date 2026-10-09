@@ -330,15 +330,26 @@ namespace CW.Assistant.Generated
 
         private static string SaveAndReturn(List<string> lines, string result)
         {
+            string reportResult;
+            try
+            {
+                string reportDirectory = Path.Combine(Path.GetDirectoryName(LogPath)!, "..", "reports");
+                Directory.CreateDirectory(reportDirectory);
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+                string reportPath = Path.Combine(reportDirectory, "Rule10_MagicadSystemFromConnectedStraight " + timestamp + ".txt");
+                File.WriteAllLines(reportPath, lines, new UTF8Encoding(false));
+                reportResult = "Rapport: " + reportPath;
+            }
+            catch (Exception exception) { reportResult = "Rapport kunne ikke skrives: " + exception.Message; }
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(LogPath)!);
                 File.AppendAllLines(LogPath, lines, new UTF8Encoding(false));
-                return result;
+                return result + " " + reportResult;
             }
             catch (Exception exception)
             {
-                return result + " Logg kunne ikke skrives: " + exception.Message;
+                return result + " " + reportResult + " Logg kunne ikke skrives: " + exception.Message;
             }
         }
     }

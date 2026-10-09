@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
@@ -223,7 +225,7 @@ namespace CW.Assistant.Generated
 
             if (pendingWrites.Count == 0)
             {
-                return string.Format(
+                string noUpdateResult = string.Format(
                     CultureInfo.InvariantCulture,
                     "Regel 1 v{0}: Ingen oppdateringer nødvendig i '{1}'. Instanser undersøkt: {2}; parameter mangler: {3}; skrivebeskyttet: {4}; ikke støttet lagringstype: {5}; utenfor verdiområde: {6}.",
                     ScriptVersion,
@@ -233,6 +235,7 @@ namespace CW.Assistant.Generated
                     readOnlyCount,
                     unsupportedStorageCount,
                     outOfRangeCount);
+                return SaveRunReport(activeDocument, noUpdateResult, changedIds);
             }
 
             TransactionStatus commitStatus;
@@ -246,11 +249,12 @@ namespace CW.Assistant.Generated
                     TransactionStatus startStatus = transaction.Start();
                     if (startStatus != TransactionStatus.Started)
                     {
-                        return string.Format(
+                        string startFailureResult = string.Format(
                             CultureInfo.InvariantCulture,
                             "Regel 1 v{0}: Transaksjonen startet ikke (status {1}); ingen endringer ble forsøkt.",
                             ScriptVersion,
                             startStatus);
+                        return SaveRunReport(activeDocument, startFailureResult, changedIds, worksharingLog);
                     }
 
                     try
@@ -297,11 +301,12 @@ namespace CW.Assistant.Generated
                         commitStatus = transaction.Commit();
                         if (commitStatus != TransactionStatus.Committed)
                         {
-                            return string.Format(
+                            string commitFailureResult = string.Format(
                                 CultureInfo.InvariantCulture,
                                 "Regel 1 v{0}: Transaksjonen ble ikke committed (status {1}); endrede elementer ble ikke valgt.",
                                 ScriptVersion,
                                 commitStatus);
+                            return SaveRunReport(activeDocument, commitFailureResult, changedIds, worksharingLog);
                         }
                     }
                     catch (Exception exception)
@@ -310,12 +315,13 @@ namespace CW.Assistant.Generated
                         {
                             transaction.RollBack();
                         }
-                        return string.Format(
+                        string transactionFailureResult = string.Format(
                             CultureInfo.InvariantCulture,
                             "Regel 1 v{0}: Transaksjonsfeil i '{1}': {2}",
                             ScriptVersion,
                             activeDocument.Title,
                             exception.Message);
+                        return SaveRunReport(activeDocument, transactionFailureResult, changedIds, worksharingLog);
                     }
                 }
             }
@@ -357,7 +363,34 @@ namespace CW.Assistant.Generated
                 outOfRangeCount,
                 selectionSucceeded,
                 selectionSucceeded ? string.Empty : " (" + selectionFailure + ")");
-            return result + (worksharingLog.Count == 0 ? string.Empty : " " + string.Join(" ", worksharingLog));
+            return SaveRunReport(activeDocument, result + (worksharingLog.Count == 0 ? string.Empty : " " + string.Join(" ", worksharingLog)), changedIds, worksharingLog);
+        }
+
+        private static string SaveRunReport(Document document, string result, List<ElementId> changedIds, List<string>? worksharingLog = null)
+        {
+            try
+            {
+                string reportDirectory = Path.Combine(@"D:\Revit\Python\Revit_BIM_Agent\logs", "reports");
+                Directory.CreateDirectory(reportDirectory);
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+                string path = Path.Combine(reportDirectory, "Regel 1 rapport " + timestamp + ".txt");
+                int suffix = 1;
+                while (File.Exists(path)) path = Path.Combine(reportDirectory, "Regel 1 rapport " + timestamp + "_" + suffix++.ToString(CultureInfo.InvariantCulture) + ".txt");
+                var lines = new List<string>
+                {
+                    string.Format(CultureInfo.InvariantCulture, "=== Regel 1 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, document.Title),
+                    result,
+                    "ElementId;PGF_RIE_ElementId"
+                };
+                lines.AddRange(changedIds.Select(id => id.Value.ToString(CultureInfo.InvariantCulture) + ";" + id.Value.ToString(CultureInfo.InvariantCulture)));
+                if (worksharingLog is not null) lines.AddRange(worksharingLog);
+                File.WriteAllLines(path, lines, new UTF8Encoding(false));
+                return result + " Rapport: " + path;
+            }
+            catch (Exception exception)
+            {
+                return result + " Rapport kunne ikke skrives: " + exception.Message;
+            }
         }
 
         private static bool IsCenterLine(Element element)

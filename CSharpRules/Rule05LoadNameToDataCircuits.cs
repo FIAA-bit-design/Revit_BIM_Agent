@@ -394,10 +394,10 @@ namespace CW.Assistant.Generated
             catch (Exception exception)
             {
                 AppendLine(log, "FEIL: " + exception);
-                string path = SaveLog(log);
+                string path = SaveLog(log, out string reportResult);
                 return string.Format(CultureInfo.InvariantCulture,
-                    "Regel 5 feilet i '{0}'. Ingen trygg videreføring ble gjort. Feil: {1}. Logg: {2}",
-                    activeDocument.Title, exception.Message, path);
+                    "Regel 5 feilet i '{0}'. Ingen trygg videreføring ble gjort. Feil: {1}. Logg: {2}. {3}",
+                    activeDocument.Title, exception.Message, path, reportResult);
             }
         }
 
@@ -609,19 +609,32 @@ namespace CW.Assistant.Generated
 
         private static void AppendLine(StringBuilder builder, string line) => builder.AppendLine(line);
 
-        private static string SaveLog(StringBuilder log)
+        private static string SaveLog(StringBuilder log, out string reportResult)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(LogPath)!);
             File.AppendAllText(LogPath, log.ToString() + Environment.NewLine, new UTF8Encoding(false));
+            try
+            {
+                string reportDirectory = Path.Combine(Path.GetDirectoryName(LogPath)!, "..", "reports");
+                Directory.CreateDirectory(reportDirectory);
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+                string reportPath = Path.Combine(reportDirectory, "Rule05_LoadNameToDataCircuits " + timestamp + ".txt");
+                File.WriteAllText(reportPath, log.ToString(), new UTF8Encoding(false));
+                reportResult = "Rapport: " + reportPath;
+            }
+            catch (Exception exception)
+            {
+                reportResult = "Rapport kunne ikke skrives: " + exception.Message;
+            }
             return LogPath;
         }
 
         private static string SaveLogAndReturn(StringBuilder log, Document document, int updated, int unchanged, int parents, int noCircuit, int missingData, int skipped)
         {
-            string path = SaveLog(log);
+            string path = SaveLog(log, out string reportResult);
             return string.Format(CultureInfo.InvariantCulture,
-                "Regel 5 v{0} i '{1}': oppdatert {2} kurser; allerede riktig {3}; parents {4}; enheter uten kurs {5}; mangler data {6}; hoppet over {7}. Logg: {8}",
-                ScriptVersion, document.Title, updated, unchanged, parents, noCircuit, missingData, skipped, path);
+                "Regel 5 v{0} i '{1}': oppdatert {2} kurser; allerede riktig {3}; parents {4}; enheter uten kurs {5}; mangler data {6}; hoppet over {7}. Logg: {8}. {9}",
+                ScriptVersion, document.Title, updated, unchanged, parents, noCircuit, missingData, skipped, path, reportResult);
         }
     }
 }

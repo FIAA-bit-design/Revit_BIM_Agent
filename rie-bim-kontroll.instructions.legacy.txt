@@ -106,11 +106,11 @@ Regel 3 kontrollerer og fyller ut prosjektparametere etter definerte fagregler. 
 
 Kjør i denne rekkefølgen: bruk parameterlisten til å fastslå hvilke parametere og generelle utfyllingsregler som gjelder; anvend brukerfiltrene før du velger mål eller kilder for mengdelistepostkontrollen; fyll og kontroller `FOB_Mengdelistepost` etter de spesialiserte connectorreglene; utfør revisjonskontrollen til slutt, også på allerede utfylte revisjonsverdier.
 
-## Regel 4: Koble brannalarmens child-familie til parent-familien kule
+## Regel 4: Brannalarm FOB_Merkestreng kopiering
 
-Familien `Brannalarm tilkoblingspunkt magnethold glideskinne` skal brukes som child. Bruk den lastede Revit-lenken med filnavnet `U_F_BAS_FBU_RIS_XXX.rvt` som kildemodell. Match eksakt filnavn fra lenkenavnet eller den lenkede dokumenttittelen, uten hensyn til store/små bokstaver; `.rvt`-endelsen og et Revit-instanssuffiks på formen ` : <tall>` kan normaliseres bort. Ikke søk etter den generiske delstrengen `RIS_BAS`. Hvis lenken ikke finnes/er lastet, eller flere lenkeinstanser matcher, stopp uten modellendringer og rapporter blokkeringen.
+Familien `Brannalarm tilkoblingspunkt magnethold glideskinne` brukes som child. Parent-familier av typen kule søkes i aktiv modell og tilgjengelige lenkemodeller.
 
-- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agnet\CSharpRules\Rule04CopyAlarmParentData.cs`
+- C#-implementasjon: `D:\Revit\Python\Revit_BIM_Agent\CSharpRules\Rule04CopyAlarmParentData.cs`
 
 Bruk den etablerte malens match- og kopieringslogikk samt samme parameterkobling:
 

@@ -1,6 +1,6 @@
 # Regel 12: Kontroller revisjonsparametere per leveransepakke
 
-Kjør etter Regel 11 og før den skrivebeskyttede sluttrapporten i Regel 13.
+Kjør etter Regel 11 som siste delregel i fullkontrollen.
 
 - C#-implementasjon: `../../CSharpRules/Rule12RevisionParameters.cs`
 - Arbeidsbok: `../../config/Revisjonsliste.xlsx`
@@ -13,3 +13,5 @@ Finn hver godkjent verdi ved å slå opp parameternavnet i kolonnen `Parameterna
 Hvis `FOB_Leveransepakke` er tom, `--` eller ikke finnes som fane, hoppes elementet over uten rapportering. For pakker som finnes i arbeidsboken, sammenlignes alle tre modellverdiene med godkjente verdier. Fyll manglende verdier og korriger avvik, også når modellverdien allerede er utfylt. Manglende eller dupliserte målparametere og skrivebeskyttede avvik rapporteres som blokkeringer.
 
 Regelen endrer modellverdier i én transaksjon og håndterer den spesifikke checkout-dialogen etter worksharing-kravene i [utføringsreglene](../core/execution-rules.md). Rapporter antall verdier som samsvarte, ble oppdatert eller ble blokkert. Loggen er append-only; bevar eldre kjøringer.
+
+Hver kjøring lager `../../logs/reports/Rule12_RevisionParameters <tid>.txt` med samme sammendrag og oppdaterte/utestående verdier som kjøreloggen. Append-only historikklogg bevares separat.

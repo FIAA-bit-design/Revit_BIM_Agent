@@ -20,7 +20,6 @@ Revit_BIM_Agent/
 ├── Rapporter/                      # tom, ubrukt restmappe; kan fjernes
 ├── rie-bim-agent/                  # modulære core/, rules/, parameter-rules/, standards/
 │   ├── rules/regel12-kontroller-revisjonsparametere-per-leveransepakke.md
-│   ├── rules/regel13-lag-felles-sluttrapport.md
 │   └── standards/                  # senterlinje- og connectorstandarder
 ├── rie-bim-kontroll.instructions.md # eldre full instruksjon
 ├── Revisjonsliste.xlsx
@@ -109,6 +108,8 @@ Etter oppryddingen finnes ingen brutte aktive Markdown-lenker eller manglende fl
 ## Worksharing-reglenes plassering
 
 **Oppdatert 2026-10-05:** Worksharing-kravene ligger i `core/execution-rules.md` fordi de styrer gjennomføringen av muterende regler og ikke er en selvstendig kontroll. Revisjonskontrollen er en egen Regel 12 fordi den slår opp mot `Revisjonsliste.xlsx`; sluttrapporten er Regel 13. `standards/` beholdes for senterlinje- og connectorstandardene.
+
+**Oppdatert 2026-10-09:** Regel 13 er fjernet. Delreglene 1–12 lager hver sin tidsstemplede rapport fra egen kjøring; Regel 8, 9 og 11 beholder sine særskilte rapportformater. Det finnes ikke lenger en separat sluttrapportimplementasjon.
 
 Den tidligere anbefalingen om å beholde `standards/` gjaldt katalogen og de normerende tekniske standardene. Den endres ikke for de gjenværende filene.
 

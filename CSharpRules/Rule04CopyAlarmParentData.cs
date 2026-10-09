@@ -14,7 +14,6 @@ namespace CW.Assistant.Generated
     internal sealed class GeneratedAction
     {
         private const string ScriptVersion = "0.0.3";
-        private const string TargetLinkedModelName = "U_F_BAS_FBU_RIS_XXX";
         private const string ParentFamilyToken = "kule";
         private const string ChildFamilyName = "Brannalarm tilkoblingspunkt magnethold glideskinne";
         private const string MatchParameterName = "FOB_ID";
@@ -114,79 +113,26 @@ namespace CW.Assistant.Generated
             {
                 string.Format(CultureInfo.InvariantCulture, "=== Regel 4 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title)
             };
-            List<RevitLinkInstance> matchingLinks = new FilteredElementCollector(activeDocument)
-                .OfClass(typeof(RevitLinkInstance))
-                .Cast<RevitLinkInstance>()
-                .Where(IsTargetLink)
-                .ToList();
-
-            if (matchingLinks.Count != 1)
-            {
-                string reason = matchingLinks.Count == 0
-                    ? "ingen lenke med filnavnet 'U_F_BAS_FBU_RIS_XXX.rvt'"
-                    : "flere lenkeinstanser med filnavnet 'U_F_BAS_FBU_RIS_XXX.rvt'; kilde er tvetydig";
-                log.Add("STOPPET: " + reason + ". Ingen modellverdier endret.");
-                return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": " + reason + ". Ingen modellverdier endret.");
-            }
-
-            RevitLinkInstance linkInstance = matchingLinks[0];
-            Document? linkedDocument = linkInstance.GetLinkDocument();
-            if (linkedDocument is null)
-            {
-                log.Add("STOPPET: lenken 'U_F_BAS_FBU_RIS_XXX.rvt' er ikke lastet. Ingen modellverdier endret.");
-                return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": lenken 'U_F_BAS_FBU_RIS_XXX.rvt' er ikke lastet.");
-            }
-
-            Transform linkTransform = linkInstance.GetTotalTransform();
             var sources = new List<SourceData>();
             int sourceIssueCount = 0;
-            foreach (FamilyInstance source in new FilteredElementCollector(linkedDocument)
-                .OfClass(typeof(FamilyInstance))
-                .WhereElementIsNotElementType()
-                .Cast<FamilyInstance>())
+            AddSources(activeDocument, Transform.Identity, sources, ref sourceIssueCount);
+            foreach (RevitLinkInstance linkInstance in new FilteredElementCollector(activeDocument)
+                .OfClass(typeof(RevitLinkInstance))
+                .Cast<RevitLinkInstance>())
             {
-                string sourceFamily = GetFamilyName(source);
-                if (!ContainsToken(sourceFamily, ParentFamilyToken))
+                Document? linkedDocument = linkInstance.GetLinkDocument();
+                if (linkedDocument is null)
                 {
                     continue;
                 }
 
-                XYZ? point = GetPlacementPoint(source);
-                if (point is null)
-                {
-                    sourceIssueCount++;
-                    continue;
-                }
-
-                if (!TryGetSingleParameter(source, ParentMarkParameterName, out Parameter? markParameter, out string markIssue)
-                    || markParameter is null
-                    || markParameter.StorageType != StorageType.String)
-                {
-                    sourceIssueCount++;
-                    continue;
-                }
-
-                string mark = markParameter.AsString() ?? string.Empty;
-                if (IsMissing(mark))
-                {
-                    continue;
-                }
-
-                string parentName = string.Empty;
-                if (TryGetSingleParameter(source, ParentNameParameterName, out Parameter? nameParameter, out _)
-                    && nameParameter is not null
-                    && nameParameter.StorageType == StorageType.String)
-                {
-                    parentName = nameParameter.AsString() ?? string.Empty;
-                }
-
-                sources.Add(new SourceData(source.Id.Value, sourceFamily, mark, parentName, linkTransform.OfPoint(point)));
+                AddSources(linkedDocument, linkInstance.GetTotalTransform(), sources, ref sourceIssueCount);
             }
 
             if (sources.Count == 0)
             {
-                log.Add(string.Format(CultureInfo.InvariantCulture, "STOPPET: ingen brukbare kule-kilder i '{0}'; kilder med mangler/feil {1}.", linkedDocument.Title, sourceIssueCount));
-                return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": ingen brukbare kule-kilder i RIS_BAS-lenken.");
+                log.Add(string.Format(CultureInfo.InvariantCulture, "STOPPET: ingen brukbare kule-kilder i aktiv modell eller lastede lenker; kilder med mangler/feil {0}.", sourceIssueCount));
+                return SaveAndReturn(log, "Regel 4 v" + ScriptVersion + ": ingen brukbare kule-kilder i aktiv modell eller lastede lenker.");
             }
 
             var targets = new FilteredElementCollector(activeDocument)
@@ -289,7 +235,7 @@ namespace CW.Assistant.Generated
                 uiApplication.DialogBoxShowing += dialogHandler.HandleDialogBoxShowing;
                 try
                 {
-                    using (var transaction = new Transaction(activeDocument, "Kopier brannalarmdata fra kule i RIS_BAS"))
+                    using (var transaction = new Transaction(activeDocument, "Kopier brannalarm FOB-verdier fra parent"))
                     {
                         TransactionStatus startStatus = transaction.Start();
                         if (startStatus != TransactionStatus.Started)
@@ -347,6 +293,52 @@ namespace CW.Assistant.Generated
                 sourceIssueCount);
             log.Insert(1, summary);
             return SaveAndReturn(log, summary);
+        }
+
+        private static void AddSources(Document sourceDocument, Transform transform, List<SourceData> sources, ref int sourceIssueCount)
+        {
+            foreach (FamilyInstance source in new FilteredElementCollector(sourceDocument)
+                .OfClass(typeof(FamilyInstance))
+                .WhereElementIsNotElementType()
+                .Cast<FamilyInstance>())
+            {
+                string sourceFamily = GetFamilyName(source);
+                if (!ContainsToken(sourceFamily, ParentFamilyToken))
+                {
+                    continue;
+                }
+
+                XYZ? point = GetPlacementPoint(source);
+                if (point is null)
+                {
+                    sourceIssueCount++;
+                    continue;
+                }
+
+                if (!TryGetSingleParameter(source, ParentMarkParameterName, out Parameter? markParameter, out _)
+                    || markParameter is null
+                    || markParameter.StorageType != StorageType.String)
+                {
+                    sourceIssueCount++;
+                    continue;
+                }
+
+                string mark = markParameter.AsString() ?? string.Empty;
+                if (IsMissing(mark))
+                {
+                    continue;
+                }
+
+                string parentName = string.Empty;
+                if (TryGetSingleParameter(source, ParentNameParameterName, out Parameter? nameParameter, out _)
+                    && nameParameter is not null
+                    && nameParameter.StorageType == StorageType.String)
+                {
+                    parentName = nameParameter.AsString() ?? string.Empty;
+                }
+
+                sources.Add(new SourceData(source.Id.Value, sourceFamily, mark, parentName, transform.OfPoint(point)));
+            }
         }
 
         private static void AddMissingTargetWrite(
@@ -442,35 +434,6 @@ namespace CW.Assistant.Generated
             }
         }
 
-        private static bool IsTargetLink(RevitLinkInstance link)
-        {
-            return MatchesTargetLinkedModelName(link.Name)
-                || MatchesTargetLinkedModelName(link.GetLinkDocument()?.Title);
-        }
-
-        private static bool MatchesTargetLinkedModelName(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return false;
-            }
-
-            string fileName = Path.GetFileName(value.Trim());
-            int instanceSuffix = fileName.LastIndexOf(" : ", StringComparison.Ordinal);
-            if (instanceSuffix >= 0
-                && int.TryParse(fileName.Substring(instanceSuffix + 3), NumberStyles.None, CultureInfo.InvariantCulture, out _))
-            {
-                fileName = fileName.Substring(0, instanceSuffix);
-            }
-
-            if (fileName.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
-            {
-                fileName = fileName.Substring(0, fileName.Length - 4);
-            }
-
-            return string.Equals(fileName, TargetLinkedModelName, StringComparison.OrdinalIgnoreCase);
-        }
-
         private static bool ContainsToken(string? value, string token)
         {
             return value?.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0;
@@ -488,14 +451,25 @@ namespace CW.Assistant.Generated
 
         private static string SaveAndReturn(List<string> log, string result)
         {
+            string reportResult;
+            try
+            {
+                string reportDirectory = Path.Combine(Path.GetDirectoryName(LogPath)!, "..", "reports");
+                Directory.CreateDirectory(reportDirectory);
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
+                string reportPath = Path.Combine(reportDirectory, "Rule04_CopyAlarmParentData " + timestamp + ".txt");
+                File.WriteAllLines(reportPath, log, new UTF8Encoding(false));
+                reportResult = "Rapport: " + reportPath;
+            }
+            catch (Exception exception) { reportResult = "Rapport kunne ikke skrives: " + exception.Message; }
             try
             {
                 File.AppendAllText(LogPath, string.Join(Environment.NewLine, log) + Environment.NewLine, new UTF8Encoding(false));
-                return result + " Logg: " + LogPath;
+                return result + " " + reportResult + " Logg: " + LogPath;
             }
             catch (Exception exception)
             {
-                return result + " Logg kunne ikke skrives: " + exception.Message;
+                return result + " " + reportResult + " Logg kunne ikke skrives: " + exception.Message;
             }
         }
     }

@@ -45,3 +45,5 @@ BEVART ElementId 12974500: PGF_RIE_BetjenerMerke hadde allerede verdi.
 BEVART ElementId 12974500: PGF_RIE_BetjenerNavn hadde allerede verdi.
 === Regel 4 v0.0.2 | 2026-10-05T12:00:48.3189790+02:00 | U_F_BAS_FBU_RIE_XXX ===
 STOPPET: ingen lenke med filnavnet 'U_F_BAS_FBU_RIS_XXX.rvt'. Ingen modellverdier endret.
+=== Regel 4 v0.0.3 | 2026-10-09T15:56:16.7750628+02:00 | U_F_BAS_FBU_RIE_XXX ===
+STOPPET: ingen brukbare kule-kilder i aktiv modell eller lastede lenker; kilder med mangler/feil 0.

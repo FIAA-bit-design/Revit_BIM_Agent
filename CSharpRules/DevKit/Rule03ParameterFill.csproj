@@ -4,5 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Rule03ParameterFill.cs" Link="Rule03ParameterFill.cs" />
+    <Compile Include="..\CableTrayMarkingEngine.cs" Link="CableTrayMarkingEngine.cs" />
   </ItemGroup>
 </Project>

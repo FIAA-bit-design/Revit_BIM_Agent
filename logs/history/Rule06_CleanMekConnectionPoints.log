@@ -1156,3 +1156,6 @@ OPPDATERT ElementId 16089480: FOB_FysiskMerke='--'.
 OPPDATERT ElementId 16089481: PGF_RIE_Tilkoblet='BYG204-423-UFD-003-605'.
 OPPDATERT ElementId 16089481: FOB_FysiskMerke='--'.
 OPPDATERT ElementId 16607438: FOB_TilhorerObjekt=''.
+=== Regel 6 v0.0.3 | 2026-10-09T15:58:00.5303762+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 6 v0.0.3: behandlet 2103; med Circuit Number 370; uten Circuit Number 1733; oppdatert PGF_RIE_Tilkoblet 0; FOB_TilhorerObjekt 1; PGF_RIE_Bygg_VVSsystemer 0; FOB_FysiskMerke 0; fysisk merke unntatt 0; manglende parametere 0; feil lagringstype/duplikat 0; skrivebeskyttede 0; skrivefeil 0.
+OPPDATERT ElementId 16607438: FOB_TilhorerObjekt=''.
