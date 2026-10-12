@@ -40,7 +40,8 @@ Revit_BIM_Agent/
 ├── .vscode/                        # beholdes
 ├── CSharpRules/                    # beholdes; anbefalt teknisk modul, ikke flyttet
 ├── config/
-│   ├── Revisjonsliste.xlsx
+│   ├── FBU STA revisjonsliste.xlsx
+│   ├── FBu BAS revisjonsliste.xlsx
 │   ├── Workset liste.xlsx
 │   └── Parameterliste.xlsx          # autoritativ parameterliste for Regel 3
 ├── logs/
@@ -107,7 +108,7 @@ Etter oppryddingen finnes ingen brutte aktive Markdown-lenker eller manglende fl
 
 ## Worksharing-reglenes plassering
 
-**Oppdatert 2026-10-05:** Worksharing-kravene ligger i `core/execution-rules.md` fordi de styrer gjennomføringen av muterende regler og ikke er en selvstendig kontroll. Revisjonskontrollen er en egen Regel 12 fordi den slår opp mot `Revisjonsliste.xlsx`; sluttrapporten er Regel 13. `standards/` beholdes for senterlinje- og connectorstandardene.
+**Oppdatert 2026-10-05:** Worksharing-kravene ligger i `core/execution-rules.md` fordi de styrer gjennomføringen av muterende regler og ikke er en selvstendig kontroll. Revisjonskontrollen er en egen Regel 12 fordi den slår opp i modellspesifikk revisjonsliste; sluttrapporten er Regel 13. `standards/` beholdes for senterlinje- og connectorstandardene.
 
 **Oppdatert 2026-10-09:** Regel 13 er fjernet. Delreglene 1–12 lager hver sin tidsstemplede rapport fra egen kjøring; Regel 8, 9 og 11 beholder sine særskilte rapportformater. Det finnes ikke lenger en separat sluttrapportimplementasjon.
 
@@ -119,7 +120,7 @@ Den tidligere anbefalingen om å beholde `standards/` gjaldt katalogen og de nor
 
 `Rule03ParameterFill.cs` leser kolonnen `Parameternavn` fra fanen `Parameterliste` og validerer overskrifter, tomme rader med innhold og duplikater. De naturlige språkbeskrivelsene i Excel dokumenterer forutsetningene; de endrer ikke automatisk C#-regelens utførbare logikk.
 
-De tre revisjonsfeltene kontrolleres separat av `Rule12RevisionParameters.cs` mot fanene og verdiene i `config/Revisjonsliste.xlsx`. Regel 3 skriver ikke lenger disse feltene.
+De tre revisjonsfeltene kontrolleres separat av `Rule12RevisionParameters.cs` mot fanene og verdiene i `config/FBU STA revisjonsliste.xlsx` eller `config/FBu BAS revisjonsliste.xlsx`, valgt etter aktiv modell. Regel 3 skriver ikke lenger disse feltene.
 
 ## C#-modul
 

@@ -10,3 +10,9 @@ Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx
 Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18951; flyttet: 3; uløste avvik: 0; blokkeringer: 0.
 Rapport: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Workset kategori kontroll 20261009_160334_569.csv
 
+
+=== Regel 11 v0.0.6 | rapporttid 20261012_093606_606 | U_F_STA_FBU_RIE_XXX ===
+Mappinger lest: 12; kategorier kontrollert: 14; flyttet: 1297; uløste avvik: 0; blokkeringer: 0.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Workset kategori kontroll 20261012_093606_606.csv
+ETTERKONTROLL: rapporterte flyttinger 1297; workset verifisert 1297; manglende 0; avvik 0.
+GJENOPPRETTING: Revit-host returnerte runtime-feil etter at CSV-rapporten var skrevet; denne append-only-posten gjenoppretter kjøringssammendraget.

@@ -5,7 +5,7 @@
     <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>Rule12Runner</Title>
-    <Description>Runs the maintained C# Rule 12 revision check on the verified BAS model.</Description>
+    <Description>Runs the maintained C# Rule 12 revision check on the verified STA or BAS model.</Description>
     <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl></PackageIconUrl>

@@ -15,9 +15,10 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.1";
+        private const string ScriptVersion = "0.0.4";
         private const string PackageParameter = "FOB_Leveransepakke";
-        private const string RevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Revisjonsliste.xlsx";
+        private const string StaRevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\FBU STA revisjonsliste.xlsx";
+        private const string BasRevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\FBu BAS revisjonsliste.xlsx";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule12_RevisionParameters.log";
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
@@ -49,13 +50,17 @@ namespace CW.Assistant.Generated
             internal Parameter Parameter { get; }
             internal string Value { get; }
             internal string Package { get; }
+            internal string SourceInfo { get; }
+            internal bool FromConnectedSource { get; }
 
-            internal PendingWrite(Element owner, Parameter parameter, string value, string package)
+            internal PendingWrite(Element owner, Parameter parameter, string value, string package, string sourceInfo, bool fromConnectedSource)
             {
                 Owner = owner;
                 Parameter = parameter;
                 Value = value;
                 Package = package;
+                SourceInfo = sourceInfo;
+                FromConnectedSource = fromConnectedSource;
             }
         }
 
@@ -124,13 +129,15 @@ namespace CW.Assistant.Generated
             Dictionary<string, Dictionary<string, string>> revisions;
             try
             {
-                revisions = ReadRevisionWorkbook(RevisionWorkbookPath);
+                string revisionWorkbookPath = GetRevisionWorkbookPath(activeDocument);
+                log.Add("Revisjonsliste: " + Path.GetFileName(revisionWorkbookPath));
+                revisions = ReadRevisionWorkbook(revisionWorkbookPath);
                 log.Add(string.Format(CultureInfo.InvariantCulture, "Revisjonsliste lest: {0} faner.", revisions.Count));
             }
             catch (Exception exception)
             {
-                log.Add("BLOKKERING: Revisjonslisten kunne ikke leses; ingen revisjonsfelt blir endret: " + exception.Message);
-                return SaveAndReturn(log, "Regel 12 stoppet: revisjonslisten kunne ikke leses.");
+                log.Add("BLOKKERING: Revisjonslisten kunne ikke velges eller leses; ingen revisjonsfelt blir endret: " + exception.Message);
+                return SaveAndReturn(log, "Regel 12 stoppet: revisjonslisten kunne ikke velges eller leses.");
             }
 
             List<Element> instances = new FilteredElementCollector(activeDocument)
@@ -146,6 +153,7 @@ namespace CW.Assistant.Generated
             int readOnlyCount = 0;
             int unresolvedCount = 0;
             int updatedCount = 0;
+            int connectedSourceUpdatedCount = 0;
             int failedWrites = 0;
 
             foreach (Element instance in instances)
@@ -157,20 +165,50 @@ namespace CW.Assistant.Generated
 
                 string package = GetParameterText(packageParameter);
                 if (string.IsNullOrWhiteSpace(package) || package == "--") continue;
-                if (!revisions.TryGetValue(package, out Dictionary<string, string>? approved)) continue;
+                Dictionary<string, string>? approved = null;
+                bool hasApprovedRevision = revisions.TryGetValue(package, out approved);
+                if (!hasApprovedRevision && !IsForingsveiElement(instance)) continue;
 
                 foreach (string name in RevisionParameterNames)
                 {
                     if (!TryGetSingleParameter(instance, name, out Parameter? parameter, out string issue) || parameter is null)
                     {
+                        if (!hasApprovedRevision) continue;
                         blockedCount++;
                         unresolvedCount++;
                         log.Add(FormatIssue(instance, name, issue));
                         continue;
                     }
 
-                    string approvedValue = approved[name];
                     string currentValue = GetParameterText(parameter);
+                    if (!hasApprovedRevision && !IsMissingRevisionValue(currentValue)) continue;
+
+                    string approvedValue = string.Empty;
+                    string sourceInfo = string.Empty;
+                    bool fromConnectedSource = false;
+                    if (IsMissingRevisionValue(currentValue) && IsForingsveiElement(instance))
+                    {
+                        bool hasConnectedValue;
+                        if (TryResolveConnectedRevisionValue(instance, package, name, out string connectedValue, out string connectedSourceInfo, out hasConnectedValue))
+                        {
+                            approvedValue = connectedValue;
+                            sourceInfo = connectedSourceInfo;
+                            fromConnectedSource = true;
+                        }
+                        else if (hasConnectedValue)
+                        {
+                            blockedCount++;
+                            unresolvedCount++;
+                            log.Add(FormatIssue(instance, name, connectedSourceInfo));
+                            continue;
+                        }
+                    }
+                    if (!fromConnectedSource)
+                    {
+                        if (!hasApprovedRevision) continue;
+                        approvedValue = approved![name];
+                        sourceInfo = "godkjent verdi i revisjonslisten";
+                    }
                     if (string.Equals(currentValue, approvedValue, StringComparison.Ordinal))
                     {
                         matchedCount++;
@@ -186,7 +224,7 @@ namespace CW.Assistant.Generated
                     }
 
                     string key = instance.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + name;
-                    if (scheduled.Add(key)) writes.Add(new PendingWrite(instance, parameter, approvedValue, package));
+                    if (scheduled.Add(key)) writes.Add(new PendingWrite(instance, parameter, approvedValue, package, sourceInfo, fromConnectedSource));
                 }
             }
 
@@ -215,9 +253,10 @@ namespace CW.Assistant.Generated
                                 if (TrySetParameter(write.Parameter, write.Value))
                                 {
                                     successfulWrites++;
+                                    if (write.FromConnectedSource) connectedSourceUpdatedCount++;
                                     log.Add(string.Format(CultureInfo.InvariantCulture,
-                                        "OPPDATERT ElementId {0}, pakke '{1}', {2} = '{3}' (godkjent revisjonsverdi).",
-                                        write.Owner.Id.Value, EscapeLog(write.Package), write.Parameter.Definition.Name, EscapeLog(write.Value)));
+                                        "OPPDATERT ElementId {0}, pakke '{1}', {2} = '{3}' fra {4}.",
+                                        write.Owner.Id.Value, EscapeLog(write.Package), write.Parameter.Definition.Name, EscapeLog(write.Value), EscapeLog(write.SourceInfo)));
                                 }
                                 else
                                 {
@@ -270,11 +309,133 @@ namespace CW.Assistant.Generated
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture,
-                "Oppsummering: elektriske instanser {0}; revisjonsverdier samsvarte {1}; oppdatert {2}; blokkeringer {3}; skrivebeskyttet {4}; uavklart {5}; skrivefeil {6}.",
-                instances.Count, matchedCount, updatedCount, blockedCount, readOnlyCount, unresolvedCount, failedWrites));
+                "Oppsummering: elektriske instanser {0}; revisjonsverdier samsvarte {1}; oppdatert {2} (fra tilkobling {3}); blokkeringer {4}; skrivebeskyttet {5}; uavklart {6}; skrivefeil {7}.",
+                instances.Count, matchedCount, updatedCount, connectedSourceUpdatedCount, blockedCount, readOnlyCount, unresolvedCount, failedWrites));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 12 v{0}: revisjonsverdier samsvarte {1}; oppdatert {2}; blokkeringer {3}; logg: {4}.",
-                ScriptVersion, matchedCount + updatedCount, updatedCount, blockedCount, LogPath));
+                "Regel 12 v{0}: revisjonsverdier håndtert {1}; oppdatert {2} (fra tilkobling {3}); blokkeringer {4}; logg: {5}.",
+                ScriptVersion, matchedCount + updatedCount, updatedCount, connectedSourceUpdatedCount, blockedCount, LogPath));
+        }
+
+        private static string GetRevisionWorkbookPath(Document activeDocument)
+        {
+            string modelName = Path.GetFileNameWithoutExtension(activeDocument.Title);
+            if (modelName.StartsWith("U_F_STA_FBU_RIE_", StringComparison.OrdinalIgnoreCase))
+            {
+                return StaRevisionWorkbookPath;
+            }
+            if (modelName.StartsWith("U_F_BAS_FBU_RIE_", StringComparison.OrdinalIgnoreCase))
+            {
+                return BasRevisionWorkbookPath;
+            }
+            throw new InvalidOperationException("Ukjent modellnavn '" + modelName + "'; forventet U_F_STA_FBU_RIE_ eller U_F_BAS_FBU_RIE_.");
+        }
+
+        private static bool TryResolveConnectedRevisionValue(Element element, string package, string parameterName, out string value, out string sourceInfo, out bool hasConnectedValue)
+        {
+            value = string.Empty;
+            sourceInfo = string.Empty;
+            hasConnectedValue = false;
+            if (!TryGetConnectedRevisionSources(element, package, out List<Element> sources)) return false;
+
+            var values = new Dictionary<string, List<long>>(StringComparer.Ordinal);
+            foreach (Element source in sources)
+            {
+                if (!TryGetSingleParameter(source, parameterName, out Parameter? sourceParameter, out string issue))
+                {
+                    if (issue == "mangler") continue;
+                    hasConnectedValue = true;
+                    sourceInfo = "tilkoblet føringselement ElementId " + source.Id.Value + " har ikke en entydig brukbar '" + parameterName + "': " + issue;
+                    return false;
+                }
+
+                string sourceValue = GetParameterText(sourceParameter!).Trim();
+                if (IsMissingRevisionValue(sourceValue)) continue;
+                hasConnectedValue = true;
+                if (!values.TryGetValue(sourceValue, out List<long>? sourceIds))
+                {
+                    sourceIds = new List<long>();
+                    values.Add(sourceValue, sourceIds);
+                }
+                sourceIds.Add(source.Id.Value);
+            }
+
+            if (values.Count == 0) return false;
+            if (values.Count > 1)
+            {
+                sourceInfo = "tilkoblede føringselementer har ulike '" + parameterName + "'-verdier: "
+                    + string.Join("; ", values.Select(pair => "'" + EscapeLog(pair.Key) + "' fra ElementId " + string.Join(",", pair.Value)));
+                return false;
+            }
+
+            KeyValuePair<string, List<long>> match = values.Single();
+            value = match.Key;
+            sourceInfo = "direkte tilkoblede føringselementer ElementId " + string.Join(",", match.Value);
+            return true;
+        }
+
+        private static bool TryGetConnectedRevisionSources(Element element, string package, out List<Element> sources)
+        {
+            sources = new List<Element>();
+            ConnectorSet? connectors = element is FamilyInstance familyInstance
+                ? familyInstance.MEPModel?.ConnectorManager?.Connectors
+                : element is MEPCurve curve ? curve.ConnectorManager.Connectors : null;
+            if (connectors is null) return false;
+
+            var uniqueSources = new Dictionary<long, Element>();
+            foreach (Connector connector in connectors)
+            {
+                if (connector.ConnectorType != ConnectorType.End) continue;
+                foreach (Connector connected in connector.AllRefs)
+                {
+                    Element owner = connected.Owner;
+                    if (owner.Id.Value == element.Id.Value || connected.ConnectorType != ConnectorType.End
+                        || !connector.IsConnectedTo(connected) || !IsMatchingForingsveiCategory(element, owner))
+                    {
+                        continue;
+                    }
+                    if (!TryGetSingleParameter(owner, PackageParameter, out Parameter? sourcePackage, out _)
+                        || sourcePackage is null
+                        || !string.Equals(GetParameterText(sourcePackage), package, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+                    uniqueSources[owner.Id.Value] = owner;
+                }
+            }
+
+            sources = uniqueSources.Values.OrderBy(element => element.Id.Value).ToList();
+            return sources.Count > 0;
+        }
+
+        private static bool IsMissingRevisionValue(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) || string.Equals(value.Trim(), "--", StringComparison.Ordinal);
+        }
+
+        private static bool IsForingsveiElement(Element element)
+        {
+            return IsCategory(element, BuiltInCategory.OST_CableTray)
+                || IsCategory(element, BuiltInCategory.OST_CableTrayFitting)
+                || IsCategory(element, BuiltInCategory.OST_Conduit)
+                || IsCategory(element, BuiltInCategory.OST_ConduitFitting);
+        }
+
+        private static bool IsMatchingForingsveiCategory(Element element, Element source)
+        {
+            bool elementIsCableTray = IsCategory(element, BuiltInCategory.OST_CableTray)
+                || IsCategory(element, BuiltInCategory.OST_CableTrayFitting);
+            bool sourceIsCableTray = IsCategory(source, BuiltInCategory.OST_CableTray)
+                || IsCategory(source, BuiltInCategory.OST_CableTrayFitting);
+            bool elementIsConduit = IsCategory(element, BuiltInCategory.OST_Conduit)
+                || IsCategory(element, BuiltInCategory.OST_ConduitFitting);
+            bool sourceIsConduit = IsCategory(source, BuiltInCategory.OST_Conduit)
+                || IsCategory(source, BuiltInCategory.OST_ConduitFitting);
+            return (elementIsCableTray && sourceIsCableTray) || (elementIsConduit && sourceIsConduit);
+        }
+
+        private static bool IsCategory(Element element, BuiltInCategory category)
+        {
+            return element.Category is not null && element.Category.Id.Value == (long)category;
         }
 
         private static Dictionary<string, Dictionary<string, string>> ReadRevisionWorkbook(string path)

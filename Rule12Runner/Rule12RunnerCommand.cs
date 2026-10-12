@@ -44,9 +44,12 @@ public class Rule12RunnerCommand : IRevitExtension<Rule12RunnerArgs>
         if (document is null)
             return Result.Text.Failed("Revit has no active model open; Rule 12 was not run.");
 
-        if (!string.Equals(document.Title, "U_F_BAS_FBU_RIE_XXX", StringComparison.Ordinal)
-            || !string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt", StringComparison.Ordinal))
-            return Result.Text.Failed("Active model does not match the verified BAS model; Rule 12 was not run.");
+        bool isStaModel = string.Equals(document.Title, "U_F_STA_FBU_RIE_XXX", StringComparison.Ordinal)
+            && string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_STA_FBU_RIE_XXX.rvt", StringComparison.Ordinal);
+        bool isBasModel = string.Equals(document.Title, "U_F_BAS_FBU_RIE_XXX", StringComparison.Ordinal)
+            && string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt", StringComparison.Ordinal);
+        if (!isStaModel && !isBasModel)
+            return Result.Text.Failed("Active model does not match the verified STA or BAS model; Rule 12 was not run.");
 
         if (cancellationToken.IsCancellationRequested)
             return Result.Text.Failed("Rule 12 was cancelled before execution.");
@@ -55,7 +58,7 @@ public class Rule12RunnerCommand : IRevitExtension<Rule12RunnerArgs>
         {
             var rule = new CW.Assistant.Generated.GeneratedAction();
             string result = rule.Execute(context.UIApplication, document);
-            return result.StartsWith("Regel 12 v0.0.1:", StringComparison.Ordinal)
+            return result.StartsWith("Regel 12 v0.0.4:", StringComparison.Ordinal)
                 ? Result.Text.Succeeded(result)
                 : Result.Text.Failed(result);
         }

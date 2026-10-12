@@ -1,0 +1,214 @@
+=== Regel 3 nærmesteverdikontroll | 2026-10-12T10:28:47.0803030+02:00 | U_F_STA_FBU_RIE_XXX ===
+Omfang: FOB_Omraade og PGF_PNS på Regel 3s elektriske instansutvalg; ingen andre Regel 3-parametere behandles.
+Kildekrav: samme FOB_Entreprise og FOB_Leveransepakke; annen familie; nærmeste gyldige instansverdi.
+Søk: primær 50-1500 mm; fallback 1500-3000 mm bare uten primærtreff; konflikt innen 1 mm blokkeres.
+KILDER FOB_Omraade: 7538
+KILDER PGF_PNS: 7707
+OPPDATERT ElementId 6094259, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12795779 ('FBU0'), 736.3 mm (primærsøk).
+OPPDATERT ElementId 7664902, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8790182 ('FBU0'), 424.4 mm (primærsøk).
+OPPDATERT ElementId 7779122, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13475573 ('FBU0'), 126.9 mm (primærsøk).
+OPPDATERT ElementId 8032020, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10179422 ('FBU0'), 355.7 mm (primærsøk).
+OPPDATERT ElementId 8033156, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12043386 ('FBU0'), 767.7 mm (primærsøk).
+OPPDATERT ElementId 8033811, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10179414 ('FBU0'), 1017.0 mm (primærsøk).
+OPPDATERT ElementId 8035308, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10927742 ('FBU0'), 285.1 mm (primærsøk).
+OPPDATERT ElementId 8035316, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10179286 ('FBU0'), 1177.6 mm (primærsøk).
+OPPDATERT ElementId 8035951, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10241700 ('FBU0'), 1266.9 mm (primærsøk).
+OPPDATERT ElementId 8036585, FOB_Omraade = 'FBU0' fra nærmeste ElementId 7598870 ('FBU0'), 750.5 mm (primærsøk).
+OPPDATERT ElementId 8036652, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13382104 ('FBU0'), 1645.3 mm (fallback).
+OPPDATERT ElementId 8131993, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8806823 ('FBU0'), 2611.9 mm (fallback).
+OPPDATERT ElementId 8132163, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8747947 ('FBU0'), 504.9 mm (primærsøk).
+OPPDATERT ElementId 8132291, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12534638 ('FBU0'), 618.4 mm (primærsøk).
+OPPDATERT ElementId 8135089, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8134947 ('FBU0'), 549.1 mm (primærsøk).
+OPPDATERT ElementId 8137523, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137166 ('FBU0'), 976.6 mm (primærsøk).
+OPPDATERT ElementId 8137589, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8616337 ('FBU0'), 158.9 mm (primærsøk).
+OPPDATERT ElementId 8137595, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137184 ('FBU0'), 878.4 mm (primærsøk).
+OPPDATERT ElementId 8137652, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137252 ('FBU0'), 378.4 mm (primærsøk).
+OPPDATERT ElementId 8137658, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137262 ('FBU0'), 878.4 mm (primærsøk).
+OPPDATERT ElementId 8137670, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137272 ('FBU0'), 1621.6 mm (fallback).
+OPPDATERT ElementId 8137676, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13012541 ('FBU0'), 1084.5 mm (primærsøk).
+OPPDATERT ElementId 8137754, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137821 ('FBU0'), 880.0 mm (primærsøk).
+OPPDATERT ElementId 8137756, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13495392 ('FBU0'), 1352.5 mm (primærsøk).
+OPPDATERT ElementId 8137757, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8137904 ('FBU0'), 1120.0 mm (primærsøk).
+OPPDATERT ElementId 8139110, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12769646 ('FBU0'), 2690.6 mm (fallback).
+OPPDATERT ElementId 8139116, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8177769 ('FBU0'), 2656.3 mm (fallback).
+OPPDATERT ElementId 8139134, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13511876 ('FBU0'), 2064.5 mm (fallback).
+OPPDATERT ElementId 8139140, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8809086 ('FBU0'), 1710.6 mm (fallback).
+OPPDATERT ElementId 8139158, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8177007 ('FBU0'), 1134.9 mm (primærsøk).
+OPPDATERT ElementId 8139170, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8139863 ('FBU0'), 1510.6 mm (fallback).
+OPPDATERT ElementId 8139182, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8177089 ('FBU0'), 1986.7 mm (fallback).
+OPPDATERT ElementId 8139765, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8176926 ('FBU0'), 1270.7 mm (primærsøk).
+OPPDATERT ElementId 8139770, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8176999 ('FBU0'), 1470.7 mm (primærsøk).
+OPPDATERT ElementId 8139772, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8809086 ('FBU0'), 2631.8 mm (fallback).
+OPPDATERT ElementId 8139777, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8139863 ('FBU0'), 2506.5 mm (fallback).
+OPPDATERT ElementId 8155531, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8155532 ('FBU0'), 1142.1 mm (primærsøk).
+OPPDATERT ElementId 8155777, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12296760 ('FBU0'), 2718.7 mm (fallback).
+OPPDATERT ElementId 8155792, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12296982 ('FBU0'), 2580.7 mm (fallback).
+OPPDATERT ElementId 8579853, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12139548 ('FBU0'), 488.5 mm (primærsøk).
+OPPDATERT ElementId 8579854, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12139548 ('FBU0'), 614.5 mm (primærsøk).
+OPPDATERT ElementId 8580020, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12139646 ('FBU0'), 728.4 mm (primærsøk).
+OPPDATERT ElementId 8580021, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12139646 ('FBU0'), 860.3 mm (primærsøk).
+OPPDATERT ElementId 8580022, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12139646 ('FBU0'), 1625.6 mm (fallback).
+OPPDATERT ElementId 8580023, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12139646 ('FBU0'), 1489.6 mm (primærsøk).
+OPPDATERT ElementId 8587255, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12182768 ('FBU0'), 592.8 mm (primærsøk).
+OPPDATERT ElementId 8587256, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12182768 ('FBU0'), 655.3 mm (primærsøk).
+OPPDATERT ElementId 8806828, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8759476 ('FBU0'), 212.1 mm (primærsøk).
+OPPDATERT ElementId 8808683, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13511835 ('FBU0'), 2380.1 mm (fallback).
+OPPDATERT ElementId 8808697, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8908413 ('FBU0'), 2338.6 mm (fallback).
+OPPDATERT ElementId 8809745, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8809571 ('FBU0'), 29.3 mm (primærsøk).
+OPPDATERT ElementId 8810000, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8809863 ('FBU0'), 1170.7 mm (primærsøk).
+OPPDATERT ElementId 8810008, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8809875 ('FBU0'), 670.7 mm (primærsøk).
+OPPDATERT ElementId 8810020, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8809905 ('FBU0'), 329.3 mm (primærsøk).
+OPPDATERT ElementId 9301262, FOB_Omraade = 'FBU0' fra nærmeste ElementId 9301266 ('FBU0'), 1380.0 mm (primærsøk).
+OPPDATERT ElementId 9301263, FOB_Omraade = 'FBU0' fra nærmeste ElementId 9301266 ('FBU0'), 1620.0 mm (fallback).
+OPPDATERT ElementId 10182046, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10733188 ('FBU0'), 831.2 mm (primærsøk).
+OPPDATERT ElementId 10182047, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10733188 ('FBU0'), 695.3 mm (primærsøk).
+OPPDATERT ElementId 10182050, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10733188 ('FBU0'), 2680.5 mm (fallback).
+OPPDATERT ElementId 10182051, FOB_Omraade = 'FBU0' fra nærmeste ElementId 10733188 ('FBU0'), 2641.8 mm (fallback).
+OPPDATERT ElementId 10218071, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13012518 ('FBU0'), 1456.0 mm (primærsøk).
+OPPDATERT ElementId 10245547, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12047398 ('FBU0'), 2455.6 mm (fallback).
+OPPDATERT ElementId 10247315, FOB_Omraade = 'FBU0' fra nærmeste ElementId 9301268 ('FBU0'), 800.0 mm (primærsøk).
+OPPDATERT ElementId 10247703, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8806823 ('FBU0'), 1545.8 mm (fallback).
+OPPDATERT ElementId 10489776, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868242 ('FBU5'), 397.7 mm (primærsøk).
+OPPDATERT ElementId 10489984, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412495 ('FBU5'), 430.1 mm (primærsøk).
+OPPDATERT ElementId 10490002, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868243 ('FBU5'), 436.3 mm (primærsøk).
+OPPDATERT ElementId 10490022, FOB_Omraade = 'FBU5' fra nærmeste ElementId 13421526 ('FBU5'), 1888.2 mm (fallback).
+OPPDATERT ElementId 10490048, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868244 ('FBU5'), 466.4 mm (primærsøk).
+OPPDATERT ElementId 10490066, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412553 ('FBU5'), 174.0 mm (primærsøk).
+OPPDATERT ElementId 10490086, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868245 ('FBU5'), 401.4 mm (primærsøk).
+OPPDATERT ElementId 10490100, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10492006 ('FBU5'), 1969.1 mm (fallback).
+OPPDATERT ElementId 10490120, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868246 ('FBU5'), 394.4 mm (primærsøk).
+OPPDATERT ElementId 10490142, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412493 ('FBU5'), 430.9 mm (primærsøk).
+OPPDATERT ElementId 10490162, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868247 ('FBU5'), 394.4 mm (primærsøk).
+OPPDATERT ElementId 10490182, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10492060 ('FBU5'), 1969.1 mm (fallback).
+OPPDATERT ElementId 10490200, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868248 ('FBU5'), 394.4 mm (primærsøk).
+OPPDATERT ElementId 10490222, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412492 ('FBU5'), 430.3 mm (primærsøk).
+OPPDATERT ElementId 10490242, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868249 ('FBU5'), 394.7 mm (primærsøk).
+OPPDATERT ElementId 10491747, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412472 ('FBU5'), 1808.5 mm (fallback).
+OPPDATERT ElementId 10491929, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412473 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10491941, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412474 ('FBU5'), 1846.8 mm (fallback).
+OPPDATERT ElementId 10491953, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412475 ('FBU5'), 1846.8 mm (fallback).
+OPPDATERT ElementId 10491967, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10102457 ('FBU5'), 1262.1 mm (primærsøk).
+OPPDATERT ElementId 10491979, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412553 ('FBU5'), 1654.7 mm (fallback).
+OPPDATERT ElementId 10491991, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412477 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492007, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412478 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492019, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412479 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492031, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412480 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492043, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11402965 ('FBU5'), 1247.1 mm (primærsøk).
+OPPDATERT ElementId 10492061, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412482 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492073, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412552 ('FBU5'), 1589.7 mm (fallback).
+OPPDATERT ElementId 10492083, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412484 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492095, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412485 ('FBU5'), 1808.3 mm (fallback).
+OPPDATERT ElementId 10492213, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868250 ('FBU5'), 1684.3 mm (fallback).
+OPPDATERT ElementId 10492215, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10935649 ('FBU5'), 1642.6 mm (fallback).
+OPPDATERT ElementId 10492217, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868251 ('FBU5'), 1637.3 mm (fallback).
+OPPDATERT ElementId 10492219, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412792 ('FBU5'), 1846.6 mm (fallback).
+OPPDATERT ElementId 10492221, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10102579 ('FBU5'), 1254.2 mm (primærsøk).
+OPPDATERT ElementId 10492223, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10885404 ('FBU5'), 1839.1 mm (fallback).
+OPPDATERT ElementId 10492225, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868253 ('FBU5'), 1633.3 mm (fallback).
+OPPDATERT ElementId 10492227, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412796 ('FBU5'), 1809.1 mm (fallback).
+OPPDATERT ElementId 10492229, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868254 ('FBU5'), 1709.1 mm (fallback).
+OPPDATERT ElementId 10492231, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412798 ('FBU5'), 1809.1 mm (fallback).
+OPPDATERT ElementId 10492233, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11403020 ('FBU5'), 1240.6 mm (primærsøk).
+OPPDATERT ElementId 10492235, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412875 ('FBU5'), 1583.1 mm (fallback).
+OPPDATERT ElementId 10492237, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11393148 ('FBU5'), 1723.3 mm (fallback).
+OPPDATERT ElementId 10492239, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412802 ('FBU5'), 1809.1 mm (fallback).
+OPPDATERT ElementId 10492241, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11868257 ('FBU5'), 1709.3 mm (fallback).
+OPPDATERT ElementId 10732056, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12933890 ('FBU0'), 307.8 mm (primærsøk).
+OPPDATERT ElementId 10885020, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412789 ('FBU5'), 313.0 mm (primærsøk).
+OPPDATERT ElementId 10885347, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412790 ('FBU5'), 313.0 mm (primærsøk).
+OPPDATERT ElementId 10885391, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412791 ('FBU5'), 338.4 mm (primærsøk).
+OPPDATERT ElementId 10885395, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412792 ('FBU5'), 335.5 mm (primærsøk).
+OPPDATERT ElementId 10885399, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412793 ('FBU5'), 335.8 mm (primærsøk).
+OPPDATERT ElementId 10885403, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412794 ('FBU5'), 321.2 mm (primærsøk).
+OPPDATERT ElementId 10885407, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412795 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 10885411, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412796 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 10885415, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412797 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 10885419, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412798 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 10885423, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412799 ('FBU5'), 288.9 mm (primærsøk).
+OPPDATERT ElementId 10885427, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412875 ('FBU5'), 191.5 mm (primærsøk).
+OPPDATERT ElementId 10885431, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412801 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 10885435, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412802 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 10885439, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10412803 ('FBU5'), 310.3 mm (primærsøk).
+OPPDATERT ElementId 11868845, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11401971 ('FBU0'), 256.4 mm (primærsøk).
+OPPDATERT ElementId 11944887, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11944828 ('FBU0'), 2724.1 mm (fallback).
+OPPDATERT ElementId 12210012, FOB_Omraade = 'FBU0' fra nærmeste ElementId 9543136 ('FBU0'), 690.0 mm (primærsøk).
+OPPDATERT ElementId 12390045, FOB_Omraade = 'FBU5' fra nærmeste ElementId 12390000 ('FBU5'), 128.2 mm (primærsøk).
+OPPDATERT ElementId 12404308, FOB_Omraade = 'FBU5' fra nærmeste ElementId 12404307 ('FBU5'), 128.2 mm (primærsøk).
+OPPDATERT ElementId 12427938, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11985897 ('FBU0'), 629.5 mm (primærsøk).
+OPPDATERT ElementId 12549670, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10166748 ('FBU5'), 2473.3 mm (fallback).
+OPPDATERT ElementId 12549942, FOB_Omraade = 'FBU5' fra nærmeste ElementId 7794365 ('FBU5'), 2503.2 mm (fallback).
+OPPDATERT ElementId 12550032, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10166748 ('FBU5'), 2456.6 mm (fallback).
+OPPDATERT ElementId 12866067, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13907040 ('FBU0'), 175.6 mm (primærsøk).
+OPPDATERT ElementId 13423403, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11181514 ('FBU0'), 1257.4 mm (primærsøk).
+OPPDATERT ElementId 13438984, FOB_Omraade = 'FBU5' fra nærmeste ElementId 12390000 ('FBU5'), 749.5 mm (primærsøk).
+OPPDATERT ElementId 13438985, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10253554 ('FBU5'), 239.1 mm (primærsøk).
+OPPDATERT ElementId 13438987, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11663471 ('FBU5'), 1208.9 mm (primærsøk).
+OPPDATERT ElementId 13438988, FOB_Omraade = 'FBU0' fra nærmeste ElementId 4269760 ('FBU0'), 739.1 mm (primærsøk).
+OPPDATERT ElementId 13438990, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10254062 ('FBU5'), 1836.7 mm (fallback).
+OPPDATERT ElementId 13439007, FOB_Omraade = 'FBU5' fra nærmeste ElementId 12404307 ('FBU5'), 791.4 mm (primærsøk).
+OPPDATERT ElementId 13439009, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10253794 ('FBU5'), 886.3 mm (primærsøk).
+OPPDATERT ElementId 13439011, FOB_Omraade = 'FBU0' fra nærmeste ElementId 4269928 ('FBU0'), 1629.7 mm (fallback).
+OPPDATERT ElementId 13439012, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11663441 ('FBU5'), 2297.7 mm (fallback).
+OPPDATERT ElementId 13439014, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10254063 ('FBU5'), 1887.6 mm (fallback).
+OPPDATERT ElementId 13439017, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11663530 ('FBU5'), 1177.3 mm (primærsøk).
+OPPDATERT ElementId 13439018, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10254160 ('FBU5'), 1915.1 mm (fallback).
+OPPDATERT ElementId 13439020, FOB_Omraade = 'FBU5' fra nærmeste ElementId 12941496 ('FBU5'), 546.1 mm (primærsøk).
+OPPDATERT ElementId 13439021, FOB_Omraade = 'FBU0' fra nærmeste ElementId 5319912 ('FBU0'), 1166.3 mm (primærsøk).
+OPPDATERT ElementId 13439023, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10254108 ('FBU5'), 886.9 mm (primærsøk).
+OPPDATERT ElementId 13439024, FOB_Omraade = 'FBU5' fra nærmeste ElementId 11689523 ('FBU5'), 839.3 mm (primærsøk).
+OPPDATERT ElementId 13439026, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13349504 ('FBU0'), 2100.4 mm (fallback).
+OPPDATERT ElementId 13439029, FOB_Omraade = 'FBU5' fra nærmeste ElementId 10254093 ('FBU5'), 882.4 mm (primærsøk).
+OPPDATERT ElementId 14138887, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13475717 ('FBU0'), 266.4 mm (primærsøk).
+OPPDATERT ElementId 14138887, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 13475717 ('1.3.06.03.02'), 266.4 mm (primærsøk).
+OPPDATERT ElementId 14138888, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13475696 ('FBU0'), 193.9 mm (primærsøk).
+OPPDATERT ElementId 14138888, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 13475696 ('1.3.06.03.02'), 193.9 mm (primærsøk).
+OPPDATERT ElementId 14138889, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11675759 ('FBU0'), 166.0 mm (primærsøk).
+OPPDATERT ElementId 14138889, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 11675759 ('1.3.06.03.02'), 166.0 mm (primærsøk).
+OPPDATERT ElementId 14138890, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13475701 ('FBU0'), 206.4 mm (primærsøk).
+OPPDATERT ElementId 14138890, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 13475701 ('1.3.06.03.02'), 206.4 mm (primærsøk).
+OPPDATERT ElementId 14138891, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11675409 ('FBU0'), 163.7 mm (primærsøk).
+OPPDATERT ElementId 14138891, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 11675409 ('1.3.06.03.02'), 163.7 mm (primærsøk).
+OPPDATERT ElementId 14138892, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11999445 ('FBU0'), 154.6 mm (primærsøk).
+OPPDATERT ElementId 14138892, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 11999445 ('1.3.06.03.02'), 154.6 mm (primærsøk).
+OPPDATERT ElementId 14138893, FOB_Omraade = 'FBU0' fra nærmeste ElementId 13475706 ('FBU0'), 202.9 mm (primærsøk).
+OPPDATERT ElementId 14138893, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 13475706 ('1.3.06.03.02'), 202.9 mm (primærsøk).
+OPPDATERT ElementId 14138894, FOB_Omraade = 'FBU0' fra nærmeste ElementId 8141242 ('FBU0'), 1654.9 mm (fallback).
+OPPDATERT ElementId 14138894, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 8141242 ('1.3.06.03.02'), 1654.9 mm (fallback).
+OPPDATERT ElementId 14138895, FOB_Omraade = 'FBU0' fra nærmeste ElementId 11182849 ('FBU0'), 338.0 mm (primærsøk).
+OPPDATERT ElementId 14138895, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 11182849 ('1.3.06.03.02'), 338.0 mm (primærsøk).
+OPPDATERT ElementId 14138897, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12899028 ('FBU0'), 887.3 mm (primærsøk).
+OPPDATERT ElementId 14138897, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 12899028 ('1.3.06.03.02'), 887.3 mm (primærsøk).
+OPPDATERT ElementId 14138898, FOB_Omraade = 'FBU0' fra nærmeste ElementId 6093837 ('FBU0'), 740.2 mm (primærsøk).
+OPPDATERT ElementId 14138898, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 6093837 ('1.3.06.03.02'), 740.2 mm (primærsøk).
+OPPDATERT ElementId 14252663, FOB_Omraade = 'FBU0' fra nærmeste ElementId 7897835 ('FBU0'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14252663, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 7897835 ('1.3.06.03.02'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14252747, FOB_Omraade = 'FBU0' fra nærmeste ElementId 7898508 ('FBU0'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14252747, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 7898508 ('1.3.06.03.02'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14252877, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12536505 ('FBU0'), 236.7 mm (primærsøk).
+OPPDATERT ElementId 14252877, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 12536505 ('1.3.06.03.02'), 236.7 mm (primærsøk).
+OPPDATERT ElementId 14252979, FOB_Omraade = 'FBU0' fra nærmeste ElementId 7900437 ('FBU0'), 250.0 mm (primærsøk).
+OPPDATERT ElementId 14252979, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 7900437 ('1.3.06.03.02'), 250.0 mm (primærsøk).
+OPPDATERT ElementId 14253022, FOB_Omraade = 'FBU0' fra nærmeste ElementId 12534666 ('FBU0'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14253022, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 12534666 ('1.3.06.03.02'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14253044, FOB_Omraade = 'FBU0' fra nærmeste ElementId 7900540 ('FBU0'), 150.0 mm (primærsøk).
+OPPDATERT ElementId 14253044, PGF_PNS = '1.3.06.03.02' fra nærmeste ElementId 7900540 ('1.3.06.03.02'), 150.0 mm (primærsøk).
+Oppsummering: elektriske elementer 7756; målparametere tilstede 15512; blank/-- 205; planlagt 188; oppdatert 188; etterkontroll verifisert 188; bevart 15307; særregel område 0; blokkeringer/uavklart 17; skrivefeil 0.
+UAVKLART ElementId 7625588, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 7625782, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 8139768, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 8139774, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 8139776, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 8155534, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 8155780, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 11663037, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 12035071, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 12035075, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 13417092, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 13438991, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 13439015, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 13439027, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 13650821, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 14138896, FOB_Omraade: ingen gyldig nærkilde innen 3000 mm.
+UAVKLART ElementId 14138896, PGF_PNS: ingen gyldig nærkilde innen 3000 mm.
+Mål blank/-- FOB_Omraade: 187.
+Mål blank/-- PGF_PNS: 18.

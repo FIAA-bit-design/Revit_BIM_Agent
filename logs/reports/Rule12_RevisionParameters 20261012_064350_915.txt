@@ -1,0 +1,16 @@
+=== Regel 12 v0.0.2 | 2026-10-12T06:43:44.7785105+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Dokument: U_F_BAS_FBU_RIE_XXX
+Revisjonsliste lest: 7 faner.
+OPPDATERT ElementId 17759915, pakke 'LPE281', FOB_Revisjonsdato = '2026.10.02' fra direkte tilkoblede føringselementer ElementId 5982343,5982366.
+OPPDATERT ElementId 17759915, pakke 'LPE281', PGF_Revisjonsign = 'FIAA' fra direkte tilkoblede føringselementer ElementId 5982343,5982366.
+OPPDATERT ElementId 17759915, pakke 'LPE281', PGF_Revisjonsindeks = '04B' fra direkte tilkoblede føringselementer ElementId 5982343,5982366.
+OPPDATERT ElementId 17759972, pakke 'LPE281', FOB_Revisjonsdato = '2026.10.02' fra direkte tilkoblede føringselementer ElementId 5982343,10137727.
+OPPDATERT ElementId 17759972, pakke 'LPE281', PGF_Revisjonsign = 'FIAA' fra direkte tilkoblede føringselementer ElementId 5982343,10137727.
+OPPDATERT ElementId 17759972, pakke 'LPE281', PGF_Revisjonsindeks = '04B' fra direkte tilkoblede føringselementer ElementId 5982343,10137727.
+OPPDATERT ElementId 17760069, pakke 'LPE281', FOB_Revisjonsdato = '2026.10.02' fra direkte tilkoblede føringselementer ElementId 10137722,10137727.
+OPPDATERT ElementId 17760069, pakke 'LPE281', PGF_Revisjonsign = 'FIAA' fra direkte tilkoblede føringselementer ElementId 10137722,10137727.
+OPPDATERT ElementId 17760069, pakke 'LPE281', PGF_Revisjonsindeks = '04B' fra direkte tilkoblede føringselementer ElementId 10137722,10137727.
+OPPDATERT ElementId 17760180, pakke 'LPE181', FOB_Revisjonsdato = '2026.10.02' fra direkte tilkoblede føringselementer ElementId 4230870,4231172.
+OPPDATERT ElementId 17760180, pakke 'LPE181', PGF_Revisjonsign = 'FIAA' fra direkte tilkoblede føringselementer ElementId 4230870,4231172.
+OPPDATERT ElementId 17760180, pakke 'LPE181', PGF_Revisjonsindeks = '04B' fra direkte tilkoblede føringselementer ElementId 4230870,4231172.
+Oppsummering: elektriske instanser 16677; revisjonsverdier samsvarte 31908; oppdatert 12 (fra tilkobling 12); blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.

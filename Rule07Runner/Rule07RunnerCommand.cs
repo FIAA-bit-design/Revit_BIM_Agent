@@ -44,9 +44,12 @@ public class Rule07RunnerCommand : IRevitExtension<Rule07RunnerArgs>
         if (document is null)
             return Result.Text.Failed("Revit has no active model open; Rule 7 was not run.");
 
-        if (!string.Equals(document.Title, "U_F_BAS_FBU_RIE_XXX", StringComparison.Ordinal)
-            || !string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt", StringComparison.Ordinal))
-            return Result.Text.Failed("Active model does not match the verified BAS model; Rule 7 was not run.");
+        bool isStaModel = string.Equals(document.Title, "U_F_STA_FBU_RIE_XXX", StringComparison.Ordinal)
+            && string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_STA_FBU_RIE_XXX.rvt", StringComparison.Ordinal);
+        bool isBasModel = string.Equals(document.Title, "U_F_BAS_FBU_RIE_XXX", StringComparison.Ordinal)
+            && string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt", StringComparison.Ordinal);
+        if (!isStaModel && !isBasModel)
+            return Result.Text.Failed("Active model does not match the verified STA or BAS model; Rule 7 was not run.");
 
         if (cancellationToken.IsCancellationRequested)
             return Result.Text.Failed("Rule 7 was cancelled before execution.");

@@ -5,7 +5,7 @@
     <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>Rule07Runner</Title>
-    <Description>Runs the maintained C# Rule 7 quantity and connector-based cable-tray checks on the verified BAS model.</Description>
+    <Description>Runs the maintained C# Rule 7 quantity and connector-based cable-tray checks on the verified STA or BAS model.</Description>
     <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl></PackageIconUrl>

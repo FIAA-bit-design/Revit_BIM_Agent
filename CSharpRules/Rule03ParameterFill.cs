@@ -15,9 +15,19 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.11";
+        private const string ScriptVersion = "0.0.14";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
+        private const string AreaParameter = "FOB_Omraade";
+        private const string PnsParameter = "PGF_PNS";
+        private const double NearestValuePrimaryRadiusMm = 1500.0;
+        private const double NearestValueFallbackRadiusMm = 3000.0;
+        private const double NearestValueTieToleranceMm = 1.0;
+        private const double MillimetersPerFoot = 304.8;
+        private static readonly string[] NearestValueParameterNames = { AreaParameter, PnsParameter };
+        private const string StaOnlyParameterName = "PGF_RIE_Talevarslingsystemer";
+        private const string StaModelTitle = "U_F_STA_FBU_RIE_XXX";
+        private const string StaModelPath = "Autodesk Docs://Fornebubanen/U_F_STA_FBU_RIE_XXX.rvt";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule03_ParameterFill.log";
         private const string ParameterWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Parameterliste.xlsx";
         private const string ParameterWorksheetName = "Parameterliste";
@@ -59,6 +69,26 @@ namespace CW.Assistant.Generated
                 Parameter = parameter;
                 Value = value;
                 Reason = reason;
+            }
+        }
+
+        private sealed class NearestValueCandidate
+        {
+            internal Element Element { get; }
+            internal XYZ Point { get; }
+            internal string Value { get; }
+            internal string FamilyName { get; }
+            internal string Enterprise { get; }
+            internal string Package { get; }
+
+            internal NearestValueCandidate(Element element, XYZ point, string value, string familyName, string enterprise, string package)
+            {
+                Element = element;
+                Point = point;
+                Value = value;
+                FamilyName = familyName;
+                Enterprise = enterprise;
+                Package = package;
             }
         }
 
@@ -138,6 +168,18 @@ namespace CW.Assistant.Generated
                 return SaveAndReturn(log, "Regel 3 stoppet: parameterlisten kunne ikke leses.");
             }
 
+            if (IsStaModel(activeDocument))
+            {
+                if (parameterNames.Contains(StaOnlyParameterName, StringComparer.Ordinal))
+                {
+                    log.Add("STA-spesifikk parameter inkludert: " + StaOnlyParameterName + ".");
+                }
+            }
+            else if (parameterNames.Remove(StaOnlyParameterName))
+            {
+                log.Add("STA-spesifikk parameter utelatt for modell '" + activeDocument.Title + "': " + StaOnlyParameterName + ".");
+            }
+
             List<Element> instances = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
                 .ToElements()
@@ -151,6 +193,12 @@ namespace CW.Assistant.Generated
             int unresolvedCount = 0;
             int preservedCount = 0;
             var processedTypes = new HashSet<long>();
+            var nearestValueSources = new Dictionary<string, Dictionary<(int X, int Y, int Z), List<NearestValueCandidate>>>(StringComparer.Ordinal);
+            foreach (string name in NearestValueParameterNames.Where(parameterNames.Contains))
+            {
+                nearestValueSources[name] = BuildNearestValueIndex(activeDocument, instances, name);
+                log.Add(string.Format(CultureInfo.InvariantCulture, "Nærmesteverdikilder for {0}: {1}.", name, nearestValueSources[name].Values.Sum(bucket => bucket.Count)));
+            }
             bool cableTrayRuleHandled = false;
             CableTrayMarkingEngine.Plan? cableTrayPlan = null;
 
@@ -234,6 +282,19 @@ namespace CW.Assistant.Generated
                     }
                     bool missingMengdelistepost = string.Equals(name, "FOB_Mengdelistepost", StringComparison.Ordinal)
                         && string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal);
+                    bool missingQuantityValue = (string.Equals(name, "FOB_Mengde", StringComparison.Ordinal)
+                            || string.Equals(name, "FOB_Mengdeenhet", StringComparison.Ordinal))
+                        && parameter.StorageType == StorageType.String
+                        && string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal);
+                    bool nearestValueParameter = NearestValueParameterNames.Contains(name, StringComparer.Ordinal);
+                    if (nearestValueParameter && parameter.StorageType != StorageType.String)
+                    {
+                        unresolvedCount++;
+                        log.Add(FormatIssue(instance, name, "nærmesteverdikopiering krever en tekst-instansparameter"));
+                        continue;
+                    }
+                    bool missingNearestValue = nearestValueParameter
+                        && (IsParameterEmpty(parameter) || string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal));
                     bool k5bStatus = string.Equals(name, "FOB_Status", StringComparison.Ordinal)
                         && HasExactEnterprise(instance, "K5B");
                     if (k5bStatus && parameter.StorageType != StorageType.String)
@@ -251,19 +312,40 @@ namespace CW.Assistant.Generated
                     }
                     bool correctK5bStatus = k5bStatus
                         && !string.Equals(GetParameterText(parameter), "S4", StringComparison.Ordinal);
-                    if (!IsParameterEmpty(parameter) && !missingMengdelistepost && !correctK5bStatus)
+                    if (!IsParameterEmpty(parameter) && !missingMengdelistepost && !missingQuantityValue && !missingNearestValue && !correctK5bStatus)
                     {
                         preservedCount++;
                         continue;
                     }
 
-                    string? value = ResolveValue(activeDocument, instance, typeElement, name, log, ref unresolvedCount);
+                    string? value;
+                    string writeReason = "tom parameter";
+                    if (missingNearestValue)
+                    {
+                        if (!nearestValueSources.TryGetValue(name, out Dictionary<(int X, int Y, int Z), List<NearestValueCandidate>>? sources))
+                        {
+                            unresolvedCount++;
+                            log.Add(FormatIssue(instance, name, "ingen nærmesteverdikilder kunne bygges"));
+                            continue;
+                        }
+                        if (!TryResolveNearestValue(instance, name, sources, out value, out string sourceInfo))
+                        {
+                            unresolvedCount++;
+                            log.Add(FormatIssue(instance, name, sourceInfo));
+                            continue;
+                        }
+                        writeReason = sourceInfo;
+                    }
+                    else
+                    {
+                        value = ResolveValue(activeDocument, instance, typeElement, name, log, ref unresolvedCount);
+                    }
                     if (value is null)
                     {
                         continue;
                     }
                     ScheduleWrite(instance, parameter, value,
-                        correctK5bStatus ? "FOB_Status settes alltid til S4 for K5B" : "tom parameter",
+                        correctK5bStatus ? "FOB_Status settes alltid til S4 for K5B" : writeReason,
                         writes, scheduled, log, ref readOnlyCount, ref unresolvedCount);
                 }
             }
@@ -905,6 +987,154 @@ namespace CW.Assistant.Generated
             return typeId.Value < 0 ? null : document.GetElement(typeId);
         }
 
+        private static Dictionary<(int X, int Y, int Z), List<NearestValueCandidate>> BuildNearestValueIndex(
+            Document document,
+            List<Element> instances,
+            string parameterName)
+        {
+            double cellSizeFeet = NearestValueFallbackRadiusMm / MillimetersPerFoot;
+            var index = new Dictionary<(int X, int Y, int Z), List<NearestValueCandidate>>();
+            foreach (Element element in instances)
+            {
+                if (!TryGetSingleParameter(element, parameterName, out Parameter? parameter, out _)
+                    || parameter is null || parameter.StorageType != StorageType.String)
+                {
+                    continue;
+                }
+
+                string value = (parameter.AsString() ?? string.Empty).Trim();
+                if (string.IsNullOrWhiteSpace(value) || string.Equals(value, "--", StringComparison.Ordinal)) continue;
+                XYZ? point = GetNearestValuePoint(element);
+                if (point is null) continue;
+
+                string enterprise = GetSingleStringValue(element, "FOB_Entreprise");
+                string package = GetSingleStringValue(element, PackageParameter);
+                var candidate = new NearestValueCandidate(element, point, value, GetNearestValueFamilyName(document, element), enterprise, package);
+                (int X, int Y, int Z) cell = GetNearestValueCell(point, cellSizeFeet);
+                if (!index.TryGetValue(cell, out List<NearestValueCandidate>? bucket))
+                {
+                    bucket = new List<NearestValueCandidate>();
+                    index.Add(cell, bucket);
+                }
+                bucket.Add(candidate);
+            }
+            return index;
+        }
+
+        private static bool TryResolveNearestValue(
+            Element target,
+            string parameterName,
+            Dictionary<(int X, int Y, int Z), List<NearestValueCandidate>> index,
+            out string value,
+            out string sourceInfo)
+        {
+            value = string.Empty;
+            sourceInfo = "ingen gyldig naboverdi innen 3000 mm med samme entreprise og leveransepakke";
+            if (!TryGetSingleStringValue(target, "FOB_Entreprise", out string enterprise)
+                || !TryGetSingleStringValue(target, PackageParameter, out string package))
+            {
+                sourceInfo = "FOB_Entreprise eller FOB_Leveransepakke mangler eller er tvetydig; kildesøk ble blokkert";
+                return false;
+            }
+
+            XYZ? targetPoint = GetNearestValuePoint(target);
+            if (targetPoint is null)
+            {
+                sourceInfo = "elementet mangler brukbar punkt-, kurve- eller bounding-box-plassering";
+                return false;
+            }
+
+            double cellSizeFeet = NearestValueFallbackRadiusMm / MillimetersPerFoot;
+            (int X, int Y, int Z) targetCell = GetNearestValueCell(targetPoint, cellSizeFeet);
+            string targetFamily = GetNearestValueFamilyName(target.Document, target);
+            double primaryRadiusFeet = NearestValuePrimaryRadiusMm / MillimetersPerFoot;
+            double fallbackRadiusFeet = NearestValueFallbackRadiusMm / MillimetersPerFoot;
+            var primary = new List<(NearestValueCandidate Candidate, double Distance)>();
+            var fallback = new List<(NearestValueCandidate Candidate, double Distance)>();
+
+            for (int offsetX = -1; offsetX <= 1; offsetX++)
+            for (int offsetY = -1; offsetY <= 1; offsetY++)
+            for (int offsetZ = -1; offsetZ <= 1; offsetZ++)
+            {
+                var cell = (targetCell.X + offsetX, targetCell.Y + offsetY, targetCell.Z + offsetZ);
+                if (!index.TryGetValue(cell, out List<NearestValueCandidate>? candidates)) continue;
+                foreach (NearestValueCandidate candidate in candidates)
+                {
+                    if (candidate.Element.Id.Value == target.Id.Value
+                        || string.Equals(candidate.FamilyName, targetFamily, StringComparison.Ordinal)
+                        || !string.Equals(candidate.Enterprise, enterprise, StringComparison.Ordinal)
+                        || !string.Equals(candidate.Package, package, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    double distance = targetPoint.DistanceTo(candidate.Point);
+                    if (distance <= primaryRadiusFeet) primary.Add((candidate, distance));
+                    else if (distance <= fallbackRadiusFeet) fallback.Add((candidate, distance));
+                }
+            }
+
+            bool usedFallback = primary.Count == 0;
+            List<(NearestValueCandidate Candidate, double Distance)> matches = usedFallback ? fallback : primary;
+            if (matches.Count == 0) return false;
+            matches = matches.OrderBy(match => match.Distance).ThenBy(match => match.Candidate.Element.Id.Value).ToList();
+            double tieDistanceFeet = NearestValueTieToleranceMm / MillimetersPerFoot;
+            List<(NearestValueCandidate Candidate, double Distance)> tied = matches
+                .Where(match => match.Distance <= matches[0].Distance + tieDistanceFeet)
+                .ToList();
+            List<string> distinctValues = tied.Select(match => match.Candidate.Value).Distinct(StringComparer.Ordinal).ToList();
+            if (distinctValues.Count > 1)
+            {
+                sourceInfo = "nærmeste kilder innen 1 mm har motstridende '" + parameterName + "'-verdier: "
+                    + string.Join("; ", tied.Select(match => "ElementId " + match.Candidate.Element.Id.Value.ToString(CultureInfo.InvariantCulture)
+                        + "='" + EscapeLog(match.Candidate.Value) + "'"));
+                return false;
+            }
+
+            (NearestValueCandidate Candidate, double Distance) selected = matches[0];
+            value = selected.Candidate.Value;
+            sourceInfo = string.Format(CultureInfo.InvariantCulture, "nærmeste ElementId {0}, {1:F1} mm ({2})",
+                selected.Candidate.Element.Id.Value, selected.Distance * MillimetersPerFoot, usedFallback ? "fallback 1500-3000 mm" : "primærsøk 50-1500 mm");
+            return true;
+        }
+
+        private static string GetSingleStringValue(Element element, string parameterName)
+        {
+            return TryGetSingleStringValue(element, parameterName, out string value) ? value : string.Empty;
+        }
+
+        private static bool TryGetSingleStringValue(Element element, string parameterName, out string value)
+        {
+            value = string.Empty;
+            if (!TryGetSingleParameter(element, parameterName, out Parameter? parameter, out _)
+                || parameter is null || parameter.StorageType != StorageType.String)
+            {
+                return false;
+            }
+            value = (parameter.AsString() ?? string.Empty).Trim();
+            return !string.IsNullOrWhiteSpace(value) && !string.Equals(value, "--", StringComparison.Ordinal);
+        }
+
+        private static XYZ? GetNearestValuePoint(Element element)
+        {
+            if (element.Location is LocationPoint pointLocation) return pointLocation.Point;
+            if (element.Location is LocationCurve curveLocation && curveLocation.Curve is not null) return curveLocation.Curve.Evaluate(0.5, true);
+            BoundingBoxXYZ? bounds = element.get_BoundingBox(null);
+            return bounds is null ? null : (bounds.Min + bounds.Max) * 0.5;
+        }
+
+        private static (int X, int Y, int Z) GetNearestValueCell(XYZ point, double cellSizeFeet)
+        {
+            return ((int)Math.Floor(point.X / cellSizeFeet), (int)Math.Floor(point.Y / cellSizeFeet), (int)Math.Floor(point.Z / cellSizeFeet));
+        }
+
+        private static string GetNearestValueFamilyName(Document document, Element element)
+        {
+            if (element is FamilyInstance familyInstance) return familyInstance.Symbol?.Family?.Name ?? string.Empty;
+            ElementType? elementType = document.GetElement(element.GetTypeId()) as ElementType;
+            return elementType?.FamilyName ?? elementType?.Name ?? string.Empty;
+        }
+
         private static bool IsParameterEmpty(Parameter parameter)
         {
             if (!parameter.HasValue) return true;
@@ -956,6 +1186,12 @@ namespace CW.Assistant.Generated
         private static bool IsCategory(Element element, BuiltInCategory category)
         {
             return element.Category is not null && element.Category.Id.Value == (long)category;
+        }
+
+        private static bool IsStaModel(Document document)
+        {
+            return string.Equals(document.Title, StaModelTitle, StringComparison.Ordinal)
+                && string.Equals(document.PathName, StaModelPath, StringComparison.Ordinal);
         }
 
         private static bool IsCenterLine(Element element)
