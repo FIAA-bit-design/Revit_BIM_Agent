@@ -199,7 +199,7 @@ namespace CW.Assistant.Generated
                 return SaveAndReturn(log, "Regel 3 stoppet før elementbehandling fordi PGF_RIE_Master-filteret ikke kunne bekreftes.");
             }
             log.Add(string.Format(CultureInfo.InvariantCulture,
-                "PGF_RIE_Master-filter: {0} elektriske kategori/familie/type-signaturer lastet.",
+                "PGF_RIE_Master-filter: {0} elektriske kategori/familie/type-signaturer fra plasserte instanser lastet.",
                 masterLinkTypeSignatures.Count));
 
             List<Element> allElectricalInstances = new FilteredElementCollector(activeDocument)
@@ -434,7 +434,7 @@ namespace CW.Assistant.Generated
                         continue;
                     }
                     bool missingNearestValue = nearestValueParameter
-                        && (IsParameterEmpty(parameter) || string.Equals(GetParameterText(parameter).Trim(), "--", StringComparison.Ordinal));
+                        && IsMissingNearestValue(GetParameterText(parameter));
                     bool k5bStatus = string.Equals(name, "FOB_Status", StringComparison.Ordinal)
                         && HasExactEnterprise(instance, "K5B");
                     if (k5bStatus && parameter.StorageType != StorageType.String)
@@ -1143,7 +1143,7 @@ namespace CW.Assistant.Generated
                 }
 
                 string value = (parameter.AsString() ?? string.Empty).Trim();
-                if (string.IsNullOrWhiteSpace(value) || string.Equals(value, "--", StringComparison.Ordinal)) continue;
+                if (IsMissingNearestValue(value)) continue;
                 XYZ? point = GetNearestValuePoint(element);
                 if (point is null) continue;
 
@@ -1308,6 +1308,14 @@ namespace CW.Assistant.Generated
                 : parameter.AsValueString() ?? string.Empty;
         }
 
+        private static bool IsMissingNearestValue(string? value)
+        {
+            string normalized = value?.Trim() ?? string.Empty;
+            return normalized.Length == 0
+                || string.Equals(normalized, "--", StringComparison.Ordinal)
+                || string.Equals(normalized, "..", StringComparison.Ordinal);
+        }
+
         private static bool IsStraightForingsvei(Element element)
         {
             return IsCategory(element, BuiltInCategory.OST_Conduit) || IsCategory(element, BuiltInCategory.OST_CableTray);
@@ -1434,11 +1442,11 @@ namespace CW.Assistant.Generated
                     return false;
                 }
 
-                foreach (ElementType linkedType in new FilteredElementCollector(masterDocument)
-                    .WhereElementIsElementType().Cast<ElementType>())
+                foreach (Element linkedInstance in new FilteredElementCollector(masterDocument)
+                    .WhereElementIsNotElementType())
                 {
-                    if (IsElectricalDisciplineElement(linkedType)
-                        && TryGetElectricalTypeSignature(masterDocument, linkedType,
+                    if (IsElectricalDisciplineElement(linkedInstance)
+                        && TryGetElectricalTypeSignature(masterDocument, linkedInstance,
                             out (long CategoryId, string FamilyName, string TypeName) signature))
                     {
                         signatures.Add(signature);
