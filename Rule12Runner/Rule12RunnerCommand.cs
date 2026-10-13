@@ -58,7 +58,7 @@ public class Rule12RunnerCommand : IRevitExtension<Rule12RunnerArgs>
         {
             var rule = new CW.Assistant.Generated.GeneratedAction();
             string result = rule.Execute(context.UIApplication, document);
-            return result.StartsWith("Regel 12 v0.0.4:", StringComparison.Ordinal)
+            return result.StartsWith("Regel 12 v", StringComparison.Ordinal)
                 ? Result.Text.Succeeded(result)
                 : Result.Text.Failed(result);
         }

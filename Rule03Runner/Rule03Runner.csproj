@@ -26,6 +26,7 @@
   <ItemGroup>
     <Compile Include="..\CSharpRules\Rule03ParameterFill.cs" Link="Rule03ParameterFill.cs" />
     <Compile Include="..\CSharpRules\CableTrayMarkingEngine.cs" Link="CableTrayMarkingEngine.cs" />
+    <Compile Include="..\CSharpRules\ExcelListReportWriter.cs" Link="ExcelListReportWriter.cs" />
   </ItemGroup>
 
 </Project>

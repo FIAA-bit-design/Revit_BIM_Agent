@@ -1,6 +1,6 @@
 # Regel 11: Kontroller og rett workset etter kategori
 
-Kjør etter regel 1–10 og før revisjonskontrollen i Regel 12.
+Kjør etter regel 1–10. Regel 12 er kjørt tidligere, umiddelbart etter Regel 3.
 
 - C#-implementasjon: `../../CSharpRules/Rule11CheckWorksetCategory.cs`
 - Arbeidsbok: `../../config/Workset liste.xlsx`
@@ -11,4 +11,4 @@ For workshared-modeller leses kategori-/workset-mappingene fra arbeidsboken. Kon
 
 Kontrollen endrer workset-tilordninger i modellen. Rapporter antall kategorier og elementer kontrollert, flyttinger, uløste avvik, blokkeringer og fullstendige rapport-/loggbaner. Bevar eldre rapporter og logger.
 
-Den tidsstemplede CSV-rapporten i `../../logs/csv/` er Regel 11s rapport per kjøring; append-only historikklogg bevares separat.
+Den tidsstemplede CSV-rapporten i `../../logs/csv/` er Regel 11s rapport per kjøring; append-only historikklogg ligger separat.

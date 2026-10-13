@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
@@ -15,7 +16,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.14";
+        private const string ScriptVersion = "0.0.21";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
         private const string AreaParameter = "FOB_Omraade";
@@ -28,9 +29,19 @@ namespace CW.Assistant.Generated
         private const string StaOnlyParameterName = "PGF_RIE_Talevarslingsystemer";
         private const string StaModelTitle = "U_F_STA_FBU_RIE_XXX";
         private const string StaModelPath = "Autodesk Docs://Fornebubanen/U_F_STA_FBU_RIE_XXX.rvt";
+        private const string IfcExcludeParameterName = "MC Exclude From IFC View";
+        private const string MasterLinkTitle = "PGF_RIE_Master";
+        private const string MasterLinkInstanceNamePrefix = "PGF_RIE_Master.rvt : ";
+        private const string BuildingSystemsMarkerParameter = "PGF_RIE_Bygg_VVSsystemer";
+        private const string MissingMarker = "--";
+        private static readonly HashSet<string> ConduitOnlyParameterNames = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "PGF_RIE_Fra", "PGF_RIE_Til"
+        };
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule03_ParameterFill.log";
         private const string ParameterWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Parameterliste.xlsx";
         private const string ParameterWorksheetName = "Parameterliste";
+        private static readonly string[] ExcelReportHeaders = { "Type", "ElementId", "Familienavn", "FOB_Merkestreng", "Parameter", "Verdi", "Detalj" };
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
         private static readonly string[] TypeControlledParameterNames = { "FOB_Funksjonskode", "FOB_Merkesystem", "FOB_System" };
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
@@ -180,12 +191,91 @@ namespace CW.Assistant.Generated
                 log.Add("STA-spesifikk parameter utelatt for modell '" + activeDocument.Title + "': " + StaOnlyParameterName + ".");
             }
 
-            List<Element> instances = new FilteredElementCollector(activeDocument)
+            if (!TryGetMasterLinkTypeSignatures(activeDocument,
+                    out HashSet<(long CategoryId, string FamilyName, string TypeName)> masterLinkTypeSignatures,
+                    out string masterLinkIssue))
+            {
+                log.Add("BLOKKERING: Regel 3 kunne ikke avgrense PGF_RIE_Master-lenken: " + masterLinkIssue);
+                return SaveAndReturn(log, "Regel 3 stoppet før elementbehandling fordi PGF_RIE_Master-filteret ikke kunne bekreftes.");
+            }
+            log.Add(string.Format(CultureInfo.InvariantCulture,
+                "PGF_RIE_Master-filter: {0} elektriske kategori/familie/type-signaturer lastet.",
+                masterLinkTypeSignatures.Count));
+
+            List<Element> allElectricalInstances = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
                 .ToElements()
                 .Where(element => element is not null && !IsCenterLine(element) && IsElectricalDisciplineElement(element))
                 .OrderBy(element => element.Id.Value)
                 .ToList();
+            var instances = new List<Element>();
+            int exactK5bCount = 0;
+            int blankEnterpriseCandidateCount = 0;
+            int excludedEnterpriseCount = 0;
+            int excludedFromIfcCount = 0;
+            int excludedFromMasterLinkCount = 0;
+            foreach (Element element in allElectricalInstances)
+            {
+                bool matchesMasterLink = TryGetElectricalTypeSignature(activeDocument, element,
+                    out (long CategoryId, string FamilyName, string TypeName) typeSignature)
+                    && masterLinkTypeSignatures.Contains(typeSignature);
+                if (matchesMasterLink)
+                {
+                    excludedFromMasterLinkCount++;
+                }
+
+                if (IsExcludedFromIfc(element))
+                {
+                    excludedFromIfcCount++;
+                    continue;
+                }
+                if (matchesMasterLink)
+                {
+                    continue;
+                }
+
+                if (!TryGetSingleParameter(element, "FOB_Entreprise", out Parameter? enterpriseParameter, out _)
+                    || enterpriseParameter is null || enterpriseParameter.StorageType != StorageType.String)
+                {
+                    excludedEnterpriseCount++;
+                    continue;
+                }
+
+                string enterprise = enterpriseParameter.AsString() ?? string.Empty;
+                if (string.Equals(enterprise, "K5B", StringComparison.Ordinal))
+                {
+                    exactK5bCount++;
+                    instances.Add(element);
+                }
+                else if (string.IsNullOrWhiteSpace(enterprise) && !enterpriseParameter.IsReadOnly)
+                {
+                    blankEnterpriseCandidateCount++;
+                    instances.Add(element);
+                }
+                else
+                {
+                    excludedEnterpriseCount++;
+                }
+            }
+            log.Add(string.Format(CultureInfo.InvariantCulture,
+                "Regel 3 scope: PGF_RIE_Master-typer utelatt {0}; IFC-ekskludert {1}; K5B {2}; blank enterprise kandidater for K5B-utfylling {3}; andre eller uavklarte entrepriser utelatt {4}.",
+                excludedFromMasterLinkCount, excludedFromIfcCount, exactK5bCount, blankEnterpriseCandidateCount, excludedEnterpriseCount));
+            var scopedInstanceIds = new HashSet<long>(instances.Select(element => element.Id.Value));
+            var outOfScopeTypeIds = new HashSet<long>(allElectricalInstances
+                .Where(element => !scopedInstanceIds.Contains(element.Id.Value))
+                .Select(element => element.GetTypeId())
+                .Where(typeId => typeId.Value > 0)
+                .Select(typeId => typeId.Value));
+            var reportContext = new Dictionary<long, (string FamilyName, string MarkString)>();
+            foreach (Element instance in instances)
+            {
+                string familyName = GetNearestValueFamilyName(activeDocument, instance);
+                string markString = TryGetSingleParameter(instance, "FOB_Merkestreng", out Parameter? markParameter, out _)
+                    && markParameter is not null
+                    ? GetParameterText(markParameter)
+                    : string.Empty;
+                reportContext[instance.Id.Value] = (familyName, markString);
+            }
             var writes = new List<PendingWrite>();
             var scheduled = new HashSet<string>(StringComparer.Ordinal);
             var absentCounts = parameterNames.ToDictionary(name => name, _ => 0, StringComparer.Ordinal);
@@ -193,6 +283,7 @@ namespace CW.Assistant.Generated
             int unresolvedCount = 0;
             int preservedCount = 0;
             var processedTypes = new HashSet<long>();
+            var reportedSharedTypeIssues = new HashSet<string>(StringComparer.Ordinal);
             var nearestValueSources = new Dictionary<string, Dictionary<(int X, int Y, int Z), List<NearestValueCandidate>>>(StringComparer.Ordinal);
             foreach (string name in NearestValueParameterNames.Where(parameterNames.Contains))
             {
@@ -207,7 +298,8 @@ namespace CW.Assistant.Generated
                 cableTrayRuleHandled = true;
                 try
                 {
-                    cableTrayPlan = CableTrayMarkingEngine.CreatePlan(activeDocument);
+                    cableTrayPlan = CableTrayMarkingEngine.CreatePlan(activeDocument,
+                        new HashSet<long>(instances.Select(element => element.Id.Value)));
                     foreach (string line in cableTrayPlan.Log)
                     {
                         log.Add("KABELBROMERKING: " + line);
@@ -240,11 +332,41 @@ namespace CW.Assistant.Generated
                 Element? typeElement = GetTypeElement(activeDocument, instance);
                 if (typeElement is not null && processedTypes.Add(typeElement.Id.Value))
                 {
-                    ProcessTypeParameters(instance, typeElement, parameterNames, writes, scheduled, absentCounts, log, ref readOnlyCount, ref unresolvedCount);
+                    if (outOfScopeTypeIds.Contains(typeElement.Id.Value))
+                    {
+                        foreach (string name in TypeControlledParameterNames.Where(parameterNames.Contains))
+                        {
+                            string key = typeElement.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + name;
+                            if (!TryGetSingleParameter(typeElement, name, out Parameter? parameter, out string issue)
+                                || parameter is null)
+                            {
+                                if (issue != "mangler" && reportedSharedTypeIssues.Add(key))
+                                {
+                                    unresolvedCount++;
+                                    log.Add(FormatIssue(instance, name, "deling med elementer utenfor K5B gjør typeparameteren tvetydig: " + issue));
+                                }
+                                continue;
+                            }
+                            if (IsParameterEmpty(parameter) && reportedSharedTypeIssues.Add(key))
+                            {
+                                unresolvedCount++;
+                                string reason = parameter.IsReadOnly
+                                    ? "typeparameteren er blank og skrivebeskyttet; typen deles med elementer utenfor K5B"
+                                    : "blank typeparameter ble ikke fylt fordi typen også brukes utenfor K5B";
+                                log.Add(FormatIssue(instance, name, reason));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ProcessTypeParameters(instance, typeElement, parameterNames, writes, scheduled, absentCounts, log, ref readOnlyCount, ref unresolvedCount);
+                    }
                 }
 
                 foreach (string name in parameterNames)
                 {
+                    if (ConduitOnlyParameterNames.Contains(name) && !IsConduitElement(instance)) continue;
+
                     if (cableTrayRuleHandled
                         && IsCableTrayMarkingElement(instance)
                         && (string.Equals(name, "FOB_Sekvensnummer", StringComparison.Ordinal)
@@ -257,7 +379,8 @@ namespace CW.Assistant.Generated
                     if (TypeControlledParameterNames.Contains(name, StringComparer.Ordinal)
                         || RevisionParameterNames.Contains(name, StringComparer.Ordinal)
                         || string.Equals(name, PackageParameter, StringComparison.Ordinal)
-                        || string.Equals(name, "PGF_RIE_Alarmsystemer", StringComparison.Ordinal))
+                        || (string.Equals(name, "PGF_RIE_Alarmsystemer", StringComparison.Ordinal)
+                            && IsCategory(instance, BuiltInCategory.OST_FireAlarmDevices)))
                     {
                         continue;
                     }
@@ -278,6 +401,23 @@ namespace CW.Assistant.Generated
 
                     if (parameter is null)
                     {
+                        continue;
+                    }
+                    if (string.Equals(name, BuildingSystemsMarkerParameter, StringComparison.Ordinal))
+                    {
+                        if (parameter.StorageType != StorageType.String)
+                        {
+                            unresolvedCount++;
+                            log.Add(FormatIssue(instance, name, "markørregelen krever en tekst-instansparameter"));
+                            continue;
+                        }
+                        if (string.Equals(GetParameterText(parameter), MissingMarker, StringComparison.Ordinal))
+                        {
+                            preservedCount++;
+                            continue;
+                        }
+                        ScheduleWrite(instance, parameter, MissingMarker, "fast verdi for PGF_RIE_Bygg_VVSsystemer",
+                            writes, scheduled, log, ref readOnlyCount, ref unresolvedCount);
                         continue;
                     }
                     bool missingMengdelistepost = string.Equals(name, "FOB_Mengdelistepost", StringComparison.Ordinal)
@@ -365,7 +505,7 @@ namespace CW.Assistant.Generated
                         if (startStatus != TransactionStatus.Started)
                         {
                             log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
-                            return SaveAndReturn(log, "Regel 3: ingen verdier ble skrevet fordi transaksjonen ikke startet.");
+                            return SaveAndReturn(log, "Regel 3: ingen verdier ble skrevet fordi transaksjonen ikke startet.", reportContext);
                         }
 
                         try
@@ -408,7 +548,7 @@ namespace CW.Assistant.Generated
                             string result = rollbackStatus == TransactionStatus.RolledBack
                                 ? "Regel 3 ble rullet tilbake; ingen endringer ble lagret. " + exception.Message
                                 : "Regel 3 feilet, men rollback er ikke bekreftet (" + rollbackStatus + "); kontroller modellstatus før retry. " + exception.Message;
-                            return SaveAndReturn(log, result);
+                            return SaveAndReturn(log, result, reportContext);
                         }
                     }
                     transactionCommitted = true;
@@ -444,11 +584,11 @@ namespace CW.Assistant.Generated
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture,
-                "Oppsummering: instanser {0}; parameternavn {1}; oppdatert {2}; eksisterende verdier bevart {3}; skrivebeskyttet {4}; uavklart {5}; skrivefeil {6}.",
-                instances.Count, parameterNames.Count, updated, preservedCount, readOnlyCount, unresolvedCount, failedWrites));
+                "Oppsummering: instanser {0}; PGF_RIE_Master-typer utelatt {1}; IFC-ekskludert {2}; parameternavn {3}; oppdatert {4}; eksisterende verdier bevart {5}; skrivebeskyttet {6}; uavklart {7}; skrivefeil {8}.",
+                instances.Count, excludedFromMasterLinkCount, excludedFromIfcCount, parameterNames.Count, updated, preservedCount, readOnlyCount, unresolvedCount, failedWrites));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
                 "Regel 3 v{0}: oppdatert {1}; eksisterende verdier bevart {2}; blokkeringer {3}; logg: {4}.",
-                ScriptVersion, updated, preservedCount, unresolvedCount + failedWrites, LogPath));
+                ScriptVersion, updated, preservedCount, unresolvedCount + failedWrites, LogPath), reportContext);
         }
 
         private static List<string> LoadParameterNames()
@@ -1007,7 +1147,7 @@ namespace CW.Assistant.Generated
                 XYZ? point = GetNearestValuePoint(element);
                 if (point is null) continue;
 
-                string enterprise = GetSingleStringValue(element, "FOB_Entreprise");
+                if (!TryGetRule3EnterpriseValue(element, out string enterprise)) continue;
                 string package = GetSingleStringValue(element, PackageParameter);
                 var candidate = new NearestValueCandidate(element, point, value, GetNearestValueFamilyName(document, element), enterprise, package);
                 (int X, int Y, int Z) cell = GetNearestValueCell(point, cellSizeFeet);
@@ -1030,10 +1170,10 @@ namespace CW.Assistant.Generated
         {
             value = string.Empty;
             sourceInfo = "ingen gyldig naboverdi innen 3000 mm med samme entreprise og leveransepakke";
-            if (!TryGetSingleStringValue(target, "FOB_Entreprise", out string enterprise)
+            if (!TryGetRule3EnterpriseValue(target, out string enterprise)
                 || !TryGetSingleStringValue(target, PackageParameter, out string package))
             {
-                sourceInfo = "FOB_Entreprise eller FOB_Leveransepakke mangler eller er tvetydig; kildesøk ble blokkert";
+                sourceInfo = "FOB_Entreprise er ikke K5B/blank kandidat, eller FOB_Leveransepakke mangler eller er tvetydig; kildesøk ble blokkert";
                 return false;
             }
 
@@ -1076,6 +1216,21 @@ namespace CW.Assistant.Generated
 
             bool usedFallback = primary.Count == 0;
             List<(NearestValueCandidate Candidate, double Distance)> matches = usedFallback ? fallback : primary;
+            bool usedExtendedK5bSearch = false;
+            if (matches.Count == 0 && string.Equals(enterprise, "K5B", StringComparison.Ordinal))
+            {
+                matches = index.Values
+                    .SelectMany(candidates => candidates)
+                    .Where(candidate => candidate.Element.Id.Value != target.Id.Value
+                        && !string.Equals(candidate.FamilyName, targetFamily, StringComparison.Ordinal)
+                        && string.Equals(candidate.Enterprise, enterprise, StringComparison.Ordinal)
+                        && string.Equals(candidate.Package, package, StringComparison.Ordinal))
+                    .Select(candidate => (Candidate: candidate, Distance: targetPoint.DistanceTo(candidate.Point)))
+                    .OrderBy(match => match.Distance)
+                    .ThenBy(match => match.Candidate.Element.Id.Value)
+                    .ToList();
+                usedExtendedK5bSearch = matches.Count > 0;
+            }
             if (matches.Count == 0) return false;
             matches = matches.OrderBy(match => match.Distance).ThenBy(match => match.Candidate.Element.Id.Value).ToList();
             double tieDistanceFeet = NearestValueTieToleranceMm / MillimetersPerFoot;
@@ -1093,8 +1248,11 @@ namespace CW.Assistant.Generated
 
             (NearestValueCandidate Candidate, double Distance) selected = matches[0];
             value = selected.Candidate.Value;
+            string searchDescription = usedExtendedK5bSearch
+                ? "utvidet K5B-søk uten øvre avstandsgrense"
+                : usedFallback ? "fallback 1500-3000 mm" : "primærsøk 50-1500 mm";
             sourceInfo = string.Format(CultureInfo.InvariantCulture, "nærmeste ElementId {0}, {1:F1} mm ({2})",
-                selected.Candidate.Element.Id.Value, selected.Distance * MillimetersPerFoot, usedFallback ? "fallback 1500-3000 mm" : "primærsøk 50-1500 mm");
+                selected.Candidate.Element.Id.Value, selected.Distance * MillimetersPerFoot, searchDescription);
             return true;
         }
 
@@ -1155,6 +1313,12 @@ namespace CW.Assistant.Generated
             return IsCategory(element, BuiltInCategory.OST_Conduit) || IsCategory(element, BuiltInCategory.OST_CableTray);
         }
 
+        private static bool IsConduitElement(Element element)
+        {
+            return IsCategory(element, BuiltInCategory.OST_Conduit)
+                || IsCategory(element, BuiltInCategory.OST_ConduitFitting);
+        }
+
         private static bool IsCableTrayMarkingElement(Element element)
         {
             return IsCategory(element, BuiltInCategory.OST_CableTray)
@@ -1176,6 +1340,30 @@ namespace CW.Assistant.Generated
                 && parameter is not null
                 && parameter.StorageType == StorageType.String
                 && string.Equals(parameter.AsString(), expectedEnterprise, StringComparison.Ordinal);
+        }
+
+        private static bool IsK5BOrUnassigned(Element element)
+        {
+            return TryGetRule3EnterpriseValue(element, out _);
+        }
+
+        private static bool TryGetRule3EnterpriseValue(Element element, out string enterprise)
+        {
+            enterprise = string.Empty;
+            if (!TryGetSingleParameter(element, "FOB_Entreprise", out Parameter? parameter, out _)
+                || parameter is null || parameter.StorageType != StorageType.String)
+            {
+                return false;
+            }
+            string current = parameter.AsString() ?? string.Empty;
+            if (string.Equals(current, "K5B", StringComparison.Ordinal))
+            {
+                enterprise = "K5B";
+                return true;
+            }
+            if (!string.IsNullOrWhiteSpace(current) || parameter.IsReadOnly) return false;
+            enterprise = "K5B";
+            return true;
         }
 
         private static bool IsForingsveiFitting(Element element)
@@ -1200,6 +1388,99 @@ namespace CW.Assistant.Generated
             return CenterLineCategoryIds.Contains(categoryId);
         }
 
+        private static bool IsExcludedFromIfc(Element element)
+        {
+            IList<Parameter> parameters = element.GetParameters(IfcExcludeParameterName);
+            return parameters.Count == 1
+                && parameters[0].StorageType == StorageType.Integer
+                && parameters[0].HasValue
+                && parameters[0].AsInteger() != 0;
+        }
+
+        private static bool TryGetMasterLinkTypeSignatures(Document document,
+            out HashSet<(long CategoryId, string FamilyName, string TypeName)> signatures, out string issue)
+        {
+            signatures = new HashSet<(long CategoryId, string FamilyName, string TypeName)>();
+            issue = string.Empty;
+            try
+            {
+                RevitLinkInstance? masterLink = null;
+                Document? masterDocument = null;
+                int matchCount = 0;
+                foreach (RevitLinkInstance link in new FilteredElementCollector(document)
+                    .OfClass(typeof(RevitLinkInstance)).Cast<RevitLinkInstance>())
+                {
+                    Document? linkedDocument = link.GetLinkDocument();
+                    bool isMasterLink = string.Equals(linkedDocument?.Title, MasterLinkTitle, StringComparison.OrdinalIgnoreCase)
+                        || link.Name.StartsWith(MasterLinkInstanceNamePrefix, StringComparison.OrdinalIgnoreCase);
+                    if (!isMasterLink)
+                    {
+                        continue;
+                    }
+
+                    matchCount++;
+                    masterLink = link;
+                    masterDocument = linkedDocument;
+                }
+
+                if (matchCount != 1 || masterLink is null)
+                {
+                    issue = "forventet nøyaktig én PGF_RIE_Master-lenke, fant " + matchCount.ToString(CultureInfo.InvariantCulture);
+                    return false;
+                }
+                if (masterDocument is null)
+                {
+                    issue = "PGF_RIE_Master-lenken er ikke lastet";
+                    return false;
+                }
+
+                foreach (ElementType linkedType in new FilteredElementCollector(masterDocument)
+                    .WhereElementIsElementType().Cast<ElementType>())
+                {
+                    if (IsElectricalDisciplineElement(linkedType)
+                        && TryGetElectricalTypeSignature(masterDocument, linkedType,
+                            out (long CategoryId, string FamilyName, string TypeName) signature))
+                    {
+                        signatures.Add(signature);
+                    }
+                }
+
+                if (signatures.Count == 0)
+                {
+                    issue = "lenken inneholder ingen identifiserbare elektriske familietyper";
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception exception)
+            {
+                issue = exception.Message;
+                return false;
+            }
+        }
+
+        private static bool TryGetElectricalTypeSignature(Document document, Element element,
+            out (long CategoryId, string FamilyName, string TypeName) signature)
+        {
+            signature = default;
+            ElementType? type = element as ElementType ?? document.GetElement(element.GetTypeId()) as ElementType;
+            if (type?.Category is null || !IsElectricalDisciplineElement(type))
+            {
+                return false;
+            }
+
+            string familyName = type is FamilySymbol familySymbol
+                ? familySymbol.Family?.Name ?? string.Empty
+                : type.FamilyName;
+            if (string.IsNullOrWhiteSpace(familyName) || string.IsNullOrWhiteSpace(type.Name))
+            {
+                return false;
+            }
+
+            signature = (type.Category.Id.Value, familyName, type.Name);
+            return true;
+        }
+
         private static bool IsElectricalDisciplineElement(Element element)
         {
             long categoryId = element.Category?.Id.Value ?? long.MinValue;
@@ -1216,7 +1497,84 @@ namespace CW.Assistant.Generated
             return value.Replace("\r", " ").Replace("\n", " ").Replace("'", "''");
         }
 
-        private static string SaveAndReturn(List<string> lines, string result)
+        private static (string FamilyName, string MarkString) GetReportElementContext(
+            string elementIdText, Dictionary<long, (string FamilyName, string MarkString)>? reportContext)
+        {
+            return long.TryParse(elementIdText, NumberStyles.Integer, CultureInfo.InvariantCulture, out long elementId)
+                && reportContext is not null
+                && reportContext.TryGetValue(elementId, out (string FamilyName, string MarkString) context)
+                ? context
+                : (string.Empty, string.Empty);
+        }
+
+        private static string[] ToExcelReportRow(string line, Dictionary<long, (string FamilyName, string MarkString)>? reportContext)
+        {
+            Match updated = Regex.Match(line,
+                @"^OPPDATERT ElementId (?<id>\d+), (?<parameter>.+?) = '(?<value>(?:''|[^'])*)' \((?<detail>.*)\)\.$",
+                RegexOptions.CultureInvariant);
+            if (updated.Success)
+            {
+                (string familyName, string markString) = GetReportElementContext(updated.Groups["id"].Value, reportContext);
+                return new[]
+                {
+                    "Oppdatert",
+                    updated.Groups["id"].Value,
+                    familyName,
+                    markString,
+                    updated.Groups["parameter"].Value,
+                    updated.Groups["value"].Value.Replace("''", "'", StringComparison.Ordinal),
+                    updated.Groups["detail"].Value
+                };
+            }
+
+            Match unresolved = Regex.Match(line,
+                @"^UAVKLART ElementId (?<id>\d+), (?<parameter>[^:]+): (?<detail>.*)\.$",
+                RegexOptions.CultureInvariant);
+            if (unresolved.Success)
+            {
+                (string familyName, string markString) = GetReportElementContext(unresolved.Groups["id"].Value, reportContext);
+                return new[]
+                {
+                    "Uavklart",
+                    unresolved.Groups["id"].Value,
+                    familyName,
+                    markString,
+                    unresolved.Groups["parameter"].Value.Trim(),
+                    string.Empty,
+                    unresolved.Groups["detail"].Value
+                };
+            }
+
+            Match missing = Regex.Match(line,
+                @"^PARAMETER MANGLER: (?<count>\d+) instanser uten '(?<parameter>[^']+)'\.$",
+                RegexOptions.CultureInvariant);
+            if (missing.Success)
+            {
+                return new[]
+                {
+                    "Parameter mangler",
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    missing.Groups["parameter"].Value,
+                    missing.Groups["count"].Value,
+                    line
+                };
+            }
+
+            string rowType = line.StartsWith("Oppsummering:", StringComparison.Ordinal) ? "Oppsummering"
+                : line.StartsWith("BESKYTTET", StringComparison.Ordinal) ? "Beskyttet"
+                : line.StartsWith("SKRIVEFEIL", StringComparison.Ordinal) ? "Skrivefeil"
+                : line.StartsWith("WORKSHARING", StringComparison.Ordinal) ? "Worksharing"
+                : line.StartsWith("KABELBROMERKING", StringComparison.Ordinal) ? "Kabelbromerking"
+                : "Info";
+            return new[] { rowType, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, line };
+        }
+
+        private static string SaveAndReturn(
+            List<string> lines,
+            string result,
+            Dictionary<long, (string FamilyName, string MarkString)>? reportContext = null)
         {
             string reportResult;
             try
@@ -1224,11 +1582,12 @@ namespace CW.Assistant.Generated
                 string reportDirectory = Path.Combine(Path.GetDirectoryName(LogPath)!, "..", "reports");
                 Directory.CreateDirectory(reportDirectory);
                 string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture);
-                string reportPath = Path.Combine(reportDirectory, "Rule03_ParameterFill " + timestamp + ".txt");
-                File.WriteAllLines(reportPath, lines, new UTF8Encoding(false));
-                reportResult = "Rapport: " + reportPath;
+                string reportPath = Path.Combine(reportDirectory, "Rule03_ParameterFill " + timestamp + ".xlsx");
+                ExcelListReportWriter.Write(reportPath, "Regel 3", ExcelReportHeaders,
+                    lines.Select(line => ToExcelReportRow(line, reportContext)).ToList());
+                reportResult = "Excel-rapport: " + reportPath;
             }
-            catch (Exception exception) { reportResult = "Rapport kunne ikke skrives: " + exception.Message; }
+            catch (Exception exception) { reportResult = "Excel-rapport kunne ikke skrives: " + exception.Message; }
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(LogPath)!);

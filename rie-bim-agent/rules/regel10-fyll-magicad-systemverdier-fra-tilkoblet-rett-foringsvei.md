@@ -1,6 +1,6 @@
 # Regel 10: Fyll Magicad-systemverdier fra tilkoblet rett føringsvei
 
-Kjør etter regel 1–9 og før Regel 11 workset-kontroll og Regel 12 revisjonskontroll. Følg worksharing-kravene i utføringsreglene der de gjelder.
+Kjør etter Regel 9 og før Regel 11 workset-kontroll. Regel 12 er allerede kjørt umiddelbart etter Regel 3. Følg worksharing-kravene i utføringsreglene der de gjelder.
 
 - C#-implementasjon: `../../CSharpRules/Rule10MagicadSystemFromConnectedStraight.cs`
 - Append-only logg: `../../logs/history/Rule10_MagicadSystemFromConnectedStraight.log`
@@ -11,4 +11,4 @@ Bruk bare direkte fysisk tilkoblede rette føringsveier av tilsvarende kategori:
 
 For hver målparameter må alle brukbare direkte kilder ha samme ikke-blanke tekstverdi. Manglende parameter, ugyldig kilde, blank kildeverdi eller motstridende verdier rapporteres med mål-ID og årsak; ikke gjett. Logg kilde-ID-er og verdier for utfyllinger. Andre entrepriser utelates.
 
-Hver kjøring lager `../../logs/reports/Rule10_MagicadSystemFromConnectedStraight <tid>.txt` med kjøreoppsummering, kildeverdier og uavklarte funn. Append-only historikklogg bevares separat.
+Hver kjøring lager `../../logs/reports/Rule10_MagicadSystemFromConnectedStraight <tid>.txt` med kjøreoppsummering, kildeverdier og uavklarte funn. Append-only historikklogg ligger separat.

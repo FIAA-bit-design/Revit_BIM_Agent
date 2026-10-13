@@ -1,0 +1,5 @@
+=== Targeted Rule 3 follow-up | 2026-10-13T08:55:09.4088780+02:00 | U_F_BAS_FBU_RIE_XXX ===
+NO CHANGES: Rule 3 target check complete; no unambiguous missing values were writable.
+Target BATID: 17879414
+BEVART FOB_Omraade='BYG202'.
+BEVART PGF_PNS='1.2.01.06'.

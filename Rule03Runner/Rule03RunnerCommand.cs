@@ -52,7 +52,7 @@ public class Rule03RunnerCommand : IRevitExtension<Rule03RunnerArgs>
             {
                 var rule = new CW.Assistant.Generated.GeneratedAction();
                 string result = rule.Execute(context.UIApplication, document);
-                return result.StartsWith("Regel 3 v0.0.14:", StringComparison.Ordinal)
+                return result.StartsWith("Regel 3 v", StringComparison.Ordinal)
                     ? Result.Text.Succeeded(result)
                     : Result.Text.Failed(result);
             }

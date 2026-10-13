@@ -83,12 +83,14 @@ namespace CW.Assistant.Generated
             }
         }
 
-        internal static Plan CreatePlan(Document document)
+        internal static Plan CreatePlan(Document document, HashSet<long> allowedElementIds)
         {
             var log = new List<string>();
             var writes = new List<PlannedWrite>();
             var registryRows = new List<string[]>();
-            List<Element> collected = CollectTargets(document);
+            List<Element> collected = CollectTargets(document)
+                .Where(element => allowedElementIds.Contains(element.Id.Value) && IsK5BOrUnassigned(element))
+                .ToList();
             List<Element> elements = collected.Where(element => !IsExcluded(document, element)).ToList();
 
             List<Element> missingCableTrayData = elements
@@ -104,7 +106,7 @@ namespace CW.Assistant.Generated
             log.Add(string.Format(CultureInfo.InvariantCulture,
                 "KABELBROFORLØPER: funnet {0} kabelbro-/fittingelementer med manglende sekvens, merkestreng eller område; planlegger alle redigerbare grupper.",
                 missingCableTrayData.Count));
-            log.Add("Omfang: OST_CableTray og OST_CableTrayFitting i aktiv modell; skriptet har ikke FOB_Entreprise-filter.");
+            log.Add("Omfang: K5B og blanke, skrivbare FOB_Entreprise-kandidater i Regel 3-utvalget; andre entrepriser er utelatt.");
 
             var duplicateReportIds = collected
                 .Select(element => new
@@ -686,7 +688,8 @@ namespace CW.Assistant.Generated
                 foreach (Connector reference in connector.AllRefs)
                 {
                     Element source = reference.Owner;
-                    if (source.Id.Value == fitting.Id.Value || reference.ConnectorType != ConnectorType.End || !IsCategory(source, BuiltInCategory.OST_CableTray)) continue;
+                    if (source.Id.Value == fitting.Id.Value || reference.ConnectorType != ConnectorType.End
+                        || !IsCategory(source, BuiltInCategory.OST_CableTray) || !IsK5BOrUnassigned(source)) continue;
                     if (!connector.IsConnectedTo(reference) || !reference.IsConnectedTo(connector)) continue;
                     if (source.Location is not LocationCurve location || location.Curve is not Line) continue;
                     values[source.Id.Value] = GetText(GetInstanceParameter(source, parameterName));
@@ -725,6 +728,16 @@ namespace CW.Assistant.Generated
         }
 
         private static Parameter? GetInstanceParameter(Element element, string name) => element.LookupParameter(name);
+
+        private static bool IsK5BOrUnassigned(Element element)
+        {
+            IList<Parameter> parameters = element.GetParameters("FOB_Entreprise");
+            if (parameters.Count != 1 || parameters[0].StorageType != StorageType.String) return false;
+            Parameter parameter = parameters[0];
+            string enterprise = parameter.AsString() ?? string.Empty;
+            return string.Equals(enterprise, "K5B", StringComparison.Ordinal)
+                || (string.IsNullOrWhiteSpace(enterprise) && !parameter.IsReadOnly);
+        }
 
         private static Parameter? GetTypeParameter(Element element, string name)
         {
