@@ -1,0 +1,7 @@
+=== Regel 1 v0.0.4 | 2026-10-13T07:31:03.6348241+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Regel 1 v0.0.4: Dokument 'U_F_BAS_FBU_RIE_XXX'. Vellykket oppdaterte parameterverdier: 4; mislykkede skrivinger: 0; parameter mangler: 81935; skrivebeskyttet: 0; ikke støttet lagringstype: 0; utenfor verdiområde: 0; utvalg satt: False (Aktiv UIDocument samsvarer ikke med dokumentet som ble oppdatert.)
+ElementId;PGF_RIE_ElementId
+17805393;17805393
+17852078;17852078
+17852079;17852079
+17879414;17879414

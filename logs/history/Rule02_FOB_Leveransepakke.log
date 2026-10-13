@@ -516,3 +516,14 @@ OPPDATERT ElementId 14252877: pakke 'LPE631', kandidater 5
 OPPDATERT ElementId 14252979: pakke 'LPE631', kandidater 5
 OPPDATERT ElementId 14253022: pakke 'LPE631', kandidater 5
 OPPDATERT ElementId 14253044: pakke 'LPE631', kandidater 5
+=== Regel 2 v0.0.6 | 2026-10-13T07:32:01.2988589+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer 100562; K5B-elementer 13410; ekskludert IFC 204; mål 0; kandidater 13205; parameter mangler 1; feil lagringstype 0; oppdatert 0; uavklart 1; skrivebeskyttet 0; fallback 0
+UAVKLART ElementId 49504: kandidater 0; årsak: FOB_Leveransepakke-parameteren mangler
+=== Targeted Rule 2 | 2026-10-13T08:43:48.9576921+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Updated exactly 2 targets; committed=Committed
+Target IDs: 17852078,17852079
+Eligible package sources: 13205
+PLAN ElementId 17852078 -> LPE161; candidates=5; fallback=False; sources=16202702,16202711,16573874,16573873,16573890
+PLAN ElementId 17852079 -> LPE161; candidates=5; fallback=False; sources=16573849,16573902,16573901,16573921,16573922
+UPDATED ElementId 17852078; package=LPE161; sources=16202702,16202711,16573874,16573873,16573890
+UPDATED ElementId 17852079; package=LPE161; sources=16573849,16573902,16573901,16573921,16573922

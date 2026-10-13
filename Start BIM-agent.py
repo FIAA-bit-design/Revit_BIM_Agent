@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-import os
+import argparse
 import io
+import os
 import subprocess
 import sys
 import tempfile
@@ -20,7 +21,17 @@ def wait_for_marker(marker_path, timeout_seconds, timeout_message):
         time.sleep(2)
 
 
-def main():
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(description=u"Start RIE BIM-agenten mot en Revit-modell.")
+    parser.add_argument(
+        "--model",
+        help=u"Modellnavn eller entydig modellnavn-del som skal velges i Revit.",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse_args(argv)
     workspace = os.path.dirname(os.path.abspath(__file__))
     instruction = os.path.join(
         workspace, "rie-bim-agent", "rie-bim-kontroll.instructions.md"
@@ -58,18 +69,42 @@ def main():
     if os.path.isfile(completion_marker):
         os.remove(completion_marker)
 
+    if args.model:
+        model_selection = (
+            u"Ønsket modell er {!r}. Velg én Revit-instans hvis modellnavnet samsvarer "
+            u"entydig, uten hensyn til store/små bokstaver. Hvis den ikke allerede er "
+            u"tilkoblet, kall operation://integrations/connect med dens instanceId. "
+            u"Ikke åpne en modell. Hvis ingen eller flere instanser matcher, marker "
+            u"BLOCKED og oppgi kandidatene. "
+        ).format(args.model)
+    else:
+        model_selection = (
+            u"Modellnavn er ikke oppgitt. Bruk allerede tilkoblet Revit-instans hvis "
+            u"den finnes. Hvis ingen er tilkoblet og nøyaktig én Revit-instans kjører, "
+            u"koble til den med operation://integrations/connect. Ved flere mulige "
+            u"instanser, marker BLOCKED og oppgi modellnavnene; ikke gjett. "
+        )
+
+    if args.model:
+        document_confirmation = u"Bekreft at dokumentet matcher ønsket modell. "
+    else:
+        document_confirmation = u"Bekreft hvilket dokument som er aktivt. "
+
     preflight_prompt = (
-        u"Utfør kun en lesende MCP-preflight for Revit. Kontroller at Revit-hosten "
-        u"svarer, hent aktivt dokument og list tilgjengelige Revit-verktøy. Hvis "
-        u"hosten midlertidig ikke finner en aktiv instans, gjenta den lesende "
+        u"Utfør kun en lesende MCP-preflight for Revit. Kall "
+        u"operation://integrations/list-instances med integration=Revit og bruk "
+        u"instanceId fra resultatet ved behov for tilkobling. "
+        u"{}Etter eventuell tilkobling, hent aktivt dokument fra Revit. {}"
+        u"List tilgjengelige Revit-verktøy. Hvis hosten "
+        u"midlertidig ikke finner en aktiv instans, gjenta den lesende "
         u"tilkoblingssjekken et par ganger med kort pause. Ikke åpne eller les "
         u"RIE BIM-instruksjonen, og ikke utfør modellkontroll eller modellendringer. "
-        u"Hvis host og aktivt dokument er bekreftet, skriv nøyaktig READY på første "
-        u"linje og dokumenttittelen på andre linje i denne filen: {}. Hvis kontrollen "
-        u"feiler etter eventuelle retry-forsøk, skriv BLOCKED på første linje og "
-        u"kort årsak på andre linje. Opprett filen først når kontrollen er ferdig. "
-        u"Ikke still spørsmål."
-    ).format(preflight_marker)
+        u"Hvis host og riktig aktivt dokument er bekreftet, skriv nøyaktig READY på "
+        u"første linje og dokumenttittelen på andre linje i denne filen: {}. Hvis "
+        u"kontrollen feiler etter eventuelle retry-forsøk, skriv BLOCKED på første "
+        u"linje og kort årsak på andre linje. Opprett filen først når kontrollen er "
+        u"ferdig. Ikke still spørsmål."
+    ).format(model_selection, document_confirmation, preflight_marker)
 
     subprocess.check_call(
         [code, "--reuse-window", workspace],
@@ -110,7 +145,8 @@ def main():
         u"utførelsen umiddelbart; ikke bare oppsummer eller vent på en ny "
         u"brukermelding. Bruk det bekreftede aktive dokumentet som måldokument "
         u"uten å be om bekreftelse, og rapporter dokumenttittelen. Utfør alle relevante regler i angitt "
-        u"rekkefølge med C# via Revit-host; ikke kjør separate Python-skript. "
+        u"rekkefølge med C# via Revit-host; ikke kjør separate Python-skript. Ved full kontroll, "
+        u"kjør Regel 1, Regel 3, Regel 2 og deretter Regel 4–12 i nummerrekkefølge. "
         u"Ved kjøringsfeil, undersøk feilmeldingen og relevant "
         u"C#-regel, rett selv bare entydige feil, bygg en midlertidig "
         u"C#-emulering med dotnet build, og prøv den berørte regelen på "

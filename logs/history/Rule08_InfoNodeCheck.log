@@ -42,3 +42,28 @@ Relevante DuplicateInstances-advarsler med minst to InfoNodes: 0
 Advarsler med ulike utfylte InfoNode_subs: 0
 Instanser med tom eller manglende InfoNode_subs i disse advarslene: 0
 Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Slette duplikater infonoder funn 20261009_160041_960.xlsx
+=== Regel 8 v0.0.4 | 2026-10-13T07:42:03.7102389+02:00 | U_F_BAS_FBU_RIE_XXX ===
+InfoNodes 1968; manglende HostID 0; dupliserte HostID-verdier 0; relevante advarsler 14; subs-konflikter 14; tomme subs 0; flyttet par 14; hoppet over par 0; Excel-rader 28.
+Formål: Kontroller InfoNode-hostID/subs og flytt kvalifisert Klimaport under Brannport.
+Dokument: U_F_BAS_FBU_RIE_XXX
+Familie: InfoNode (Specialty Equipment), antall instanser: 1968
+Manglende eller tom InfoNode_hostID: 0
+ID-verdier brukt av flere instanser: 0
+Relevante DuplicateInstances-advarsler med minst to InfoNodes: 14
+Advarsler med ulike utfylte InfoNode_subs: 14
+Instanser med tom eller manglende InfoNode_subs i disse advarslene: 0
+FLYTTET Brannport 15690568: Klimaport 17179699 under med 50 mm klaring.
+FLYTTET Brannport 15690571: Klimaport 17179702 under med 50 mm klaring.
+FLYTTET Brannport 17179700: Klimaport 15690621 under med 50 mm klaring.
+FLYTTET Brannport 15690624: Klimaport 17179701 under med 50 mm klaring.
+FLYTTET Brannport 17179703: Klimaport 15690631 under med 50 mm klaring.
+FLYTTET Brannport 15690649: Klimaport 17179704 under med 50 mm klaring.
+FLYTTET Brannport 15690738: Klimaport 17179706 under med 50 mm klaring.
+FLYTTET Brannport 15690739: Klimaport 17179705 under med 50 mm klaring.
+FLYTTET Brannport 15690740: Klimaport 17179712 under med 50 mm klaring.
+FLYTTET Brannport 15690741: Klimaport 17179708 under med 50 mm klaring.
+FLYTTET Brannport 15690742: Klimaport 17179707 under med 50 mm klaring.
+FLYTTET Brannport 15690744: Klimaport 17179709 under med 50 mm klaring.
+FLYTTET Brannport 15690745: Klimaport 17179710 under med 50 mm klaring.
+FLYTTET Brannport 15690746: Klimaport 17179711 under med 50 mm klaring.
+Excel-rapport: D:\Revit\Python\Revit_BIM_Agent\logs\reports\Slette duplikater infonoder funn 20261013_074204_363.xlsx
