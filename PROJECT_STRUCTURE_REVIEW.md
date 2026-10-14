@@ -19,7 +19,7 @@ Revit_BIM_Agent/
 ├── CSharpRules/                    # Revit-regler og 10 eksisterende .log-filer
 ├── Rapporter/                      # tom, ubrukt restmappe; kan fjernes
 ├── rie-bim-agent/                  # modulære core/, rules/, parameter-rules/, standards/
-│   ├── rules/regel12-kontroller-revisjonsparametere-per-leveransepakke.md
+│   ├── rules/regel03-parameterkontroll.md
 │   └── standards/                  # senterlinje- og connectorstandarder
 ├── rie-bim-kontroll.instructions.md # eldre full instruksjon
 ├── Revisjonsliste.xlsx
@@ -50,7 +50,7 @@ Revit_BIM_Agent/
 │   └── reports/                    # Excel- og tekstrapporter
 ├── rie-bim-agent/
 │   ├── core/
-│   ├── rules/                      # kjørbare regler 1–12, sluttrapport 13 sist
+│   ├── rules/                      # kjørbare regler 1–11
 │   ├── parameter-rules/
 │   ├── standards/                  # senterlinje- og connectorstandarder
 │   └── rie-bim-kontroll.instructions.md  # eneste kanoniske instruksjon
@@ -108,7 +108,7 @@ Etter oppryddingen finnes ingen brutte aktive Markdown-lenker eller manglende fl
 
 ## Worksharing-reglenes plassering
 
-**Oppdatert 2026-10-05:** Worksharing-kravene ligger i `core/execution-rules.md` fordi de styrer gjennomføringen av muterende regler og ikke er en selvstendig kontroll. Revisjonskontrollen er en egen Regel 12 fordi den slår opp i modellspesifikk revisjonsliste; sluttrapporten er Regel 13. `standards/` beholdes for senterlinje- og connectorstandardene.
+Worksharing-kravene ligger i `core/execution-rules.md` fordi de styrer gjennomføringen av muterende regler og ikke er en selvstendig kontroll. Revisjonskontrollen inngår nå i Regel 3; Regel 12, tilhørende runner og regelfil er fjernet. `standards/` beholdes for senterlinje- og connectorstandardene.
 
 **Oppdatert 2026-10-09:** Regel 13 er fjernet. Delreglene 1–12 lager hver sin tidsstemplede rapport fra egen kjøring; Regel 8, 9 og 11 beholder sine særskilte rapportformater. Det finnes ikke lenger en separat sluttrapportimplementasjon.
 
@@ -120,7 +120,7 @@ Den tidligere anbefalingen om å beholde `standards/` gjaldt katalogen og de nor
 
 `Rule03ParameterFill.cs` leser kolonnen `Parameternavn` fra fanen `Parameterliste` og validerer overskrifter, tomme rader med innhold og duplikater. De naturlige språkbeskrivelsene i Excel dokumenterer forutsetningene; de endrer ikke automatisk C#-regelens utførbare logikk.
 
-De tre revisjonsfeltene kontrolleres separat av `Rule12RevisionParameters.cs` mot fanene og verdiene i `config/FBU STA revisjonsliste.xlsx` eller `config/FBu BAS revisjonsliste.xlsx`, valgt etter aktiv modell. Regel 3 skriver ikke lenger disse feltene.
+De tre revisjonsfeltene kontrolleres kun for utfylling av `Rule03ParameterFill.cs`: tom tekst, bare whitespace og `--` er ugyldig. Ingen revisjonsverdier endres, og kontrollen bruker ikke Excel-revisjonslister eller leveransepakke som avgrensning. Tidligere revisjonslister, Regel 12-rapporter og historikklogger bevares.
 
 ## C#-modul
 

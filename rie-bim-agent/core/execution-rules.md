@@ -19,7 +19,7 @@ Når brukeren har gitt et modellkontroll- eller retteoppdrag, kan entydige feil 
 
 ## Worksharing for muterende C#-regler
 
-Dette er et felles utføringskrav for muterende C#-regler 1–12, inkludert regel 3 og revisjonskontrollen i regel 12; det er ikke et eget kjøringstrinn.
+Dette er et felles utføringskrav for muterende C#-regler 1–11, inkludert Regel 3s parameterutfylling; det er ikke et eget kjøringstrinn. Revisjonsdelen av Regel 3 er kun lesende, og Regel 12 er utgått.
 
 Reglene skal håndtere den spesifikke Revit-TaskDialog-en som sier at mange worksets/elementer skal sjekkes ut. Bruk `UIApplication.DialogBoxShowing` og velg `Check Out Worksets` med `TaskDialogResult.CommandLink1` bare når meldingen inneholder teksten `trying to check out a large number of elements` etter normalisering. Normaliseringen er skiftleiefri og fjerner tegnsetting og mellomrom, slik at både `checkout` og `check out` gjenkjennes.
 

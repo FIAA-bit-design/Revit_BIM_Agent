@@ -24727,3 +24727,9 @@ UAVKLART ElementId 17880973, PGF_Revisjonsign: verdien er blank.
 UAVKLART ElementId 17880973, PGF_Revisjonsindeks: verdien er blank.
 Parameterlistekontroll: parameternavn 39; verdier kontrollert 458593; ufullstendige parameterverdier 761.
 Oppsummering: elektriske instanser 16665; revisjonsverdier samsvarte 31491; oppdatert 0 (fra tilkobling 0); parameterverdier kontrollert 458593; ufullstendige parameterverdier 761; blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.
+=== Regel 12 v0.0.10 | 2026-10-14T15:05:06.1362363+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Dokument: U_F_BAS_FBU_RIE_XXX
+Revisjonsliste: FBu BAS revisjonsliste.xlsx
+Revisjonsliste lest: 7 faner.
+Revisjonsscope: IFC-ekskludert 235; elektriske instanser etter IFC-filter 16430.
+Oppsummering revisjonskontroll: IFC-ekskludert 235; elektriske instanser 16430; revisjonsverdier samsvarte 31026; oppdatert 0 (fra tilkobling 0); blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.

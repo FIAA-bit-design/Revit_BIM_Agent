@@ -1,6 +1,6 @@
 # Regel 11: Kontroller og rett workset etter kategori
 
-Kjør etter regel 1–10. Regel 12 er kjørt tidligere, umiddelbart etter Regel 3.
+Kjør etter regel 1–10.
 
 - C#-implementasjon: `../../CSharpRules/Rule11CheckWorksetCategory.cs`
 - Arbeidsbok: `../../config/Workset liste.xlsx`

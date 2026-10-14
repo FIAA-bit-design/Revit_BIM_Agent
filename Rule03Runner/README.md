@@ -4,6 +4,14 @@
 
 The Rule03Runner is a framework for developing extensions that automate tasks within Autodesk Revit. This guide provides a comprehensive overview of how to develop, customize, and deploy Revit extensions using this template.
 
+## Revision completeness
+
+Rule 3 includes a read-only check of the instance parameters `FOB_Revisjonsdato`, `PGF_Revisjonsign` and `PGF_Revisjonsindeks` in its existing K5B scope. Empty/whitespace values and `--` after trimming are invalid. Missing, duplicate and non-text instance parameters are reported individually. Revision values are never filled, copied or corrected; revision workbooks and delivery-package membership do not determine the check. Other Rule 3 parameter-filling behavior is unchanged.
+
+Revision findings are included in the incomplete-value count, append-only history and timestamped XLSX report, with ElementId, parameter, actual value, package context and reason. Rule 12 and its runner have been removed; historical reports and logs are preserved.
+
+Regression checks are in [Rule03RevisionChecks.cs](../CSharpRules/.selftest/Rule03RevisionChecks/Rule03RevisionChecks.cs). Build [Rule03RevisionChecks.csproj](../CSharpRules/.selftest/Rule03RevisionChecks/Rule03RevisionChecks.csproj) using `dotnet build`, then invoke `CW.Assistant.Generated.Rule03RevisionChecks.Run()` from that assembly on the Revit UI thread. These checks use the actual Rule 3 value validator and report mapper, require the Revit host, and make no model changes.
+
 ## Core Components
 
 A Revit extension consists of three key components:

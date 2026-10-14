@@ -1,6 +1,6 @@
 # Regel 10: Fyll Magicad-systemverdier fra tilkoblet rett føringsvei
 
-Kjør etter Regel 9 og før Regel 11 workset-kontroll. Regel 12 er allerede kjørt umiddelbart etter Regel 3. Følg worksharing-kravene i utføringsreglene der de gjelder.
+Kjør etter Regel 9 og før Regel 11 workset-kontroll. Følg worksharing-kravene i utføringsreglene der de gjelder.
 
 - C#-implementasjon: `../../CSharpRules/Rule10MagicadSystemFromConnectedStraight.cs`
 - Append-only logg: `../../logs/history/Rule10_MagicadSystemFromConnectedStraight.log`

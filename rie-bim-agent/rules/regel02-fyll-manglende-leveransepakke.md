@@ -1,6 +1,6 @@
 # Regel 2: Fyll manglende FOB_Leveransepakke fra nærliggende elementer
 
-Kjør denne regelen etter Regel 3 og den påfølgende Regel 12-kontrollen, slik at elementer som får `FOB_Entreprise=K5B` i Regel 3 også kan få `FOB_Leveransepakke`. Elementer i andre entrepriser kontrolleres ikke. `FOB_Leveransepakke` skal ikke være tom. En eksisterende tekst-instansparameter med blank verdi eller `--` regnes som manglende. Hvis `FOB_Leveransepakke` mangler eller har feil lagringstype på et K5B-element, logges ElementId og årsak som uavklart; parameteren skal ikke hentes fra typen eller opprettes av regelen. Revisjonslisten brukes kun til revisjonskontrollen i Regel 12, ikke som hviteliste for pakkeutfyllingen. Denne tolkningen av `--` gjelder bare Regel 2.
+Kjør denne regelen etter Regel 3, slik at elementer som får `FOB_Entreprise=K5B` i Regel 3 også kan få `FOB_Leveransepakke`. Elementer i andre entrepriser kontrolleres ikke. `FOB_Leveransepakke` skal ikke være tom. En eksisterende tekst-instansparameter med blank verdi eller `--` regnes som manglende. Hvis `FOB_Leveransepakke` mangler eller har feil lagringstype på et K5B-element, logges ElementId og årsak som uavklart; parameteren skal ikke hentes fra typen eller opprettes av regelen. Revisjonslister brukes ikke som hviteliste for pakkeutfyllingen. Denne tolkningen av `--` gjelder leveransepakkeparameteren; revisjonsparameterne har egne utfyllingskrav i Regel 3.
 
 - C#-implementasjon: `../../CSharpRules/Rule02FillMissingPackage.cs`
 

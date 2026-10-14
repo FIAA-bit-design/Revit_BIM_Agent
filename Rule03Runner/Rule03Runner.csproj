@@ -3,9 +3,9 @@
   <PropertyGroup>
     <ExtensionId>Rule03Runner</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Title>Rule03Runner</Title>
-    <Description>Runs the maintained C# Rule 3 parameter check and cable-tray marking prepass on the verified STA or BAS model.</Description>
+    <Description>Runs the maintained C# Rule 3 parameter check, read-only revision completeness check and cable-tray marking prepass on the verified STA or BAS model.</Description>
     <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl></PackageIconUrl>

@@ -16,7 +16,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.21";
+        private const string ScriptVersion = "0.0.22";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
         private const string AreaParameter = "FOB_Omraade";
@@ -172,6 +172,10 @@ namespace CW.Assistant.Generated
             try
             {
                 parameterNames = LoadParameterNames();
+                foreach (string name in RevisionParameterNames)
+                {
+                    if (!parameterNames.Contains(name, StringComparer.Ordinal)) parameterNames.Add(name);
+                }
             }
             catch (Exception exception)
             {
@@ -612,7 +616,7 @@ namespace CW.Assistant.Generated
                     if (!HasExactEnterprise(instance, "K5B")) continue;
                     foreach (string name in parameterNames)
                     {
-                        if (RevisionParameterNames.Contains(name, StringComparer.Ordinal)) continue;
+                        bool revisionParameter = RevisionParameterNames.Contains(name, StringComparer.Ordinal);
                         if (string.Equals(name, StaOnlyParameterName, StringComparison.Ordinal) && !IsStaModel(document)) continue;
 
                         Element owner = instance;
@@ -632,7 +636,12 @@ namespace CW.Assistant.Generated
 
                         if (!TryGetSingleParameter(owner, name, out Parameter? parameter, out string issue) || parameter is null)
                         {
-                            if (!string.Equals(issue, "mangler", StringComparison.Ordinal))
+                            if (revisionParameter)
+                            {
+                                incompleteValues++;
+                                AddRevisionIssue(instance, name, string.Empty, issue);
+                            }
+                            else if (!string.Equals(issue, "mangler", StringComparison.Ordinal))
                             {
                                 incompleteValues++;
                                 AddCompletenessIssue(FormatIssue(owner, name, issue));
@@ -642,6 +651,21 @@ namespace CW.Assistant.Generated
                         checkedValues++;
 
                         string value = GetParameterText(parameter);
+                        if (revisionParameter)
+                        {
+                            if (parameter.StorageType != StorageType.String)
+                            {
+                                incompleteValues++;
+                                AddRevisionIssue(instance, name, value, "forventet en tekst-instansparameter");
+                            }
+                            else if (IsMissingRevisionValue(value))
+                            {
+                                incompleteValues++;
+                                AddRevisionIssue(instance, name, value,
+                                    string.IsNullOrWhiteSpace(value) ? "verdien er blank" : "verdien '--' er ikke gyldig");
+                            }
+                            continue;
+                        }
                         if (string.Equals(name, BuildingSystemsMarkerParameter, StringComparison.Ordinal))
                         {
                             if (parameter.StorageType != StorageType.String)
@@ -677,7 +701,7 @@ namespace CW.Assistant.Generated
                 }
 
                 log.Add(string.Format(CultureInfo.InvariantCulture,
-                    "Parameterlistekontroll (uten revisjonsparametere): verdier kontrollert {0}; ufullstendige parameterverdier {1}.",
+                    "Parameterlistekontroll (inkludert revisjonsparametere): verdier kontrollert {0}; ufullstendige parameterverdier {1}.",
                     checkedValues, incompleteValues));
                 return (checkedValues, incompleteValues, true);
 
@@ -685,12 +709,27 @@ namespace CW.Assistant.Generated
                 {
                     if (loggedIssues.Add(issue)) log.Add(issue);
                 }
+
+                void AddRevisionIssue(Element instance, string name, string value, string issue)
+                {
+                    string package = TryGetSingleParameter(instance, PackageParameter, out Parameter? packageParameter, out _)
+                        && packageParameter is not null ? GetParameterText(packageParameter) : string.Empty;
+                    AddCompletenessIssue(string.Format(CultureInfo.InvariantCulture,
+                        "REVISJONSAVVIK ElementId {0}, pakke '{1}', {2} = '{3}': {4}.",
+                        instance.Id.Value, EscapeLog(package), name, EscapeLog(value), issue));
+                }
             }
             catch (Exception exception)
             {
                 log.Add("KOMPLETTHETSKONTROLLFEIL: " + exception);
                 return (checkedValues, incompleteValues, false);
             }
+        }
+
+        private static bool IsMissingRevisionValue(string value)
+        {
+            return string.IsNullOrWhiteSpace(value)
+                || string.Equals(value.Trim(), MissingMarker, StringComparison.Ordinal);
         }
 
         private static List<string> LoadParameterNames()
@@ -1613,6 +1652,25 @@ namespace CW.Assistant.Generated
 
         private static string[] ToExcelReportRow(string line, Dictionary<long, (string FamilyName, string MarkString)>? reportContext)
         {
+            Match revision = Regex.Match(line,
+                @"^REVISJONSAVVIK ElementId (?<id>\d+), pakke '(?<package>(?:''|[^'])*)', (?<parameter>[^=]+) = '(?<value>(?:''|[^'])*)': (?<detail>.*)\.$",
+                RegexOptions.CultureInvariant);
+            if (revision.Success)
+            {
+                (string familyName, string markString) = GetReportElementContext(revision.Groups["id"].Value, reportContext);
+                return new[]
+                {
+                    "Revisjonsavvik",
+                    revision.Groups["id"].Value,
+                    familyName,
+                    markString,
+                    revision.Groups["parameter"].Value.Trim(),
+                    revision.Groups["value"].Value.Replace("''", "'", StringComparison.Ordinal),
+                    "Pakke '" + revision.Groups["package"].Value.Replace("''", "'", StringComparison.Ordinal)
+                        + "'; " + revision.Groups["detail"].Value
+                };
+            }
+
             Match updated = Regex.Match(line,
                 @"^OPPDATERT ElementId (?<id>\d+), (?<parameter>.+?) = '(?<value>(?:''|[^'])*)' \((?<detail>.*)\)\.$",
                 RegexOptions.CultureInvariant);
