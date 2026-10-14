@@ -4,7 +4,7 @@ Den autoritative parameterlisten for regel 3 ligger i [Parameterliste.xlsx](../.
 
 Teksten `Ingen særskilt fagregel angitt` betyr at Excel-raden ikke angir en egen fagregel. Det betyr ikke at parameteren skal ignoreres; de generelle reglene nedenfor gjelder fortsatt.
 
-Rule 3s C#-implementasjon leser `Parameternavn` fra arbeidsboken. Fagregeltekstene er den menneskelesbare kilden for regelens forutsetninger, men naturlig språk tolkes ikke automatisk som kjørbar logikk. Endringer i faktisk regelatferd må også implementeres og byggkontrolleres i riktig C#-regel.
+Regel 3s C#-implementasjon leser `Parameternavn` fra arbeidsboken og bruker listen både ved utfylling og generell parameterkompletthetsrapportering. Revisjonsfeltene `FOB_Revisjonsdato`, `PGF_Revisjonsign` og `PGF_Revisjonsindeks` utelates fra Regel 3s kompletthetsrapportering og håndteres av Regel 12. Fagregeltekstene er den menneskelesbare kilden for regelens forutsetninger, men naturlig språk tolkes ikke automatisk som kjørbar logikk. Endringer i faktisk regelatferd må også implementeres og byggkontrolleres i riktig C#-regel.
 
 Parameternavnet skal være `FOB_Entreprise` uten avsluttende mellomrom.
 

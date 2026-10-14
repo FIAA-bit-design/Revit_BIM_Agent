@@ -18,24 +18,12 @@ namespace CW.Assistant.Generated
     {
         private const string ScriptVersion = "0.0.10";
         private const string PackageParameter = "FOB_Leveransepakke";
-        private const string ParameterWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Parameterliste.xlsx";
-        private const string ParameterWorksheetName = "Parameterliste";
-        private const string BuildingSystemsMarkerParameter = "PGF_RIE_Bygg_VVSsystemer";
+        private const string IfcExcludeParameterName = "MC Exclude From IFC View";
         private const string StaRevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\FBU STA revisjonsliste.xlsx";
         private const string BasRevisionWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\FBu BAS revisjonsliste.xlsx";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule12_RevisionParameters.log";
         private static readonly string[] ExcelReportHeaders = { "Type", "ElementId", "Parameter", "Verdi", "Detalj" };
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
-        private static readonly string[] TypeControlledParameterNames = { "FOB_Funksjonskode", "FOB_Merkesystem", "FOB_System" };
-        private static readonly HashSet<string> ConduitOnlyParameterNames = new HashSet<string>(StringComparer.Ordinal)
-        {
-            "PGF_RIE_Fra", "PGF_RIE_Til"
-        };
-        private static readonly HashSet<string> PlaceholderMeansMissingParameterNames = new HashSet<string>(StringComparer.Ordinal)
-        {
-            "FOB_Leveransepakke", "FOB_Mengde", "FOB_Mengdeenhet", "FOB_Mengdelistepost", "FOB_Omraade", "PGF_PNS",
-            "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks"
-        };
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
             Enum.GetValues(typeof(BuiltInCategory))
                 .Cast<BuiltInCategory>()
@@ -141,23 +129,6 @@ namespace CW.Assistant.Generated
                 "Dokument: " + activeDocument.Title
             };
 
-            List<string> parameterNames;
-            try
-            {
-                parameterNames = ReadParameterNames();
-                log.Add("Parameterliste lest fra Excel: " + parameterNames.Count.ToString(CultureInfo.InvariantCulture) + " parameternavn.");
-            }
-            catch (Exception exception)
-            {
-                log.Add("BLOKKERING: Parameterlisten for Regel 3 kunne ikke leses; ingen revisjonsverdier blir endret: " + exception.Message);
-                return SaveAndReturn(log, "Regel 12 stoppet: parameterlisten kunne ikke leses.");
-            }
-
-            if (!IsStaModel(activeDocument) && parameterNames.Remove("PGF_RIE_Talevarslingsystemer"))
-            {
-                log.Add("STA-spesifikk parameter utelatt for modell '" + activeDocument.Title + "': PGF_RIE_Talevarslingsystemer.");
-            }
-
             var revisions = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
             bool revisionWorkbookAvailable = true;
             try
@@ -173,12 +144,17 @@ namespace CW.Assistant.Generated
                 revisionWorkbookAvailable = false;
             }
 
-            List<Element> instances = new FilteredElementCollector(activeDocument)
+            List<Element> electricalInstances = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
                 .ToElements()
                 .Where(element => element is not null && !IsCenterLine(element) && IsElectricalDisciplineElement(element))
                 .OrderBy(element => element.Id.Value)
                 .ToList();
+            int excludedFromIfcCount = electricalInstances.Count(IsExcludedFromIfc);
+            List<Element> instances = electricalInstances.Where(element => !IsExcludedFromIfc(element)).ToList();
+            log.Add(string.Format(CultureInfo.InvariantCulture,
+                "Revisjonsscope: IFC-ekskludert {0}; elektriske instanser etter IFC-filter {1}.",
+                excludedFromIfcCount, instances.Count));
             var writes = new List<PendingWrite>();
             var scheduled = new HashSet<string>(StringComparer.Ordinal);
             int matchedCount = 0;
@@ -283,7 +259,6 @@ namespace CW.Assistant.Generated
                         }
                         catch (Exception exception)
                         {
-                            bool fatalRegenerationFailure = exception is Autodesk.Revit.Exceptions.RegenerationFailedException;
                             blockedCount += writes.Count;
                             unresolvedCount += writes.Count;
                             log.Add("TRANSAKSJONSFEIL: Transaction.Start kastet et unntak: " + exception);
@@ -294,7 +269,6 @@ namespace CW.Assistant.Generated
                             }
                             catch (Exception statusException)
                             {
-                                fatalRegenerationFailure |= statusException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                 status = TransactionStatus.Pending;
                                 log.Add("TRANSAKSJONSSTATUSFEIL: kunne ikke lese status etter startfeil: " + statusException.Message);
                             }
@@ -303,27 +277,16 @@ namespace CW.Assistant.Generated
                                 try { status = transaction.RollBack(); }
                                 catch (Exception rollbackException)
                                 {
-                                    fatalRegenerationFailure |= rollbackException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                     log.Add("ROLLBACKFEIL: " + rollbackException);
                                     try
                                     {
                                         status = transaction.GetStatus();
                                     }
-                                    catch (Exception statusException)
+                                    catch (Exception)
                                     {
-                                        fatalRegenerationFailure |= statusException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                         status = TransactionStatus.Pending;
                                     }
                                 }
-                            }
-                            if (!fatalRegenerationFailure
-                                && (status == TransactionStatus.Uninitialized || status == TransactionStatus.RolledBack))
-                            {
-                                TryAppendParameterCompleteness(activeDocument, instances, parameterNames, log);
-                            }
-                            else
-                            {
-                                log.Add("KOMPLETTHETSKONTROLL IKKE UTFØRT: transaksjonsstatus " + status + " tillater ikke en ny modelllesing.");
                             }
                             return SaveAndReturn(log, "Regel 12: revisjonstransaksjonen kunne ikke startes.");
                         }
@@ -332,7 +295,6 @@ namespace CW.Assistant.Generated
                             blockedCount += writes.Count;
                             unresolvedCount += writes.Count;
                             log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
-                            bool fatalRegenerationFailure = false;
                             TransactionStatus transactionStatus;
                             try
                             {
@@ -340,7 +302,6 @@ namespace CW.Assistant.Generated
                             }
                             catch (Exception statusException)
                             {
-                                fatalRegenerationFailure = statusException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                 transactionStatus = TransactionStatus.Pending;
                                 log.Add("TRANSAKSJONSSTATUSFEIL: " + statusException.Message);
                             }
@@ -349,27 +310,16 @@ namespace CW.Assistant.Generated
                                 try { transactionStatus = transaction.RollBack(); }
                                 catch (Exception rollbackException)
                                 {
-                                    fatalRegenerationFailure |= rollbackException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                     log.Add("ROLLBACKFEIL: " + rollbackException);
                                     try
                                     {
                                         transactionStatus = transaction.GetStatus();
                                     }
-                                    catch (Exception statusException)
+                                    catch (Exception)
                                     {
-                                        fatalRegenerationFailure |= statusException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                         transactionStatus = TransactionStatus.Pending;
                                     }
                                 }
-                            }
-                            if (!fatalRegenerationFailure
-                                && (transactionStatus == TransactionStatus.Uninitialized || transactionStatus == TransactionStatus.RolledBack))
-                            {
-                                TryAppendParameterCompleteness(activeDocument, instances, parameterNames, log);
-                            }
-                            else
-                            {
-                                log.Add("KOMPLETTHETSKONTROLL IKKE UTFØRT: transaksjonsstatus " + transactionStatus + " tillater ikke en ny modelllesing.");
                             }
                             return SaveAndReturn(log, "Regel 12: ingen revisjonsverdier ble skrevet fordi transaksjonen ikke startet.");
                         }
@@ -405,12 +355,10 @@ namespace CW.Assistant.Generated
                         }
                         catch (Exception exception)
                         {
-                            bool fatalRegenerationFailure = exception is Autodesk.Revit.Exceptions.RegenerationFailedException;
                             TransactionStatus rollbackStatus;
                             try { rollbackStatus = transaction.GetStatus(); }
                             catch (Exception statusException)
                             {
-                                fatalRegenerationFailure |= statusException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                 rollbackStatus = TransactionStatus.Pending;
                                 log.Add("TRANSAKSJONSSTATUSFEIL: kunne ikke lese status etter feil: " + statusException.Message);
                             }
@@ -419,12 +367,10 @@ namespace CW.Assistant.Generated
                                 try { rollbackStatus = transaction.RollBack(); }
                                 catch (Exception rollbackException)
                                 {
-                                    fatalRegenerationFailure |= rollbackException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                     log.Add("ROLLBACKFEIL: " + rollbackException);
                                     try { rollbackStatus = transaction.GetStatus(); }
                                     catch (Exception statusException)
                                     {
-                                        fatalRegenerationFailure |= statusException is Autodesk.Revit.Exceptions.RegenerationFailedException;
                                         rollbackStatus = TransactionStatus.Pending;
                                         log.Add("TRANSAKSJONSSTATUSFEIL: kunne ikke lese status etter rollbackfeil: " + statusException.Message);
                                     }
@@ -433,14 +379,6 @@ namespace CW.Assistant.Generated
                             blockedCount += writes.Count;
                             unresolvedCount += writes.Count;
                             log.Add("TRANSAKSJONSFEIL: " + exception);
-                            if (rollbackStatus == TransactionStatus.RolledBack && !fatalRegenerationFailure)
-                            {
-                                TryAppendParameterCompleteness(activeDocument, instances, parameterNames, log);
-                            }
-                            else
-                            {
-                                log.Add("KOMPLETTHETSKONTROLL IKKE UTFØRT: transaksjonstilstanden tillater ikke en ny modelllesing.");
-                            }
                             string result = rollbackStatus == TransactionStatus.RolledBack
                                 ? "Regel 12 ble rullet tilbake; ingen endringer ble lagret. " + exception.Message
                                 : "Regel 12 feilet, men rollback er ikke bekreftet (" + rollbackStatus + "); kontroller modellstatus før retry. " + exception.Message;
@@ -460,210 +398,13 @@ namespace CW.Assistant.Generated
                 }
             }
 
-            (int parameterValuesChecked, int incompleteParameterValues, bool completenessCompleted) =
-                TryAppendParameterCompleteness(activeDocument, instances, parameterNames, log);
             log.Add(string.Format(CultureInfo.InvariantCulture,
-                "Oppsummering: elektriske instanser {0}; revisjonsverdier samsvarte {1}; oppdatert {2} (fra tilkobling {3}); parameterverdier kontrollert {4}; ufullstendige parameterverdier {5}; blokkeringer {6}; skrivebeskyttet {7}; uavklart {8}; skrivefeil {9}.",
-                instances.Count, matchedCount, updatedCount, connectedSourceUpdatedCount, parameterValuesChecked, incompleteParameterValues,
+                "Oppsummering revisjonskontroll: IFC-ekskludert {0}; elektriske instanser {1}; revisjonsverdier samsvarte {2}; oppdatert {3} (fra tilkobling {4}); blokkeringer {5}; skrivebeskyttet {6}; uavklart {7}; skrivefeil {8}.",
+                excludedFromIfcCount, instances.Count, matchedCount, updatedCount, connectedSourceUpdatedCount,
                 blockedCount, readOnlyCount, unresolvedCount, failedWrites));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 12 v{0}: parameterverdier kontrollert {1}; ufullstendige {2}; kompletthetskontroll fullført {3}; revisjonsverdier håndtert {4}; oppdatert {5} (fra tilkobling {6}); blokkeringer {7}; logg: {8}.",
-                ScriptVersion, parameterValuesChecked, incompleteParameterValues, completenessCompleted, matchedCount + updatedCount, updatedCount,
-                connectedSourceUpdatedCount, blockedCount, LogPath));
-        }
-
-        private static List<string> ReadParameterNames()
-        {
-            Dictionary<string, string> entries = ReadZipEntries(ParameterWorkbookPath);
-            if (!entries.TryGetValue("xl/workbook.xml", out string? workbookXml)
-                || !entries.TryGetValue("xl/_rels/workbook.xml.rels", out string? relationshipsXml))
-            {
-                throw new InvalidDataException("Parameterarbeidsboken mangler workbook.xml eller workbook.xml.rels.");
-            }
-
-            List<string> sharedStrings = ReadSharedStrings(entries);
-            object workbook = LoadXml(workbookXml);
-            object relationships = LoadXml(relationshipsXml);
-            const string mainNs = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
-            const string relationshipNs = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
-            const string packageRelationshipNs = "http://schemas.openxmlformats.org/package/2006/relationships";
-            var targets = GetDescendants(relationships, "Relationship", packageRelationshipNs)
-                .ToDictionary(node => GetXmlAttribute(node, "Id"), node => GetXmlAttribute(node, "Target"), StringComparer.Ordinal);
-            object? parameterSheet = GetDescendants(workbook, "sheet", mainNs)
-                .FirstOrDefault(sheet => string.Equals(GetXmlAttribute(sheet, "name"), ParameterWorksheetName, StringComparison.Ordinal));
-            if (parameterSheet is null) throw new InvalidDataException("Fant ikke fanen '" + ParameterWorksheetName + "' i parameterarbeidsboken.");
-
-            string relationId = GetXmlAttribute(parameterSheet, "id", relationshipNs);
-            if (!targets.TryGetValue(relationId, out string? target) || string.IsNullOrEmpty(target))
-            {
-                throw new InvalidDataException("Fant ingen worksheet-relasjon for parameterfanen.");
-            }
-            string worksheetPart = ResolvePartName("xl", target);
-            if (!entries.TryGetValue(worksheetPart, out string? worksheetXml))
-            {
-                throw new InvalidDataException("Fant ikke regnearket for parameterfanen.");
-            }
-
-            List<object> rows = GetDescendants(LoadXml(worksheetXml), "row", mainNs).ToList();
-            int parameterColumn = -1;
-            int ruleColumn = -1;
-            int referenceColumn = -1;
-            int headerRowIndex = -1;
-            for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
-            {
-                Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings, mainNs);
-                foreach (KeyValuePair<int, string> cell in cells)
-                {
-                    string header = cell.Value.Trim();
-                    if (string.Equals(header, "Parameternavn", StringComparison.Ordinal)) parameterColumn = cell.Key;
-                    if (string.Equals(header, "Fagregel / forutsetning", StringComparison.Ordinal)) ruleColumn = cell.Key;
-                    if (string.Equals(header, "Regelreferanse", StringComparison.Ordinal)) referenceColumn = cell.Key;
-                }
-                if (parameterColumn >= 0 && ruleColumn >= 0 && referenceColumn >= 0)
-                {
-                    headerRowIndex = rowIndex;
-                    break;
-                }
-            }
-            if (headerRowIndex < 0)
-            {
-                throw new InvalidDataException("Fant ikke kolonneoverskriftene Parameternavn, Fagregel / forutsetning og Regelreferanse.");
-            }
-
-            var names = new List<string>();
-            var uniqueNames = new HashSet<string>(StringComparer.Ordinal);
-            for (int rowIndex = headerRowIndex + 1; rowIndex < rows.Count; rowIndex++)
-            {
-                Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings, mainNs);
-                if (!cells.Values.Any(value => !string.IsNullOrWhiteSpace(value))) continue;
-                string rowNumber = GetXmlAttribute(rows[rowIndex], "r");
-                if (!cells.TryGetValue(parameterColumn, out string? rawName) || string.IsNullOrWhiteSpace(rawName))
-                {
-                    throw new InvalidDataException("Rad " + rowNumber + " har innhold, men mangler parameternavn.");
-                }
-                string name = rawName.Trim();
-                if (!uniqueNames.Add(name)) throw new InvalidDataException("Parameternavnet '" + name + "' forekommer flere ganger.");
-                names.Add(name);
-            }
-            if (names.Count == 0) throw new InvalidDataException("Fant ingen parameternavn i parameterarbeidsboken.");
-            return names;
-        }
-
-        private static (int Checked, int Incomplete) AppendParameterCompleteness(
-            Document document, List<Element> instances, List<string> parameterNames, List<string> log)
-        {
-            int checkedValues = 0;
-            int incompleteValues = 0;
-            var checkedTypeParameters = new HashSet<string>(StringComparer.Ordinal);
-            foreach (Element instance in instances)
-            {
-                if (!HasExactEnterprise(instance, "K5B")) continue;
-                foreach (string name in parameterNames)
-                {
-                    if (string.Equals(name, "PGF_RIE_Talevarslingsystemer", StringComparison.Ordinal) && !IsStaModel(document)) continue;
-                    if (ConduitOnlyParameterNames.Contains(name) && !IsConduitElement(instance)) continue;
-
-                    Element owner = instance;
-                    bool typeParameter = TypeControlledParameterNames.Contains(name, StringComparer.Ordinal);
-                    if (typeParameter)
-                    {
-                        ElementId typeId = instance.GetTypeId();
-                        Element? typeElement = typeId.Value < 0 ? null : document.GetElement(typeId);
-                        if (typeElement is null)
-                        {
-                            incompleteValues++;
-                            log.Add(FormatIssue(instance, name, "typeelement mangler for typeparameterkontrollen"));
-                            continue;
-                        }
-                        owner = typeElement;
-                        string typeKey = owner.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + name;
-                        if (!checkedTypeParameters.Add(typeKey)) continue;
-                    }
-
-                    if (!TryGetSingleParameter(owner, name, out Parameter? parameter, out string issue) || parameter is null)
-                    {
-                        if (string.Equals(issue, "mangler", StringComparison.Ordinal)) continue;
-                        incompleteValues++;
-                        log.Add(FormatIssue(owner, name, issue));
-                        continue;
-                    }
-                    checkedValues++;
-
-                    if (string.Equals(name, BuildingSystemsMarkerParameter, StringComparison.Ordinal))
-                    {
-                        if (parameter.StorageType != StorageType.String)
-                        {
-                            incompleteValues++;
-                            log.Add(FormatIssue(owner, name, "markørregelen krever en tekstparameter"));
-                        }
-                        else if (!string.Equals(parameter.AsString() ?? string.Empty, "--", StringComparison.Ordinal))
-                        {
-                            incompleteValues++;
-                            log.Add(FormatIssue(owner, name, "forventet nøyaktig '--', faktisk '" + EscapeLog(parameter.AsString() ?? string.Empty) + "'"));
-                        }
-                        continue;
-                    }
-
-                    string value = GetParameterText(parameter);
-                    bool missing = !parameter.HasValue
-                        || (parameter.StorageType == StorageType.String && string.IsNullOrWhiteSpace(value));
-                    if (!missing && parameter.StorageType == StorageType.String
-                        && string.Equals(value.Trim(), "--", StringComparison.Ordinal))
-                    {
-                        missing = PlaceholderMeansMissingParameterNames.Contains(name)
-                            || (IsCableTrayMarkingElement(instance)
-                                && (string.Equals(name, "FOB_Merkestreng", StringComparison.Ordinal)
-                                    || string.Equals(name, "FOB_Sekvensnummer", StringComparison.Ordinal)));
-                    }
-                    if (missing)
-                    {
-                        incompleteValues++;
-                        log.Add(FormatIssue(owner, name, string.IsNullOrWhiteSpace(value) ? "verdien er blank" : "verdien '--' regnes som manglende etter parameterregelen"));
-                    }
-                }
-            }
-            return (checkedValues, incompleteValues);
-        }
-
-        private static string FormatCompletenessSummary(int parameterCount, int checkedValues, int incompleteValues)
-        {
-            return string.Format(CultureInfo.InvariantCulture,
-                "Parameterlistekontroll: parameternavn {0}; verdier kontrollert {1}; ufullstendige parameterverdier {2}.",
-                parameterCount, checkedValues, incompleteValues);
-        }
-
-        private static (int CheckedValues, int IncompleteValues, bool Completed) TryAppendParameterCompleteness(
-            Document document, List<Element> instances, List<string> parameterNames, List<string> log)
-        {
-            try
-            {
-                (int checkedValues, int incompleteValues) = AppendParameterCompleteness(document, instances, parameterNames, log);
-                log.Add(FormatCompletenessSummary(parameterNames.Count, checkedValues, incompleteValues));
-                return (checkedValues, incompleteValues, true);
-            }
-            catch (Exception exception)
-            {
-                log.Add("KOMPLETTHETSKONTROLLFEIL: " + exception);
-                return (0, 0, false);
-            }
-        }
-
-        private static bool IsCableTrayMarkingElement(Element element)
-        {
-            return IsCategory(element, BuiltInCategory.OST_CableTray)
-                || IsCategory(element, BuiltInCategory.OST_CableTrayFitting);
-        }
-
-        private static bool IsConduitElement(Element element)
-        {
-            return IsCategory(element, BuiltInCategory.OST_Conduit)
-                || IsCategory(element, BuiltInCategory.OST_ConduitFitting);
-        }
-
-        private static bool IsStaModel(Document document)
-        {
-            return string.Equals(document.Title, "U_F_STA_FBU_RIE_XXX", StringComparison.Ordinal)
-                && string.Equals(document.PathName, "Autodesk Docs://Fornebubanen/U_F_STA_FBU_RIE_XXX.rvt", StringComparison.Ordinal);
+                "Regel 12 v{0}: revisjonsverdier samsvarte {1}; oppdatert {2} (fra tilkobling {3}); blokkeringer {4}; logg: {5}.",
+                ScriptVersion, matchedCount, updatedCount, connectedSourceUpdatedCount, blockedCount, LogPath));
         }
 
         private static Element? GetTypeElement(Document document, Element instance)
@@ -745,7 +486,8 @@ namespace CW.Assistant.Generated
                 {
                     Element owner = connected.Owner;
                     if (owner.Id.Value == element.Id.Value || connected.ConnectorType != ConnectorType.End
-                        || !connector.IsConnectedTo(connected) || !IsMatchingForingsveiCategory(element, owner))
+                        || !connector.IsConnectedTo(connected) || !IsMatchingForingsveiCategory(element, owner)
+                        || IsExcludedFromIfc(owner))
                     {
                         continue;
                     }
@@ -1112,6 +854,15 @@ namespace CW.Assistant.Generated
         {
             long categoryId = element.Category?.Id.Value ?? long.MinValue;
             return ElectricalCategoryIds.Contains(categoryId);
+        }
+
+        private static bool IsExcludedFromIfc(Element element)
+        {
+            IList<Parameter> parameters = element.GetParameters(IfcExcludeParameterName);
+            return parameters.Count == 1
+                && parameters[0].StorageType == StorageType.Integer
+                && parameters[0].HasValue
+                && parameters[0].AsInteger() != 0;
         }
 
         private static string FormatIssue(Element element, string parameterName, string reason)

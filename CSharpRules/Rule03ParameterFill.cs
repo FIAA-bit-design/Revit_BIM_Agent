@@ -34,16 +34,16 @@ namespace CW.Assistant.Generated
         private const string MasterLinkInstanceNamePrefix = "PGF_RIE_Master.rvt : ";
         private const string BuildingSystemsMarkerParameter = "PGF_RIE_Bygg_VVSsystemer";
         private const string MissingMarker = "--";
-        private static readonly HashSet<string> ConduitOnlyParameterNames = new HashSet<string>(StringComparer.Ordinal)
-        {
-            "PGF_RIE_Fra", "PGF_RIE_Til"
-        };
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule03_ParameterFill.log";
         private const string ParameterWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Parameterliste.xlsx";
         private const string ParameterWorksheetName = "Parameterliste";
         private static readonly string[] ExcelReportHeaders = { "Type", "ElementId", "Familienavn", "FOB_Merkestreng", "Parameter", "Verdi", "Detalj" };
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
         private static readonly string[] TypeControlledParameterNames = { "FOB_Funksjonskode", "FOB_Merkesystem", "FOB_System" };
+        private static readonly HashSet<string> PlaceholderMeansMissingParameterNames = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "FOB_Leveransepakke", "FOB_Mengde", "FOB_Mengdeenhet", "FOB_Mengdelistepost", "FOB_Omraade", "PGF_PNS"
+        };
         private static readonly HashSet<long> CenterLineCategoryIds = new HashSet<long>(
             Enum.GetValues(typeof(BuiltInCategory))
                 .Cast<BuiltInCategory>()
@@ -275,6 +275,11 @@ namespace CW.Assistant.Generated
                     ? GetParameterText(markParameter)
                     : string.Empty;
                 reportContext[instance.Id.Value] = (familyName, markString);
+                Element? typeElement = GetTypeElement(activeDocument, instance);
+                if (typeElement is not null)
+                {
+                    reportContext[typeElement.Id.Value] = (familyName, string.Empty);
+                }
             }
             var writes = new List<PendingWrite>();
             var scheduled = new HashSet<string>(StringComparer.Ordinal);
@@ -365,8 +370,6 @@ namespace CW.Assistant.Generated
 
                 foreach (string name in parameterNames)
                 {
-                    if (ConduitOnlyParameterNames.Contains(name) && !IsConduitElement(instance)) continue;
-
                     if (cableTrayRuleHandled
                         && IsCableTrayMarkingElement(instance)
                         && (string.Equals(name, "FOB_Sekvensnummer", StringComparison.Ordinal)
@@ -578,17 +581,116 @@ namespace CW.Assistant.Generated
                 }
             }
 
+            (int parameterValuesChecked, int incompleteParameterValues, bool completenessCompleted) =
+                TryAppendParameterCompleteness(activeDocument, instances, parameterNames, log);
             foreach (KeyValuePair<string, int> absent in absentCounts.Where(pair => pair.Value > 0).OrderBy(pair => pair.Key, StringComparer.Ordinal))
             {
                 log.Add(string.Format(CultureInfo.InvariantCulture, "PARAMETER MANGLER: {0} instanser uten '{1}'.", absent.Value, absent.Key));
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture,
-                "Oppsummering: instanser {0}; PGF_RIE_Master-typer utelatt {1}; IFC-ekskludert {2}; parameternavn {3}; oppdatert {4}; eksisterende verdier bevart {5}; skrivebeskyttet {6}; uavklart {7}; skrivefeil {8}.",
-                instances.Count, excludedFromMasterLinkCount, excludedFromIfcCount, parameterNames.Count, updated, preservedCount, readOnlyCount, unresolvedCount, failedWrites));
+                "Oppsummering: instanser {0}; PGF_RIE_Master-typer utelatt {1}; IFC-ekskludert {2}; parameternavn {3}; parameterverdier kontrollert {4}; ufullstendige parameterverdier {5}; kompletthetskontroll fullført {6}; oppdatert {7}; eksisterende verdier bevart {8}; skrivebeskyttet {9}; uavklart {10}; skrivefeil {11}.",
+                instances.Count, excludedFromMasterLinkCount, excludedFromIfcCount, parameterNames.Count,
+                parameterValuesChecked, incompleteParameterValues, completenessCompleted, updated, preservedCount, readOnlyCount, unresolvedCount, failedWrites));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 3 v{0}: oppdatert {1}; eksisterende verdier bevart {2}; blokkeringer {3}; logg: {4}.",
-                ScriptVersion, updated, preservedCount, unresolvedCount + failedWrites, LogPath), reportContext);
+                "Regel 3 v{0}: parameterverdier kontrollert {1}; ufullstendige {2}; kompletthetskontroll fullført {3}; oppdatert {4}; eksisterende verdier bevart {5}; blokkeringer {6}; logg: {7}.",
+                ScriptVersion, parameterValuesChecked, incompleteParameterValues, completenessCompleted,
+                updated, preservedCount, unresolvedCount + failedWrites, LogPath), reportContext);
+        }
+
+        private static (int CheckedValues, int IncompleteValues, bool Completed) TryAppendParameterCompleteness(
+            Document document, List<Element> instances, List<string> parameterNames, List<string> log)
+        {
+            int checkedValues = 0;
+            int incompleteValues = 0;
+            try
+            {
+                var checkedTypeParameters = new HashSet<string>(StringComparer.Ordinal);
+                var loggedIssues = new HashSet<string>(log, StringComparer.Ordinal);
+                foreach (Element instance in instances)
+                {
+                    if (!HasExactEnterprise(instance, "K5B")) continue;
+                    foreach (string name in parameterNames)
+                    {
+                        if (RevisionParameterNames.Contains(name, StringComparer.Ordinal)) continue;
+                        if (string.Equals(name, StaOnlyParameterName, StringComparison.Ordinal) && !IsStaModel(document)) continue;
+
+                        Element owner = instance;
+                        if (TypeControlledParameterNames.Contains(name, StringComparer.Ordinal))
+                        {
+                            Element? typeElement = GetTypeElement(document, instance);
+                            if (typeElement is null)
+                            {
+                                incompleteValues++;
+                                AddCompletenessIssue(FormatIssue(instance, name, "typeelement mangler for typeparameterkontrollen"));
+                                continue;
+                            }
+                            owner = typeElement;
+                            string typeKey = owner.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + name;
+                            if (!checkedTypeParameters.Add(typeKey)) continue;
+                        }
+
+                        if (!TryGetSingleParameter(owner, name, out Parameter? parameter, out string issue) || parameter is null)
+                        {
+                            if (!string.Equals(issue, "mangler", StringComparison.Ordinal))
+                            {
+                                incompleteValues++;
+                                AddCompletenessIssue(FormatIssue(owner, name, issue));
+                            }
+                            continue;
+                        }
+                        checkedValues++;
+
+                        string value = GetParameterText(parameter);
+                        if (string.Equals(name, BuildingSystemsMarkerParameter, StringComparison.Ordinal))
+                        {
+                            if (parameter.StorageType != StorageType.String)
+                            {
+                                incompleteValues++;
+                                AddCompletenessIssue(FormatIssue(owner, name, "markørregelen krever en tekstparameter"));
+                            }
+                            else if (!string.Equals(value, MissingMarker, StringComparison.Ordinal))
+                            {
+                                incompleteValues++;
+                                AddCompletenessIssue(FormatIssue(owner, name, "forventet nøyaktig '--', faktisk '" + EscapeLog(value) + "'"));
+                            }
+                            continue;
+                        }
+
+                        bool missing = !parameter.HasValue
+                            || (parameter.StorageType == StorageType.String && string.IsNullOrWhiteSpace(value));
+                        if (!missing && parameter.StorageType == StorageType.String
+                            && string.Equals(value.Trim(), MissingMarker, StringComparison.Ordinal))
+                        {
+                            missing = PlaceholderMeansMissingParameterNames.Contains(name)
+                                || (IsCableTrayMarkingElement(instance)
+                                    && (string.Equals(name, "FOB_Merkestreng", StringComparison.Ordinal)
+                                        || string.Equals(name, "FOB_Sekvensnummer", StringComparison.Ordinal)));
+                        }
+                        if (missing)
+                        {
+                            incompleteValues++;
+                            AddCompletenessIssue(FormatIssue(owner, name,
+                                string.IsNullOrWhiteSpace(value) ? "verdien er blank" : "verdien '--' regnes som manglende etter parameterregelen"));
+                        }
+                    }
+                }
+
+                log.Add(string.Format(CultureInfo.InvariantCulture,
+                    "Parameterlistekontroll (uten revisjonsparametere): verdier kontrollert {0}; ufullstendige parameterverdier {1}.",
+                    checkedValues, incompleteValues));
+                return (checkedValues, incompleteValues, true);
+
+                void AddCompletenessIssue(string issue)
+                {
+                    if (loggedIssues.Add(issue)) log.Add(issue);
+                }
+            }
+            catch (Exception exception)
+            {
+                log.Add("KOMPLETTHETSKONTROLLFEIL: " + exception);
+                return (checkedValues, incompleteValues, false);
+            }
         }
 
         private static List<string> LoadParameterNames()
@@ -1319,12 +1421,6 @@ namespace CW.Assistant.Generated
         private static bool IsStraightForingsvei(Element element)
         {
             return IsCategory(element, BuiltInCategory.OST_Conduit) || IsCategory(element, BuiltInCategory.OST_CableTray);
-        }
-
-        private static bool IsConduitElement(Element element)
-        {
-            return IsCategory(element, BuiltInCategory.OST_Conduit)
-                || IsCategory(element, BuiltInCategory.OST_ConduitFitting);
         }
 
         private static bool IsCableTrayMarkingElement(Element element)
