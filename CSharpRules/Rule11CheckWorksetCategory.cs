@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
@@ -15,7 +16,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.6";
+        private const string ScriptVersion = "0.0.8";
         private const string WorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx";
         private const string OutputDirectory = @"D:\Revit\Python\Revit_BIM_Agent\logs\csv";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule11_WorksetCategory.log";
@@ -26,12 +27,16 @@ namespace CW.Assistant.Generated
         private sealed class ExcelMapping
         {
             internal string CategoryLabel { get; }
+            internal string FamilyName { get; }
+            internal string ModelName { get; }
             internal string ExpectedWorkset { get; }
             internal string Source { get; }
 
-            internal ExcelMapping(string categoryLabel, string expectedWorkset, string source)
+            internal ExcelMapping(string categoryLabel, string familyName, string modelName, string expectedWorkset, string source)
             {
                 CategoryLabel = categoryLabel;
+                FamilyName = familyName;
+                ModelName = modelName;
                 ExpectedWorkset = expectedWorkset;
                 Source = source;
             }
@@ -41,6 +46,8 @@ namespace CW.Assistant.Generated
         {
             internal BuiltInCategory Category { get; }
             internal string CategoryLabel { get; }
+            internal string FamilyName { get; }
+            internal string ModelName { get; }
             internal string ExpectedWorkset { get; }
             internal string Source { get; }
 
@@ -48,6 +55,8 @@ namespace CW.Assistant.Generated
             {
                 Category = category;
                 CategoryLabel = mapping.CategoryLabel;
+                FamilyName = mapping.FamilyName;
+                ModelName = mapping.ModelName;
                 ExpectedWorkset = mapping.ExpectedWorkset;
                 Source = mapping.Source;
             }
@@ -142,6 +151,12 @@ namespace CW.Assistant.Generated
 
         public string Execute(UIApplication uiApplication, Document? activeDocument)
         {
+            return Execute(uiApplication, activeDocument, CancellationToken.None);
+        }
+
+        public string Execute(UIApplication uiApplication, Document? activeDocument, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
             if (activeDocument is null)
             {
                 return "FEIL: Ingen aktiv Revit-modell. Regel 11 stoppet før elementlesing.";
@@ -171,9 +186,11 @@ namespace CW.Assistant.Generated
             var blockers = new List<string>();
             var validationRows = new List<string[]>();
             var expected = new Dictionary<long, ExpectedCategory>();
+            var familyExpected = new Dictionary<string, ExpectedCategory>(StringComparer.OrdinalIgnoreCase);
             var conflictingCategories = new HashSet<long>();
             foreach (ExcelMapping mapping in mappings)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 if (!CategoryDefinitions.TryGetValue(mapping.CategoryLabel, out BuiltInCategory[]? categories))
                 {
                     string message = "Ukjent kategorietikett i " + mapping.Source + ": " + mapping.CategoryLabel;
@@ -185,6 +202,14 @@ namespace CW.Assistant.Generated
                 foreach (BuiltInCategory category in categories)
                 {
                     long categoryId = new ElementId(category).Value;
+                    var candidate = new ExpectedCategory(category, mapping);
+                    if (mapping.FamilyName.Length > 0)
+                    {
+                        if (!string.Equals(mapping.ModelName, activeDocument.Title, StringComparison.OrdinalIgnoreCase)) continue;
+                        string familyKey = GetFamilyMappingKey(categoryId, mapping.FamilyName);
+                        if (!familyExpected.ContainsKey(familyKey)) familyExpected.Add(familyKey, candidate);
+                        continue;
+                    }
                     if (conflictingCategories.Contains(categoryId)) continue;
                     if (expected.TryGetValue(categoryId, out ExpectedCategory? prior))
                     {
@@ -199,40 +224,41 @@ namespace CW.Assistant.Generated
                     }
                     else
                     {
-                        expected.Add(categoryId, new ExpectedCategory(category, mapping));
+                        expected.Add(categoryId, candidate);
                     }
                 }
             }
 
-            if (expected.Count == 0)
+            if (expected.Count == 0 && familyExpected.Count == 0)
             {
-                blockers.Add("Ingen gyldige kategorier kunne kobles fra Excel-listen.");
+                blockers.Add("Ingen gyldige kategori- eller familiemappinger kunne kobles fra Excel-listen.");
             }
 
+            List<ExpectedCategory> expectedMappings = expected.Values.Concat(familyExpected.Values).ToList();
             Dictionary<string, Workset> modelWorksets = new FilteredWorksetCollector(activeDocument)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksets()
                 .ToDictionary(workset => workset.Name, workset => workset, StringComparer.OrdinalIgnoreCase);
-            var targetWorksets = new Dictionary<long, Workset>();
-            var missingWorksetCategories = new HashSet<long>();
-            foreach (KeyValuePair<long, ExpectedCategory> pair in expected)
+            var targetWorksets = new Dictionary<ExpectedCategory, Workset>();
+            var missingWorksetMappings = new HashSet<ExpectedCategory>();
+            foreach (ExpectedCategory mapping in expectedMappings)
             {
-                if (!modelWorksets.TryGetValue(pair.Value.ExpectedWorkset, out Workset? targetWorkset))
+                if (!modelWorksets.TryGetValue(mapping.ExpectedWorkset, out Workset? targetWorkset))
                 {
-                    string message = "Workset finnes ikke i modellen: " + pair.Value.ExpectedWorkset + " (" + pair.Value.CategoryLabel + ").";
+                    string message = "Workset finnes ikke i modellen: " + mapping.ExpectedWorkset + " (" + GetMappingDescription(mapping) + ").";
                     blockers.Add(message);
-                    validationRows.Add(ReportRow("Forventet workset mangler", "", pair.Value.Category.ToString(), pair.Value.CategoryLabel, pair.Value.ExpectedWorkset, "", message));
-                    missingWorksetCategories.Add(pair.Key);
+                    validationRows.Add(ReportRow("Forventet workset mangler", "", mapping.Category.ToString(), mapping.FamilyName, mapping.ExpectedWorkset, "", message));
+                    missingWorksetMappings.Add(mapping);
                 }
                 else
                 {
-                    targetWorksets.Add(pair.Key, targetWorkset);
+                    targetWorksets.Add(mapping, targetWorkset);
                 }
             }
 
-            var instanceCounts = expected.Keys.ToDictionary(categoryId => categoryId, _ => 0);
-            var changedCounts = expected.Keys.ToDictionary(categoryId => categoryId, _ => 0);
-            var unresolvedCounts = expected.Keys.ToDictionary(categoryId => categoryId, _ => 0);
+            var instanceCounts = expectedMappings.ToDictionary(mapping => mapping, _ => 0);
+            var changedCounts = expectedMappings.ToDictionary(mapping => mapping, _ => 0);
+            var unresolvedCounts = expectedMappings.ToDictionary(mapping => mapping, _ => 0);
             var pendingChanges = new List<PendingChange>();
             var unresolvedRows = new List<string[]>();
             int checkedCount = 0;
@@ -241,9 +267,18 @@ namespace CW.Assistant.Generated
                 .ToElements()
                 .OrderBy(item => item.Id.Value))
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 long categoryId = element.Category?.Id.Value ?? long.MinValue;
-                if (!expected.TryGetValue(categoryId, out ExpectedCategory? category)) continue;
-                instanceCounts[categoryId]++;
+                expected.TryGetValue(categoryId, out ExpectedCategory? categoryDefault);
+                string familyName = GetFamilyName(element).Trim();
+                ExpectedCategory? familyMapping = null;
+                if (familyName.Length > 0)
+                {
+                    familyExpected.TryGetValue(GetFamilyMappingKey(categoryId, familyName), out familyMapping);
+                }
+                ExpectedCategory? category = familyMapping ?? categoryDefault;
+                if (category is null) continue;
+                instanceCounts[category]++;
                 checkedCount++;
                 string actualWorkset;
                 try
@@ -256,10 +291,10 @@ namespace CW.Assistant.Generated
                     blockers.Add("Kunne ikke lese workset for ElementId " + element.Id.Value.ToString(CultureInfo.InvariantCulture) + ": " + exception.Message);
                 }
 
-                if (missingWorksetCategories.Contains(categoryId))
+                if (missingWorksetMappings.Contains(category))
                 {
-                    unresolvedCounts[categoryId]++;
-                    unresolvedRows.Add(ReportRow("Workset-avvik", element.Id.Value.ToString(CultureInfo.InvariantCulture), element.Category?.Name ?? category.Category.ToString(), "", category.CategoryLabel + " (" + category.Source + ") | " + category.ExpectedWorkset, actualWorkset, "Målarbeidssettet finnes ikke i modellen; elementet ble ikke flyttet."));
+                    unresolvedCounts[category]++;
+                    unresolvedRows.Add(ReportRow("Workset-avvik", element.Id.Value.ToString(CultureInfo.InvariantCulture), element.Category?.Name ?? category.Category.ToString(), familyName, GetMappingDescription(category), actualWorkset, "Målarbeidssettet finnes ikke i modellen; elementet ble ikke flyttet."));
                     continue;
                 }
                 if (string.Equals(actualWorkset, category.ExpectedWorkset, StringComparison.OrdinalIgnoreCase)) continue;
@@ -269,15 +304,12 @@ namespace CW.Assistant.Generated
                 {
                     string reason = worksetParameter is null ? "Workset-parameteren mangler." : worksetParameter.StorageType != StorageType.Integer ? "Workset-parameteren har feil lagringstype." : "Workset-parameteren er skrivebeskyttet.";
                     blockers.Add("ElementId " + element.Id.Value.ToString(CultureInfo.InvariantCulture) + ": " + reason);
-                    unresolvedCounts[categoryId]++;
-                    unresolvedRows.Add(ReportRow("Workset-avvik", element.Id.Value.ToString(CultureInfo.InvariantCulture), element.Category?.Name ?? category.Category.ToString(), "", category.CategoryLabel + " (" + category.Source + ") | " + category.ExpectedWorkset, actualWorkset, reason));
+                    unresolvedCounts[category]++;
+                    unresolvedRows.Add(ReportRow("Workset-avvik", element.Id.Value.ToString(CultureInfo.InvariantCulture), element.Category?.Name ?? category.Category.ToString(), familyName, GetMappingDescription(category), actualWorkset, reason));
                     continue;
                 }
 
-                string familyName = element is FamilyInstance familyInstance
-                    ? familyInstance.Symbol?.Family?.Name ?? ""
-                    : "";
-                pendingChanges.Add(new PendingChange(element, worksetParameter, category, targetWorksets[categoryId], actualWorkset));
+                pendingChanges.Add(new PendingChange(element, worksetParameter, category, targetWorksets[category], actualWorkset));
             }
 
             var movedRows = new List<string[]>();
@@ -290,6 +322,7 @@ namespace CW.Assistant.Generated
                 var failedChanges = new List<Tuple<PendingChange, string>>();
                 try
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     transaction = new Transaction(activeDocument, "Regel 11: rett workset etter Excel-listen");
                     if (transaction.Start() != TransactionStatus.Started)
                     {
@@ -298,6 +331,7 @@ namespace CW.Assistant.Generated
 
                     foreach (PendingChange change in pendingChanges)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
                         try
                         {
                             int targetWorksetId = change.TargetWorkset.Id.IntegerValue;
@@ -322,18 +356,24 @@ namespace CW.Assistant.Generated
 
                     foreach (PendingChange change in completedChanges)
                     {
-                        long categoryId = new ElementId(change.Category.Category).Value;
-                        changedCounts[categoryId]++;
-                        movedRows.Add(ReportRow("Flyttet", change.Element.Id.Value.ToString(CultureInfo.InvariantCulture), change.Element.Category?.Name ?? change.Category.Category.ToString(), GetFamilyName(change.Element), change.Category.CategoryLabel + " (" + change.Category.Source + ") | " + change.Category.ExpectedWorkset, change.Category.ExpectedWorkset, "Flyttet fra " + change.CurrentWorkset + " til forventet workset."));
+                        changedCounts[change.Category]++;
+                        movedRows.Add(ReportRow("Flyttet", change.Element.Id.Value.ToString(CultureInfo.InvariantCulture), change.Element.Category?.Name ?? change.Category.Category.ToString(), GetFamilyName(change.Element), GetMappingDescription(change.Category), change.Category.ExpectedWorkset, "Flyttet fra " + change.CurrentWorkset + " til forventet workset."));
                     }
                     foreach (Tuple<PendingChange, string> failure in failedChanges)
                     {
-                        long categoryId = new ElementId(failure.Item1.Category.Category).Value;
-                        unresolvedCounts[categoryId]++;
+                        unresolvedCounts[failure.Item1.Category]++;
                         string message = "ElementId " + failure.Item1.Element.Id.Value.ToString(CultureInfo.InvariantCulture) + " kunne ikke flyttes: " + failure.Item2;
                         blockers.Add(message);
-                        unresolvedRows.Add(ReportRow("Workset-avvik", failure.Item1.Element.Id.Value.ToString(CultureInfo.InvariantCulture), failure.Item1.Element.Category?.Name ?? failure.Item1.Category.Category.ToString(), GetFamilyName(failure.Item1.Element), failure.Item1.Category.CategoryLabel + " (" + failure.Item1.Category.Source + ") | " + failure.Item1.Category.ExpectedWorkset, failure.Item1.CurrentWorkset, failure.Item2));
+                        unresolvedRows.Add(ReportRow("Workset-avvik", failure.Item1.Element.Id.Value.ToString(CultureInfo.InvariantCulture), failure.Item1.Element.Category?.Name ?? failure.Item1.Category.Category.ToString(), GetFamilyName(failure.Item1.Element), GetMappingDescription(failure.Item1.Category), failure.Item1.CurrentWorkset, failure.Item2));
                     }
+                }
+                catch (OperationCanceledException)
+                {
+                    if (transaction is not null && transaction.GetStatus() == TransactionStatus.Started)
+                    {
+                        transaction.RollBack();
+                    }
+                    throw;
                 }
                 catch (Exception exception)
                 {
@@ -346,9 +386,8 @@ namespace CW.Assistant.Generated
                     blockers.Add("Workset-transaksjonen ble rullet tilbake: " + exception.Message);
                     foreach (PendingChange change in pendingChanges)
                     {
-                        long categoryId = new ElementId(change.Category.Category).Value;
-                        unresolvedCounts[categoryId]++;
-                        unresolvedRows.Add(ReportRow("Workset-avvik", change.Element.Id.Value.ToString(CultureInfo.InvariantCulture), change.Element.Category?.Name ?? change.Category.Category.ToString(), GetFamilyName(change.Element), change.Category.CategoryLabel + " (" + change.Category.Source + ") | " + change.Category.ExpectedWorkset, change.CurrentWorkset, "Transaksjonen ble rullet tilbake: " + exception.Message));
+                        unresolvedCounts[change.Category]++;
+                        unresolvedRows.Add(ReportRow("Workset-avvik", change.Element.Id.Value.ToString(CultureInfo.InvariantCulture), change.Element.Category?.Name ?? change.Category.Category.ToString(), GetFamilyName(change.Element), GetMappingDescription(change.Category), change.CurrentWorkset, "Transaksjonen ble rullet tilbake: " + exception.Message));
                     }
                 }
                 finally
@@ -366,16 +405,16 @@ namespace CW.Assistant.Generated
             int changedCount = changedCounts.Values.Sum();
             int unresolvedCount = unresolvedCounts.Values.Sum();
             var reportRows = new List<string[]>();
-            foreach (KeyValuePair<long, ExpectedCategory> pair in expected.OrderBy(item => item.Value.CategoryLabel, StringComparer.OrdinalIgnoreCase).ThenBy(item => item.Value.Category))
+            foreach (ExpectedCategory mapping in expectedMappings.OrderBy(item => item.CategoryLabel, StringComparer.OrdinalIgnoreCase).ThenBy(item => item.FamilyName, StringComparer.OrdinalIgnoreCase).ThenBy(item => item.Category))
             {
                 reportRows.Add(ReportRow(
-                    "Kategorisammendrag",
+                    mapping.FamilyName.Length == 0 ? "Kategorisammendrag" : "Familieunntakssammendrag",
                     "",
-                    pair.Value.Category.ToString(),
+                    mapping.Category.ToString(),
+                    mapping.FamilyName,
+                    GetMappingDescription(mapping),
                     "",
-                    pair.Value.CategoryLabel + " | " + pair.Value.ExpectedWorkset,
-                    "",
-                        string.Format(CultureInfo.InvariantCulture, "Elementer kontrollert: {0}; flyttet: {1}; uløste avvik: {2}.", instanceCounts[pair.Key], changedCounts[pair.Key], unresolvedCounts[pair.Key])));
+                    string.Format(CultureInfo.InvariantCulture, "Elementer kontrollert: {0}; flyttet: {1}; uløste avvik: {2}.", instanceCounts[mapping], changedCounts[mapping], unresolvedCounts[mapping])));
             }
             reportRows.AddRange(validationRows);
                     reportRows.AddRange(movedRows);
@@ -394,18 +433,32 @@ namespace CW.Assistant.Generated
                 return SaveAndReturn(log, "Regel 11 kunne ikke opprette rapport: " + exception.Message);
             }
 
-            log.Add(string.Format(CultureInfo.InvariantCulture, "Mappinger lest: {0}; kategorier kontrollert: {1}; elementer kontrollert: {2}; flyttet: {3}; uløste avvik: {4}; blokkeringer: {5}.", mappings.Count, expected.Count, checkedCount, changedCount, unresolvedCount, blockers.Count));
+            log.Add(string.Format(CultureInfo.InvariantCulture, "Mappinger lest: {0}; mappinger kontrollert: {1}; elementer kontrollert: {2}; flyttet: {3}; uløste avvik: {4}; blokkeringer: {5}.", mappings.Count, expectedMappings.Count, checkedCount, changedCount, unresolvedCount, blockers.Count));
             log.Add("Rapport: " + reportPath);
             foreach (string blocker in blockers.Distinct(StringComparer.Ordinal)) log.Add("BLOKKERING: " + blocker);
             string status = blockers.Count > 0 ? changedCount > 0 ? "DELVIS UTFØRT" : "BLOKKERT" : unresolvedCount > 0 ? "AVVIK" : "OK";
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
                 "Regel 11 v{0}: {1}; kategorier {2}; elementer {3}; flyttet {4}; uløste avvik {5}; blokkeringer {6}; rapport {7}.",
-                ScriptVersion, status, expected.Count, checkedCount, changedCount, unresolvedCount, blockers.Count, reportPath));
+                ScriptVersion, status, expectedMappings.Count, checkedCount, changedCount, unresolvedCount, blockers.Count, reportPath));
         }
 
         private static string GetFamilyName(Element element)
         {
             return element is FamilyInstance instance ? instance.Symbol?.Family?.Name ?? "" : "";
+        }
+
+        private static string GetFamilyMappingKey(long categoryId, string familyName)
+        {
+            return categoryId.ToString(CultureInfo.InvariantCulture) + "\u001f" + familyName.Trim();
+        }
+
+        private static string GetMappingDescription(ExpectedCategory mapping)
+        {
+            string selector = mapping.FamilyName.Length == 0
+                ? mapping.CategoryLabel
+                : mapping.CategoryLabel + " | Familie: " + mapping.FamilyName;
+            if (mapping.ModelName.Length > 0) selector = mapping.ModelName + " | " + selector;
+            return selector + " (" + mapping.Source + ") | " + mapping.ExpectedWorkset;
         }
 
         private static List<ExcelMapping> ReadWorkbook(string path)
@@ -439,6 +492,8 @@ namespace CW.Assistant.Generated
 
                 List<object> rows = GetDescendants(LoadXml(sheetXml), "row", MainNamespace).ToList();
                 int categoryColumn = -1;
+                int familyColumn = -1;
+                int modelColumn = -1;
                 int worksetColumn = -1;
                 int headerRow = -1;
                 for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
@@ -447,7 +502,10 @@ namespace CW.Assistant.Generated
                     foreach (KeyValuePair<int, string> cell in cells)
                     {
                         string header = cell.Value.Trim();
-                        if (string.Equals(header, "Type elementer", StringComparison.OrdinalIgnoreCase)) categoryColumn = cell.Key;
+                        if (string.Equals(header, "Type elementer", StringComparison.OrdinalIgnoreCase)
+                            || string.Equals(header, "Kategori", StringComparison.OrdinalIgnoreCase)) categoryColumn = cell.Key;
+                        if (string.Equals(header, "Familie", StringComparison.OrdinalIgnoreCase)) familyColumn = cell.Key;
+                        if (string.Equals(header, "Modell", StringComparison.OrdinalIgnoreCase)) modelColumn = cell.Key;
                         if (string.Equals(header, "Workset", StringComparison.OrdinalIgnoreCase)) worksetColumn = cell.Key;
                     }
                     if (categoryColumn >= 0 && worksetColumn >= 0)
@@ -462,18 +520,32 @@ namespace CW.Assistant.Generated
                 {
                     Dictionary<int, string> cells = ReadCells(rows[rowIndex], sharedStrings);
                     string label = cells.TryGetValue(categoryColumn, out string? categoryValue) ? categoryValue.Trim() : "";
+                    string family = familyColumn >= 0 && cells.TryGetValue(familyColumn, out string? familyValue) ? familyValue.Trim() : "";
+                    string model = modelColumn >= 0 && cells.TryGetValue(modelColumn, out string? modelValue) ? modelValue.Trim() : "";
                     string workset = cells.TryGetValue(worksetColumn, out string? worksetValue) ? worksetValue.Trim() : "";
-                    if (label.Length == 0 && workset.Length == 0) continue;
+                    if (label.Length == 0 && family.Length == 0 && model.Length == 0 && workset.Length == 0) continue;
                     string rowNumber = GetXmlAttribute(rows[rowIndex], "r");
                     string source = sheetName + "!" + (rowNumber.Length == 0 ? (rowIndex + 1).ToString(CultureInfo.InvariantCulture) : rowNumber);
-                    if (label.Length == 0 || workset.Length == 0)
+                    if (label.Length == 0 || workset.Length == 0 || (familyColumn >= 0 && (family.Length == 0 || model.Length == 0)))
                     {
-                        throw new InvalidDataException("Mangler Type elementer eller Workset i " + source + ".");
+                        throw new InvalidDataException("Mangler kategori, familie, modell eller Workset i " + source + ".");
                     }
-                    mappings.Add(new ExcelMapping(label, workset, source));
+                    mappings.Add(new ExcelMapping(label, family, model, workset, source));
                 }
             }
             if (mappings.Count == 0) throw new InvalidDataException("Fant ingen rader under kolonnene Type elementer og Workset.");
+
+            var familyTargets = new Dictionary<string, ExcelMapping>(StringComparer.OrdinalIgnoreCase);
+            foreach (ExcelMapping mapping in mappings.Where(item => item.FamilyName.Length > 0))
+            {
+                string key = mapping.ModelName.Trim() + "\u001f" + mapping.CategoryLabel.Trim() + "\u001f" + mapping.FamilyName.Trim();
+                if (familyTargets.TryGetValue(key, out ExcelMapping? prior)
+                    && !string.Equals(prior.ExpectedWorkset, mapping.ExpectedWorkset, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new InvalidDataException("Motstridende workset for familie-unntaket i " + prior.Source + " og " + mapping.Source + ".");
+                }
+                familyTargets[key] = mapping;
+            }
             return mappings;
         }
 

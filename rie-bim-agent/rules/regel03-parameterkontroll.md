@@ -1,8 +1,12 @@
 # Regel 3: Parameterkontroll
 
+For `PGF_Statussign` fyller Regel 3 tom tekst og `--` (etter trimming) med dagens dato som tekst på formatet `FIAA dd.MM.yyyy` (for eksempel `FIAA 15.10.2026`). Eksisterende andre verdier bevares.
+
 Den autoritative beskrivelsen av formål, dokumenter og kjøringsrekkefølge står under [Regel 3 i hovedinstruksjonen](../rie-bim-kontroll.instructions.md#regel-3-parameterkontroll).
 
 Parameternavnene og de redigerbare fagregeltekstene hentes fra den autoritative arbeidsboken `../../config/Parameterliste.xlsx`, fanen `Parameterliste`. C#-regelen finner kolonnene via overskriftene og leser navnene fra `Parameternavn`. Oppdater forutsetningene i arbeidsboken; faktisk kjørbar oppførsel må fortsatt implementeres i C#-regelen. Regel 3 rapporterer også generell parameterkompletthet, inkludert de tre revisjonsfeltene `FOB_Revisjonsdato`, `PGF_Revisjonsign` og `PGF_Revisjonsindeks`. Disse inngår alltid i kontrollen, også hvis de mangler som rader i arbeidsboken.
+
+`Romnavn` og `dRofus_RoomfunctionNo` kontrolleres separat som instansparametere innenfor Regel 3s vanlige elementutvalg. For kabelbroer, kabelbrofittings, trekkerør, trekkerørsfittings og Infoelement krever regelen nøyaktig `--` i begge romparameterne: skrivbare tekstverdier som avviker, planlegges satt til `--` og etterkontrolleres. Regel 3 kopierer ikke `PGF_PNS` til romparameterne. For øvrige elementer fyller regelen ikke romverdiene; manglende, dupliserte eller feiltypede parametere, blanke verdier og `--` rapporteres i en egen `Romkontroll`-fane i samme tidsstemplede XLSX-rapport. Romfunn inngår i antallet kontrollerte og ufullstendige parameterverdier, men ikke i generisk autofylling eller typeparameteroppslag.
 
 Revisjonsfeltene kontrolleres kun lesende etter eventuell utfylling av øvrige parametere. Tom tekst, bare whitespace og `--` etter trimming er ugyldig. Manglende, dupliserte eller feiltypede tekst-instansparametere rapporteres som revisjonsavvik; ingen typeparameterfallback brukes. Utfylte, skrivebeskyttede revisjonsparametere er gyldige. Ikke fyll, kopier eller korriger revisjonsverdier, og ikke bruk Excel-revisjonslister eller connector-kilder. Ingen bestemt dato, signatur, indeks eller format valideres. Kontrollen gjelder hele Regel 3-utvalget uavhengig av leveransepakke og følger [revisjonsreglene](../parameter-rules/revision-rules.md). Regel 12 er utgått.
 

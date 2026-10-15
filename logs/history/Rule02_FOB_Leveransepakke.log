@@ -539,3 +539,7 @@ SOURCE ElementId 15762655; package=LPE161; distanceMm=1040.6
 Elementer 100588; K5B-elementer 13419; ekskludert IFC 212; mål 1; kandidater 13205; parameter mangler 1; feil lagringstype 0; oppdatert 1; uavklart 1; skrivebeskyttet 0; fallback 0
 UAVKLART ElementId 49504: kandidater 0; årsak: FOB_Leveransepakke-parameteren mangler
 OPPDATERT ElementId 17880973: pakke 'LPE161', kandidater 2
+=== Regel 2 v0.0.6 | 2026-10-15T11:06:31.0725442+02:00 | U_F_STA_FBU_RIE_XXX ===
+Elementer 56301; K5B-elementer 5460; ekskludert IFC 146; mål 0; kandidater 5314; parameter mangler 0; feil lagringstype 0; oppdatert 0; uavklart 0; skrivebeskyttet 0; fallback 0
+=== Regel 2 v0.0.7 | 2026-10-15T13:32:33.4881933+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Elementer 103484; K5B-elementer 13418; ekskludert IFC 212; mål 0; kandidater 13206; parameter mangler 0; feil lagringstype 0; oppdatert 0; uavklart 0; skrivebeskyttet 0; fallback 0

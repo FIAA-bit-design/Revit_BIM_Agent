@@ -21,3 +21,15 @@ Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx
 Mappinger lest: 12; kategorier kontrollert: 14; elementer kontrollert: 18927; flyttet: 3; uløste avvik: 0; blokkeringer: 0.
 Rapport: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Workset kategori kontroll 20261013_074521_289.csv
 
+=== Regel 11 v0.0.8 | 2026-10-15T10:07:06.9919354+02:00 | U_F_STA_FBU_RIE_XXX ===
+Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx
+Mappinger lest: 17; mappinger kontrollert: 16; elementer kontrollert: 8658; flyttet: 18; uløste avvik: 0; blokkeringer: 0.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Workset kategori kontroll 20261015_100709_803.csv
+
+=== Regel 11 v0.0.8 | 2026-10-15T11:16:18.6945211+02:00 | U_F_STA_FBU_RIE_XXX ===
+Elementer flyttes til forventet workset fra Excel når målarbeidssettet finnes i modellen.
+Arbeidsbok: D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx
+Mappinger lest: 17; mappinger kontrollert: 16; elementer kontrollert: 8652; flyttet: 11; uløste avvik: 0; blokkeringer: 0.
+Rapport: D:\Revit\Python\Revit_BIM_Agent\logs\csv\Workset kategori kontroll 20261015_111619_550.csv
+

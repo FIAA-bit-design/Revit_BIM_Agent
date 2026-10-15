@@ -67,3 +67,5 @@ MATCH child 12974497 til parent 10035699: FOB_ID='--', fallback=True, avstand=46
 BEVART ElementId 12974497: PGF_RIE_BetjenerMerke hadde allerede verdi.
 BEVART ElementId 12974497: PGF_RIE_BetjenerNavn hadde allerede verdi.
 INGEN MATCH ElementId 12974500: FOB_ID='--', avstandsfallback=True, maks 5000 mm.
+=== Regel 4 v0.0.3 | 2026-10-15T11:07:18.7390993+02:00 | U_F_STA_FBU_RIE_XXX ===
+Regel 4 v0.0.3: child-elementer 0; kilder 46; matchet 0; fallback 0; uten match 0; verdier skrevet 0; uavklart 0; kilder med mangler/feil 0.

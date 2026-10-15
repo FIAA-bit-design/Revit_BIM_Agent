@@ -1,0 +1,2 @@
+=== Regel 2 v0.0.6 | 2026-10-15T11:06:31.0725442+02:00 | U_F_STA_FBU_RIE_XXX ===
+Elementer 56301; K5B-elementer 5460; ekskludert IFC 146; mål 0; kandidater 5314; parameter mangler 0; feil lagringstype 0; oppdatert 0; uavklart 0; skrivebeskyttet 0; fallback 0

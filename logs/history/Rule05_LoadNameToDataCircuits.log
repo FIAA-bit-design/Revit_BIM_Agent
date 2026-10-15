@@ -373,3 +373,70 @@ OPPDATERT; Kurs ElementId=15666750; Load Name=Brannalarm røykdetektor optisk U0
 SUMMARY: Resultat: Load Name oppdatert på 50 kurs(er).
 SUMMARY: Varighet sekunder: 6.0
 
+=== Regel 5 v0.0.2 | 2026-10-15T11:08:20.4302025+02:00 ===
+Dokument: U_F_STA_FBU_RIE_XXX
+SUMMARY: Spredenett-parents i modell: 35
+SUMMARY: Parent uten kurs: 0
+SUMMARY: Parent uten child: 0
+SUMMARY: Parent uten match: 0
+SUMMARY: Connector devices uten datakurs: 721
+SUMMARY: Connector devices mangler markør/rom/familie: 8
+SUMMARY: Connector devices hoppet over: 468
+SUMMARY: Kurser allerede riktige: 228
+OPPDATERT; Kurs ElementId=5988045; Load Name=Hovedfordeling prioritert kraft FBU0-423-TAV-002 - AP.11 Hovedtavle; Kilde=data_device_validation; Parent=; Child=; Device=4303208
+OPPDATERT; Kurs ElementId=10213190; Load Name=Underfordeling uprioritert kraft FBU0-423-UFD-007 - BU1.25 Teknisk rom; Kilde=data_device_validation; Parent=; Child=; Device=4472795
+OPPDATERT; Kurs ElementId=10241331; Load Name=Underfordeling ups FBU0-440-NSF-004 - K.01 Kulvert; Kilde=data_device_validation; Parent=; Child=; Device=8191947
+OPPDATERT; Kurs ElementId=10241343; Load Name=Underfordeling ups FBU0-440-NSF-005 - BH1.03 Underfordeling; Kilde=data_device_validation; Parent=; Child=; Device=8195858
+OPPDATERT; Kurs ElementId=10241349; Load Name=Underfordeling ups FBU0-440-NSF-006 - AH1.03 Teknisk sjakt; Kilde=data_device_validation; Parent=; Child=; Device=8195948
+OPPDATERT; Kurs ElementId=10241398; Load Name=Underfordeling ups FBU0-440-NSF-007 - AP.04 Underfordeling; Kilde=data_device_validation; Parent=; Child=; Device=8192965
+OPPDATERT; Kurs ElementId=10241446; Load Name=Underfordeling uprioritert kraft FBU0-423-UFD-006 - BH1.03 Underfordeling; Kilde=data_device_validation; Parent=; Child=; Device=4273221
+OPPDATERT; Kurs ElementId=10241475; Load Name=Underfordeling prioritert kraft FBU0-423-UFD-003 - BU1.04 Tavlerom; Kilde=data_device_validation; Parent=; Child=; Device=5655451
+OPPDATERT; Kurs ElementId=10288148; Load Name=Underfordeling nødlys FBU0-440-NØL-001 - BU1.31 UPS-rom; Kilde=data_device_validation; Parent=; Child=; Device=5576022
+OPPDATERT; Kurs ElementId=10308373; Load Name=Underfordeling ups batteri FBU0-440-ELF-010 - BU1.30 Batterirom; Kilde=data_device_validation; Parent=; Child=; Device=7883673
+OPPDATERT; Kurs ElementId=11476355; Load Name=Slukkesentral inertgass FBU0-733-RJB-006 - AU1.11 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=7608824
+OPPDATERT; Kurs ElementId=11479614; Load Name=Slukkesentral inertgass FBU0-733-RJB-001 - AP.05 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=7607738
+OPPDATERT; Kurs ElementId=11480188; Load Name=Slukkesentral inertgass FBU0-733-RJB-011 - BU1.29 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=7898799
+OPPDATERT; Kurs ElementId=12099287; Load Name=Brannalarm psu 24vdc FBU0-854-PWR-014 - AU1.08 Sprinklersentral; Kilde=data_device_validation; Parent=; Child=; Device=12098897
+OPPDATERT; Kurs ElementId=12466177; Load Name=Koblingsskap røykgassvifter FBU0-420-ELF-001 - BU1.09 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=12454715
+OPPDATERT; Kurs ElementId=12467592; Load Name=Brannalarm manuell melder innfelt FBU0-854-MBV-01.045 - AP.01 Adkomst Plattform; Kilde=data_device_validation; Parent=; Child=; Device=7509145
+OPPDATERT; Kurs ElementId=12475710; Load Name=Brannalarm lys tak FBU5-854-VLY-02.001 - P.01 Plattform; Kilde=data_device_validation; Parent=; Child=; Device=10412492
+OPPDATERT; Kurs ElementId=12475752; Load Name=Brannalarm elektronisk sirene med blinklys rød linse lav sokkel FBU0-854-BRK-03.009 - AP.13 Teknisk rom; Kilde=data_device_validation; Parent=; Child=; Device=7511456
+OPPDATERT; Kurs ElementId=12480425; Load Name=Brannalarm røykdetektor optisk FBU0-854-RØK-04.053 - AU1.01 Adkomsthall; Kilde=data_device_validation; Parent=; Child=; Device=7581490
+OPPDATERT; Kurs ElementId=12486363; Load Name=Brannalarm elektronisk sirene med blinklys rød linse lav sokkel FBU0-854-BRK-07.002 - BP.05 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=7502252
+OPPDATERT; Kurs ElementId=12486364; Load Name=Brannalarm manuell melder innfelt FBU0-854-MBV-08.037 - BK.05 Sporbytte; Kilde=data_device_validation; Parent=; Child=; Device=7232309
+OPPDATERT; Kurs ElementId=12486368; Load Name=Brannalarm røykdetektor optisk FBU0-854-RØK-09.087 - BU2.02 Sluse; Kilde=data_device_validation; Parent=; Child=; Device=7532099
+OPPDATERT; Kurs ElementId=12513980; Load Name=Datakontakt i Underfordeling UPS FBU0-440-NSF-007 - AP.04 Underfordeling; Kilde=model; Parent=11860395; Child=8192965; Device=
+OPPDATERT; Kurs ElementId=12514306; Load Name=Datakontakt i brannmannstablå FBU0-854-BAP-001 - BH1.04 Beredskapsrom; Kilde=model; Parent=11964682; Child=10332690; Device=
+OPPDATERT; Kurs ElementId=12517037; Load Name=Talevarsling høyttaler innfelt 4 tommer FBU0-221-HTR-033 - AU1.18 Mesanin; Kilde=data_device_validation; Parent=; Child=; Device=9511928
+OPPDATERT; Kurs ElementId=12522846; Load Name=Talevarsling høyttaler innfelt 4 tommer FBU0-221-HTR-040 - AU1.01 Adkomsthall; Kilde=data_device_validation; Parent=; Child=; Device=9512516
+OPPDATERT; Kurs ElementId=12523062; Load Name=Talevarsling høyttaler innfelt 4 tommer FBU0-221-HTR-049 - AH1.01 Vestibyle; Kilde=data_device_validation; Parent=; Child=; Device=9514591
+OPPDATERT; Kurs ElementId=12523084; Load Name=Talevarsling høyttaler innfelt 4 tommer FBU0-221-HTR-050 - AH1.01 Vestibyle; Kilde=data_device_validation; Parent=; Child=; Device=9514230
+OPPDATERT; Kurs ElementId=12523227; Load Name=Talevarsling høyttaler innfelt 4 tommer FBU0-221-HTR-052 - BH1.01 Vestibyle; Kilde=data_device_validation; Parent=; Child=; Device=10170051
+OPPDATERT; Kurs ElementId=12523264; Load Name=Talevarsling høyttaler innfelt 4 tommer FBU0-221-HTR-031 - BH1.01 Vestibyle; Kilde=data_device_validation; Parent=; Child=; Device=10169854
+OPPDATERT; Kurs ElementId=12532315; Load Name=Talevarsling kabinetthøyttaler 250x150x150 FBU5-221-HTR-013 - P.01 Plattform; Kilde=data_device_validation; Parent=; Child=; Device=10412471
+OPPDATERT; Kurs ElementId=12532384; Load Name=Talevarsling kabinetthøyttaler 250x150x150 FBU5-221-HTR-021 - P.01 Plattform; Kilde=data_device_validation; Parent=; Child=; Device=10412472
+OPPDATERT; Kurs ElementId=12532582; Load Name=Talevarsling kabinetthøyttaler 250x150x150 FBU5-221-HTR-029 - P.01 Plattform; Kilde=data_device_validation; Parent=; Child=; Device=10091649
+OPPDATERT; Kurs ElementId=12532642; Load Name=Talevarsling kabinetthøyttaler 250x150x150 FBU5-221-HTR-006 - P.01 Plattform; Kilde=data_device_validation; Parent=; Child=; Device=10412479
+OPPDATERT; Kurs ElementId=12545509; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-055 - BU1.26 Tetra og Nødnett; Kilde=data_device_validation; Parent=; Child=; Device=12534488
+OPPDATERT; Kurs ElementId=12552431; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-067 - BU2.03 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=12533854
+OPPDATERT; Kurs ElementId=12552694; Load Name=Adgangskontroll psu 24vdc FBU0-854-PWR-001 - BU1.32 Tele og automatisering; Kilde=data_device_validation; Parent=; Child=; Device=12544898
+OPPDATERT; Kurs ElementId=12553186; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-052 - AU1.02 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=12533107
+OPPDATERT; Kurs ElementId=12553193; Load Name=Adgangskontroll psu 24vdc FBU0-854-PWR-002 - AU1.02 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=12871936
+OPPDATERT; Kurs ElementId=12553872; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-053 - AH1.02 Teknisk sjakt; Kilde=data_device_validation; Parent=; Child=; Device=12533405
+OPPDATERT; Kurs ElementId=12553882; Load Name=Adgangskontroll psu 24vdc FBU0-854-PWR-007 - AH1.03 Teknisk sjakt; Kilde=data_device_validation; Parent=; Child=; Device=12553728
+OPPDATERT; Kurs ElementId=12554884; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-066 - BH1.04 Beredskapsrom; Kilde=data_device_validation; Parent=; Child=; Device=12533759
+OPPDATERT; Kurs ElementId=12554889; Load Name=Adgangskontroll psu 24vdc FBU0-854-PWR-008 - BH1.03 Underfordeling; Kilde=data_device_validation; Parent=; Child=; Device=12554735
+OPPDATERT; Kurs ElementId=12555380; Load Name=Adgangskontroll psu 24vdc FBU0-854-PWR-009 - BP.05 Korridor; Kilde=data_device_validation; Parent=; Child=; Device=12555340
+OPPDATERT; Kurs ElementId=12555386; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-046 - BP.02 Ventesone; Kilde=data_device_validation; Parent=; Child=; Device=12449522
+OPPDATERT; Kurs ElementId=12556019; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-038 - AP.02 Ventesone; Kilde=data_device_validation; Parent=; Child=; Device=12448753
+OPPDATERT; Kurs ElementId=12556609; Load Name=Adgangskontroll psu 24vdc FBU0-854-PWR-010 - AP.02 Ventesone; Kilde=data_device_validation; Parent=; Child=; Device=12555848
+OPPDATERT; Kurs ElementId=12556612; Load Name=Adgangskontroll grensesnittboks FBU0-854-IAL-040 - AP.06 Koblingsrom Høyspent; Kilde=data_device_validation; Parent=; Child=; Device=12449032
+OPPDATERT; Kurs ElementId=12557929; Load Name=Adgangskontroll kontrollenhet FBU0-854-IAL-033 - AP.02 Ventesone; Kilde=data_device_validation; Parent=; Child=; Device=9170282
+OPPDATERT; Kurs ElementId=12597697; Load Name=Adgangskontroll sentral FBU0-854-DAT-001 - BU1.32 Tele og automatisering; Kilde=data_device_validation; Parent=; Child=; Device=12544894
+OPPDATERT; Kurs ElementId=12814537; Load Name=Underfordeling ups FBU0-440-NSF-003 - BP.06 Pauserom; Kilde=data_device_validation; Parent=; Child=; Device=8192816
+OPPDATERT; Kurs ElementId=12933303; Load Name=Underfordeling uprioritert kraft FBU0-423-UFD-004 - AU1.12 Underfordeling; Kilde=data_device_validation; Parent=; Child=; Device=4396287
+OPPDATERT; Kurs ElementId=13015087; Load Name=Underfordeling ups FBU0-440-NSF-008 - AU1.12 Underfordeling; Kilde=data_device_validation; Parent=; Child=; Device=8195444
+OPPDATERT; Kurs ElementId=13244583; Load Name=Underfordeling uprioritert kraft FBU0-423-UFD-005 - BP.06 Pauserom; Kilde=data_device_validation; Parent=; Child=; Device=13231088
+SUMMARY: Resultat: Load Name oppdatert på 54 kurs(er).
+SUMMARY: Varighet sekunder: 3.8
+

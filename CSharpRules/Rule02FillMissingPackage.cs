@@ -13,7 +13,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.6";
+        private const string ScriptVersion = "0.0.7";
         private const string ParameterName = "FOB_Leveransepakke";
         private const string EnterpriseParameterName = "FOB_Entreprise";
         private const string TargetEnterprise = "K5B";
@@ -135,7 +135,7 @@ namespace CW.Assistant.Generated
             var elements = new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
                 .ToElements()
-                .Where(element => !IsCenterLine(element))
+                .Where(element => element is not ProjectInfo && !IsCenterLine(element))
                 .ToList();
             var targets = new List<Element>();
             var candidates = new List<Candidate>();

@@ -4,7 +4,7 @@ Kjør denne regelen etter Regel 3, slik at elementer som får `FOB_Entreprise=K5
 
 - C#-implementasjon: `../../CSharpRules/Rule02FillMissingPackage.cs`
 
-Filtrer bort senterlinjer før parameterverdier leses. K5B-elementer der den eneste instansparameteren `MC Exclude From IFC View` har lagringstypen Integer og verdi ulik null (avkrysset), utelates fra regelen. De skal verken være mål eller kilde/kandidat, og skal ikke telles som manglende leveransepakke. Ikke bruk typeparameterfallback.
+Filtrer bort `ProjectInfo` og senterlinjer før parameterverdier leses. `Project Information` er prosjektnivåmetadata, ikke en modellinstans med leveransepakke; den skal verken være mål eller kilde/kandidat og skal ikke rapporteres som manglende LP. K5B-elementer der den eneste instansparameteren `MC Exclude From IFC View` har lagringstypen Integer og verdi ulik null (avkrysset), utelates fra regelen. De skal verken være mål eller kilde/kandidat, og skal ikke telles som manglende leveransepakke. Ikke bruk typeparameterfallback.
 
 Finn andre K5B-elementer med utfylt `FOB_Leveransepakke` ved å bruke 3D-avstand mellom plasseringer. Elementtyper bruker typenavn/familienavn for å skille kandidater; familier for `FamilyInstance` bruker familienavnet. Bruk punktplassering, kurvens midtpunkt eller bounding-box-sentrum når punktplassering mangler. Søk først innen 1500 mm; bruk 3000 mm som fallback bare når primærsøket ikke gir kandidater. Vurder de fem nærmeste kandidatene, og ta med alle kandidater innen 1 mm fra femteplass. Fyll inn bare hvis én pakkenavnverdi har strengt flertall, altså mer enn halvparten av kandidatene. Hvis primærsøket har kandidater uten strengt flertall, skal fallback ikke brukes.
 
