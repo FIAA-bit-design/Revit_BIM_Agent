@@ -1,0 +1,1 @@
+ElementId=15241657; occurrence=808551; mark=BYG201-460-KAF-158; sequence=158; type=Veggkanal 73 mm x 123 mm; read-only Revit check, not direct dRofus verification.
