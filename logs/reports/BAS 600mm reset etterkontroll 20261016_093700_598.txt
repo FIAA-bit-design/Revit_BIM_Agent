@@ -1,0 +1,3 @@
+Separat lesende etterkontroll | 2026-10-16T09:37:00.2499686+02:00
+TypeId=3730779 | Kabelstige 600 mm x 60 mm | ItemID=15499 | instanser=1133 | occurrence ulik 0=0
+TypeId=14584679 | Kabelstige 600 mm x 60 mm C4 | ItemID=15499 | instanser=3 | occurrence ulik 0=0

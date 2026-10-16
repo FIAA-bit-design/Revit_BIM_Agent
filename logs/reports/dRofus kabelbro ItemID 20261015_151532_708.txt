@@ -1,0 +1,15 @@
+dRofus_ItemID-kobling for kabelbrotyper | 2026-10-15T15:15:27.3242073+02:00
+Modell=U_F_BAS_FBU_RIE_XXX | Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Typeparameteren skrives. Kabelstige 200 mm, 800 mm, 300 mm og 1000 mm er utelatt.
+Kabelstige 200/800 har blandede instansbredder og kan ikke få én sikker type-ID.
+PLAN TypeId=3730779 | Kabelstige 600 mm x 60 mm | bredde=600 mm | dRofus_ItemID 0 -> 16283 | instanser=1127
+PLAN TypeId=14584679 | Kabelstige 600 mm x 60 mm C4 | bredde=600 mm | dRofus_ItemID 0 -> 16283 | instanser=3
+PLAN TypeId=3807545 | Kabelstige 400 mm x 60 mm | bredde=400 mm | dRofus_ItemID 0 -> 15500 | instanser=272
+PLAN TypeId=14584591 | Kabelstige 400 mm x 60 mm C4 | bredde=400 mm | dRofus_ItemID 0 -> 15500 | instanser=6
+PLAN TypeId=13582623 | Gitterbane 300 mm x 60 mm | bredde=300 mm | dRofus_ItemID 0 -> 16284 | instanser=5
+PLAN TypeId=10427565 | Kabelbane 300 mm x 60 mm | bredde=300 mm | dRofus_ItemID 0 -> 16285 | instanser=47
+PLAN TypeId=10427256 | Veggkanal 73 mm x 123 mm | bredde=73/123 mm | dRofus_ItemID 0 -> 15508 | instanser=181
+PLAN TypeId=16536696 | Veggkanal 73 mm x 123 mm C4 | bredde=123 mm | dRofus_ItemID 0 -> 15508 | instanser=2
+PLAN TypeId=5335974 | Armaturskinne | bredde=100 mm | dRofus_ItemID 0 -> 15507 | instanser=22
+PLAN TypeId=16811830 | Gitterbane 150 mm x 60 mm | bredde=150 mm | dRofus_ItemID 0 -> 16286 | instanser=1
+ETTERKONTROLL=bekreftet 10/10 typeverdier; TransactionGroup=Committed.

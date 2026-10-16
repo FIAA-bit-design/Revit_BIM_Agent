@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>portable</DebugType>
+    <Nullable>enable</Nullable>
+    <NoWarn>NU1701</NoWarn>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RevitVersion>2026.0.0</RevitVersion>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>$(ExtensionId).2026.$(Version)</AssemblyName>
+    <PackageId>$(ExtensionId).2026</PackageId>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="CW.Assistant.Extensions.Revit.2026" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

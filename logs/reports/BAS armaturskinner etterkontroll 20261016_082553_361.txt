@@ -1,0 +1,25 @@
+Lesende etterkontroll armaturskinner | 2026-10-16T08:25:53.3177574+02:00
+Modell=U_F_BAS_FBU_RIE_XXX | Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+ElementId=7157128 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9312904 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9312960 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9313930 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9314075 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9316641 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9316652 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9318709 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9319054 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9319751 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9319821 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9325244 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9325891 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9325929 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9838421 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9841092 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=9841215 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=10596204 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=10596372 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=15930583 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=16028479 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+ElementId=16029122 | TypeId=5335974 | Type=Armaturskinne 100x60 | bredde=100.000 mm | FLAGG
+Kontrollert=22 | flagg=22 | ingen modellendringer, lagring eller synkronisering.

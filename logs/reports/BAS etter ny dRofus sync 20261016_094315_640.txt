@@ -1,0 +1,11 @@
+Lesende BAS-kontroll etter ny dRofus-synk.
+Synlige K5B-kabelbroer: 1134.
+600 mm synlige: 468; positive occurrence-ID: 468; ItemID: {'15499': 468}.
+Alle synlige uten positiv occurrence: 0.
+Dupliserte positive occurrence-grupper: 0.
+Tomme/-- merkestrenger: 50.
+Dupliserte ikke-tomme merkestrenggrupper: 0.
+Endrede felt mot foreløpig referanse: {'OccurrenceId': 468, 'ItemId': 1052, 'Mark': 53, 'Sequence': 53, 'Area': 50}
+Tidligere 50 uavklarte: funnet 50; med positiv RoomID=0; med romnummer=0; tomt merke=50.
+Segmenter med ulik merkestreng fra dokumentert representant: 42.
+Referansen er ikke oppdatert/godkjent. Ingen modellendringer, lagring eller synk utført av agenten.

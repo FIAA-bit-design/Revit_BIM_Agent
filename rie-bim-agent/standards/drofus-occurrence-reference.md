@@ -1,0 +1,49 @@
+# dRofus occurrence-referanse og identitetsvern
+
+Referansen ligger i [DrofusOccurrenceBaseline.xlsx](../../config/DrofusOccurrenceBaseline.xlsx). Den gjelder K5B-kabelbroer (`OST_CableTray`) representert i BAS-viewet `KS Kablebro dRofus`, med eksisterende tilhørende segmenter. Strømskinner er utelatt etter [viewfilteret](drofus-view-filter.md). Andre modeller får ikke denne BAS-referansen anvendt.
+
+## Autoritet og unikhet
+
+- Etter brukerens avklaring er merkestrengen på den synkroniserte representanten fasit, forutsatt at det ikke finnes kollisjoner. Parameteren heter nøyaktig `drofus_occurrence_id` og er en Integer-instansparameter.
+- Det skal være én positiv occurrence-ID per merkestreng og én merkestreng per occurrence-ID. Flere dokumentert tilhørende Revit-segmenter kan dele merkestreng. Ikke kopier occurrence-ID til skjulte segmenter for å etablere tilhørighet.
+- Identifiser elementer med modellsti og Revit `UniqueId`; ElementId er sporbarhet, ikke eneste identitetsnøkkel. Bruk dokumentert før-synk-tilhørighet ved overføring av nye dRofus-merker til eksisterende segmenter. Ikke knytt segmenter sammen ved likhet med en ny merkestreng alene.
+- Nye føringsveier må ikke gjenbruke reserverte merkestrenger. Nye segmenter som skal tilhøre en eksisterende føringsvei krever eksplisitt verifisert tilhørighet før referansen utvides.
+
+## Standard etter dRofus-synk: samme merke på hele strekket
+
+- Den synkroniserte representantens ikke-tomme `FOB_Merkestreng` er fasit for alle dokumentert tilhørende kabelbrosegmenter, også segmenter skjult i dRofus-viewet. Flere segmenter på samme strekk med samme merke er tilsiktet, ikke et duplikatavvik.
+- Etter synk skal merkestrengen kontrolleres mot representanten og avvik på entydig dokumenterte segmenter rettes til denne fasiten innen brukerens bekreftede modell-/entrepriseomfang. Bruk referansens `UniqueId` og `RepresentativeUniqueId`, ikke likhet med dagens merke eller nærhet, som tilhørighetsbevis.
+- Kontroller først at representanten har positiv occurrence-ID, at ikke-tomme representantmerker og positive occurrence-ID-er er unike i det avgrensede viewet, og at målmerket ikke tilhører et annet dokumentert strekk. Stopp ved tvetydig tilhørighet eller kollisjon. Flere segmenter får dele merket bare innen samme dokumenterte strekk.
+- Samordne `FOB_Merkestreng`, `FOB_Sekvensnummer` og `FOB_Omraade` med representantens faktiske verdier. Ikke beregn nytt nummer, normaliser ledende nuller eller gjenbruk et annet strekk sitt merke. Ikke kopier occurrence-ID, endre artikkel-ID, bytte typer, endre geometri eller flytte viewets representant.
+- Tomt representantmerke er et uavklart avvik, ikke en instruks om å tømme tilhørende segmenter. Bevar eksisterende segmentverdier til gyldig dRofus-merke foreligger.
+- Denne avgrensede samordningen er en egen etter-synk-handling, ikke Regel 3 eller automatisk godkjenning av Excel-referansen. `Pending` og Regel 3-vernet beholdes. Bevar referanseverdier og manuelle notater; skriv fersk etterkontroll med før-/etterverdier og restavvik.
+
+## Excel og godkjenning
+
+`Forekomster` inneholder de avklarte representantene. `Segmenter` inneholder deres eksisterende segmenter og `ExpectedOccurrenceId`/`RepresentativeUniqueId` som tilhørighet, ikke verdier som skal skrives på segmentet. `Uavklart` er en avviksliste, ikke godkjent referanse. `Metadata` bruker kolonnene `Key` og `Value`, skjema 1, modellsti, view-UniqueId og `Status`.
+
+Arbeidsboken er foreløpig (`Status=Pending`) fordi 50 representanter fikk tom merkestreng etter synk og ble gjenopprettet fra før-synk-uttrekk etter brukerens godkjenning. De inngår ikke i godkjent referanse før avklaring mot dRofus. Etter-synk-samordningen ovenfor kan bare bruke en aktuell, ikke-tom og kollisjonsfri representant; den gjør ikke uavklarte forekomster automatisk godkjent.
+
+Ikke overskriv, regenerer, godkjenn eller endre referansen automatisk ved avvik. Godkjenning krever avklaring mot dRofus av alle uavklarte forekomster, kontroll av én occurrence-ID per merkestreng, dokumentert segmenttilhørighet og eksplisitt godkjent oppdatering. Bevar tidligere referanseutgaver ved godkjente oppdateringer; ikke vedlikehold parallelle manuelle revisjonsnotater.
+
+## Regel 3
+
+C#-regelen krever lesbar, godkjent referanse i BAS før den behandler elementer. `Pending`, manglende arbeidsbok, formler, uavklarte rader, endrede registrerte identitetsverdier, manglende referanseelementer eller nye ukjente occurrence-koblinger stopper kjøringen før skriving.
+
+Planlagte endringer av registrert `FOB_Merkestreng`, `FOB_Sekvensnummer`, `FOB_Omraade` eller `drofus_occurrence_id` og planlagt gjenbruk av reservert merkestreng blokkeres. En nummereringsplan som forsøker å omnummerere eksisterende forekomster skal avvises, ikke gjennomføres for å lukke sekvensgap. Sperren er ikke en garanti for at enhver ny føringsvei kan nummereres automatisk; en avvist plan må undersøkes og korrigeres før kjøring.
+
+Vernet gjelder agentens Regel 3-kode, ikke manuell redigering eller dRofus-tilleggets egen skriving. Kontroller synkretning og parameterkoblinger før neste synk; en endring etter synk skal rapporteres, ikke automatisk gjøres til ny fasit i Excel.
+
+## Lesende Space-analyse ved manglende romtilhørighet
+
+[SpaceCoverageAnalyzer.cs](../../CSharpRules/SpaceCoverageAnalyzer.cs) analyserer de 50 uavklarte føringsveiene med 53 segmenter i BAS. `Analyze` tar en kontrollert TSV-uttrekksfil fra `Uavklart` med modellsti, view-UniqueId, ElementId, UniqueId og RepresentativeUniqueId. Den låses til BAS og det aktuelle viewet og skriver tidsstemplet element-/kandidatrapport, ikke modellverdier.
+
+Analysen skiller faktiske senterlinjetreff fra XY-projeksjon inn i eksisterende Space og kontrollerer Space-fase mot viewfase samt elementets fasestatus. Den bruker punktprøver, ikke full volumkontroll. Kandidater i flere etasjer, sidegrenser og store høydeavstander skal avklares; ikke velg Space etter størst mulig dekning alene. Fysisk Space er ikke bevis på en dRofus-romkobling. Ingen automatisk justering eller referansegodkjenning er implementert i analysekoden.
+
+Før en eventuell muterende løsning godkjennes, krev konkret Space-utvalg, volum-/overlappskontroll og målbare høydegrenser. Ikke flytt vegger, romavgrensningslinjer eller sidegrenser uten særskilt godkjenning. Avpinn bare Space som faktisk skal endres, og gjenopprett opprinnelig pin-status i samme transaksjon. Etterkontroller pin-status, geometri, dekning og utilsiktet overlapp; tilbakefør hele forsøket ved feil. Bevar opprinnelig upinnede Space som upinnet. Ikke lagre eller synkroniser automatisk.
+
+[SpaceCoverageAdjustment.cs](../../CSharpRules/SpaceCoverageAdjustment.cs) er en separat, konkret avgrenset handling for L4S.28 og 14 identifiserte kandidatsegmenter, ikke en generell automatisk romtilordner. Etter utvidet brukerfullmakt beregner den nødvendig utvidelse nedover fra faktisk segmentgeometri med 10 mm klaring, uten den tidligere 500 mm-grensen. Fullmakten gjelder bare når riktig Space og etasje er bekreftet; de øvrige kandidatene skal ikke kobles til et feil rom ved vilkårlig fleretasjes høydeutvidelse.
+
+Revit kan melde følgeoppdateringer i visninger, skjemaer, tags og utstyr ved en Space-justering uten at disse faktisk er flyttet eller redigert. For kjente følgeelementer sammenlignes parametere og plassering samt fysisk familiegeometri før/etter. Bare beregnede, skrivebeskyttede parameterendringer kan aksepteres og skal logges; ukjente følgeendringer, endrede redigerbare parametere eller fysisk geometri blokkerer forsøket. Nabosolidene sammenlignes med volum, areal og triangulert topologi, ikke boolsk differanse av to identiske, komplekse solider.
+
+Økt overlapp, bortfall av eksisterende Space-volum, endringer utenfor godkjent nedre sone eller uverifiserbar geometri tilbakefører batchen. Bekreftet delvis forbedring kan beholdes når ingen segmenter forverres, men må skilles fra full soliddekning. Et senterlinje-/midtpunktstreff er ikke full fysisk volumdekning og beviser ikke at dRofus har opprettet romkobling. En blokkert prøve skal ikke registreres som rettet i Excel. dRofus-romkoblinger og referansens godkjenning endres ikke av handlingen.

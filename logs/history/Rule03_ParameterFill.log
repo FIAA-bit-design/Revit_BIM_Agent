@@ -53520,3 +53520,6 @@ PARAMETER MANGLER: 1694 instanser uten 'PGF_RIE_Talevarslingsystemer'.
 PARAMETER MANGLER: 1602 instanser uten 'PGF_RIE_Til'.
 PARAMETER MANGLER: 340 instanser uten 'PGF_RIE_Tilhører'.
 Oppsummering: instanser 3154; PGF_RIE_Master-typer utelatt 2356; IFC-ekskludert 166; parameternavn 42; parameterverdier kontrollert 103337; ufullstendige parameterverdier 957; kompletthetskontroll fullført True; oppdatert 1616; eksisterende verdier bevart 90024; skrivebeskyttet 0; uavklart 14; skrivefeil 0.
+=== Regel 3 v0.0.24 | 2026-10-16T09:27:16.4690524+02:00 | U_F_BAS_FBU_RIE_XXX ===
+Dokument: U_F_BAS_FBU_RIE_XXX
+BLOKKERING: dRofus-referansen kunne ikke godkjennes: Referansen er ikke godkjent for modellen. De uavklarte forekomstene må kontrolleres mot dRofus først.

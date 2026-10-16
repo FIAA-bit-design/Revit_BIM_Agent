@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -54,7 +55,29 @@ namespace CW.Assistant.Generated
             Require(row.Length == 7 && row[0] == "Oppdatert" && row[4] == "FOB_Status"
                 && row[5] == "S4", "Existing update report behavior changed.");
 
-            return "Passed: 12 revision-value cases and 3 report-shape regression cases.";
+            MethodInfo approval = GetMethod("RequireApprovedDrofusMetadata");
+            var metadata = new Dictionary<string, string>
+            {
+                ["SchemaVersion"] = "1", ["ModelPath"] = "model", ["Status"] = "Approved"
+            };
+            approval.Invoke(null, new object[] { metadata, "model" });
+            foreach (var invalid in new[] { ("Status", "Pending"), ("SchemaVersion", "2"), ("ModelPath", "other") })
+            {
+                var candidate = new Dictionary<string, string>(metadata) { [invalid.Item1] = invalid.Item2 };
+                bool blocked = false;
+                try { approval.Invoke(null, new object[] { candidate, "model" }); }
+                catch (TargetInvocationException exception) when (exception.InnerException is InvalidDataException) { blocked = true; }
+                Require(blocked, "Unsafe dRofus metadata was accepted: " + invalid.Item1);
+            }
+            MethodInfo sheetReader = GetMethod("ReadDrofusSheet");
+            var referenceMetadata = (List<Dictionary<string, string>>)sheetReader.Invoke(null, new object[] { "Metadata" })!;
+            Require(referenceMetadata.Any(r => r["Key"] == "SchemaVersion" && r["Value"] == "1"), "Reference metadata schema was not read.");
+            foreach (string sheetName in new[] { "Forekomster", "Segmenter", "Uavklart" })
+            {
+                var referenceRows = (List<Dictionary<string, string>>)sheetReader.Invoke(null, new object[] { sheetName })!;
+                Require(referenceRows.All(r => r.ContainsKey("UniqueId") && r.ContainsKey("ExpectedOccurrenceId")), "Reference headers were not read: " + sheetName);
+            }
+            return "Passed: 12 revision-value cases, 3 report-shape cases, 4 reference-approval cases and 4 Excel-sheet checks.";
         }
 
         private static MethodInfo GetMethod(string name)

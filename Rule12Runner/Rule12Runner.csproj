@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ExtensionId>Rule12Runner</ExtensionId>
+    <Authors>AEC AB</Authors>
+    <Version>0.0.1</Version>
+    <Title>Rule12Runner</Title>
+    <Description>Shows one representative cable tray per unique FOB_Merkestreng in a named 3D view. Standalone view utility; not part of the standard rule sequence.</Description>
+    <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
+    <MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2026</MainRevitVersion>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+  <Import Project=".\Configurations.targets" />
+  <ItemGroup>
+    <Compile Include="..\CSharpRules\Rule12HideDuplicateCableTrays.cs" Link="Rule12HideDuplicateCableTrays.cs" />
+  </ItemGroup>
+</Project>

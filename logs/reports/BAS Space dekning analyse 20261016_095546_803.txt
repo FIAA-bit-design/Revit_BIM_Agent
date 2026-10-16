@@ -1,0 +1,6 @@
+Kun lesende analyse | 2026-10-16T09:55:46.9031433+02:00
+BAS: 50 uavklarte føringsveier / 53 segmenter. Space i vertsmodell med positivt areal/volum=299
+11 senterlinjeprøver per segment og 5 vertikale projeksjonshøyder per Space. Fase oppgis. Ikke full volumkontroll; ingen direkte dRofus-kontroll.
+Høydeforslag bruker Space-boundingbox og kabelbroens nominelle halvhøyde; er kun diagnostiske, ikke sikre skriveverdier.
+Ingen transaksjoner, avpinning, endringer, lagring eller synkronisering. Pin-status bevart.
+D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS Space dekning analyse 20261016_095546_803

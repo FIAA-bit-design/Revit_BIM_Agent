@@ -16,7 +16,8 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.23";
+        private const string ScriptVersion = "0.0.24";
+        private const string DrofusBaselinePath = @"D:\Revit\Python\Revit_BIM_Agent\config\DrofusOccurrenceBaseline.xlsx";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
         private const string AreaParameter = "FOB_Omraade";
@@ -184,6 +185,16 @@ namespace CW.Assistant.Generated
                 string.Format(CultureInfo.InvariantCulture, "=== Regel 3 v{0} | {1:O} | {2} ===", ScriptVersion, DateTime.Now, activeDocument.Title),
                 "Dokument: " + activeDocument.Title
             };
+            List<Dictionary<string, string>> drofusReference;
+            try
+            {
+                drofusReference = ValidateDrofusReference(activeDocument);
+            }
+            catch (Exception exception)
+            {
+                log.Add("BLOKKERING: dRofus-referansen kunne ikke godkjennes: " + exception.Message);
+                return SaveAndReturn(log, "Regel 3 stoppet før skriving: dRofus-referansen må avklares.");
+            }
             List<string> parameterNames;
             try
             {
@@ -527,6 +538,15 @@ namespace CW.Assistant.Generated
             }
 
             List<string[]> roomRowsBeforeTransaction = BuildRoomControlRows(instances, out _);
+            try
+            {
+                ValidateDrofusPlannedWrites(drofusReference, writes);
+            }
+            catch (Exception exception)
+            {
+                log.Add("BLOKKERING: Planen bryter dRofus-identitetsvernet: " + exception.Message);
+                return SaveAndReturn(log, "Regel 3 stoppet før skriving: eksisterende dRofus-koblinger er beskyttet.", reportContext, roomRowsBeforeTransaction);
+            }
             int updated = 0;
             int failedWrites = 0;
             bool transactionCommitted = writes.Count == 0;
@@ -940,6 +960,117 @@ namespace CW.Assistant.Generated
         {
             return string.IsNullOrWhiteSpace(value)
                 || string.Equals(value.Trim(), MissingMarker, StringComparison.Ordinal);
+        }
+
+        private static List<Dictionary<string, string>> ReadDrofusSheet(string sheetName)
+        {
+            Dictionary<string, string> entries = ReadZipEntries(DrofusBaselinePath);
+            const string ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+            const string relNs = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+            const string pkgNs = "http://schemas.openxmlformats.org/package/2006/relationships";
+            object workbook = LoadXml(entries["xl/workbook.xml"]);
+            object rels = LoadXml(entries["xl/_rels/workbook.xml.rels"]);
+            object sheet = GetDescendants(workbook, "sheet", ns)
+                .Single(s => GetXmlAttribute(s, "name") == sheetName);
+            string relation = GetXmlAttribute(sheet, "id", relNs);
+            string target = GetDescendants(rels, "Relationship", pkgNs)
+                .Where(r => GetXmlAttribute(r, "Id") == relation).Select(r => GetXmlAttribute(r, "Target")).Single();
+            object xml = LoadXml(entries[ResolvePartName("xl", target)]);
+            if (GetDescendants(xml, "f", ns).Any()) throw new InvalidDataException("Formler er ikke tillatt i dRofus-referansen.");
+            List<string> strings = ReadSharedStrings(entries);
+            List<Dictionary<int, string>> rows = GetDescendants(xml, "row", ns).Select(r => ReadCells(r, strings, ns)).ToList();
+            if (rows.Count == 0) throw new InvalidDataException("Tom referansefane: " + sheetName);
+            Dictionary<int, string> headers = rows[0];
+            if (headers.Values.Distinct(StringComparer.Ordinal).Count() != headers.Count)
+                throw new InvalidDataException("Dupliserte referanseoverskrifter.");
+            return rows.Skip(1).Where(r => r.Values.Any(v => !string.IsNullOrWhiteSpace(v)))
+                .Select(r => headers.ToDictionary(h => h.Value, h => r.TryGetValue(h.Key, out string? v) ? v : "", StringComparer.Ordinal)).ToList();
+        }
+
+        private static void RequireApprovedDrofusMetadata(Dictionary<string, string> metadata, string modelPath)
+        {
+            if (metadata["SchemaVersion"] != "1" || metadata["ModelPath"] != modelPath || metadata["Status"] != "Approved")
+                throw new InvalidDataException("Referansen er ikke godkjent for modellen. De uavklarte forekomstene må kontrolleres mot dRofus først.");
+        }
+
+        private static List<Dictionary<string, string>> ValidateDrofusReference(Document document)
+        {
+            const string basPath = "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt";
+            if (document.PathName != basPath) return new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> metadataRows = ReadDrofusSheet("Metadata");
+            var metadata = metadataRows.ToDictionary(r => r["Key"], r => r["Value"], StringComparer.Ordinal);
+            RequireApprovedDrofusMetadata(metadata, document.PathName);
+            if (ReadDrofusSheet("Uavklart").Count != 0) throw new InvalidDataException("Referansen har fortsatt uavklarte segmenter.");
+            if (document.GetElement(metadata["ViewUniqueId"]) is not View3D referenceView
+                || referenceView.IsTemplate || referenceView.Name != "KS Kablebro dRofus")
+                throw new InvalidDataException("Referansens view-identitet stemmer ikke.");
+            List<Dictionary<string, string>> rows = ReadDrofusSheet("Segmenter");
+            List<Dictionary<string, string>> occurrences = ReadDrofusSheet("Forekomster");
+            if (rows.Count == 0 || occurrences.Count == 0) throw new InvalidDataException("Referansen er tom.");
+            var occurrenceByMark = occurrences.ToDictionary(r => r["Mark"].Trim(), r => r["OccurrenceId"], StringComparer.OrdinalIgnoreCase);
+            var representatives = occurrences.ToDictionary(r => r["UniqueId"], StringComparer.Ordinal);
+            if (occurrences.Select(r => r["OccurrenceId"]).Distinct(StringComparer.Ordinal).Count() != occurrences.Count
+                || occurrences.Any(r => !int.TryParse(r["OccurrenceId"], out int id) || id <= 0 || string.IsNullOrWhiteSpace(r["Mark"]) || r["Mark"].Trim() == "--"))
+                throw new InvalidDataException("Occurrence-ID-er og merkestrenger må være entydige.");
+            var uniqueIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (Dictionary<string, string> row in rows)
+            {
+                if (!uniqueIds.Add(row["UniqueId"]) || row["ModelPath"] != document.PathName
+                    || row["ViewUniqueId"] != metadata["ViewUniqueId"]
+                    || !occurrenceByMark.TryGetValue(row["Mark"].Trim(), out string? occurrence) || occurrence != row["ExpectedOccurrenceId"]
+                    || !representatives.TryGetValue(row["RepresentativeUniqueId"], out Dictionary<string, string>? representative)
+                    || representative["OccurrenceId"] != occurrence || representative["Mark"] != row["Mark"])
+                    throw new InvalidDataException("Tvetydig segmentreferanse.");
+                Element e = document.GetElement(row["UniqueId"]) ?? throw new InvalidDataException("Referanseelement mangler: " + row["ElementId"]);
+                if (!HasExactEnterprise(e, "K5B"))
+                    throw new InvalidDataException("Referanseelement har endret entreprise: " + e.Id.Value);
+                foreach (var field in new[] { ("FOB_Merkestreng", "Mark"), ("FOB_Sekvensnummer", "Sequence"), ("FOB_Omraade", "Area") })
+                {
+                    IList<Parameter> ps = e.GetParameters(field.Item1);
+                    if (ps.Count != 1 || ps[0].StorageType != StorageType.String || (ps[0].AsString() ?? "") != row[field.Item2])
+                        throw new InvalidDataException("Endret referanseverdi: " + e.Id.Value + ", " + field.Item1);
+                }
+                IList<Parameter> op = e.GetParameters("drofus_occurrence_id");
+                if (op.Count != 1 || op[0].StorageType != StorageType.Integer || op[0].AsInteger().ToString(CultureInfo.InvariantCulture) != row["OccurrenceId"])
+                    throw new InvalidDataException("Endret occurrence-kobling: " + e.Id.Value);
+            }
+            foreach (Dictionary<string, string> representative in occurrences)
+            {
+                Dictionary<string, string> segment = rows.Single(r => r["UniqueId"] == representative["UniqueId"]);
+                if (segment.Any(pair => !representative.TryGetValue(pair.Key, out string? value) || value != pair.Value)
+                    || segment["RepresentativeUniqueId"] != segment["UniqueId"] || segment["Visible"] != "True")
+                    throw new InvalidDataException("Forekomstens representant samsvarer ikke med segmentreferansen.");
+            }
+            foreach (Element e in new FilteredElementCollector(document).OfCategory(BuiltInCategory.OST_CableTray).WhereElementIsNotElementType())
+            {
+                if (uniqueIds.Contains(e.UniqueId)) continue;
+                if (!IsK5BOrUnassigned(e)) continue;
+                ElementType? type = document.GetElement(e.GetTypeId()) as ElementType;
+                if (type is not null && (type.Name + " " + type.FamilyName).IndexOf("Strømskinne", StringComparison.OrdinalIgnoreCase) >= 0) continue;
+                IList<Parameter> marks = e.GetParameters("FOB_Merkestreng");
+                if (marks.Count == 1 && marks[0].StorageType == StorageType.String && occurrenceByMark.ContainsKey((marks[0].AsString() ?? "").Trim()))
+                    throw new InvalidDataException("Nytt segment gjenbruker reservert merkestreng uten godkjent tilhørighet: " + e.Id.Value);
+                IList<Parameter> op = e.GetParameters("drofus_occurrence_id");
+                if (op.Count == 1 && op[0].StorageType == StorageType.Integer && op[0].AsInteger() > 0)
+                    throw new InvalidDataException("Ny occurrence må innarbeides i referansen etter godkjenning: " + e.Id.Value);
+            }
+            return rows;
+        }
+
+        private static void ValidateDrofusPlannedWrites(List<Dictionary<string, string>> reference, List<PendingWrite> writes)
+        {
+            if (reference.Count == 0) return;
+            var owners = reference.ToDictionary(r => r["UniqueId"], StringComparer.Ordinal);
+            var reserved = new HashSet<string>(reference.Select(r => r["Mark"].Trim()), StringComparer.OrdinalIgnoreCase);
+            foreach (PendingWrite write in writes)
+            {
+                string name = write.Parameter.Definition.Name;
+                if (owners.ContainsKey(write.Owner.UniqueId)
+                    && (name == "FOB_Merkestreng" || name == "FOB_Sekvensnummer" || name == "FOB_Omraade" || name == "drofus_occurrence_id"))
+                    throw new InvalidOperationException("Planlagt overskriving av registrert identitet: " + write.Owner.Id.Value + ", " + name);
+                if (name == "FOB_Merkestreng" && reserved.Contains(write.Value.Trim()))
+                    throw new InvalidOperationException("Planlagt gjenbruk av reservert merkestreng: " + write.Value);
+            }
         }
 
         private static List<string> LoadParameterNames()

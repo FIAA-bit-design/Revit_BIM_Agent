@@ -1,0 +1,19 @@
+Målrettet Regel 2-avvikskorrigering | 2026-10-15T14:10:03.8731578+02:00
+Modell=U_F_STA_FBU_RIE_XXX
+Familie=Armaturskinne Zumtobel tilkobling
+Kun forhåndskontrollerte ElementId-er; eksisterende LPE631 korrigeres bare hvis fersk nærhetsmajoritet er LPE641.
+PLAN ElementId 14281993: LPE631 -> LPE641; flertall 3/3; nærmeste 1105.322691516132 mm; radius 1500 mm.
+PLAN ElementId 14282230: LPE631 -> LPE641; flertall 5/5; nærmeste 929.966241969697 mm; radius 1500 mm.
+PLAN ElementId 14282242: LPE631 -> LPE641; flertall 3/3; nærmeste 1034.3981104014408 mm; radius 1500 mm.
+PLAN ElementId 14282489: LPE631 -> LPE641; flertall 3/3; nærmeste 1105.3226907654823 mm; radius 1500 mm.
+PLAN ElementId 14282718: LPE631 -> LPE641; flertall 5/5; nærmeste 974.4263075918697 mm; radius 1500 mm.
+PLAN ElementId 14283303: LPE631 -> LPE641; flertall 5/5; nærmeste 352.56864426841946 mm; radius 1500 mm.
+PLAN ElementId 14283468: LPE631 -> LPE641; flertall 5/5; nærmeste 346.38373399293397 mm; radius 1500 mm.
+PLAN ElementId 14283652: LPE631 -> LPE641; flertall 2/2; nærmeste 1350.0000000000744 mm; radius 1500 mm.
+PLAN ElementId 14283717: LPE631 -> LPE641; flertall 5/5; nærmeste 394.46172589734664 mm; radius 1500 mm.
+PLAN ElementId 14283892: LPE631 -> LPE641; flertall 5/5; nærmeste 912.6478658136894 mm; radius 1500 mm.
+PLAN ElementId 14284071: LPE631 -> LPE641; flertall 5/5; nærmeste 461.7306638737553 mm; radius 1500 mm.
+PLAN ElementId 14284470: LPE631 -> LPE641; flertall 5/5; nærmeste 661.6136876587992 mm; radius 1500 mm.
+PLAN ElementId 14284638: LPE631 -> LPE641; flertall 3/3; nærmeste 221.8210804762277 mm; radius 1500 mm.
+PLAN ElementId 14284796: LPE631 -> LPE641; flertall 5/5; nærmeste 692.7090293163344 mm; radius 1500 mm.
+ETTERKONTROLL bekreftet 14/14 verdier som LPE641.

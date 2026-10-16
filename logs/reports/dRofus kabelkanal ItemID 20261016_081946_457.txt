@@ -1,0 +1,7 @@
+dRofus typeoppdatering | 2026-10-16T08:19:45.5030476+02:00
+Modell=U_F_BAS_FBU_RIE_XXX | Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+TypeId=6185192 | Veggkanal 50 mm x 60 mm Sort | dRofus_ItemID: 0 -> 16287
+Instanser=6185247,6188939,7491303,13461813,13462988,13467213,13468687 | alle K5B
+Transaction=Committed
+TransactionGroup=Committed
+ETTERKONTROLL: typeverdi=16287. Ingen instansparametere eller geometri skrevet. Ikke lagret/synkronisert.

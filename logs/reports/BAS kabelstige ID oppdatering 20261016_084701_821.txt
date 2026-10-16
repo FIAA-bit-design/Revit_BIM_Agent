@@ -1,0 +1,9 @@
+BAS kabelstige dRofus-ID | 2026-10-16T08:47:00.0996239+02:00
+Modell=U_F_BAS_FBU_RIE_XXX | Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Godkjent omfang: eksisterende typer, alle instanser inkl. utenfor view og 19 K5A-instansene av 300 mm.
+Transaction=Committed
+TransactionGroup=Committed
+TypeId=3543692 | Kabelstige 200 mm x 60 mm | 0 -> 15503 | instanser=90
+TypeId=3770819 | Kabelstige 300 mm x 60 mm | 0 -> 15501 | instanser=323
+TypeId=4814706 | Kabelstige 800 mm x 60 mm | 0 -> 16281 | instanser=69
+482 instanser: type og geometrisnapshot uendret. Kun tre typeparametere skrevet. Ikke lagret/synkronisert.

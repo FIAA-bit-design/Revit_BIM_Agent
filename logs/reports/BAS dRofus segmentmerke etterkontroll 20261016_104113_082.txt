@@ -1,0 +1,5 @@
+2026-10-16T10:41:14.0345769+02:00
+Separat lesende etterkontroll: 39/39 segmenter har merke P14-460-KAF-006, sekvens 006 og område P14.
+2096 K5B-kabelbroer sammenlignet med før-snapshot. Bare 78 godkjente felt endret.
+Occurrence-ID, artikkel-ID, type, pin, kurve, dimensjoner og øvrige segmentverdier bevart.
+Tre avvik med tom representant urørt. Ingen lagring/synk eller referansegodkjenning.

@@ -1,0 +1,9 @@
+Separat etterkontroll 2026-10-16T09:20:13.430592+02:00
+BAS / KS Kablebro dRofus / K5B / OST_CableTray uten strømskinner.
+934 segmenter, 1878 felt: alle etterverdier samsvarer nøyaktig med planen.
+1134 unike synlige merkestrenger og 1134 unike positive occurrence-ID-er.
+Alle 2071 segmenter samsvarer med tilhørende representant; én occurrence-eier per merkestreng.
+Referanseutkast: 1084 forekomster, 2018 segmenter. Uavklart: 50 forekomster, 53 segmenter; urørt.
+Ingen andre endringer i eksporterte felt. Occurrence-ID-er er uendret.
+Excel: D:\Revit\Python\Revit_BIM_Agent\config\DrofusOccurrenceBaseline.xlsx
+Status=Pending; ikke en endelig godkjent referanse.

@@ -1,0 +1,6 @@
+2026-10-16T10:05:43.1955006+02:00
+Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Godkjent: bare L4S.28, maks 500 mm nedover. Ingen sidegrenseendring, lagring eller synk.
+Space=15480316; pinned=True; gammel nedre offset mm=-500.00000000000006
+Planlagt utvidelse ned mm=913.23144901358467; inkludert 10 mm klaring.
+FEIL / IKKE GODKJENT: System.InvalidOperationException: Nødvendig utvidelse er null eller overskrider 500 mm.
