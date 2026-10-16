@@ -1,0 +1,7 @@
+Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Behold=11226330 | 94efd9e4-d480-4349-832d-c2ef7cc26dde-00ab4cda
+Valg=lengste; laveste ID ved lik lengde
+Skjul=11226215,11226448
+Registeret oppdateres etter separat etterkontroll; koblingsforslag er bevart.
+Transaction=Committed
+Group=Committed

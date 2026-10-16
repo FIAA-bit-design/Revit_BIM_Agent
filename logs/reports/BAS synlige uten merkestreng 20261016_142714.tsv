@@ -1,0 +1,12 @@
+ElementId	UniqueId	OccurrenceId	Mark	Sequence	TypeName	RoomId	RoomNumber	RoomName	Reason
+12351764	5f883497-5a39-4b7c-b120-6b279b0b6c8e-00bb31fa	808278		Error: Value cannot be null. (Parameter 'input')	Kabelstige 300 mm x 60 mm	0			Tom/whitespace
+13293867	4a515904-7e89-4a6b-9eac-c8f0c2b38b15-00cad92b	808390		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+13294570	a055d07d-261d-47ac-857e-00777e9487dc-00cadbea	808396		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+13294801	2cbf6300-777e-4ccc-9822-52a01b64705d-00cadcd1	808397		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+13532243	a4c21d41-6ca3-4c64-afdf-1b5f97d4322a-00ce7c53	808429		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+14295367	d9abc015-e2ad-413e-90cc-4e5ba178f306-00da2147	808508		Error: Value cannot be null. (Parameter 'input')	Kabelstige 300 mm x 60 mm	0			Tom/whitespace
+14966257	d45686af-8f30-462f-b8ac-fd580bce19c8-00e457be	808537		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+15240832	f68a03a1-d4e8-485f-b0cd-432a7c27aaed-00e88e80	808548		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+15241657	96ba5d98-444a-49cf-bf0b-cffae7570a63-00e891b9	808551		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+15586666	784eb452-48d2-428b-8d08-b8425141134d-00edd56a	808592		Error: Value cannot be null. (Parameter 'input')	Veggkanal 73 mm x 123 mm	0			Tom/whitespace
+16176184	4ac2ac7e-3dfc-4f0b-a769-9b25f15c5586-00f6d438	808629		Error: Value cannot be null. (Parameter 'input')	Kabelstige 200 mm x 60 mm	0			Tom/whitespace

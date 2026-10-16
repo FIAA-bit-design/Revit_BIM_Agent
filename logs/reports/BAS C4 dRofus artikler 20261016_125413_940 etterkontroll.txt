@@ -1,0 +1,6 @@
+Separate read-only verification PASSED
+Compared cable tray instances and types=2218
+14584591 | Kabelstige 400 mm x 60 mm C4 | ItemID=16289
+14584679 | Kabelstige 600 mm x 60 mm C4 | ItemID=16290
+16536696 | Veggkanal 73 mm x 123 mm C4 | ItemID=16291
+Occurrence IDs, instance parameters, other type parameters, pins, view visibility and curves match committed snapshot.

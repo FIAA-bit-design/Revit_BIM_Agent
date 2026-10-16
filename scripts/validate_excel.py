@@ -1,4 +1,4 @@
-"""Validate XLSX table definitions against their worksheet headers."""
+"""Validate XLSX inline strings and table definitions against worksheet headers."""
 
 import argparse
 import posixpath
@@ -39,6 +39,13 @@ def validate_excel(path: Path) -> int:
         for name, worksheet in documents.items():
             if not name.startswith("xl/worksheets/") or not name.endswith(".xml"):
                 continue
+            cells = {
+                cell.attrib["r"]: cell
+                for cell in worksheet.findall(f"{MAIN}sheetData/{MAIN}row/{MAIN}c")
+            }
+            for reference, cell in cells.items():
+                if cell.attrib.get("t") == "inlineStr" and cell.find(f"{MAIN}is") is None:
+                    raise ValueError(f"{path.name}: {name}!{reference}: inlineStr cell missing is content")
             parts = worksheet.findall(f"{MAIN}tableParts/{MAIN}tablePart")
             if not parts:
                 continue
@@ -46,10 +53,6 @@ def validate_excel(path: Path) -> int:
             relations = {
                 node.attrib["Id"]: node.attrib["Target"]
                 for node in documents[rel_name].findall(f"{PACKAGE}Relationship")
-            }
-            cells = {
-                cell.attrib["r"]: cell
-                for cell in worksheet.findall(f"{MAIN}sheetData/{MAIN}row/{MAIN}c")
             }
             for part in parts:
                 target = relations[part.attrib[f"{REL}id"]]

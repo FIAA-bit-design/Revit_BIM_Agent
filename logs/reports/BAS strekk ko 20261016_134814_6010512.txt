@@ -1,0 +1,44 @@
+2026-10-16T13:48:14.6010302+02:00
+ApplyBatch
+Kun viewskjuling ved ApplyBatch. Ingen parameterendring, lagring, synk eller dRofus-sletting.
+BAS-16176184: Transaction=Committed
+BAS-16176184: Group=Committed
+BAS-7788672: Transaction=Committed
+BAS-7788672: Group=Committed
+BAS-7788797: Transaction=Committed
+BAS-7788797: Group=Committed
+BAS-11226629: Transaction=Committed
+BAS-11226629: Group=Committed
+BAS-7808088: Transaction=Committed
+BAS-7808088: Group=Committed
+BAS-7293888: Transaction=Committed
+BAS-7293888: Group=Committed
+BAS-9356413: Transaction=Committed
+BAS-9356413: Group=Committed
+BAS-9356349: Transaction=Committed
+BAS-9356349: Group=Committed
+BAS-13562661: Transaction=Committed
+BAS-13562661: Group=Committed
+BAS-8118032: Transaction=Committed
+BAS-8118032: Group=Committed
+BAS-8577253: Transaction=Committed
+BAS-8577253: Group=Committed
+BAS-12264136: Transaction=Committed
+BAS-12264136: Group=Committed
+BAS-12265369: Transaction=Committed
+BAS-12265369: Group=Committed
+BAS-12264596: Transaction=Committed
+BAS-12264596: Group=Committed
+BAS-10980188: Transaction=Committed
+BAS-10980188: Group=Committed
+BAS-16678174: Transaction=Committed
+BAS-16678174: Group=Committed
+BAS-9906788: Transaction=Committed
+BAS-9906788: Group=Committed
+BAS-10227355: Transaction=Committed
+BAS-10227355: Group=Committed
+BAS-16281954: Transaction=Committed
+BAS-16281954: Group=Committed
+Ko: 19 grupper; Pending=0; Applied=19; Blocked=0
+Excel (tidsstemplet, avledet rapport): D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS strekk ko 20261016_134814_6010512.xlsx
+Excel-normalapning er ikke testet inne i Revit-rutinen; valider rapporten med Test-ExcelWorkbook.ps1.

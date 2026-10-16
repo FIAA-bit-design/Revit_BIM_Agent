@@ -53,6 +53,29 @@ class ExcelTableValidationTests(unittest.TestCase):
                     with self.assertRaises(ValueError):
                         validate_excel(path)
 
+    def test_inline_string_content(self):
+        main = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+        cases = [
+            ('<c r="A1" t="inlineStr"/>', False),
+            ('<c r="A1" t="inlineStr"><is><t/></is></c>', True),
+            ('<c r="A1" s="1"/>', True),
+            ('<c r="A1" t="inlineStr"><is><t>Space</t></is></c>', True),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            for cell, valid in cases:
+                with self.subTest(cell=cell):
+                    path = Path(directory) / "test.xlsx"
+                    with ZipFile(path, "w") as archive:
+                        archive.writestr(
+                            "xl/worksheets/sheet1.xml",
+                            f'<worksheet xmlns="{main}"><sheetData><row r="1">{cell}</row></sheetData></worksheet>',
+                        )
+                    if valid:
+                        self.assertEqual(validate_excel(path), 0)
+                    else:
+                        with self.assertRaisesRegex(ValueError, "inlineStr cell missing is content"):
+                            validate_excel(path)
+
 
 if __name__ == "__main__":
     unittest.main()

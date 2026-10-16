@@ -1,0 +1,6 @@
+Separate read-only verification PASSED
+All cable tray snapshots=2201
+Visible cable trays=1130
+Duplicate nonempty marks=0
+12262924 retained; four approved segments hidden; 14157827 unchanged.
+Parameters, occurrence IDs, types, pins and curves match committed snapshot.

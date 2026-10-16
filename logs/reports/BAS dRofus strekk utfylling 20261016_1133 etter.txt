@@ -1,0 +1,6 @@
+2026-10-16T11:36:24.9121855+02:00
+Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Bare dokumenterte dRofus-kilder. Ingen nye merker, occurrence-kopiering, geometri, lagring eller synk.
+Transaksjon=Committed
+Gruppe=Committed
+VERIFISERT: 2693 felt på 935 segmenter. Alle 2071 sammenlignet; øvrige kontrollerte felt/type/pin/geometri/ID-er uendret.

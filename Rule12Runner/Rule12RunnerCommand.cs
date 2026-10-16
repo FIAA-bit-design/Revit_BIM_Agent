@@ -14,8 +14,18 @@ public class Rule12RunnerCommand : IRevitExtension<Rule12RunnerArgs>
 
         try
         {
-            var rule = new CW.Assistant.Generated.Rule12HideDuplicateCableTrays();
-            string result = rule.Execute(context.UIApplication, document, args.ViewName, args.PreviewOnly, cancellationToken);
+            string result;
+            if (args.ViewName != "KS Kablebro dRofus") return Result.Text.Failed("Bare KS Kablebro dRofus støttes.");
+            if (args.Action == "LegacyPreview")
+                result = new CW.Assistant.Generated.Rule12HideDuplicateCableTrays()
+                    .Execute(context.UIApplication, document, args.ViewName, true, cancellationToken);
+            else
+            {
+                if (args.Action == "ApplyBatch" && args.PreviewOnly)
+                    return Result.Text.Failed("Sett PreviewOnly=false uttrykkelig for samlet utføring.");
+                result = new CW.Assistant.Generated.DrofusRouteQueueRunner()
+                    .Execute(context.UIApplication, document, args.Action, cancellationToken);
+            }
             return result.StartsWith("Rule12Runner:", StringComparison.Ordinal)
                 ? Result.Text.Succeeded(result)
                 : Result.Text.Failed(result);

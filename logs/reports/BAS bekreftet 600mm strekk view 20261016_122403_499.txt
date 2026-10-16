@@ -1,0 +1,8 @@
+Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+View=KS Kablebro dRofus | 5e8f81e4-fcff-4378-8a08-70d893e9ab6c-0110f8e2
+Brukerbekreftet strekk: 12262924,12351754,12351756,12351758,12351760
+Behold=12262924 | BYG201-460-KAF-326 | occurrence=809076
+Skjul=12351754,12351756,12351758,12351760
+300 mm 14157827 utelatt. Ingen parameterendring eller sletting av dRofus-forekomster.
+Transaction=Committed
+Group=Committed
