@@ -1,0 +1,8 @@
+2026-10-19T09:38:25.5536322+02:00
+Modell=Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Mål=15674023; kilde=15673873/809155; dRofus_RoomID=564; bare Romnavn skrives.
+Modus=utføring
+Romnavn før=--; planlagt=ja
+Transaksjon=Committed
+Gruppe=Committed
+Etterkontroll=Romnavn Verkstedhall; RoomID=564; Romnummer=M3G2.03

@@ -1,0 +1,16 @@
+2026-10-19T09:06:26.9917431+02:00
+Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Romnavn fra dokumentert strekkrepresentant; occurrence-ID-er, øvrige romfelt, geometri, view, lagring og synk endres ikke.
+Planlagte mål=930; unike kilder=333
+Batch 1: 100 mål, status=Committed
+Batch 2: 100 mål, status=Committed
+Batch 3: 100 mål, status=Committed
+Batch 4: 100 mål, status=Committed
+Batch 5: 100 mål, status=Committed
+Batch 6: 100 mål, status=Committed
+Batch 7: 100 mål, status=Committed
+Batch 8: 100 mål, status=Committed
+Batch 9: 100 mål, status=Committed
+Batch 10: 30 mål, status=Committed
+Gruppe=Committed
+COMMITTED; endrede Romnavn=930; modellen er ikke lagret eller synkronisert.

@@ -1,0 +1,686 @@
+ElementId	UniqueId	Family	Type	PartType	Enterprise	RoomId	RoomIdStorage	ConnectedStraightIds	ConnectedRoomIds
+4258611	15adcea3-7508-4672-b4a2-65a66f23f791-0040fb33	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	6217135,4334645,4258578,5948189	4574
+4334450	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-00422372	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334194,4334252	573
+4334534	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-004223c6	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334583,4258578	4574
+4334610	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-00422412	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334583,4334601	4574
+4334672	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-00422450	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334645,4334671	4574
+4334714	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-0042247a	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16332473,4334671	4574
+4334903	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-00422537	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16326855,4334252	573
+4334966	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-00422576	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334965,4334943	4574
+4335035	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-004225bb	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334965,4335024	4574
+4335061	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-004225d5	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	15897680,4335073,4255977,4335024	4574
+4335097	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-004225f9	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4335096,4335073	4574
+4335136	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-00422620	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4335096,16326836	4574
+4335148	97f5441d-2cb4-4f10-8a19-6e8b22bc9ae5-0042262c	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4335128,6110816	572
+4404222	df8d8963-3008-4bc1-ac9b-4f0798586f11-004333fe	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	4334194,4404232,6375679,4334201	573
+4404256	df8d8963-3008-4bc1-ac9b-4f0798586f11-00433420	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4404232,4404255	573
+4804694	3bc95b62-7568-4363-bae1-56e4a0e20639-00495056	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4804671,4804693	2222
+5121099	f48573c0-71ce-41c0-8c73-05aed9113329-004e244b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5121178,16668148	1912
+5937905	0f303c57-9e1a-481a-9ea6-d5a37af3639b-005a9af1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8429949,5937908	475
+5963821	13a84e3f-96fd-4d74-b2a8-28f78c34cc40-005b002d	MC_Ladder Vertical Outside Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5963712,5963843	496
+5982387	8659c466-4806-4193-975f-4cf52fcbbe48-005b48b3	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16668977,5982366	1902
+5990720	bfe827ed-3d16-4a60-bbe2-6fd0414eedce-005b6940	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5990712,16670259	1903
+5990736	bfe827ed-3d16-4a60-bbe2-6fd0414eedce-005b6950	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5990712,5990735	1903
+5991208	bfe827ed-3d16-4a60-bbe2-6fd0414eedce-005b6b28	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5991180,5991207	1903
+5995972	556c20e2-25da-4116-8e1d-0687fc602392-005b7dc4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5991180,6001445	1903
+6000983	b095c690-70c2-42d9-b76f-2790007652d6-005b9157	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5993305,16670745	1903
+6001009	b095c690-70c2-42d9-b76f-2790007652d6-005b9171	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5993407,16670695	1903
+6057142	29c88efe-da2c-4085-a2bf-ceda6eccadbe-005c6cb6	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16668174,10787403	1914
+6057667	b7a6275c-1184-4543-bf4b-98a9f960e1bb-005c6ec3	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	16667381,4819906	1902
+6057804	f105a326-2455-40f4-ac64-3e4a9734b37f-005c6f4c	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	4819906,6054719	1902
+6058072	f105a326-2455-40f4-ac64-3e4a9734b37f-005c7058	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5712232,6055199	1902
+6058074	f105a326-2455-40f4-ac64-3e4a9734b37f-005c705a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6055199,6055346	1902
+6110835	cfeeeca8-caf5-4c3c-a241-8ea796415c8e-005d3e73	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6110816,6110809	572
+6112376	6db3b69c-69f1-47d7-acca-8be7853963c3-005d4478	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16332483,4258347	2796
+6112431	34c2d010-8844-46a8-91f8-59d1636e6360-005d44af	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4258327,4258347	2796
+6157063	90a8ddc0-3afe-4869-9610-44e1928f4576-005df307	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5991207,16670653	1903
+6198624	29da97b0-6d16-4411-aeab-974957db7e1c-005e9560	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6198613,6198596	573
+6198693	29da97b0-6d16-4411-aeab-974957db7e1c-005e95a5	MC_Ladder Horizontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	6200361,6200342,15898233,6202745	573
+6198944	29da97b0-6d16-4411-aeab-974957db7e1c-005e96a0	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6198522,6200342	573
+6200368	29da97b0-6d16-4411-aeab-974957db7e1c-005e9c30	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6200361,6198596	573
+6202790	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea5a6	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6202780,16326851	4574
+6203040	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea6a0	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6202780,6203338	4574
+6203054	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea6ae	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6203046,6202794	4574
+6203097	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea6d9	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16326843,6203046	4574
+6203138	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea702	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6203132,6203100	572
+6203367	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea7e7	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	6203380,6202794,6203329,6203338	4574
+6203568	dd4f387e-3907-457d-8886-9f56c61fc73d-005ea8b0	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6203132,6203562	572
+6204356	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eabc4	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204326,6204350	573
+6204414	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eabfe	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204413,16332469	573
+6204451	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eac23	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	6204463,6204287,8422843,6204350	573
+6204470	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eac36	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204463,6204413	573
+6204596	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eacb4	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204595,6204573	2249
+6204623	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eaccf	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204617,6204595	2249
+6204707	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005ead23	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204706,16332485	2249
+6204744	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005ead48	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	6204541,6204762,6204617	2249
+6204769	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005ead61	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204706,6204762	2249
+6204849	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eadb1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204848,6204828	2796
+6204878	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eadce	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204870,6204848	2796
+6205028	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eae64	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6057356,6055051	1902
+6205030	c91fea46-1b10-4d3f-9382-d0ba6cad80dc-005eae66	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6055345,6055051	1902
+6207206	26f08e12-4fec-4353-823b-298e0c24ecd1-005eb6e6	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5991342,16670239	1903
+6207738	26f08e12-4fec-4353-823b-298e0c24ecd1-005eb8fa	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16670606,5991368	1903
+6207740	26f08e12-4fec-4353-823b-298e0c24ecd1-005eb8fc	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5991342,5991368	1903
+6207886	26f08e12-4fec-4353-823b-298e0c24ecd1-005eb98e	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4804489,4814045	2222
+6211919	84c89629-eb4f-4c96-9327-5c4f701f8100-005ec94f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16667515,6211913	1913
+6211921	84c89629-eb4f-4c96-9327-5c4f701f8100-005ec951	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211918,6211916	1902
+6211922	84c89629-eb4f-4c96-9327-5c4f701f8100-005ec952	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211916,6211917	1902
+6211939	84c89629-eb4f-4c96-9327-5c4f701f8100-005ec963	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211934,6211936	1902
+6211940	84c89629-eb4f-4c96-9327-5c4f701f8100-005ec964	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211934,6211935	1902
+6212013	84c89629-eb4f-4c96-9327-5c4f701f8100-005ec9ad	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212008,6212010	1902
+6213126	84c89629-eb4f-4c96-9327-5c4f701f8100-005ece06	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5937916,5937908	475
+6248865	20746dbe-70df-4887-8a40-d0e4c8239608-005f59a1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334729,4334717	2248
+6862065	9b3a1f9e-f02f-46a6-b424-7d829c599b07-0068b4f1	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212009,6212008	1902
+6862325	9b3a1f9e-f02f-46a6-b424-7d829c599b07-0068b5f5	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6835325,6055346	1902
+6865902	e071bd5d-058a-4cc7-9bc9-fd1c0dd04445-0068c3ee	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6865904,6865724	1902
+6865922	e071bd5d-058a-4cc7-9bc9-fd1c0dd04445-0068c402	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6865904,6865918	1902
+6866217	e071bd5d-058a-4cc7-9bc9-fd1c0dd04445-0068c529	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6205826,6866234	1902
+6866302	e071bd5d-058a-4cc7-9bc9-fd1c0dd04445-0068c57e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6866253,6865918	1902
+6866304	e071bd5d-058a-4cc7-9bc9-fd1c0dd04445-0068c580	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6866234,6866253	1902
+6868816	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068cf50	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5591469,16668194	1912
+6868880	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068cf90	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5478565,16668204	1912
+6868921	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068cfb9	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4232070,16668299	1914
+6868940	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068cfcc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16668334,5478988	1912
+6868980	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068cff4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16668230,5479130	1912
+6868998	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068d006	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16668235,5479199	1912
+6869017	5505adb7-3f1f-4d4a-8db6-1008aa470e3f-0068d019	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16668261,6211457	1912
+6900340	d3365cd4-bae0-4792-895f-f32fb9d10ae9-00694a74	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5789698,6892518	1913
+6908782	40862592-6913-4e7c-a8af-a18e980cc862-00696b6e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5478502,5480608	1912
+6908784	40862592-6913-4e7c-a8af-a18e980cc862-00696b70	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5478502,16668199	1912
+6915990	e76521e0-18b7-4570-8702-b59d4384d4bf-00698796	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4802074,4804671	2222
+6916015	e76521e0-18b7-4570-8702-b59d4384d4bf-006987af	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4814045,4800633	2222
+6922199	b456443a-c2aa-4625-b746-68eae19de72a-00699fd7	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6922193,15572768	3407
+6923774	946acee7-2dc4-44a1-b2d0-7dbffe113a87-0069a5fe	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	6923766,8100708	3850
+6923780	946acee7-2dc4-44a1-b2d0-7dbffe113a87-0069a604	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	6923766,7808382	3850
+6958136	4c7eaf38-60a1-4f3e-8cdb-ec61c0ef5d96-006a2c38	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5993305,5993331	1903
+6992475	ce3472cf-78db-4367-837b-e112ff9b4729-006ab25b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6992467,7742848	2229
+6992595	ce3472cf-78db-4367-837b-e112ff9b4729-006ab2d3	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7742643,6992589	2229
+6992632	ce3472cf-78db-4367-837b-e112ff9b4729-006ab2f8	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6992467,6992624	2229
+6992643	ce3472cf-78db-4367-837b-e112ff9b4729-006ab303	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6992646,6992624	2229
+6992674	ce3472cf-78db-4367-837b-e112ff9b4729-006ab322	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6992646,6992664	2229
+6992683	ce3472cf-78db-4367-837b-e112ff9b4729-006ab32b	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6992677,6992664	2229
+7009300	d7cf19b1-9935-493c-98cc-0775cf5fcd58-006af414	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16370823,9263091	2241
+7032483	2b80c9dc-82f3-4f8f-8cac-e5400fc5216f-006b4ea3	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5993407,5993431	1903
+7048793	5360d7ae-74b7-414d-baf2-aabf3d21c89d-006b8e59	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16668892,5982856	1902
+7069400	bcdb21b5-4aef-40a0-9fe2-a359dad65a89-006bded8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7069390,7069067	2250
+7069435	bcdb21b5-4aef-40a0-9fe2-a359dad65a89-006bdefb	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	15898065,7069390	2250
+7069490	bcdb21b5-4aef-40a0-9fe2-a359dad65a89-006bdf32	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7069468,7069479	574
+7070887	6654b26e-0db8-483a-b9e1-530163e0025f-006be4a7	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7070872,7070881	2242
+7071261	5100a933-b41d-4189-b1de-063632eafba9-006be61d	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	14800943,7071245	3857
+7095801	85f67246-6891-4c14-ac61-691d370ee644-006c45f9	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7095784,7046583	1903
+7096587	85f67246-6891-4c14-ac61-691d370ee644-006c490b	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5986198,6865724	1902
+7098159	85f67246-6891-4c14-ac61-691d370ee644-006c4f2f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4424436,7742298	2229
+7098164	85f67246-6891-4c14-ac61-691d370ee644-006c4f34	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7742410,6990338	2229
+7098178	85f67246-6891-4c14-ac61-691d370ee644-006c4f42	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7742542,4484688	2229
+7102031	f309a3d1-4ed6-4088-aa16-8a202c9c1254-006c5e4f	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7102019,5480608	1912
+7102085	f309a3d1-4ed6-4088-aa16-8a202c9c1254-006c5e85	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5591469,7102089	1912
+7105868	8ae8013e-318c-41bb-8877-846edd031227-006c6d4c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6184375,7105863	517
+7106011	39adcd9b-f083-4331-94c1-12bacaad6a91-006c6ddb	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7105943,7106005	517
+7106042	39adcd9b-f083-4331-94c1-12bacaad6a91-006c6dfa	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7104733,16284028	544
+7110675	8581c62a-5c0b-493f-a936-1f41eada8247-006c8013	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212191,6056849	1902
+7110702	8581c62a-5c0b-493f-a936-1f41eada8247-006c802e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6056899,6212169	1902
+7110788	8581c62a-5c0b-493f-a936-1f41eada8247-006c8084	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212145,5986198	1902
+7110790	8581c62a-5c0b-493f-a936-1f41eada8247-006c8086	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212145,6211935	1902
+7110868	8581c62a-5c0b-493f-a936-1f41eada8247-006c80d4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6835325,6056966	1902
+7110869	8581c62a-5c0b-493f-a936-1f41eada8247-006c80d5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5982856,6056966	1902
+7188771	c3deda7f-f73a-474c-8b0a-0005790653d8-006db123	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7188767,7188755	3850
+7189315	c3deda7f-f73a-474c-8b0a-0005790653d8-006db343	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	12137964,6923485	574
+7346798	4a2c1230-b5f6-47ac-8a2a-94c0ec393ed3-00701a6e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5121178,7346764	1912
+7347378	4a2c1230-b5f6-47ac-8a2a-94c0ec393ed3-00701cb2	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7347338,7347293	1912
+7348409	4a2c1230-b5f6-47ac-8a2a-94c0ec393ed3-007020b9	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6054916,6055344	1902
+7348507	4a2c1230-b5f6-47ac-8a2a-94c0ec393ed3-0070211b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6056790,5952290	1902
+7413261	e55b7ccd-c8b0-4171-8882-d6a1b8bf275c-00711e0d	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413267,6863781	1905
+7413285	e55b7ccd-c8b0-4171-8882-d6a1b8bf275c-00711e25	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413267,7413273	1905
+7413810	e55b7ccd-c8b0-4171-8882-d6a1b8bf275c-00712032	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413813,7413666	1903
+7413987	e55b7ccd-c8b0-4171-8882-d6a1b8bf275c-007120e3	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16669803,7413813	1903
+7414130	e55b7ccd-c8b0-4171-8882-d6a1b8bf275c-00712172	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8971482,6963934	1905
+7416839	d6d6e83c-25f7-43d8-95c5-806716396b77-00712c07	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7314335,7183899	3407
+7427637	e482d574-b6a2-4fe4-8fcb-e6cdfb651ca9-00715635	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413616,7413666	1903
+7429068	a1ad5311-9c97-4e42-9170-11c2c7033585-00715bcc	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7796869,7429069	1902
+7429083	a1ad5311-9c97-4e42-9170-11c2c7033585-00715bdb	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7429069,7428980	1902
+7430093	b2c52f76-00c7-49ed-96f1-caa77295c156-00715fcd	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6894445,5789698	1913
+7431028	b2c52f76-00c7-49ed-96f1-caa77295c156-00716374	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	6054719,6056520	1902
+7431114	b2c52f76-00c7-49ed-96f1-caa77295c156-007163ca	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	16667458,7431107	1902
+7431115	b2c52f76-00c7-49ed-96f1-caa77295c156-007163cb	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431112,7431107	1902
+7431119	b2c52f76-00c7-49ed-96f1-caa77295c156-007163cf	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7431120,7431118	1903
+7431125	b2c52f76-00c7-49ed-96f1-caa77295c156-007163d5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7431118,7431117	1903
+7431139	b2c52f76-00c7-49ed-96f1-caa77295c156-007163e3	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431128,12697630	1902
+7431141	b2c52f76-00c7-49ed-96f1-caa77295c156-007163e5	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431113,7431112	1902
+7431469	b2c52f76-00c7-49ed-96f1-caa77295c156-0071652d	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431470,7431134	1902
+7431738	b2c52f76-00c7-49ed-96f1-caa77295c156-0071663a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7431120,16669846	1903
+7432427	16bb87ce-becc-49d7-ab68-a43a43f53761-007168eb	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6212169,7432415	1902
+7432448	16bb87ce-becc-49d7-ab68-a43a43f53761-00716900	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7429304,7432415	1902
+7432450	16bb87ce-becc-49d7-ab68-a43a43f53761-00716902	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211917,7429304	1902
+7432483	16bb87ce-becc-49d7-ab68-a43a43f53761-00716923	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7432477,6212191	1902
+7432498	16bb87ce-becc-49d7-ab68-a43a43f53761-00716932	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7432477,7429351	1902
+7432500	16bb87ce-becc-49d7-ab68-a43a43f53761-00716934	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6055345,7429351	1902
+7432592	16bb87ce-becc-49d7-ab68-a43a43f53761-00716990	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5952290,7432580	1902
+7432611	16bb87ce-becc-49d7-ab68-a43a43f53761-007169a3	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7432580,7429392	1902
+7432613	16bb87ce-becc-49d7-ab68-a43a43f53761-007169a5	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7429392,6055344	1902
+7484449	75714946-5cda-4b2d-821e-66e54caf4ae7-00723421	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7484478,7346764	1912
+7484503	75714946-5cda-4b2d-821e-66e54caf4ae7-00723457	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7484504,7484478	1912
+7484562	75714946-5cda-4b2d-821e-66e54caf4ae7-00723492	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7484600,7346955	1912
+7484608	75714946-5cda-4b2d-821e-66e54caf4ae7-007234c0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7484504,7484600	1912
+7504645	ca84886b-00c6-4de1-a0cb-15dfb453a82d-00728305	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12170273,7102089	1912
+7742333	2eeeb348-49e0-4418-8136-60bbfaa496a8-0076237d	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742332,7742298	2229
+7742364	2eeeb348-49e0-4418-8136-60bbfaa496a8-0076239c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742332,16671746	2229
+7742439	2eeeb348-49e0-4418-8136-60bbfaa496a8-007623e7	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742438,7742410	2229
+7742455	2eeeb348-49e0-4418-8136-60bbfaa496a8-007623f7	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742438,16671789	2229
+7742569	2eeeb348-49e0-4418-8136-60bbfaa496a8-00762469	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742542,7742568	2229
+7742589	2eeeb348-49e0-4418-8136-60bbfaa496a8-0076247d	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742568,16671797	2229
+7742670	2eeeb348-49e0-4418-8136-60bbfaa496a8-007624ce	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742643,7742669	2229
+7742690	2eeeb348-49e0-4418-8136-60bbfaa496a8-007624e2	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16671841,7742669	2229
+7742873	2eeeb348-49e0-4418-8136-60bbfaa496a8-00762599	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742872,7742848	2229
+7742889	2eeeb348-49e0-4418-8136-60bbfaa496a8-007625a9	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742872,16671885	2229
+7789318	a8bbcf38-e0eb-42e8-bb3c-2ead6cb6fcfa-0076db06	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7297069,7301468	2237
+7796978	b046bbc7-40f5-45ef-aee2-c9ea2533c544-0076f8f2	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431498,7431113	1902
+7810520	5c20bff6-c8b7-4b00-8950-cc0fc90991a0-00772dd8	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7810494,7810510	2228
+7920505	6add113d-cc09-4d2d-9f0c-790a45a3e248-0078db79	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7920487,7920495	2795
+7926030	4446b3c7-f73a-420f-9506-905b774b5e9b-0078f10e	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	7926022,7926014	573
+7983672	612524a4-4fde-45a6-854e-2fb0172d5372-0079d238	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7983560,7983472	2248
+7985891	d19763ca-fb06-40b9-b4dd-b06deb33972d-0079dae3	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7301283,7297354	2236
+8008875	e7777751-e6d8-4cde-9584-9199aedf12af-007a34ab	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8008799,16668881	1902
+8008886	e7777751-e6d8-4cde-9584-9199aedf12af-007a34b6	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8008799,8008936	1902
+8009016	e7777751-e6d8-4cde-9584-9199aedf12af-007a3538	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8008936,5983855	1902
+8009018	e7777751-e6d8-4cde-9584-9199aedf12af-007a353a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212009,5983855	1902
+8034759	c93c5975-271b-4927-a74c-a51a161bf363-007a99c7	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5963734,5963712	496
+8035203	8383d9b3-560f-4795-b6b1-5f6b251b7737-007a9b83	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	8035201,8035202	573
+8099939	6276c923-1b2b-4399-98db-180fd064a4a8-007b9863	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15551329,8099449	2250
+8264948	7665ab65-8ce8-4e9e-8b56-625abe2a25e5-007e1cf4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8264717,8264725	4209
+8264949	7665ab65-8ce8-4e9e-8b56-625abe2a25e5-007e1cf5	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8264725,8264735	4209
+8264952	7665ab65-8ce8-4e9e-8b56-625abe2a25e5-007e1cf8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8264717,8264709	4209
+8264954	7665ab65-8ce8-4e9e-8b56-625abe2a25e5-007e1cfa	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8264709,8264701	4209
+8264956	7665ab65-8ce8-4e9e-8b56-625abe2a25e5-007e1cfc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8264693,8264701	4209
+8264958	7665ab65-8ce8-4e9e-8b56-625abe2a25e5-007e1cfe	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8264693,8264685	4209
+8383477	d754e83f-03a0-4bbb-af86-9cfff9e73799-007febf5	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8383465,8383479	2228
+8383497	d754e83f-03a0-4bbb-af86-9cfff9e73799-007fec09	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8383479,7810373	2228
+8383532	d754e83f-03a0-4bbb-af86-9cfff9e73799-007fec2c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7810373,7810494	2228
+8519320	e4fe8635-77e4-40c9-9ad0-9e3edd9af967-0081fe98	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10977991,6147142	598
+8577395	a67473b7-99c9-4bc3-ad96-6d1518c05e9e-0082e173	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8577355,8577279	506
+8577560	a67473b7-99c9-4bc3-ad96-6d1518c05e9e-0082e218	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8577496,8577421	506
+8577568	a67473b7-99c9-4bc3-ad96-6d1518c05e9e-0082e220	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8577552,8577436	506
+8620458	8b877dae-b967-4329-be44-51017c497f78-008389aa	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8620265,8620443	553
+8744778	ea1a1761-c371-4c18-8336-5f71cda9cdb1-00856f4a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16667483,6057848	1902
+8744779	ea1a1761-c371-4c18-8336-5f71cda9cdb1-00856f4b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6054916,6057848	1902
+8744786	ea1a1761-c371-4c18-8336-5f71cda9cdb1-00856f52	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16667499,6057356	1902
+8744789	ea1a1761-c371-4c18-8336-5f71cda9cdb1-00856f55	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16667546,6211936	1902
+8744796	ea1a1761-c371-4c18-8336-5f71cda9cdb1-00856f5c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16667584,5712232	1902
+8744798	ea1a1761-c371-4c18-8336-5f71cda9cdb1-00856f5e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212010,16667568	1902
+8811117	8a21df78-ccb7-42d4-ad1b-f2f02059f210-0086726d	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8810989,8811083	2794
+8811271	8a21df78-ccb7-42d4-ad1b-f2f02059f210-00867307	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8811240,8810988	2794
+8812503	85e725e7-831a-4372-8aec-dcb70a17874c-008677d7	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8812493,8812438	3918
+8812593	85e725e7-831a-4372-8aec-dcb70a17874c-00867831	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8812439,8812581	3918
+8881961	e72fcd86-6398-4f5c-9dc0-4266cdabec91-00878729	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8881848,8881864	2229
+8895959	f16f9b18-d4ae-4c61-87a1-e9bf99ad0414-0087bdd7	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5985780,5985793	1902
+8895965	f16f9b18-d4ae-4c61-87a1-e9bf99ad0414-0087bddd	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16669267,5985669	1904
+8935276	98c2d9c1-d4f5-49d7-99a6-b14dbd0b6eba-0088576c	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm C4	LadderCableTrayVerticalElbow	K5B	0	Integer	8935258,8935225	1951
+8936805	6c1b18a9-8d03-48c1-8a34-a9650acd36a3-00885d65	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	8935816,12138638	2795
+8936806	6c1b18a9-8d03-48c1-8a34-a9650acd36a3-00885d66	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	12138766,7920487	2795
+8936835	6c1b18a9-8d03-48c1-8a34-a9650acd36a3-00885d83	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8935714,8935816	2795
+8968672	9531e2ec-9698-4828-a797-e89dd62adae0-0088d9e0	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4762803,7413359	1905
+8968686	9531e2ec-9698-4828-a797-e89dd62adae0-0088d9ee	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7412165,7413359	1905
+8968715	9531e2ec-9698-4828-a797-e89dd62adae0-0088da0b	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7412165,6863858	1905
+8968790	9531e2ec-9698-4828-a797-e89dd62adae0-0088da56	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413193,12707097	1905
+8968799	9531e2ec-9698-4828-a797-e89dd62adae0-0088da5f	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6863643,6863212	1905
+8968801	9531e2ec-9698-4828-a797-e89dd62adae0-0088da61	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413193,6863212	1905
+9192320	7d2f8c19-85f4-488d-a891-631dabb38ad8-008c4380	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16286454,9192243	514
+9304590	b1c1690e-b5aa-4b54-a680-07a52d2aeca1-008dfa0e	N_Kabelbane Horisontal Kryss	Kabelbanekryss 300x300 mm	ChannelCableTrayCross	K5B	0	Integer	9304592,10301998,9285008,9304509	565
+9304611	b1c1690e-b5aa-4b54-a680-07a52d2aeca1-008dfa23	N_Kabelbane Horisontal Kryss	Kabelbanekryss 300x300 mm	ChannelCableTrayCross	K5B	0	Integer	9304605,9304592,16373965,9304603	565
+9833547	824e9095-fe60-414d-9cf8-d6faddba22a7-00960c4b	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 200 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9833529,9833539	2249
+9833849	824e9095-fe60-414d-9cf8-d6faddba22a7-00960d79	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 200 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9833788,9833837	573
+9834305	24c9868a-c430-4106-bec5-452e6842a13c-00960f41	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	6923638,7188755	3850
+10021526	1e8ff8a4-3ca3-456b-a224-4d29d2604614-0098ea96	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7414063,5148845	1905
+10021549	1e8ff8a4-3ca3-456b-a224-4d29d2604614-0098eaad	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6002154,10021541	1905
+10137725	ca39007d-a02c-4e06-8b48-76d79633d3dd-009ab07d	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10137719,10137721	1902
+10137726	ca39007d-a02c-4e06-8b48-76d79633d3dd-009ab07e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10137722,10137721	1902
+10170965	6708a8a1-c4a2-4a57-9abc-13c8f1ab6afb-009b3255	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	10170951,10170959	2794
+10172072	6209214e-910a-4216-bf20-54536ff5efac-009b36a8	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10171900,8096032	2794
+10172074	6209214e-910a-4216-bf20-54536ff5efac-009b36aa	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	10170959,10171900	2794
+10197664	0ff534bf-9925-4853-95c9-62da6cd43202-009b9aa0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	9725016,13493624	3843
+10216841	4360033c-e8da-462f-b743-e537b15eaf19-009be589	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10197063,8263353	4209
+10216909	4360033c-e8da-462f-b743-e537b15eaf19-009be5cd	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262834,8263149	4209
+10217124	4360033c-e8da-462f-b743-e537b15eaf19-009be6a4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8263172,8263149	4209
+10217126	4360033c-e8da-462f-b743-e537b15eaf19-009be6a6	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8263172,8263049	4209
+10217128	4360033c-e8da-462f-b743-e537b15eaf19-009be6a8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8263049,8262818	4209
+10217565	4360033c-e8da-462f-b743-e537b15eaf19-009be85d	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262260,8262268	4209
+10217607	4360033c-e8da-462f-b743-e537b15eaf19-009be887	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262252,8262260	4209
+10217632	4360033c-e8da-462f-b743-e537b15eaf19-009be8a0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262252,8261968	4209
+10217659	4360033c-e8da-462f-b743-e537b15eaf19-009be8bb	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261968,8261958	4209
+10217706	4360033c-e8da-462f-b743-e537b15eaf19-009be8ea	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261958,8261950	4209
+10217920	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9c0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261934,8261924	4209
+10217922	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9c2	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261897,8261924	4209
+10217924	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9c4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261897,8261762	4209
+10217929	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9c9	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261669,8261762	4209
+10217936	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9d0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261669,8261587	4209
+10217943	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9d7	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261503,8261587	4209
+10217948	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9dc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8118212,8118270	4209
+10217950	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9de	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8118270,8261503	4209
+10217956	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9e4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8263345,8262834	4209
+10217957	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9e5	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8263345,8263353	4209
+10217960	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9e8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10197063,8265055	4209
+10217961	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009be9e9	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8265055,8264685	4209
+10218019	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009bea23	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261934,8261942	4209
+10218020	866bba03-2189-4cf1-9108-7c9dbbbbf5a6-009bea24	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8261942,8261950	4209
+10225713	135dcb28-a7cb-4e9f-935b-f3ad0a61502f-009c0831	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	10225703,8805336	572
+10226241	135dcb28-a7cb-4e9f-935b-f3ad0a61502f-009c0a41	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	10226076,8805738	2796
+10463777	0be31786-ae86-47d3-8533-52d058313a97-009faa21	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16371708,10463750	475
+10562223	826ae374-e4e3-48a3-8db3-f26fc976fdfa-00a12aaf	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10562053,10562213	2243
+10786928	f41e8a11-efd3-4d92-a3db-e2c5885df4cc-00a49870	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	3763273,10786026	1913
+10786930	f41e8a11-efd3-4d92-a3db-e2c5885df4cc-00a49872	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4230816,10786026	1913
+10786938	f41e8a11-efd3-4d92-a3db-e2c5885df4cc-00a4987a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10786133,3763440	1913
+10788544	1e015e21-29d1-4374-91ba-12e6c5f4b12c-00a49ec0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10788532,10788538	1913
+10788657	1e015e21-29d1-4374-91ba-12e6c5f4b12c-00a49f31	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10788647,10788653	1913
+10789301	cd2799e3-b899-477c-8aea-5b784a745a05-00a4a1b5	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4231954,10787281	1913
+10789324	cd2799e3-b899-477c-8aea-5b784a745a05-00a4a1cc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10786428,4230400	1913
+10789396	cd2799e3-b899-477c-8aea-5b784a745a05-00a4a214	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4232378,10787195	1913
+10789420	cd2799e3-b899-477c-8aea-5b784a745a05-00a4a22c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4232573,10787184	1913
+10789445	cd2799e3-b899-477c-8aea-5b784a745a05-00a4a245	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10788710,10788704	1913
+10792679	c47a5f44-00ef-4986-a913-ebb386aadca4-00a4aee7	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10792729,13483984	496
+10936218	c4c4f19c-006c-42bd-8d00-f468d8098ba7-00a6df9a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4231746,4231661	1913
+10936221	c4c4f19c-006c-42bd-8d00-f468d8098ba7-00a6df9d	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4231954,10935967	1913
+10936230	c4c4f19c-006c-42bd-8d00-f468d8098ba7-00a6dfa6	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10786428,10786133	1913
+10936254	44d02182-8b81-4e11-807e-b9910c0620da-00a6dfbe	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10787218,4230816	1913
+10936380	44d02182-8b81-4e11-807e-b9910c0620da-00a6e03c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10936357,10935967	1913
+10936381	44d02182-8b81-4e11-807e-b9910c0620da-00a6e03d	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10936365,10935975	1913
+10936382	44d02182-8b81-4e11-807e-b9910c0620da-00a6e03e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10935975,4231661	1913
+10936568	44d02182-8b81-4e11-807e-b9910c0620da-00a6e0f8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16708156,5789938	1913
+10941694	f2706d97-b4b4-417f-ba9a-f617fce742a8-00a6f4fe	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8881848,8881718	2229
+10946329	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a70719	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10137724,10137719	1902
+10946332	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a7071c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4259270,7298126	1913
+10946393	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a70759	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6212005,7298091	1913
+10946417	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a70771	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211931,7298035	1913
+10946421	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a70775	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6211918,6211915	1902
+10946422	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a70776	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7297959,3764188	1913
+10946547	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a707f3	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7432021,13161051	1913
+10946635	631f12d5-164f-404f-9f4f-7b6531f7ff7a-00a7084b	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	13161003,6057313	1913
+10949637	22dc6542-9fbe-40df-833c-3021703ad5c4-00a71405	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16462016,10949625	596
+10949742	22dc6542-9fbe-40df-833c-3021703ad5c4-00a7146e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10949693,7927946	596
+10949744	22dc6542-9fbe-40df-833c-3021703ad5c4-00a71470	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10949693,10949055	596
+10949746	22dc6542-9fbe-40df-833c-3021703ad5c4-00a71472	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6195228,10949716	596
+10949748	22dc6542-9fbe-40df-833c-3021703ad5c4-00a71474	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10949716,10949141	596
+10950722	22dc6542-9fbe-40df-833c-3021703ad5c4-00a71842	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8577253,16272132	506
+10951382	9bfd3e8b-808d-4277-842f-9036f9f8643b-00a71ad6	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16272122,10977864	598
+10951383	9bfd3e8b-808d-4277-842f-9036f9f8643b-00a71ad7	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6195603,16461991	598
+10952020	58960b5f-7581-4c82-83ff-82e0277f962c-00a71d54	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11003617,10977889	598
+10978177	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a78381	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10978149,8495970	598
+10978181	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a78385	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10977864,10978133	598
+10978186	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a7838a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10978108,10977889	598
+10978252	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a783cc	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10978246,11033892	598
+10978277	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a783e5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6195603,10978271	598
+10978291	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a783f3	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10977991,10978285	598
+10978312	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a78408	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10978285,10977856	598
+10978314	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a7840a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10978149,10977856	598
+10978316	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a7840c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10977972,10978271	598
+10978318	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a7840e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10977972,10978133	598
+10978320	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a78410	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10978246,10977950	598
+10978323	10d2faae-f1d5-4f02-907d-d8e03fe850c6-00a78413	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10977950,10978108	598
+10980212	40a1d429-7fcb-4f0d-8e19-7971adc990b5-00a78b74	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	10980188,14158548	3878
+10997717	efde14f0-c9d7-44c2-b567-43df80ddc92b-00a7cfd5	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	9681269,7653739	567
+10997995	efde14f0-c9d7-44c2-b567-43df80ddc92b-00a7d0eb	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5425719,10997983	3845
+10998008	efde14f0-c9d7-44c2-b567-43df80ddc92b-00a7d0f8	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10997983,10997998	3845
+10998087	efde14f0-c9d7-44c2-b567-43df80ddc92b-00a7d147	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10997998,8509586	3845
+10998089	efde14f0-c9d7-44c2-b567-43df80ddc92b-00a7d149	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8509586,8509594	3845
+11000444	2ce81e68-d0d9-437d-bc35-0bb61c2e25f4-00a7da7c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16280309,6195597	596
+11000895	2ce81e68-d0d9-437d-bc35-0bb61c2e25f4-00a7dc3f	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10949011,10949625	596
+11003636	e01f46cf-511d-42a4-a6a5-2a90a5293cc9-00a7e6f4	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11003602,11003617	598
+11033903	4a72f019-67fd-4247-b08a-1f19f3726624-00a85d2f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16461980,11033892	598
+11061950	02e28258-1cc5-40fb-a2dc-f406acccd7f7-00a8cabe	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11061949,5789891	1913
+11062299	02e28258-1cc5-40fb-a2dc-f406acccd7f7-00a8cc1b	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5789891,6894641	1913
+11063048	02e28258-1cc5-40fb-a2dc-f406acccd7f7-00a8cf08	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11062995,11062486	3917
+11063049	02e28258-1cc5-40fb-a2dc-f406acccd7f7-00a8cf09	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11062995,11062419	3917
+11087042	9c07062f-a3b7-471f-bc92-5fcb315c1009-00a92cc2	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11087010,11086867	1957
+11102462	48b80624-9c48-411d-ad99-99e7106ae2ea-00a95d1a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11102460,11003602	598
+11102468	48b80624-9c48-411d-ad99-99e7106ae2ea-00a95d50	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11102463,11102460	598
+11102633	0994cfee-d1f4-4522-9b46-1fc3e0334aa3-00a969a9	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11102463,16272116	598
+11103843	0994cfee-d1f4-4522-9b46-1fc3e0334aa3-00a96e63	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11103837,11104388	3801
+11185087	b3f4082d-57cd-4d1c-9b44-692b4121a473-00aaabbf	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11185041,11184853	602
+11226581	94efd9e4-d480-4349-832d-c2ef7cc26dde-00ab4dd5	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	11226571,11226215	2250
+11293473	472c260c-e6a4-46b1-abc4-d8ccf998a886-00ac52ee	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11293472,11293466	2229
+11961978	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b6867a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11961973,11961977	1913
+11961979	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b6867b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11961974,11961977	1913
+11961983	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b6867f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11961980,11961974	1913
+11962004	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b68694	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4231865,4231807	1914
+11962005	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b68695	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5478802,8010993	1912
+11962008	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b68698	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4230544,4230471	1914
+11962013	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b6869d	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11961975,11961976	1914
+11962039	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b686b7	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4232271,10787430	1914
+11962100	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b686f4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4232569,10787422	1914
+11962123	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b6870b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10787411,4232595	1914
+11962162	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b68732	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8010736,6868670	1912
+11962195	09ffe7c3-0956-4dfd-a51e-b9e436dbf601-00b68753	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4232629,4232627	1914
+11962584	6333bb09-aeeb-4fe1-bd4c-74d691dd8049-00b688d8	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	8033195,7428917	1902
+11962687	866cee43-4ade-4e4c-bead-e99c07295ac5-00b6893f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8033480,6056899	1902
+11962690	866cee43-4ade-4e4c-bead-e99c07295ac5-00b68942	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5986770,6205826	1902
+11962693	866cee43-4ade-4e4c-bead-e99c07295ac5-00b68945	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5985837,5985793	1902
+11967196	ff9e3ab9-2ee6-442f-9cd4-435f67afbe3a-00b69adc	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5985756,5985780	1902
+11967741	831db52d-f219-4386-be77-4f090985e6a7-00b69cfd	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4804693,8773847	2222
+11967745	831db52d-f219-4386-be77-4f090985e6a7-00b69d01	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4804489,8773782	2222
+11967770	831db52d-f219-4386-be77-4f090985e6a7-00b69d1a	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7046306,5990735	1903
+11967839	831db52d-f219-4386-be77-4f090985e6a7-00b69d5f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11967823,6001120	1907
+11967882	831db52d-f219-4386-be77-4f090985e6a7-00b69d8a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5992841,11967866	1907
+11967931	cc25337d-0ad1-469b-bcd0-c155cac2d132-00b69dbb	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6056790,8007749	1902
+11967946	cc25337d-0ad1-469b-bcd0-c155cac2d132-00b69dca	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6056849,8007469	1902
+11967947	cc25337d-0ad1-469b-bcd0-c155cac2d132-00b69dcb	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5993431,8007836	1903
+11967948	cc25337d-0ad1-469b-bcd0-c155cac2d132-00b69dcc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5993331,7098414	1903
+11968124	cc25337d-0ad1-469b-bcd0-c155cac2d132-00b69e7c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742263,7742233	2229
+11968233	59f6d6d0-90a5-4eaa-880f-76336320dbf9-00b69ee9	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7742233,8384355	2229
+11968253	59f6d6d0-90a5-4eaa-880f-76336320dbf9-00b69efd	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	8384355,11968241	2229
+11985154	6ca9231e-4c2b-485b-94aa-543edf215d93-00b6e102	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	11002438,11985142	550
+12018665	d952b416-f930-41cd-8195-59b3882220fd-00b763e9	MC_Ladder Horizontal Kryss	Kabelbrokryss 600x400 mm	LadderCableTrayCross	K5B	0	Integer	11103598,11103469,12018682,11104388	3801
+12019473	4ef03129-f124-4cc3-a599-13e6f13a5cba-00b76711	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12019465	574
+12019482	4ef03129-f124-4cc3-a599-13e6f13a5cba-00b7671a	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12019465,12132749	574
+12082057	53e6bc18-77a5-46d3-af3f-32e6e43558c0-00b85b89	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10639938,10639929	1737
+12082133	53e6bc18-77a5-46d3-af3f-32e6e43558c0-00b85bd5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12082123,11000544	1737
+12082452	53e6bc18-77a5-46d3-af3f-32e6e43558c0-00b85d14	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12082358,12082380	526
+12109533	e4a003e4-c6a3-4cb0-bfb1-3ecfb6dc0515-00b8c6dd	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12109498,8105900	573
+12109854	8c9edef5-cff1-4872-889a-bba35ce266cc-00b8c81e	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	6923181,6923191	4574
+12116710	d2651e5a-7de0-4f52-a8c1-ba855cfe580c-00b8e2e6	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14166385,12116699	569
+12116723	d2651e5a-7de0-4f52-a8c1-ba855cfe580c-00b8e2f3	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7994077,7653664	3846
+12116829	d2651e5a-7de0-4f52-a8c1-ba855cfe580c-00b8e35d	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	11984413,16279698	3844
+12132900	6360c6eb-2e59-4711-b54a-d71b051e16d7-00b92224	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12132749,12132872	574
+12132902	6360c6eb-2e59-4711-b54a-d71b051e16d7-00b92226	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12019221,12132872	574
+12134472	5299161e-e256-4a26-8deb-b0aa6c25f26a-00b92848	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm C4	LadderCableTrayVerticalElbow	K5B	0	Integer	8934763,8973105	1951
+12138135	18ec750b-246c-4ee3-b9cd-eb7450c60373-00b93697	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12138107,12137964	574
+12138763	18ec750b-246c-4ee3-b9cd-eb7450c60373-00b9390b	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12138638,12138757	2795
+12138775	18ec750b-246c-4ee3-b9cd-eb7450c60373-00b93917	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12138766,12138757	2795
+12144333	6847ab2b-0e05-49b4-bbad-40ee64773eb8-00b94ecd	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12144323,8810887	2250
+12151019	0000338a-5328-4b4e-bf64-0a66a7a914ec-00b968eb	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12109652,12109700	572
+12155907	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97c03	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204326,16332459	573
+12155927	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97c17	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6204306,12155915	2794
+12155949	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97c2d	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12155915,6921690	2794
+12155979	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97c4b	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16332461,4403786	2248
+12156155	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97cfb	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6921580,12156115	2794
+12156158	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97cfe	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12156115,4403742	2794
+12156279	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97d77	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6198522,16326863	573
+12156293	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97d85	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6198493,12156287	3918
+12156331	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97dab	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16326865,4404255	573
+12156354	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97dc2	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12156334,6922491	3918
+12156357	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97dc5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12156334,4404268	3918
+12156359	e1cce058-8717-44b0-aa8b-5ece678ba294-00b97dc7	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12156287,6922551	3918
+12170088	e2baea84-14c9-4510-b0d7-69c2af764b22-00b9b368	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12170218,7504600	1912
+12170279	e2baea84-14c9-4510-b0d7-69c2af764b22-00b9b427	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12170273,12170218	1912
+12170430	e2baea84-14c9-4510-b0d7-69c2af764b22-00b9b4be	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12170424,7102019	1912
+12170440	e2baea84-14c9-4510-b0d7-69c2af764b22-00b9b4c8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12170432,12170424	1912
+12197878	43e14771-6a6c-4fbb-af27-3468758136dc-00ba1ff6	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12197866,8496259	505
+12197904	43e14771-6a6c-4fbb-af27-3468758136dc-00ba2010	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12198235,12197866	505
+12198775	43e14771-6a6c-4fbb-af27-3468758136dc-00ba2377	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16287205,12084043	505
+12200097	43e14771-6a6c-4fbb-af27-3468758136dc-00ba28a1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12199358,12199836	505
+12202034	e798bea2-8082-4491-b2ca-647dd0b8711c-00ba3032	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12201889,12202159	505
+12205632	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba3e40	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12205973,12205163	2238
+12206157	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba404d	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12205264,12206149	2238
+12206168	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba4058	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12206149,12206160	2238
+12206265	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba40b9	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12206160,12206418	2238
+12206419	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba4153	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12206299,12206292	2238
+12207403	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba452b	MC_Ladder Vertical Outside Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12207395,12207272	4111
+12207413	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba4535	MC_Ladder Vertical Inside Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12207395,12207406	4111
+12207779	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba46a3	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12205700,12207773	4111
+12207863	731562a9-e9cd-4a76-8987-2e3a843249fc-00ba46f7	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12207782,12207773	4111
+12207947	a66d3199-cb84-491e-af8d-5ed02af8e25e-00ba474b	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12207782,12207941	4111
+12522983	d19364a3-d6c8-4c37-9fb9-175196323fb9-00bf15e7	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11103469,11103439	3801
+12522986	d19364a3-d6c8-4c37-9fb9-175196323fb9-00bf15ea	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10970563,12018682	3801
+12523384	d19364a3-d6c8-4c37-9fb9-175196323fb9-00bf1778	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	11105414,12523370	3848
+12523584	c28170fc-9e75-499b-af27-f005e0564e85-00bf1840	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9362859,12523568	527
+12523720	c28170fc-9e75-499b-af27-f005e0564e85-00bf18c8	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12523708,9362926	527
+12523985	c28170fc-9e75-499b-af27-f005e0564e85-00bf19d1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9362948,12523970	527
+12525000	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1bbe	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12207487,11857803	4111
+12525001	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1beb	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8549790,12205440	2238
+12525003	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1cc6	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12217349,11858720	2958
+12525007	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1db4	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	14804279,12217437	2958
+12525012	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1dd4	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12525009,11858864	2958
+12525391	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1f4f	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11858611,13332523	2958
+12525530	9ca582bf-2f67-45dc-82d2-2df7279e81ea-00bf1fda	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12215327,14803879	2958
+12693041	a904cf37-ecc7-49c6-971e-4c8c8db93d11-00c1ae31	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7428917,7428980	1902
+12694074	a904cf37-ecc7-49c6-971e-4c8c8db93d11-00c1b23a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7431874,7431891	1902
+12694132	a904cf37-ecc7-49c6-971e-4c8c8db93d11-00c1b274	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7431869,7431874	1902
+12694135	a904cf37-ecc7-49c6-971e-4c8c8db93d11-00c1b277	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431128,7431869	1902
+12697296	2eb9ee79-62e6-4cf3-961a-cbd62edfded6-00c1bed0	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7431470,7431498	1902
+12697299	2eb9ee79-62e6-4cf3-961a-cbd62edfded6-00c1bed3	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7796869,6056520	1902
+12697626	2eb9ee79-62e6-4cf3-961a-cbd62edfded6-00c1c01a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12697614,7431134	1902
+12697666	2eb9ee79-62e6-4cf3-961a-cbd62edfded6-00c1c042	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12697614,12697630	1902
+12697976	165cf267-0cb2-48bb-8384-f159f109666f-00c1c178	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16669975,6863643	1905
+12698060	de2e7d3d-e230-4dde-a00e-d03623294999-00c1c1cc	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16669950,6863781	1905
+12700315	e96e9cb6-a5d6-444c-8eb5-d8a92129f78c-00c1ca9b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12700014,12699078	1905
+12700392	e96e9cb6-a5d6-444c-8eb5-d8a92129f78c-00c1cae8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6002870,12698766	1905
+12700406	e96e9cb6-a5d6-444c-8eb5-d8a92129f78c-00c1caf6	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7477074,12698766	1905
+12700408	e96e9cb6-a5d6-444c-8eb5-d8a92129f78c-00c1caf8	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12699078,12699077	1905
+12700501	f0601d86-0ad0-4a12-83c1-29f8457fd316-00c1cb55	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12700490,7477029	1905
+12705673	68f83310-a6ca-42c5-84c6-06291285f361-00c1df89	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5148093,5150022	1905
+12705801	68f83310-a6ca-42c5-84c6-06291285f361-00c1e009	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5150022,12705725	1905
+12706110	6b1b8802-4724-419b-8e41-c7d6611dcaa5-00c1e13e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12706098,16252628	1903
+12706700	b9429ba8-d259-4ddd-bced-55a7e16993f9-00c1e38c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12706392,12706682	1905
+12707203	0c1955e9-894f-4a00-87ab-fd24c35a629e-00c1e583	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12707144,7414063	1905
+12707262	0c1955e9-894f-4a00-87ab-fd24c35a629e-00c1e5be	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12707097,12707219	1905
+12707432	0c1955e9-894f-4a00-87ab-fd24c35a629e-00c1e668	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12706968,12707219	1905
+12707480	0c1955e9-894f-4a00-87ab-fd24c35a629e-00c1e698	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12707447,12706968	1905
+12712557	f74f3593-1328-476d-aacb-69784e05524c-00c1fa6d	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	16249055,12712545	1914
+12712710	f74f3593-1328-476d-aacb-69784e05524c-00c1fb06	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12712702,12712545	1914
+12720180	2531e07b-1a8d-46b4-a993-7905ac88b500-00c21834	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7413273,8004055	1905
+12720183	2531e07b-1a8d-46b4-a993-7905ac88b500-00c21837	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8004055,12707144	1905
+12758726	8841327a-d598-4e9d-a503-1f72e2f34b81-00c2aec6	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12706392,12705945	1905
+12768715	58d815c5-a123-431b-a173-b29768de5ad0-00c2d5cb	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5480743,5478565	1912
+12768745	58d815c5-a123-431b-a173-b29768de5ad0-00c2d5e9	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5480743,12768733	1912
+12778148	2cb13427-448b-42c7-910b-509b8dc70589-00c2faa4	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12778136,6922319	2795
+12779540	4a96b117-3ff2-41e8-b0e8-98af191461ff-00c30014	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6922319,16326873	2795
+12782454	3a927da6-68d6-46e3-b38d-cfd5fd3d39ec-00c30b76	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12782333,12782442	3850
+12782468	3a927da6-68d6-46e3-b38d-cfd5fd3d39ec-00c30b84	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12782458,12782442	3850
+12887642	0cfcae14-67cb-4f04-ba88-a81b1d40cd8b-00c4a65a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12887628	598
+12887643	0cfcae14-67cb-4f04-ba88-a81b1d40cd8b-00c4a65b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	12887486,12887628	598
+12901998	ee6c7c5b-b62d-44be-9817-bd4003d0fe2f-00c4de6e	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12520804,12901918	505
+12942060	4eb7c955-2252-4b85-9702-5a9f2095784e-00c57aec	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12214314,12941998	2958
+12942088	4eb7c955-2252-4b85-9702-5a9f2095784e-00c57b08	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12942063,12214314	2958
+13118979	e2beb6be-24a2-401b-b6e9-3070f43c56aa-00c81f84	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13118974,16318216	1901
+13151439	be134fd8-f0ac-4163-bf15-0b967e78008f-00c8accf	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12199035,12520561	505
+13151489	be134fd8-f0ac-4163-bf15-0b967e78008f-00c8ad01	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12084098,12084043	505
+13151802	be134fd8-f0ac-4163-bf15-0b967e78008f-00c8ae3a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13151786,12520174	505
+13161298	40a3d87c-6a53-4daf-8d6b-4e97a8ae9649-00c8d352	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13161279,5171493	1913
+13161301	40a3d87c-6a53-4daf-8d6b-4e97a8ae9649-00c8d355	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13161279,13161003	1913
+13161303	40a3d87c-6a53-4daf-8d6b-4e97a8ae9649-00c8d357	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13161258,7432020	1913
+13161305	40a3d87c-6a53-4daf-8d6b-4e97a8ae9649-00c8d359	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13161051,13161258	1913
+13175922	ec4c78c8-8c22-4fcb-a465-b66c109dac97-00c90c72	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	11968241,13175911	2229
+13178843	b372ee1d-2d79-4449-9bcb-3a01380dd69e-00c917db	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10426523,6119096	487
+13198513	e3e99dcf-7444-4912-95f6-a679e7a643dd-00c964b1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13236915,7903812	495
+13213234	1e6be5fd-526a-4848-8f9d-0a45bc834924-00c99e32	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7485260,7485461	1903
+13213236	1e6be5fd-526a-4848-8f9d-0a45bc834924-00c99e34	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7431117,7485260	1903
+13213824	1e6be5fd-526a-4848-8f9d-0a45bc834924-00c9a080	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7485037,7413616	1903
+13213826	1e6be5fd-526a-4848-8f9d-0a45bc834924-00c9a082	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	7485161,7485037	1903
+13223077	2f4e4fca-b057-4c76-9ab3-5bfd4abe48b4-00c9c4a5	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8484674,12698537	1901
+13223098	2f4e4fca-b057-4c76-9ab3-5bfd4abe48b4-00c9c4ba	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	13223100,8484674	1901
+13223145	2f4e4fca-b057-4c76-9ab3-5bfd4abe48b4-00c9c4e9	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	13223100,8484987	1901
+13231613	646c3d5b-abc0-4e47-b262-fcb6a9f29ad4-00c9e5fd	Kabelbane horisontal bend	Kabelbane	ChannelCableTrayElbow	K5B	0	Integer	13231605,13231592	564
+13236981	cdc76089-6454-48ee-9be0-2c1dd0f4fd57-00c9faf5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13236945,13236903	495
+13332671	0ae844c2-aee4-4d17-a56c-c37b18395f70-00cb70bf	M_Ladder Horizontal Bend	Kabelbrobend 800 mm	LadderCableTrayElbow	K5B	0	Integer	13332659,12217245	2958
+13405613	10b02783-8d1a-4143-aeb1-15d6a91f669d-00cc8a18	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10463750,8429949	475
+13405624	10b02783-8d1a-4143-aeb1-15d6a91f669d-00cc8bf5	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7603303,7603348	3833
+13405625	10b02783-8d1a-4143-aeb1-15d6a91f669d-00cc8bfc	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7603348,12136351	3833
+13407966	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc96de	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13407969,5937916	475
+13408003	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9703	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13407993,13407969	475
+13408168	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc97a8	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408162,13408027	475
+13408192	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc97c0	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408162,13408186	475
+13408467	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc98d3	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408461,13408378	2612
+13408540	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc991c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408389,13408534	2612
+13408603	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc995b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16284842,13408471	2612
+13408609	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9961	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408461,13408471	2612
+13408653	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc998d	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13408543,5831577	2612
+13408664	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9998	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408534,13408543	2612
+13408785	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9a11	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408779,16371236	2612
+13408792	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9a18	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408788,13408779	2612
+13408823	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9a37	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408817,16371286	2612
+13408831	8c4243c7-2841-46af-a364-7f0d1f3d0cdc-00cc9a3f	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13408827,13408817	2612
+13417459	bbd6853e-a561-4547-9dbe-6b18c5583af8-00ccba76	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13417458,12913948	1901
+13417461	bbd6853e-a561-4547-9dbe-6b18c5583af8-00ccba93	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13417458,13417460	1901
+13417463	bbd6853e-a561-4547-9dbe-6b18c5583af8-00ccbaa4	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13417462,13417460	1901
+13493110	b131940d-8bfc-4b41-ba03-092034b3fb98-00cde376	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9185827,9185417	565
+13493135	b131940d-8bfc-4b41-ba03-092034b3fb98-00cde38f	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13493138,9185417	565
+13493605	91ab0dff-546f-45bb-ab78-28501ebaf6ae-00cde481	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16280362,11000809	596
+13493679	91ab0dff-546f-45bb-ab78-28501ebaf6ae-00cde5af	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13493671,13493624	3843
+13493691	91ab0dff-546f-45bb-ab78-28501ebaf6ae-00cde5bb	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13493671,10197658	3843
+13561262	a5f15d47-795d-4b88-9fb9-2c6d1cd62a76-00ceedae	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13561250,13561153	1737
+13561290	a5f15d47-795d-4b88-9fb9-2c6d1cd62a76-00ceedca	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13561265,13561250	1737
+13561465	a5f15d47-795d-4b88-9fb9-2c6d1cd62a76-00ceee79	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13561399,8573486	1737
+13561468	a5f15d47-795d-4b88-9fb9-2c6d1cd62a76-00ceee7c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13561399,13561141	1737
+13564129	934cc9aa-507a-4ade-8f1a-efb82de02b2f-00cef666	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13564127,13564128	562
+13567429	85b8a489-990f-478c-b5ea-b7ed87c1bb0e-00cefe7d	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13567428,13567427	562
+13567439	85b8a489-990f-478c-b5ea-b7ed87c1bb0e-00cefe9f	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13567438,13567437	562
+13567801	2036e3ef-7c7c-4147-a70c-f897a4d0305e-00cf06a5	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13567800,13567798	4574
+13830936	1eee8791-4e7a-4988-b5f8-d82a4d1aec73-00d30b18	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13830928,13830716	525
+13830995	1eee8791-4e7a-4988-b5f8-d82a4d1aec73-00d30b53	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13830928,10639460	525
+13858408	00c7cc28-f86f-4cb8-90d1-b28808763be9-00d37668	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7007842,7007943	3850
+13858926	6a687ee6-6f95-4413-86ab-862484c36630-00d3786e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7913752,12144135	2250
+13858945	6a687ee6-6f95-4413-86ab-862484c36630-00d37881	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7913797,12144222	2250
+13859850	d9bb2714-f01a-4de7-9c0d-7a3f50f05cc0-00d37c0a	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12207592,12207563	4111
+13937901	22ca5d07-2e12-4e20-aa9d-f9b784fa562f-00d4aced	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7297424,7300714	2236
+13937922	22ca5d07-2e12-4e20-aa9d-f9b784fa562f-00d4ad02	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7299741,7300942	2236
+13937941	22ca5d07-2e12-4e20-aa9d-f9b784fa562f-00d4ad15	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7299665,7301086	2236
+13938020	22ca5d07-2e12-4e20-aa9d-f9b784fa562f-00d4ad64	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7310667,7310668	2237
+13938039	22ca5d07-2e12-4e20-aa9d-f9b784fa562f-00d4ad77	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7301632,7299915	2237
+13938058	22ca5d07-2e12-4e20-aa9d-f9b784fa562f-00d4ad8a	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7310955,7310954	2237
+13942357	10f4549a-1675-4661-be1e-d826415a227b-00d4b864	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	6204287,13942356	573
+13942358	10f4549a-1675-4661-be1e-d826415a227b-00d4b87a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4901562,13942356	573
+13942362	10f4549a-1675-4661-be1e-d826415a227b-00d4b9c0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13942361,4900964	2248
+13942363	10f4549a-1675-4661-be1e-d826415a227b-00d4b9c7	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13942365,13942361	2248
+13942366	10f4549a-1675-4661-be1e-d826415a227b-00d4ba2a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13942364,4403786	2248
+13942368	10f4549a-1675-4661-be1e-d826415a227b-00d4ba38	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	15897809,13942365,6249046,13942364	2248
+13942370	10f4549a-1675-4661-be1e-d826415a227b-00d4ba4e	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	4334729,6249046	2248
+14133478	26514797-9fee-4aae-999a-58deb87a54cb-00d7a8e6	MC_Ladder Horizontal Kryss	Kabelbrokryss 300x300 mm	LadderCableTrayCross	K5B	0	Integer	14133422,14133432,6923537,14133299	574
+14168209	c1a369b5-1ef6-405b-88ab-5aa5eac1a918-00d83091	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14168198,10373600	508
+14168224	c1a369b5-1ef6-405b-88ab-5aa5eac1a918-00d830a0	N_Kabelstige Horisontal Kryss	Kabelbrokryss 600x600 mm	LadderCableTrayCross	K5B	0	Integer	14168255,14168198,14168203,5801445	508
+14168279	c1a369b5-1ef6-405b-88ab-5aa5eac1a918-00d830d7	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14168255,14126091	508
+14208451	cc7e4edc-fce8-4dae-9cf0-74b9496d0599-00d8cdc3	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12520297,13151665	505
+14208543	cc7e4edc-fce8-4dae-9cf0-74b9496d0599-00d8ce1f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13151659,13151665	505
+14208544	cc7e4edc-fce8-4dae-9cf0-74b9496d0599-00d8ce20	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12520174,13151659	505
+14226932	c6cb6d46-7f7d-4ab0-861f-831a3b566509-00d915f4	M_Ladder Horizontal Bend	Kabelbrobend 200 mm	LadderCableTrayElbow	K5B	0	Integer	16105293,14226919	3848
+14238197	60812d4a-8cb2-438d-b4f3-ee79778d23e7-00d941f5	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14238157,14238028	3918
+14238702	60812d4a-8cb2-438d-b4f3-ee79778d23e7-00d943ee	M_Ladder Horizontal Bend	Kabelbrobend 200 mm	LadderCableTrayElbow	K5B	0	Integer	14238690,15898380	2796
+14238984	60812d4a-8cb2-438d-b4f3-ee79778d23e7-00d94508	M_Ladder Horizontal Bend	Kabelbrobend 200 mm	LadderCableTrayElbow	K5B	0	Integer	14238978,14238460	2796
+14239670	60812d4a-8cb2-438d-b4f3-ee79778d23e7-00d947b6	M_Ladder Horizontal Bend	Kabelbrobend 200 mm	LadderCableTrayElbow	K5B	0	Integer	14239397,14239662	2248
+14295305	d9abc015-e2ad-413e-90cc-4e5ba178f306-00da2109	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7189038,14295287	4209
+14295307	d9abc015-e2ad-413e-90cc-4e5ba178f306-00da210b	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	14295287,14295088	4209
+14323136	368ee037-b7ee-45f4-9dad-621c553a0cc7-00da8dc0	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	14323124,11068291	3917
+14323152	368ee037-b7ee-45f4-9dad-621c553a0cc7-00da8dd0	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	16365502,14323124	3917
+14438390	81a96303-d90f-4d5f-b0e8-7ec815637eec-00dc4ff6	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12213649,12213630	4437
+14438605	81a96303-d90f-4d5f-b0e8-7ec815637eec-00dc50cd	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14438420,12213299	2958
+14438606	81a96303-d90f-4d5f-b0e8-7ec815637eec-00dc50ce	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12941998,12213299	2958
+14438746	81a96303-d90f-4d5f-b0e8-7ec815637eec-00dc515a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14438410,14438420	2958
+14487477	1245f26a-f885-4a8e-948e-4093cd6ca98a-00dd0fb5	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	14487428,14487475	1905
+14487704	1245f26a-f885-4a8e-948e-4093cd6ca98a-00dd1098	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14487692,14487428	1905
+14487710	1245f26a-f885-4a8e-948e-4093cd6ca98a-00dd109e	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14487692,14487658	1905
+14498232	1379108d-c986-4b91-b055-30bfe0244447-00dd39b8	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14497732,14498394	1902
+14498234	1379108d-c986-4b91-b055-30bfe0244447-00dd39ba	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14497070,14497732	1902
+14498236	1379108d-c986-4b91-b055-30bfe0244447-00dd39bc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14497070,14497518	1902
+14498237	1379108d-c986-4b91-b055-30bfe0244447-00dd39bd	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498143,14497964	1902
+14498241	1379108d-c986-4b91-b055-30bfe0244447-00dd39c1	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498142,14498143	1902
+14498243	1379108d-c986-4b91-b055-30bfe0244447-00dd39c3	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498144,14498142	1902
+14498249	1379108d-c986-4b91-b055-30bfe0244447-00dd39c9	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499092,14498156	1902
+14498251	1379108d-c986-4b91-b055-30bfe0244447-00dd39cb	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498154,14498156	1902
+14498252	1379108d-c986-4b91-b055-30bfe0244447-00dd39cc	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14497999,14498155	1902
+14498253	1379108d-c986-4b91-b055-30bfe0244447-00dd39cd	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498154,14498155	1902
+14499158	1379108d-c986-4b91-b055-30bfe0244447-00dd3d56	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16318228,14498746	1902
+14499160	1379108d-c986-4b91-b055-30bfe0244447-00dd3d58	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498746,14498335	1902
+14499161	1379108d-c986-4b91-b055-30bfe0244447-00dd3d59	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498394,14498617	1902
+14499162	1379108d-c986-4b91-b055-30bfe0244447-00dd3d5a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14498335,14498617	1902
+14499164	1379108d-c986-4b91-b055-30bfe0244447-00dd3d5c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499054,14498144	1902
+14499167	1379108d-c986-4b91-b055-30bfe0244447-00dd3d5f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499054,14499128	1902
+14499169	1379108d-c986-4b91-b055-30bfe0244447-00dd3d61	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499127,14499128	1902
+14499170	1379108d-c986-4b91-b055-30bfe0244447-00dd3d62	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16318263,14499129	1902
+14499171	1379108d-c986-4b91-b055-30bfe0244447-00dd3d63	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499127,14499129	1902
+14499176	1379108d-c986-4b91-b055-30bfe0244447-00dd3d68	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499139,16318298	1902
+14499178	1379108d-c986-4b91-b055-30bfe0244447-00dd3d6a	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499137,14499139	1902
+14499179	1379108d-c986-4b91-b055-30bfe0244447-00dd3d6b	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499138,14499092	1902
+14499180	1379108d-c986-4b91-b055-30bfe0244447-00dd3d6c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14499138,14499137	1902
+14500317	dff3f30b-f3c9-4484-9b2a-55d29f6ef72b-00dd41dd	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	14500316,16279876	3844
+14586731	f3300188-d449-49f4-960a-a2b566b2b8b7-00de936b	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16669895,6863858	1905
+14586734	f3300188-d449-49f4-960a-a2b566b2b8b7-00de936e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	14497177,14497518	1902
+14589276	29cd5b23-75d1-49a7-841d-723bd5eec2ef-00de9d5c	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7069468,7069431	574
+14791799	63bd9156-cd31-4bf9-a538-a52002c47834-00e1ae65	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262810,8262818	4209
+14791803	63bd9156-cd31-4bf9-a538-a52002c47834-00e1af31	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13010530,8262810	4209
+14791806	63bd9156-cd31-4bf9-a538-a52002c47834-00e1af8e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8263212,13010530	4209
+14791809	63bd9156-cd31-4bf9-a538-a52002c47834-00e1affa	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	13010643,8263212	4209
+14791812	63bd9156-cd31-4bf9-a538-a52002c47834-00e1b046	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10217219,13010643	4209
+14791815	63bd9156-cd31-4bf9-a538-a52002c47834-00e1b09f	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262286,10217219	4209
+14792142	ddb16c17-7922-4873-9a16-bfa48b12a6c3-00e1b4de	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10217348,8262286	4209
+14792143	ddb16c17-7922-4873-9a16-bfa48b12a6c3-00e1b505	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	8262268,8262278	4209
+14792144	ddb16c17-7922-4873-9a16-bfa48b12a6c3-00e1b506	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10217348,8262278	4209
+14804276	c805d5cd-486c-432a-b2f4-90a52724c912-00e1e534	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14804264,12215334	2958
+14804293	c805d5cd-486c-432a-b2f4-90a52724c912-00e1e545	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14804264,14804279	2958
+14804479	c805d5cd-486c-432a-b2f4-90a52724c912-00e1e5ff	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14804456,12217375	2958
+14804481	c805d5cd-486c-432a-b2f4-90a52724c912-00e1e601	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14803879,14804456	2958
+14804859	1fab061a-53ce-495a-ba10-f6b1c38bbb1c-00e1e77b	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14804853,14133432	574
+14859382	18d4c6f3-59f1-435f-a933-c1d76dcff020-00e2bc76	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14804853,14804862	574
+14859600	18d4c6f3-59f1-435f-a933-c1d76dcff020-00e2bd50	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12137972,12138107	574
+14863078	231c8dd3-55d3-4628-9714-3e5cba0d31e8-00e2cae6	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5090754,14837885	574
+14885907	30c3e2e0-7b82-42bb-ba87-28d08b52ea89-00e32413	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12942063,12214339	2958
+14994034	36e0894a-0332-4950-b108-3211e6c121ee-00e4ca72	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	11881252,11881329	567
+15097706	f13071fd-e1cb-4586-8580-80adbb1594d9-00e65f6a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15097600,9443824	506
+15504735	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec952c	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7046583,16670687	1903
+15504736	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec9547	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8008478,15504738	1907
+15504740	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec955b	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15504738,15504739	1907
+15504859	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec95db	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15504862,15504739	1907
+15504878	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec95ee	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15504874,15504862	1907
+15504889	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec95f9	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15504881,15504874	1907
+15504977	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec9651	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15504881,15504909	1907
+15505120	f0b6d94a-c3af-46b9-916e-d4d6060468c3-00ec96e0	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4219378,15505095	2229
+15551448	7f7f9dee-2b22-42da-8b1b-28907c97d48f-00ed4bd8	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	8099457,15551329	2250
+15555793	b1483a8c-2b61-47fa-9c00-c5aada378395-00ed5cd1	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	8421921,15555781	2250
+15555825	b1483a8c-2b61-47fa-9c00-c5aada378395-00ed5cf1	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15555821,15555781	2250
+15555964	b1483a8c-2b61-47fa-9c00-c5aada378395-00ed5d7c	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15555821,15555958	2250
+15555971	b1483a8c-2b61-47fa-9c00-c5aada378395-00ed5d83	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15555958,15555965	2250
+15557750	5d7b94f2-25c9-4f34-903a-30d636dc252a-00ed60d2	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6922705,12109700	572
+15557751	5d7b94f2-25c9-4f34-903a-30d636dc252a-00ed60e3	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7652880,12109652	572
+15557754	5d7b94f2-25c9-4f34-903a-30d636dc252a-00ed617f	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	6922705,15557753	572
+15557756	5d7b94f2-25c9-4f34-903a-30d636dc252a-00ed618a	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15557755,15557753	572
+15611854	8715d0d4-615f-4646-89e0-89ffb0da7158-00ee37ce	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8810795,8810763	3918
+15632465	f38c57a4-cc0d-4574-930f-dccfac9b9e2f-00ee8851	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15632462,15632463	574
+15632468	f38c57a4-cc0d-4574-930f-dccfac9b9e2f-00ee8854	MC_Ladder Vertical Inside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15632463,15632464	574
+15632472	f38c57a4-cc0d-4574-930f-dccfac9b9e2f-00ee8858	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7189738,15632462	574
+15632475	f38c57a4-cc0d-4574-930f-dccfac9b9e2f-00ee885b	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15632471,15632464	574
+15659097	77828c83-917e-4d2d-bae5-8949c41d874f-00eef059	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15526020,15658880	2789
+15659099	77828c83-917e-4d2d-bae5-8949c41d874f-00eef05b	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15525983	2238
+15659100	77828c83-917e-4d2d-bae5-8949c41d874f-00eef05c	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15525120,15658880	2789
+15659410	77828c83-917e-4d2d-bae5-8949c41d874f-00eef192	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	15659432,15659329	2238
+15659485	77828c83-917e-4d2d-bae5-8949c41d874f-00eef1dd	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12205626,15659432	2238
+15659508	77828c83-917e-4d2d-bae5-8949c41d874f-00eef1f4	M_Ladder Horizontal Bend	Kabelbrobend 400 mm	LadderCableTrayElbow	K5B	0	Integer	12205626,15525983	2238
+15929162	eef38fe9-964c-4e45-b027-2fc6bf40d425-00f30f4a	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	15929149,15929155	474
+16105311	240cab92-b338-4421-8e7b-cbc312086b0e-00f5bec8	M_Ladder Horizontal Bend	Kabelbrobend 200 mm	LadderCableTrayElbow	K5B	0	Integer	16105310,11105611	3848
+16108142	9359eeb8-0b7a-4085-8988-b03fe5ab257a-00f5ca6e	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16108144,11105205	3848
+16108163	9359eeb8-0b7a-4085-8988-b03fe5ab257a-00f5ca83	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	16108144,16108170	3848
+16175588	9920e9f6-5d52-45a1-920e-5bd92a7ae11c-00f6d1e4	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7183504,7183498	3407
+16175590	9920e9f6-5d52-45a1-920e-5bd92a7ae11c-00f6d1e6	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7183941,7183504	3407
+16260939	c7231026-4d73-43a6-839c-281b62b02894-00f81f4b	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13493138,13493144	565
+16261038	c7231026-4d73-43a6-839c-281b62b02894-00f81fae	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9185827,13197568	565
+16281772	ce1980d2-d4d0-4b2f-a31c-bddcfa1b8223-00f870ac	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7903812,7903842	495
+16282469	ce1980d2-d4d0-4b2f-a31c-bddcfa1b8223-00f87365	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	9440589,13497935	488
+16282552	ce1980d2-d4d0-4b2f-a31c-bddcfa1b8223-00f873b8	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13497935,13608171	488
+16282810	0a42a0b4-8126-417b-a2d3-397faf675d52-00f874ba	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7457805,11032255	474
+16313038	d3081967-0903-4e78-8a9d-03bcdd504bd6-00f8aae7	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	14837885,12019351	574
+16371780	9e0a0b5c-1855-4f70-b0ca-5278bef1b5f2-00f9d044	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8271932,11087010	1957
+16392268	77818c85-9aa0-4ed7-a980-6cd87ae9d917-00fa204c	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	7457826,7457819	471
+16505326	a46b2e90-f8fe-4d80-bc8b-823db481eeb2-00fbd9ee	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	12188825,16505318	4209
+16505352	a46b2e90-f8fe-4d80-bc8b-823db481eeb2-00fbda08	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	7651427,16505328	4209
+16505354	a46b2e90-f8fe-4d80-bc8b-823db481eeb2-00fbda0a	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	16505328,16505318	4209
+16668607	11444c3c-f1fc-4dfc-9885-0c97ab226b5e-00fe57bf	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7347430,10221130	1912
+16668641	11444c3c-f1fc-4dfc-9885-0c97ab226b5e-00fe57e1	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	7347072,8002868	1912
+16668709	11444c3c-f1fc-4dfc-9885-0c97ab226b5e-00fe5825	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	13118974,12698417	1901
+16675639	8413093d-caba-4294-9e15-340d6122dc5b-00fe7337	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	10805366,16675627	3827
+16676004	8413093d-caba-4294-9e15-340d6122dc5b-00fe74a4	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16675643,16675796	3827
+16676006	8413093d-caba-4294-9e15-340d6122dc5b-00fe74a6	MC_Ladder Vertical Outside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16675643,16675627	3827
+16676043	8413093d-caba-4294-9e15-340d6122dc5b-00fe74cb	MC_Ladder Vertical Inside Bend	Kabelbrobend 400 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	16675796,10805352	3827
+16683440	2876c613-6b51-4635-9b0f-3af48d054463-00fe91b0	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12821838,12819501	0
+16683442	2876c613-6b51-4635-9b0f-3af48d054463-00fe91b2	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12818947,12821793	0
+16706861	efb2b910-d4a4-4b33-93b7-72009ff04ee9-00feed2d	N_Kabelstige Horisontal Kryss	CR1004T	LadderCableTrayCross	K5B	0	Integer	13830915,16706855,13830716,16674368	525
+16707932	d1f6d902-c07f-4d6a-9e5f-0ca7c3eb560f-00fef15c	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12820978,12821060	0
+16707974	d1f6d902-c07f-4d6a-9e5f-0ca7c3eb560f-00fef186	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12820972,12820978	0
+16707976	d1f6d902-c07f-4d6a-9e5f-0ca7c3eb560f-00fef188	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12821145,12821009	0
+16708016	d1f6d902-c07f-4d6a-9e5f-0ca7c3eb560f-00fef1b0	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12821060,12821478	0
+16708019	d1f6d902-c07f-4d6a-9e5f-0ca7c3eb560f-00fef1b3	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12821149,12821361	0
+16708020	d1f6d902-c07f-4d6a-9e5f-0ca7c3eb560f-00fef1b4	Strømskinne Horizontal Bend rett	Strømskinne bend	ChannelCableTrayElbow	K5B	0	Integer	12821145,12821149	0
+17759915	854c8c96-260a-43dc-8c23-f15a572f0c6e-010efeab	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	5982343,5982366	1902
+17759972	854c8c96-260a-43dc-8c23-f15a572f0c6e-010efee4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	5982343,10137727	1902
+17760069	854c8c96-260a-43dc-8c23-f15a572f0c6e-010eff45	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	10137722,10137727	1902
+17760180	854c8c96-260a-43dc-8c23-f15a572f0c6e-010effb4	M_Ladder Horizontal Bend	Kabelbrobend 600 mm	LadderCableTrayElbow	K5B	0	Integer	4231172,4230870	1914
+17760712	854c8c96-260a-43dc-8c23-f15a572f0c6e-010f01c8	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	6923386,7570426	573
+17760721	854c8c96-260a-43dc-8c23-f15a572f0c6e-010f01d1	MC_Ladder Vertical Outside Bend	Kabelbrobend 300 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	8105900,6923386	573
+17762784	7ec117f3-8afa-460f-9388-e660fb691251-010f09e0	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	17762352,17762614	2238
+17762785	7ec117f3-8afa-460f-9388-e660fb691251-010f09e1	M_Ladder Horizontal Bend	Kabelbrobend 300 mm	LadderCableTrayElbow	K5B	0	Integer	17762614,17762543	2238
+17772698	1cfe8c59-e127-4764-8286-b597539658b4-010f309a	N_Kabelstige Vertikal Inner Bend	Kabelbrobend 800 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	17772686,16674551	526
+17772717	1cfe8c59-e127-4764-8286-b597539658b4-010f30ad	N_Kabelstige Vertikal Inner Bend	CR0006T	LadderCableTrayVerticalElbow	K5B	0	Integer	17772686,7927487	526
+17880973	8bf14606-dfe6-49e7-b014-85d40955f5d9-0110d78d	N_Kabelstige Vertikal Ytter Bend	Kabelbrobend 600 mm	LadderCableTrayVerticalElbow	K5B	0	Integer	12198455,12198319	505

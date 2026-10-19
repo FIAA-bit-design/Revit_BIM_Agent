@@ -1,0 +1,7 @@
+2026-10-19T09:38:56.2768368+02:00
+Modell=Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Omfang=K5B OST_CableTrayFitting; bare bend/kryss; kilde=direkte tilkoblet rett OST_CableTray i K5B.
+Skriver bare dRofus_RoomID. Romnummer, Romnavn, occurrence-ID, geometri, lagring og synk endres ikke.
+Modus=forhåndsvisning
+Bend/kryss=685; planlagt=677; allerede riktig=0; blokkerte=8; motstridende kilder, eksisterende ID bevart=0
+Rapport=D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS bend kryss RoomID 20261019_093856_276.tsv

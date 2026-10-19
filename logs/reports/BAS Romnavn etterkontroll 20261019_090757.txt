@@ -1,0 +1,17 @@
+Modell: Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Ferskt etteruttrekk: logs\reports\BAS romnavn etterkontroll fersk 20261019_0907.tsv
+Føruttrekk: logs\reports\BAS romnavn berikelse fersk 20261019_0900.tsv
+Verifisert Romnavn utfylt: 930
+Uløste mangler: kabelbroer 16, fittings 735, totalt 751
+Endrede Romnavn på nøyaktig planlagte mål: 930
+Andre avvikende parametere blant 2839 elementer: 0
+Etterkontroll-rader: 1681
+Før/etter occurrence-ID-er bevart for alle mål: Ja
+Modellen lagret/synkronisert: Nei
+Detaljert TSV: logs\reports\BAS Romnavn etterkontroll 20261019_090757.tsv
+Kjøreløgrapport: logs\reports\BAS Romnavn utfylling kjørelogg 20261019_090626_993.txt
+Uløst 1: Conflicting RoomID within documented route: 562 | 564
+Uløst 2: Conflicting RoomID within documented route: 2607 | 3878
+Uløst 1: Conflicting RoomID within documented route: 3850 | 562
+Uløst 12: Representative remains in the unresolved Pending reference
+Uløst 735: No durable documented route membership for fitting; not inferred from connector/nearness

@@ -17,7 +17,7 @@ public sealed class DrofusRouteFieldFill
     private const string Root = @"D:\Revit\Python\Revit_BIM_Agent\logs\reports";
     private const string Prefix = "BAS dRofus strekk utfylling 20261016_1133";
     private static readonly string[] Fields = { "FOB_Merkestreng", "FOB_Sekvensnummer", "FOB_Omraade",
-        "drofus_occurrence_id", "dRofus_RoomID", "dRofus_RoomfunctionNo", "dRofus_Rombetegnelse", "FOB_Leveransepakke" };
+        "drofus_occurrence_id", "dRofus_RoomID", "dRofus_RoomfunctionNo", "Romnavn", "FOB_Leveransepakke" };
 
     public string Run(UIApplication ui, Document? doc, CancellationToken token, bool apply)
     {
@@ -49,23 +49,30 @@ public sealed class DrofusRouteFieldFill
         {
             token.ThrowIfCancellationRequested();
             Element target = elements[row[1]], source = elements[row[3]];
-            int index = Array.IndexOf(Fields, row[4]);
+            // Older plans label this value Rombetegnelse; the Revit target is always Romnavn.
+            string field = string.Equals(row[4], "dRofus_Rombetegnelse", StringComparison.Ordinal)
+                ? "Romnavn"
+                : row[4];
+            int index = Array.IndexOf(Fields, field);
             if (index < 0 || index == 3 || index == 7 || row[1] == row[3]
                 || target.Id.Value.ToString() != row[0] || source.Id.Value.ToString() != row[2]
-                || visible.Contains(target.Id.Value) || !visible.Contains(source.Id.Value)
+                || visible.Contains(target.Id.Value) || (index < 4 && !visible.Contains(source.Id.Value))
                 || Value(target, "drofus_occurrence_id") != row[7] || row[7] != "0"
                 || Value(source, "drofus_occurrence_id") != row[8] || int.Parse(row[8]) <= 0
                 || Value(source, Fields[0]) != row[9] || Value(source, Fields[1]) != row[10]
-                || Value(source, "dRofus_RoomID") != row[11] || Value(source, row[4]) != row[6]
-                || Value(target, row[4]) != (apply ? row[5] : row[6]) || string.IsNullOrWhiteSpace(row[6])
-                || row[6] == "--" || row[6].StartsWith("Error:", StringComparison.Ordinal))
-                throw new InvalidOperationException("Kilde/mål avviker: " + row[0] + " " + row[4]);
+                || Value(source, "dRofus_RoomID") != row[11] || Value(source, field) != row[6]
+                || Value(target, field) != (apply ? row[5] : row[6]) || IsMissingRoomText(row[6])
+                || row[6].StartsWith("Error:", StringComparison.Ordinal))
+                throw new InvalidOperationException("Kilde/mål avviker: " + row[0] + " " + field);
             if (index < 3 && (string.IsNullOrWhiteSpace(row[9]) || string.IsNullOrWhiteSpace(row[10]) || row[10].StartsWith("Error:")))
                 throw new InvalidOperationException("Ingen gyldig dRofus-merkekilde.");
-            if (index >= 4 && (int.Parse(row[11]) <= 0 || Value(source, "dRofus_RoomfunctionNo") is "" or "--"
-                || !(row[5] is "" or "--" || (index == 4 && row[5] == "0"))))
+            if (index >= 4 && (int.Parse(row[11]) <= 0
+                || IsMissingRoomText(Value(source, "dRofus_RoomfunctionNo"))
+                || IsMissingRoomText(Value(source, "Romnavn"))
+                || !RoomIdMatchesOrMissing(Value(target, "dRofus_RoomID"), row[11])
+                || !(IsMissingRoomText(row[5]) || (index == 4 && IsMissingRoomId(row[5])))))
                 throw new InvalidOperationException("Romkilden er ugyldig eller eksisterende målverdi ville bli overskrevet.");
-            if (apply && (Parameter(target, row[4]).IsReadOnly
+            if (apply && (Parameter(target, field).IsReadOnly
                 || (doc.IsWorkshared && WorksharingUtils.GetCheckoutStatus(doc, target.Id) == CheckoutStatus.OwnedByOtherUser)))
                 throw new InvalidOperationException("Skrivebeskyttet/eid mål: " + row[0]);
             expected.Add(row[1] + "|" + (index + 4), row[6]);
@@ -157,6 +164,16 @@ public sealed class DrofusRouteFieldFill
                 Value(element.Document.GetElement(element.GetTypeId()), "dRofus_ItemID") }).ToArray();
     }).ToArray();
     private static string F(double value) => value.ToString("R", CultureInfo.InvariantCulture);
+    private static bool IsMissingRoomText(string value) => string.IsNullOrWhiteSpace(value) || value.Trim() == "--";
+    private static bool IsMissingRoomId(string value) =>
+        string.IsNullOrWhiteSpace(value) || value.Trim() is "--" or "0";
+    private static bool RoomIdMatchesOrMissing(string targetRoomId, string sourceRoomId)
+    {
+        if (IsMissingRoomId(targetRoomId)) return true;
+        return int.TryParse(targetRoomId, NumberStyles.Integer, CultureInfo.InvariantCulture, out int targetId)
+            && int.TryParse(sourceRoomId, NumberStyles.Integer, CultureInfo.InvariantCulture, out int sourceId)
+            && targetId > 0 && targetId == sourceId;
+    }
     private static string Point(XYZ point) => string.Join(",", new[] { point.X, point.Y, point.Z }.Select(F));
     private static Parameter Parameter(Element element, string name)
     {

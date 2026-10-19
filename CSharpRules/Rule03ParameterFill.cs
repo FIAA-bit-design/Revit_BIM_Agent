@@ -834,7 +834,7 @@ namespace CW.Assistant.Generated
                     log.Add(FormatIssue(instance, name, "romrettingen kolliderer med en allerede planlagt skriving"));
                     continue;
                 }
-                writes.Add(new PendingWrite(instance, parameter, MissingMarker, "romkrav for føringsvei eller Infoelement"));
+                writes.Add(new PendingWrite(instance, parameter, MissingMarker, "romkrav for trekkerør eller Infoelement"));
                 roomWrites.Add(new RoomWriteRecord(instance, name, previousValue));
             }
         }
@@ -847,9 +847,9 @@ namespace CW.Assistant.Generated
             {
                 string package = GetRoomContextValue(instance, PackageParameter);
                 string markString = GetRoomContextValue(instance, "FOB_Merkestreng");
-                bool requiresPlaceholder = RequiresRoomPlaceholder(instance);
                 foreach (string name in RoomParameterNames)
                 {
+                    bool requiresPlaceholder = RequiresRoomPlaceholder(instance);
                     checkedValues++;
                     IList<Parameter> parameters = instance.GetParameters(name);
                     string value = string.Join(" | ", parameters.Select(GetRoomParameterValue));
@@ -870,8 +870,8 @@ namespace CW.Assistant.Generated
                     {
                         if (string.Equals(parameters[0].AsString(), MissingMarker, StringComparison.Ordinal)) continue;
                         issue = parameters[0].IsReadOnly
-                            ? "føringsvei eller Infoelement krever nøyaktig '--'; parameteren er skrivebeskyttet"
-                            : "føringsvei eller Infoelement krever nøyaktig '--'";
+                            ? "trekkerør eller Infoelement krever nøyaktig '--'; parameteren er skrivebeskyttet"
+                            : "trekkerør eller Infoelement krever nøyaktig '--'";
                     }
                     else if (!parameters[0].HasValue || string.IsNullOrWhiteSpace(parameters[0].AsString()))
                     {
@@ -903,9 +903,7 @@ namespace CW.Assistant.Generated
 
         private static bool RequiresRoomPlaceholder(Element instance)
         {
-            if (IsCategory(instance, BuiltInCategory.OST_CableTray)
-                || IsCategory(instance, BuiltInCategory.OST_CableTrayFitting)
-                || IsCategory(instance, BuiltInCategory.OST_Conduit)
+            if (IsCategory(instance, BuiltInCategory.OST_Conduit)
                 || IsCategory(instance, BuiltInCategory.OST_ConduitFitting))
             {
                 return true;

@@ -1,0 +1,15 @@
+2026-10-19T09:40:26.6812614+02:00
+Modell=Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Omfang=K5B OST_CableTrayFitting; bare bend/kryss; kilde=direkte tilkoblet rett OST_CableTray i K5B.
+Skriver bare dRofus_RoomID. Romnummer, Romnavn, occurrence-ID, geometri, lagring og synk endres ikke.
+Modus=utføring
+Bend/kryss=685; planlagt=677; allerede riktig=0; blokkerte=8; motstridende kilder, eksisterende ID bevart=0
+Batch 1: mål=100; status=Committed
+Batch 2: mål=100; status=Committed
+Batch 3: mål=100; status=Committed
+Batch 4: mål=100; status=Committed
+Batch 5: mål=100; status=Committed
+Batch 6: mål=100; status=Committed
+Batch 7: mål=77; status=Committed
+Gruppe=Committed
+Rapport=D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS bend kryss RoomID 20261019_094026_681.tsv

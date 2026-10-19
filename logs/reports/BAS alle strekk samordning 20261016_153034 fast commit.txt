@@ -1,0 +1,5 @@
+2026-10-16T15:39:49.0397986+02:00
+Only confirmed route mark/sequence/area; no room, occurrence, geometry, save or sync.
+Revit-managed EDITED_BY is excluded from equality checks; all other parameter values are compared.
+Transaction=Committed
+Group=Committed

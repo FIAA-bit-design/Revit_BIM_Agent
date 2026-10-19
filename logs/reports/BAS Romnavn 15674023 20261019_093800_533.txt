@@ -1,0 +1,6 @@
+2026-10-19T09:38:00.5399114+02:00
+Modell=Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
+Mål=15674023; kilde=15673873/809155; dRofus_RoomID=564; bare Romnavn skrives.
+Modus=forhåndsvisning
+Romnavn før=--; planlagt=ja
+Etterkontroll=Romnavn --; RoomID=564; Romnummer=M3G2.03
