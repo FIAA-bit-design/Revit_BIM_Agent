@@ -214,7 +214,7 @@ namespace CW.Assistant.Generated
                 return new Plan(true, writes, log, registryRows, groups.Count, elements.Count);
             }
 
-            Dictionary<long, string> areaByElement = ResolveAreas(document, elementsById, log);
+            Dictionary<long, string> areaByElement = ResolveAreas(document, elementsById, allowedElementIds, log);
             var scheduled = new HashSet<string>(StringComparer.Ordinal);
             foreach (PlannedWrite write in PlanValues(document, groups, elementsById, assignments, areaByElement, scheduled, log))
             {
@@ -532,7 +532,7 @@ namespace CW.Assistant.Generated
             return candidate;
         }
 
-        private static Dictionary<long, string> ResolveAreas(Document document, Dictionary<long, Element> elements, List<string> log)
+        private static Dictionary<long, string> ResolveAreas(Document document, Dictionary<long, Element> elements, HashSet<long> allowedElementIds, List<string> log)
         {
             var areas = new Dictionary<long, string>();
             IList<Element> spaces = new FilteredElementCollector(document)
@@ -548,16 +548,16 @@ namespace CW.Assistant.Generated
                     continue;
                 }
                 string? resolved = IsConnectorAreaFitting(pair.Value)
-                    ? ResolveAreaFromConnectedTrays(pair.Value, log)
+                    ? ResolveAreaFromConnectedTrays(pair.Value, allowedElementIds, log)
                     : ResolveAreaFromSpace(pair.Value, spaces);
                 if (IsValid(resolved)) areas[pair.Key] = resolved!;
             }
             return areas;
         }
 
-        private static string? ResolveAreaFromConnectedTrays(Element fitting, List<string> log)
+        private static string? ResolveAreaFromConnectedTrays(Element fitting, HashSet<long> allowedElementIds, List<string> log)
         {
-            var values = GetConnectedStraightTrayValues(fitting, AreaName, out string reason);
+            var values = GetConnectedStraightTrayValues(fitting, AreaName, allowedElementIds, out string reason);
             var valid = values.Where(pair => IsValid(pair.Value)).Select(pair => pair.Value).Distinct(StringComparer.Ordinal).ToList();
             if (valid.Count == 1) return valid[0];
             if (valid.Count > 1) log.Add("UAVKLART ElementId " + fitting.Id.Value + ": tilkoblede rettstrekk har motstridende FOB_Omraade.");
@@ -607,7 +607,7 @@ namespace CW.Assistant.Generated
                         continue;
                     }
                     string mark = BuildMark(parts, group.Value);
-                    Parameter? markParameter = GetInstanceParameter(element, MarkName) ?? GetTypeParameter(element, MarkName);
+                    Parameter? markParameter = GetInstanceParameter(element, MarkName);
                     AddWrite(element, markParameter, mark, "FOB_Omraade-FOB_System-FOB_Funksjonskode-sekvens", planned, scheduled, log);
                 }
             }
@@ -678,7 +678,7 @@ namespace CW.Assistant.Generated
             return statuses;
         }
 
-        private static Dictionary<long, string> GetConnectedStraightTrayValues(Element fitting, string parameterName, out string reason)
+        private static Dictionary<long, string> GetConnectedStraightTrayValues(Element fitting, string parameterName, HashSet<long> allowedElementIds, out string reason)
         {
             reason = string.Empty;
             var values = new Dictionary<long, string>();
@@ -689,6 +689,7 @@ namespace CW.Assistant.Generated
                 {
                     Element source = reference.Owner;
                     if (source.Id.Value == fitting.Id.Value || reference.ConnectorType != ConnectorType.End
+                        || !allowedElementIds.Contains(source.Id.Value)
                         || !IsCategory(source, BuiltInCategory.OST_CableTray) || !IsK5BOrUnassigned(source)) continue;
                     if (!connector.IsConnectedTo(reference) || !reference.IsConnectedTo(connector)) continue;
                     if (source.Location is not LocationCurve location || location.Curve is not Line) continue;

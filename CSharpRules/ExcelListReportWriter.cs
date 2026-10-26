@@ -15,12 +15,17 @@ namespace CW.Assistant.Generated
             internal string Name { get; }
             internal string[] Headers { get; }
             internal List<string[]> Rows { get; }
+            internal HashSet<string> HiddenHeaders { get; }
+            internal IReadOnlyDictionary<string, double> ColumnWidths { get; }
 
-            internal WorksheetData(string name, string[] headers, List<string[]> rows)
+            internal WorksheetData(string name, string[] headers, List<string[]> rows, string[]? hiddenHeaders = null,
+                IReadOnlyDictionary<string, double>? columnWidths = null)
             {
                 Name = name;
                 Headers = headers;
                 Rows = rows;
+                HiddenHeaders = new HashSet<string>(hiddenHeaders ?? Array.Empty<string>(), StringComparer.Ordinal);
+                ColumnWidths = columnWidths ?? new Dictionary<string, double>(StringComparer.Ordinal);
             }
         }
 
@@ -29,7 +34,7 @@ namespace CW.Assistant.Generated
             Write(path, new[] { new WorksheetData(sheetName, headers, rows) });
         }
 
-        internal static void Write(string path, IReadOnlyList<WorksheetData> worksheets)
+        internal static void Write(string path, IReadOnlyList<WorksheetData> worksheets, bool overwriteExisting = false)
         {
             if (worksheets.Count == 0) throw new ArgumentException("Rapporten må ha minst ett ark.", nameof(worksheets));
             var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -55,18 +60,26 @@ namespace CW.Assistant.Generated
             {
                 entries["xl/worksheets/sheet" + (index + 1).ToString(CultureInfo.InvariantCulture) + ".xml"] = BuildWorksheet(worksheets[index]);
             }
-            WriteZipPackage(path, entries);
+            WriteZipPackage(path, entries, overwriteExisting);
         }
 
         private static string BuildWorksheet(WorksheetData worksheet)
         {
             var sheet = new StringBuilder();
+            string range = "A1:" + ColumnName(worksheet.Headers.Length)
+                + (worksheet.Rows.Count + 1).ToString(CultureInfo.InvariantCulture);
             sheet.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                .Append("<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><cols>");
+                .Append("<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">")
+                .Append("<dimension ref=\"").Append(range).Append("\"/>")
+                .Append("<sheetViews><sheetView workbookViewId=\"0\"><pane ySplit=\"1\" topLeftCell=\"A2\" activePane=\"bottomLeft\" state=\"frozen\"/>")
+                .Append("<selection pane=\"bottomLeft\" activeCell=\"A2\" sqref=\"A2\"/></sheetView></sheetViews><cols>");
             for (int columnIndex = 0; columnIndex < worksheet.Headers.Length; columnIndex++)
             {
                 int columnNumber = columnIndex + 1;
-                int width = worksheet.Headers[columnIndex] switch
+                string header = worksheet.Headers[columnIndex];
+                string width = worksheet.ColumnWidths.TryGetValue(header, out double customWidth)
+                    ? customWidth.ToString("0.########", CultureInfo.InvariantCulture)
+                    : (header switch
                 {
                     "Type" => 22,
                     "ElementId" => 16,
@@ -79,11 +92,13 @@ namespace CW.Assistant.Generated
                     "Detalj" => 90,
                     "Avvik" => 55,
                     _ => 32
-                };
+                }).ToString(CultureInfo.InvariantCulture);
                 sheet.Append("<col min=\"").Append(columnNumber.ToString(CultureInfo.InvariantCulture))
                     .Append("\" max=\"").Append(columnNumber.ToString(CultureInfo.InvariantCulture))
-                    .Append("\" width=\"").Append(width.ToString(CultureInfo.InvariantCulture))
-                    .Append("\" customWidth=\"1\"/>");
+                    .Append("\" width=\"").Append(width)
+                    .Append("\" customWidth=\"1\"");
+                if (worksheet.HiddenHeaders.Contains(worksheet.Headers[columnIndex])) sheet.Append(" hidden=\"1\"");
+                sheet.Append("/>");
             }
             sheet.Append("</cols><sheetData>");
             var allRows = new List<string[]> { worksheet.Headers };
@@ -96,16 +111,20 @@ namespace CW.Assistant.Generated
                 {
                     string cellReference = ColumnName(columnIndex + 1) + rowNumber.ToString(CultureInfo.InvariantCulture);
                     string value = columnIndex < allRows[rowIndex].Length ? allRows[rowIndex][columnIndex] ?? string.Empty : string.Empty;
+                    value = RemoveInvalidXmlCharacters(value);
+                    if (value.Length == 0)
+                    {
+                        sheet.Append("<c r=\"").Append(cellReference).Append("\"/>");
+                        continue;
+                    }
                     sheet.Append("<c r=\"").Append(cellReference).Append("\" t=\"inlineStr\"><is><t xml:space=\"preserve\">")
-                        .Append(XmlEscape(RemoveInvalidXmlCharacters(value)))
+                        .Append(XmlEscape(value))
                         .Append("</t></is></c>");
                 }
                 sheet.Append("</row>");
             }
-            string lastColumn = ColumnName(worksheet.Headers.Length);
-            sheet.Append("</sheetData><autoFilter ref=\"A1:")
-                .Append(lastColumn)
-                .Append(allRows.Count.ToString(CultureInfo.InvariantCulture))
+            sheet.Append("</sheetData><autoFilter ref=\"")
+                .Append(range)
                 .Append("\"/></worksheet>");
             return sheet.ToString();
         }
@@ -123,7 +142,7 @@ namespace CW.Assistant.Generated
 
         private static string BuildWorkbook(IReadOnlyList<WorksheetData> worksheets)
         {
-            var xml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><sheets>");
+            var xml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><bookViews><workbookView/></bookViews><sheets>");
             for (int index = 0; index < worksheets.Count; index++)
             {
                 int number = index + 1;
@@ -158,7 +177,28 @@ namespace CW.Assistant.Generated
             return name.ToString();
         }
 
-        private static void WriteZipPackage(string path, Dictionary<string, string> entries)
+        private static void WriteZipPackage(string path, Dictionary<string, string> entries, bool overwriteExisting)
+        {
+            if (!overwriteExisting)
+            {
+                WriteZipPackageFile(path, entries, FileMode.CreateNew);
+                return;
+            }
+
+            string temporaryPath = Path.GetFullPath(path) + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            try
+            {
+                WriteZipPackageFile(temporaryPath, entries, FileMode.CreateNew);
+                if (File.Exists(path)) File.Replace(temporaryPath, path, null);
+                else File.Move(temporaryPath, path);
+            }
+            finally
+            {
+                if (File.Exists(temporaryPath)) File.Delete(temporaryPath);
+            }
+        }
+
+        private static void WriteZipPackageFile(string path, Dictionary<string, string> entries, FileMode fileMode)
         {
             Assembly compression = Assembly.Load("System.IO.Compression");
             Type archiveType = compression.GetType("System.IO.Compression.ZipArchive", true)!;
@@ -167,7 +207,7 @@ namespace CW.Assistant.Generated
                 ?? throw new InvalidOperationException("Fant ikke ZipArchive-konstruktøren.");
             MethodInfo createEntry = archiveType.GetMethod("CreateEntry", new[] { typeof(string) })
                 ?? throw new InvalidOperationException("Fant ikke ZipArchive.CreateEntry.");
-            using var fileStream = new FileStream(path, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
+            using var fileStream = new FileStream(path, fileMode, FileAccess.ReadWrite, FileShare.None);
             object archive = constructor.Invoke(new[] { fileStream, Enum.Parse(modeType, "Create"), (object)true });
             try
             {

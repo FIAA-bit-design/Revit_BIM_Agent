@@ -1,7 +1,0 @@
-Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
-Kun tre C4-typeparametere; ingen occurrence-endring, lagring eller synk.
-14584591 | Kabelstige 400 mm x 60 mm C4 | 15500 -> 16289 | instanser=6
-14584679 | Kabelstige 600 mm x 60 mm C4 | 15499 -> 16290 | instanser=3
-16536696 | Veggkanal 73 mm x 123 mm C4 | 15508 -> 16291 | instanser=2
-Transaction=Committed
-Group=Committed

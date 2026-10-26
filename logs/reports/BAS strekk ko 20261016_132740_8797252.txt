@@ -1,6 +1,0 @@
-2026-10-16T13:27:40.8797036+02:00
-RegisterSelection
-Kun viewskjuling ved ApplyBatch. Ingen parameterendring, lagring, synk eller dRofus-sletting.
-FEIL: System.InvalidOperationException: 11226629: Ikke synlig eller allerede registrert; avklar overlapp.
-   at CW.Assistant.Generated.DrofusRouteQueueRunner.Register(UIApplication ui, Document doc, DrofusRouteQueue queue, String[][] registry, CancellationToken token) in D:\Revit\Python\Revit_BIM_Agent\CSharpRules\DrofusRouteQueueRunner.cs:line 134
-   at CW.Assistant.Generated.DrofusRouteQueueRunner.Execute(UIApplication ui, Document doc, String action, CancellationToken token) in D:\Revit\Python\Revit_BIM_Agent\CSharpRules\DrofusRouteQueueRunner.cs:line 40

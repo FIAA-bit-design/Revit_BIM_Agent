@@ -16,7 +16,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.8";
+        private const string ScriptVersion = "0.0.9";
         private const string WorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Workset liste.xlsx";
         private const string OutputDirectory = @"D:\Revit\Python\Revit_BIM_Agent\logs\csv";
         private const string LogPath = @"D:\Revit\Python\Revit_BIM_Agent\logs\history\Rule11_WorksetCategory.log";
@@ -261,6 +261,7 @@ namespace CW.Assistant.Generated
             var unresolvedCounts = expectedMappings.ToDictionary(mapping => mapping, _ => 0);
             var pendingChanges = new List<PendingChange>();
             var unresolvedRows = new List<string[]>();
+            var excludedRows = new List<string[]>();
             int checkedCount = 0;
             foreach (Element element in new FilteredElementCollector(activeDocument)
                 .WhereElementIsNotElementType()
@@ -278,8 +279,6 @@ namespace CW.Assistant.Generated
                 }
                 ExpectedCategory? category = familyMapping ?? categoryDefault;
                 if (category is null) continue;
-                instanceCounts[category]++;
-                checkedCount++;
                 string actualWorkset;
                 try
                 {
@@ -291,6 +290,15 @@ namespace CW.Assistant.Generated
                     blockers.Add("Kunne ikke lese workset for ElementId " + element.Id.Value.ToString(CultureInfo.InvariantCulture) + ": " + exception.Message);
                 }
 
+                if (string.Equals(activeDocument.Title, "U_F_BAS_FBU_RIE_XXX", StringComparison.OrdinalIgnoreCase)
+                    && string.Equals(actualWorkset, "RIE Temp Varelevering", StringComparison.OrdinalIgnoreCase))
+                {
+                    excludedRows.Add(ReportRow("Workset-unntak", element.Id.Value.ToString(CultureInfo.InvariantCulture), element.Category?.Name ?? category.Category.ToString(), familyName, GetMappingDescription(category), actualWorkset, "Brukerbekreftet BAS-unntak: beholdes på RIE Temp Varelevering; skal ikke flyttes eller regnes som avvik."));
+                    continue;
+                }
+
+                instanceCounts[category]++;
+                checkedCount++;
                 if (missingWorksetMappings.Contains(category))
                 {
                     unresolvedCounts[category]++;
@@ -417,6 +425,7 @@ namespace CW.Assistant.Generated
                     string.Format(CultureInfo.InvariantCulture, "Elementer kontrollert: {0}; flyttet: {1}; uløste avvik: {2}.", instanceCounts[mapping], changedCounts[mapping], unresolvedCounts[mapping])));
             }
             reportRows.AddRange(validationRows);
+                reportRows.AddRange(excludedRows);
                     reportRows.AddRange(movedRows);
                     reportRows.AddRange(unresolvedRows);
 
@@ -434,12 +443,13 @@ namespace CW.Assistant.Generated
             }
 
             log.Add(string.Format(CultureInfo.InvariantCulture, "Mappinger lest: {0}; mappinger kontrollert: {1}; elementer kontrollert: {2}; flyttet: {3}; uløste avvik: {4}; blokkeringer: {5}.", mappings.Count, expectedMappings.Count, checkedCount, changedCount, unresolvedCount, blockers.Count));
+            log.Add("Workset-unntak, BAS / RIE Temp Varelevering: " + excludedRows.Count.ToString(CultureInfo.InvariantCulture) + "; ikke flyttet eller regnet som avvik.");
             log.Add("Rapport: " + reportPath);
             foreach (string blocker in blockers.Distinct(StringComparer.Ordinal)) log.Add("BLOKKERING: " + blocker);
             string status = blockers.Count > 0 ? changedCount > 0 ? "DELVIS UTFØRT" : "BLOKKERT" : unresolvedCount > 0 ? "AVVIK" : "OK";
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 11 v{0}: {1}; kategorier {2}; elementer {3}; flyttet {4}; uløste avvik {5}; blokkeringer {6}; rapport {7}.",
-                ScriptVersion, status, expectedMappings.Count, checkedCount, changedCount, unresolvedCount, blockers.Count, reportPath));
+                "Regel 11 v{0}: {1}; kategorier {2}; elementer {3}; flyttet {4}; uløste avvik {5}; blokkeringer {6}; rapport {7}; workset-unntak {8}.",
+                ScriptVersion, status, expectedMappings.Count, checkedCount, changedCount, unresolvedCount, blockers.Count, reportPath, excludedRows.Count));
         }
 
         private static string GetFamilyName(Element element)

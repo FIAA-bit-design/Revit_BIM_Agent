@@ -1,8 +1,0 @@
-BAS 600 mm ID-korrigering | 2026-10-16T09:36:48.9592220+02:00
-Modell=Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
-Begge typer: dRofus_ItemID 16283 -> 15499. Alle instanser: drofus_occurrence_id -> 0 (ingen positiv kobling).
-Instanser=1136 | positive occurrence-ID-er før=468
-Transaction=Committed
-TransactionGroup=Committed
-ItemID=15499 på begge typer, occurrence=0 på alle 1136 instanser. Merkestreng/område/sekvens/type/geometri bevart.
-Gamle dRofus-forekomster er IKKE slettet. Excel-referansen må avstemmes etter ny synk. Ikke lagret/synkronisert.

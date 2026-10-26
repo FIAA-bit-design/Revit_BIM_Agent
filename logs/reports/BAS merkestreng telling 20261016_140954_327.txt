@@ -1,5 +1,0 @@
-BAS K5B cable trays; view=KS Kablebro dRofus
-Excluded busbars=25
-Drofus view: elements=1083; unique valid marks=1072; invalid/missing marks=11; marks on multiple segments=0; whitespace-mark elements=0
-Entire model: elements=2071; unique valid marks=1115; invalid/missing marks=21; marks on multiple segments=341; whitespace-mark elements=0
-Valid marks only outside view=43

@@ -74,9 +74,42 @@ try
     var xml = XDocument.Load(sheet);
     XNamespace ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
     Check(xml.Descendants(ns + "row").Count() == 3, "exactly one row per member");
-    Check(xml.Descendants(ns + "c").All(c => c.Element(ns + "is") != null), "no invalid empty inline strings");
+    Check(xml.Descendants(ns + "c").All(c => (string?)c.Attribute("t") != "inlineStr" || c.Element(ns + "is") != null),
+        "no invalid empty inline strings");
     Check(xml.Descendants(ns + "t").Any(t => t.Value == "=FORMULA < & æøå")
         && !xml.Descendants(ns + "f").Any(), "strings preserved without formula injection");
+    string formatPath = Path.Combine(Path.GetDirectoryName(xlsx)!, Path.GetFileNameWithoutExtension(xlsx) + "-format.xlsx");
+    ExcelListReportWriter.Write(formatPath, new[]
+    {
+        new ExcelListReportWriter.WorksheetData("Romdata", new[] { "ElementId", "Romnavn", "Detalj" }, new()
+        {
+            new[] { "001", "", "=FORMULA < & æøå" },
+            new[] { "002" },
+            new[] { "003", "\u0001", "æøå" }
+        }),
+        new ExcelListReportWriter.WorksheetData("Unntak", new[] { "ElementId" }, new())
+    });
+    using var formatZip = ZipFile.OpenRead(formatPath);
+    XDocument ReadXml(string entry)
+    {
+        using var stream = formatZip.GetEntry(entry)!.Open();
+        return XDocument.Load(stream);
+    }
+    var workbookXml = ReadXml("xl/workbook.xml");
+    var formatXml = ReadXml("xl/worksheets/sheet1.xml");
+    Check(workbookXml.Descendants(ns + "workbookView").Count() == 1, "explicit workbook view survives openpyxl roundtrip");
+    Check((string?)formatXml.Root!.Element(ns + "dimension")?.Attribute("ref") == "A1:C4", "explicit worksheet dimensions");
+    Check((string?)formatXml.Descendants(ns + "sheetView").Single().Attribute("workbookViewId") == "0"
+        && (string?)formatXml.Descendants(ns + "pane").Single().Attribute("state") == "frozen", "frozen header references valid view");
+    foreach (string reference in new[] { "B2", "B3", "C3", "B4" })
+    {
+        XElement cell = formatXml.Descendants(ns + "c").Single(cell => (string?)cell.Attribute("r") == reference);
+        Check(cell.Attribute("t") is null && cell.Element(ns + "is") is null, "true blank cell " + reference);
+    }
+    Check((string?)ReadXml("xl/worksheets/sheet2.xml").Root!.Element(ns + "dimension")?.Attribute("ref") == "A1:A1",
+        "header-only worksheet has valid dimensions");
+    Console.WriteLine("REPORT: " + xlsx);
+    Console.WriteLine("FORMAT REPORT: " + formatPath);
 }
 finally { Directory.Delete(folder, true); }
 Console.WriteLine("PASS: " + tests + " queue / representative / persistence / Excel checks");

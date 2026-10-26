@@ -1,8 +1,0 @@
-dRofus_ItemID-typeoppdatering | 2026-10-15T15:28:01.2427745+02:00
-Modell=U_F_BAS_FBU_RIE_XXX | Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
-TypeId=3825671
-Type=Kabelstige 1000 mm x 60 mm
-FOB_System=460 | FOB_Funksjonskode=KAF | bredde=1000 mm
-Instanser=15, alle K5B med Width=1000 mm
-dRofus_ItemID: 0 -> 16282
-ETTERKONTROLL=TypeId 3825671 dRofus_ItemID=16282; TransactionGroup=Committed.

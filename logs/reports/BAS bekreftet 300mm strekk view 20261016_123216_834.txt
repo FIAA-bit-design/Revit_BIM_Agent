@@ -1,7 +1,0 @@
-Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
-View=5e8f81e4-fcff-4378-8a08-70d893e9ab6c-0110f8e2
-Brukerbekreftet representant=12351764 | occurrence=808278
-Skjul=12351767,12351769,12351771,12351773
-Ingen parameterendring. 600 mm-strekk urort.
-Transaction=Committed
-Group=Committed

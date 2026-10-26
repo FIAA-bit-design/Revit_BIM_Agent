@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UseAppHost>false</UseAppHost>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2026.0.0" PrivateAssets="all" />
+    <Compile Include="../../CSharpRules/Rule13CablingEquipmentReport.cs" Link="Rule13CablingEquipmentReport.cs" />
+    <Compile Include="../../CSharpRules/ExcelListReportWriter.cs" Link="ExcelListReportWriter.cs" />
+    <None Include="../../config/CablingEquipmentExceptions.json" Link="config/CablingEquipmentExceptions.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

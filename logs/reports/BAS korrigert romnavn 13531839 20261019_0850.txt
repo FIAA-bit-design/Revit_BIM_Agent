@@ -1,9 +1,0 @@
-2026-10-19T08:50:05.4125773+02:00
-Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
-Target ElementId=13531839 UniqueId=a4c21d41-6ca3-4c64-afdf-1b5f97d4322a-00ce7abf
-Source ElementId=13532243 UniqueId=a4c21d41-6ca3-4c64-afdf-1b5f97d4322a-00ce7c53
-Room value='Verkstedhall' from source Romnavn; room code='M3G2.03'; RoomID=562
-Correcting prior write: set target Romnavn; restore target dRofus_Rombetegnelse to '--'.
-Transaction=Committed
-Verified target: Romnavn='Verkstedhall'; dRofus_Rombetegnelse='--'; RoomfunctionNo='M3G2.03'; RoomID=562. Source unchanged; no save or sync.
-TransactionGroup=Committed

@@ -1,4 +1,0 @@
-=== Regel 12 v0.0.3 | 2026-10-12T06:45:19.9407400+02:00 | U_F_BAS_FBU_RIE_XXX ===
-Dokument: U_F_BAS_FBU_RIE_XXX
-Revisjonsliste lest: 7 faner.
-Oppsummering: elektriske instanser 16677; revisjonsverdier samsvarte 31908; oppdatert 0 (fra tilkobling 0); blokkeringer 0; skrivebeskyttet 0; uavklart 0; skrivefeil 0.

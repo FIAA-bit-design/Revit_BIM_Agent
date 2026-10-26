@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UseAppHost>false</UseAppHost>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../CSharpRules/Rule14RoomValueValidator.cs" Link="Rule14RoomValueValidator.cs" />
+    <Compile Include="../../CSharpRules/Rule14ExceptionRules.cs" Link="Rule14ExceptionRules.cs" />
+  </ItemGroup>
+</Project>

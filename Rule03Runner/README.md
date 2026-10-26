@@ -10,6 +10,10 @@ Rule 3 includes a read-only check of the instance parameters `FOB_Revisjonsdato`
 
 Revision findings are included in the incomplete-value count, append-only history and timestamped XLSX report, with ElementId, parameter, actual value, package context and reason. Rule 12 and its runner have been removed; historical reports and logs are preserved.
 
+## Room information
+
+Rule 3 no longer fills or reports `Romnavn` or `dRofus_RoomfunctionNo`. Both remain excluded from generic autofill and parameter completeness. Use [Rule14Runner](../Rule14Runner/README.md) for the separate read-only, timestamped missing-room-information report.
+
 Regression checks are in [Rule03RevisionChecks.cs](../CSharpRules/.selftest/Rule03RevisionChecks/Rule03RevisionChecks.cs). Build [Rule03RevisionChecks.csproj](../CSharpRules/.selftest/Rule03RevisionChecks/Rule03RevisionChecks.csproj) using `dotnet build`, then invoke `CW.Assistant.Generated.Rule03RevisionChecks.Run()` from that assembly on the Revit UI thread. These checks use the actual Rule 3 value validator and report mapper, require the Revit host, and make no model changes.
 
 ## Core Components

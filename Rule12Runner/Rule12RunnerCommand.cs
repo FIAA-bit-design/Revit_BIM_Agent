@@ -16,7 +16,10 @@ public class Rule12RunnerCommand : IRevitExtension<Rule12RunnerArgs>
         {
             string result;
             if (args.ViewName != "KS Kablebro dRofus") return Result.Text.Failed("Bare KS Kablebro dRofus støttes.");
-            if (args.Action == "LegacyPreview")
+            if (args.Action == "FillFittingRoomText")
+                result = new CW.Assistant.Generated.DrofusConnectedFittingRoomTextFill()
+                    .Run(context.UIApplication, document, cancellationToken, !args.PreviewOnly, args.TargetUniqueIds);
+            else if (args.Action == "LegacyPreview")
                 result = new CW.Assistant.Generated.Rule12HideDuplicateCableTrays()
                     .Execute(context.UIApplication, document, args.ViewName, true, cancellationToken);
             else

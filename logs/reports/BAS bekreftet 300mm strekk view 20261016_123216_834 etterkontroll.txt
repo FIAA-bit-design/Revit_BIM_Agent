@@ -1,7 +1,0 @@
-Separate read-only verification PASSED
-12351764 hidden=False occurrence=808278
-12351767 hidden=True occurrence=808279
-12351769 hidden=True occurrence=808280
-12351771 hidden=True occurrence=808281
-12351773 hidden=True occurrence=808282
-600 mm-strekk uendret. Visible cable trays=1126

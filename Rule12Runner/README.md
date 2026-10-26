@@ -24,6 +24,22 @@ Den eldre [merkebaserte algoritmen](../CSharpRules/Rule12HideDuplicateCableTrays
 
 Avgrensede viewhandlinger utfører bare skjuling, ikke utfylling. Manglende merke og sekvensnummer er fortsatt uløste avvik, også på skjulte segmenter. At koblingene er lagret, betyr ikke at kompletthetskravet er oppfylt. Konkrete grupper, representanter og segment-ID-er dokumenteres i registeret og Excel-listen nedenfor, ikke som parallelle oppslag i denne README-en.
 
+## Filoppsett og hva som er nødvendig
+
+Rule12Runner er et valgfritt, separat viewverktøy; det er ikke en kjørbar Regel 12 i kontrollrekkefølgen. Behold denne oppdelingen:
+
+| Fil(er) | Nødvendig for | Merknad |
+| --- | --- | --- |
+| [Rule12Runner.csproj](./Rule12Runner.csproj), [Rule12RunnerCommand.cs](./Rule12RunnerCommand.cs), [Rule12RunnerArgs.cs](./Rule12RunnerArgs.cs), [GlobalUsings.cs](./GlobalUsings.cs), [Configurations.targets](./Configurations.targets), [nuget.config](./nuget.config) | Bygging og Assistant/Revit-inngang | Prosjektet begrenser kjøring til BAS-modellen og `KS Kablebro dRofus`. |
+| [DrofusRouteQueueRunner.cs](../CSharpRules/DrofusRouteQueueRunner.cs), [DrofusRouteQueueStore.cs](../CSharpRules/DrofusRouteQueueStore.cs), [DrofusRouteQueueReport.cs](../CSharpRules/DrofusRouteQueueReport.cs), [ExcelListReportWriter.cs](../CSharpRules/ExcelListReportWriter.cs) | Køregistrering, forhåndsvisning, viewskjuling og Excel-rapport | Kildekodene ligger under `CSharpRules/`, men er eksplisitt inkludert i runner-prosjektet. `ExcelListReportWriter.cs` er en delt rapporthjelper. |
+| [DrofusConfirmedRoutes.tsv](../config/DrofusConfirmedRoutes.tsv) | `PreviewBatch` og `ApplyBatch`, og senere berikelse basert på brukerbekreftede grupper | Autoritativt medlemsregister. Bevar det. |
+| [DrofusRouteQueue.json](../config/DrofusRouteQueue.json) | Fortsettelse av registrerte grupper mellom kjøringer | Vedvarende operativ kø; ikke slett eller regenerer for opprydding. Opprettes først ved registrering. `.lock` er en runtime-låsefil, ikke kødata. |
+| [Rule12Runner.Tests](../Rule12Runner.Tests) | Tester av kølagring, representantvalg og Excel-rapport | Ligger gruppert med runneren i [Revit_BIM_Agent.sln](../Revit_BIM_Agent.sln); kjører uten Revit-modell. |
+| [Rule12HideDuplicateCableTrays.cs](../CSharpRules/Rule12HideDuplicateCableTrays.cs) og `LegacyPreview`-argumentet | Bare den eldre, lesende forhåndsvisningen | Valgfritt for den nye køflyten, men beholdes så lenge `LegacyPreview` fortsatt eksponeres. Hvis den avvikles senere, fjernes både handlingen, dispatchen og prosjektinkluderingen samlet. |
+| `logs/reports/BAS strekk ko …` | Historikk og revisjonsspor fra kjøringer | Rapporter overskrives eller slettes ikke som del av kildekodeopprydding. |
+
+Prosjektet er gruppert i solution-folderen `Rule12Runner` sammen med [testprosjektet](../Rule12Runner.Tests/Rule12Runner.Tests.csproj). Kildekoden er fortsatt lenket fra `CSharpRules/`; fysisk flytting er ikke nødvendig for bygging og ville endret flere prosjektstier uten å gi ny funksjonalitet.
+
 ## Lagrede koblinger for berikelse etter dRofus-synk
 
 [DrofusConfirmedRoutes.tsv](../config/DrofusConfirmedRoutes.tsv) er det varige registeret over brukerbekreftede grupper. Det skal leses fra disk når merkestreng og rominfo senere skal skrives, ikke rekonstrueres fra chat, dagens merke, fysisk nærhet eller utvalg i Revit. Den samlede [Excel-listen](../config/DrofusConfirmedRoutes.xlsx) gir filtrerbar oversikt over alle registrerte strekk og segmenter, også skjulte.
@@ -84,7 +100,19 @@ Excel viser **registreringstidspunktets** merke/sekvens/romnummer, ikke live-dat
 6. Bevar **hver egen occurrence-ID**, også positive ID-er på skjulte segmenter. Ikke kopier representantens occurrence-ID, nullstill ID-er, slett dRofus-forekomster, endre geometri eller gjøre skjulte segmenter synlige.
 7. Før eventuell modellskriving: følg C#-bygg-, kvalitetssjekk-, transaksjons- og etterkontrollkravene i [utføringsreglene](../rie-bim-agent/core/execution-rules.md). Les verdiene separat tilbake etter commit og lag fersk avviksrapport for alle registrerte segmenter, også de skjulte. Behold Excel-referansens `Pending` og Regel 3-vernet.
 
-### RoomID for kabelbrobend og kryss
+### Romnavn og romnummer for kabelbrobend og kryss
+
+`FillFittingRoomText` er en egen handling i Rule12Runner 0.0.6. Bruk `{"Action":"FillFittingRoomText","PreviewOnly":true}` for lesende forhåndsvisning og `PreviewOnly=false` for uttrykkelig bestilt utføring. Handlingen omfatter BAS K5B-bend/kryss og T-stykker, også skjulte, uavhengig av aktivt view og markering. `ViewName` beholder standardverdien; ingen view endres. Valgfri `TargetUniqueIds` avgrenser mål til en liste med UniqueId-er skilt med komma, semikolon eller linjeskift. Duplikater, angitt liste uten ID-er, manglende element eller feil kategori/entreprise/deltype stopper kjøringen før skriving. Uten avgrensning behandles alle støttede fittings; bruk et eksplisitt utvalg ved bestilling for konkrete elementer.
+
+Strømskinner identifisert ved `Strømskinne` i familie- eller typenavn (skiftleiefritt) utelates før romtekstplanlegging og som kilde. De rapporteres separat på fanen `Unntak` med status `EXCLUDED`, ikke som blokkerte restavvik eller kontrollerte kabelbrobend/kryss. Dette gjelder også de åtte brukerbekreftede strømskinnebendene i LPE161: 16683440, 16683442, 16707932, 16707974, 16707976, 16708016, 16708019 og 16708020. Identifikasjonen er navnebasert, ikke en hardkodet ID-liste i kjøringen. Unntaket gjelder denne dRofus-romteksthandlingen, ikke generell fritakelse fra andre parameterkrav.
+
+[DrofusConnectedFittingRoomTextFill.cs](../CSharpRules/DrofusConnectedFittingRoomTextFill.cs) fyller bare manglende `Romnavn` og `dRofus_RoomfunctionNo` fra direkte, gjensidig connector-tilkoblet rett K5B-kabelbro med samme eksisterende positive `dRofus_RoomID` som fittinget. Én komplett tilkoblet kilde er tilstrekkelig; en annen åpen ende blokkerer ikke. Flere kilder med samme RoomID må ha entydige ikke-tomme romverdier. Andre RoomID-er er ikke kilder for dette målet. Ingen komplett kilde, konflikt, skrivebeskyttelse eller annen eier gir blokkering, ikke gjetting. Tom tekst, bare mellomrom og `--` betyr manglende romtekst.
+
+For T-stykker (`Tee`, `ChannelCableTrayTee`, `LadderCableTrayTee`) kan også manglende `dRofus_RoomID=0` fylles etter uttrykkelig bestilling. Krev nøyaktig én positiv RoomID blant alle direkte tilkoblede rette K5B-kabelbroer, én komplett romkilde og entydige tekstverdier for valgt RoomID. RoomID skrives før romtekst i samme tilbakeførbare transaksjon. Positiv eksisterende mål-RoomID bevares og velger kilde; negativ ID blokkeres. Ingen RoomID-utfylling for bend/Cross i denne handlingen. API-deltypen er avgjørende: en type kalt «Kabelbrokryss» kan være Tee. Skjøter/union og andre deltyper omfattes ikke.
+
+Gyldig eksisterende romtekst, positive RoomID-er, alle occurrence-ID-er, øvrige parametere, geometri og forbindelser bevares. Bare Tee-unntaket ovenfor tillater utfylling av RoomID. Begge tekstfeltene på en kilde må være komplette; delkilder kombineres ikke til et nytt rom. Handlingen skriver kilde-/skriveplan før utføring og tidsstemplet XLSX-/TSV-rapport etterpå, med RoomID før/etter. Batchene ligger i én tilbakeførbar transaksjonsgruppe, med kontroll av mål, kilder, forbindelser og følgeendringer før gruppen bekreftes. Normal endring av utsjekkingsmetadata er ikke en fagdataendring. Feil etter bekreftet commit gir feilstatus med uttrykkelig melding om beholdt modellendring, ikke rollback; ikke gjenta blindt. Agenten utfører separat lesende etterkontroll og Excel-validering. Ingen lagring eller synkronisering foretas.
+
+### Separat RoomID-handling
 
 Den separate [DrofusConnectedFittingRoomIdFill.cs](../CSharpRules/DrofusConnectedFittingRoomIdFill.cs)-regelen behandler bare bend/kryss i `OST_CableTrayFitting` med `FOB_Entreprise=K5B`. Den leser direkte Revit-connectors og henter `dRofus_RoomID` fra rett, connector-tilkoblet `OST_CableTray` med K5B. Bare RoomID skrives; `dRofus_RoomfunctionNo`, `Romnavn`, occurrence-ID-er, geometri og view endres ikke. En entydig positiv kilde-ID kopieres, også når fittinget har en annen RoomID. Ved ulike positive kilde-ID-er bevares en eksisterende positiv ID på fittinget; mangler den, blokkeres og rapporteres konflikten. Mangler alle kilder positiv ID, skrives ingenting. Andre fittingtyper inngår ikke. Dette er en eksplisitt connector-regel for disse RoomID-verdiene, ikke generell dokumentasjon av strekkmedlemskap eller grunnlag for romnavn.
 
@@ -99,3 +127,5 @@ Ved nye brukerbekreftede grupper: lagre representant og alle bekreftede medlemme
 Bygg fra denne mappen med `dotnet build Rule12Runner.csproj --configuration Debug`. Byggkontroll kjører ikke verktøyet mot modellen.
 
 Fokuserte tester uten Revit-modell: `dotnet build Rule12Runner.Tests\Rule12Runner.Tests.csproj` fra prosjektroten, deretter `dotnet Rule12Runner.Tests\bin\Debug\net8.0\Rule12Runner.Tests.dll`. Testene dekker kølagring, overlapp, representantvalg, atomisk erstatning, backup og Excel-struktur. De erstatter ikke modelltest av `RegisterSelection`/`ApplyBatch`.
+
+Excel-eksporten skriver ekte tomme celler, eksplisitte arkområder og arbeidsbokvisning med frosne overskrifter. Viderebehandling og Python-eksport bruker `save_excel` fra [validate_excel.py](../scripts/validate_excel.py); tabellfilter og arkfilter skal ikke overlappe. Følg [rapporteringsregelen](../rie-bim-agent/core/reporting.md) og kjør også `.\.venv\Scripts\python.exe -m unittest discover -s scripts -p test_validate_excel.py -v` ved endring av Excel-koden. Et valgfritt filargument til C#-testprogrammet beholder en kørapport og en `-format.xlsx`-testfil for kontroll av C#-/openpyxl-samspill og normal Excel-åpning; uten filargument slettes testfilene automatisk.

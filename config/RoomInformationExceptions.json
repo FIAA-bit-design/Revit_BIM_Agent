@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "modelPath": "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt",
+  "enterprise": "K5B",
+  "parameters": ["Romnavn", "dRofus_RoomfunctionNo"],
+  "sourceWorkbook": "logs/reports/BAS_K5B_manglende_rom_20261020_103130_235.xlsx",
+  "rules": [
+    {"id": "gulvboks-liten", "field": "Familienavn", "prefix": "Gulvboks liten", "sourceCells": ["D12"]},
+    {"id": "veggboks-2-lop", "field": "Familienavn", "prefix": "Veggboks 2 løp", "sourceCells": ["D43"]},
+    {"id": "slokkeanlegg-optisk", "field": "Familienavn", "prefix": "Slokkeanlegg røykdetektor optisk", "sourceCells": ["D67"]},
+    {"id": "aspirasjonsror", "field": "Type", "prefix": "Aspirasjonsrør", "sourceCells": ["E100"]},
+    {"id": "slokkegass-sirene", "field": "Type", "prefix": "Slokkegass elektronisk sirene med blinklys rød linse lav sokkel", "sourceCells": ["E1085"]},
+    {"id": "detaljpil", "field": "Type", "prefix": "3D Detaljpil nummer ", "sourceCells": ["E1449"]},
+    {"id": "takboks", "field": "Type", "prefix": "Takboks", "sourceCells": ["E1451"]},
+    {"id": "aspirasjonror-bend", "field": "Type", "prefix": "Aspirasjonrør bend", "sourceCells": ["E42"], "sourceWorkbook": "logs/reports/BAS_K5B_manglende_rom_20261020_103130_235_filtrert.xlsx"}
+  ]
+}

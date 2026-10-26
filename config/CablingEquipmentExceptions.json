@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "modelPath": "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt",
+  "enterprise": "K5B",
+  "groundingEnterprise": "K5A",
+  "sourceWorkbook": "C:\\Users\\fiaa\\OneDrive - COWI\\EL\\Arbeidsmappe\\BAS\\Utstyr til kabling K5B BAS 20261022.xlsx",
+  "sourceSheet": "Unntak",
+  "match": "familyExactIgnoreCaseTrim",
+  "namePrefixes": ["Slokkegass", "Inertgass"],
+  "families": [
+    "Fiber kveileramme",
+    "Ankerskinne",
+    "Armaturskinne Zumtobel",
+    "Jordskinne",
+    "Lokk kabelstige",
+    "Stag",
+    "Adgangskontroll værhus",
+    "Adgangskontroll dørbladmontert kortleser"
+  ]
+}

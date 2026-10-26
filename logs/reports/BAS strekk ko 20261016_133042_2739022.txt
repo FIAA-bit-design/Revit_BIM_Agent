@@ -1,6 +1,0 @@
-2026-10-16T13:30:42.2738784+02:00
-RegisterSelection
-Kun viewskjuling ved ApplyBatch. Ingen parameterendring, lagring, synk eller dRofus-sletting.
-FEIL: System.InvalidOperationException: Marker minst to segmenter pa ett strekk.
-   at CW.Assistant.Generated.DrofusRouteQueueRunner.Register(UIApplication ui, Document doc, DrofusRouteQueue queue, String[][] registry, CancellationToken token) in D:\Revit\Python\Revit_BIM_Agent\CSharpRules\DrofusRouteQueueRunner.cs:line 124
-   at CW.Assistant.Generated.DrofusRouteQueueRunner.Execute(UIApplication ui, Document doc, String action, CancellationToken token) in D:\Revit\Python\Revit_BIM_Agent\CSharpRules\DrofusRouteQueueRunner.cs:line 40

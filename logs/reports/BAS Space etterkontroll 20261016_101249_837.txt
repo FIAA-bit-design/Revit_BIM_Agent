@@ -1,5 +1,0 @@
-2026-10-16T10:12:50.7340306+02:00
-Separat lesende etterkontroll. L4S.28 pinned=True, nedre offset=-500 mm: rollback bekreftet.
-53 segmenter lest på nytt, 14 med full solid-differansekontroll mot L4S.28.
-Ingen beholdt retting, lagring, synk eller dRofus-romkobling.
-D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS Space etterkontroll 20261016_101249_837

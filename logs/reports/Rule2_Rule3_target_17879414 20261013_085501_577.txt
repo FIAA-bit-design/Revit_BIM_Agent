@@ -1,8 +1,0 @@
-=== Targeted Rule 2 | 2026-10-13T08:54:55.2084358+02:00 | U_F_BAS_FBU_RIE_XXX ===
-UPDATED BATID 17879414: FOB_Leveransepakke='LPE161'; committed.
-Target BATID: 17879414
-PLAN: package=LPE161; eligible candidates=4; fallback=False
-SOURCE ElementId 17009441; package=LPE161; distanceMm=390.4
-SOURCE ElementId 17009432; package=LPE161; distanceMm=439.2
-SOURCE ElementId 15366569; package=LPE161; distanceMm=999.7
-SOURCE ElementId 15762655; package=LPE161; distanceMm=1040.6

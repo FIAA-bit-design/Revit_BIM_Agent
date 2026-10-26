@@ -16,7 +16,7 @@ namespace CW.Assistant.Generated
 {
     internal sealed class GeneratedAction
     {
-        private const string ScriptVersion = "0.0.24";
+        private const string ScriptVersion = "0.0.27";
         private const string DrofusBaselinePath = @"D:\Revit\Python\Revit_BIM_Agent\config\DrofusOccurrenceBaseline.xlsx";
         private const string PackageParameter = "FOB_Leveransepakke";
         private const string MengdetypeParameter = "PGF_Mengdetype";
@@ -39,8 +39,7 @@ namespace CW.Assistant.Generated
         private const string ParameterWorkbookPath = @"D:\Revit\Python\Revit_BIM_Agent\config\Parameterliste.xlsx";
         private const string ParameterWorksheetName = "Parameterliste";
         private static readonly string[] ExcelReportHeaders = { "Type", "ElementId", "Familienavn", "FOB_Merkestreng", "Parameter", "Verdi", "Detalj" };
-        private static readonly string[] RoomParameterNames = { "Romnavn", "dRofus_RoomfunctionNo" };
-        private static readonly string[] RoomReportHeaders = { "ElementId", "Revit-kategori", "FOB_Leveransepakke", "FOB_Merkestreng", "Parameter", "Verdi", "Avvik" };
+        private static readonly string[] RoomParametersHandledOutsideRule3 = { "Romnavn", "dRofus_RoomfunctionNo" };
         private static readonly string[] RevisionParameterNames = { "FOB_Revisjonsdato", "PGF_Revisjonsign", "PGF_Revisjonsindeks" };
         private static readonly string[] TypeControlledParameterNames = { "FOB_Funksjonskode", "FOB_Merkesystem", "FOB_System" };
         private static readonly HashSet<string> PlaceholderMeansMissingParameterNames = new HashSet<string>(StringComparer.Ordinal)
@@ -83,20 +82,6 @@ namespace CW.Assistant.Generated
                 Parameter = parameter;
                 Value = value;
                 Reason = reason;
-            }
-        }
-
-        private sealed class RoomWriteRecord
-        {
-            internal Element Owner { get; }
-            internal string ParameterName { get; }
-            internal string PreviousValue { get; }
-
-            internal RoomWriteRecord(Element owner, string parameterName, string previousValue)
-            {
-                Owner = owner;
-                ParameterName = parameterName;
-                PreviousValue = previousValue;
             }
         }
 
@@ -245,8 +230,16 @@ namespace CW.Assistant.Generated
             int excludedEnterpriseCount = 0;
             int excludedFromIfcCount = 0;
             int excludedFromMasterLinkCount = 0;
+            int excludedTemporaryDeliveryCount = 0;
             foreach (Element element in allElectricalInstances)
             {
+                if (IsTemporaryDeliveryException(element))
+                {
+                    excludedTemporaryDeliveryCount++;
+                    log.Add("WORKSET-UNNTAK: ElementId " + element.Id.Value.ToString(CultureInfo.InvariantCulture) + "; BAS / RIE Temp Varelevering; utelatt fra Regel 3 som mål, kilde og avviksfunn.");
+                    continue;
+                }
+
                 bool matchesMasterLink = TryGetElectricalTypeSignature(activeDocument, element,
                     out (long CategoryId, string FamilyName, string TypeName) typeSignature)
                     && masterLinkTypeSignatures.Contains(typeSignature);
@@ -291,6 +284,7 @@ namespace CW.Assistant.Generated
             log.Add(string.Format(CultureInfo.InvariantCulture,
                 "Regel 3 scope: PGF_RIE_Master-typer utelatt {0}; IFC-ekskludert {1}; K5B {2}; blank enterprise kandidater for K5B-utfylling {3}; andre eller uavklarte entrepriser utelatt {4}.",
                 excludedFromMasterLinkCount, excludedFromIfcCount, exactK5bCount, blankEnterpriseCandidateCount, excludedEnterpriseCount));
+            log.Add("Workset-unntak, BAS / RIE Temp Varelevering: " + excludedTemporaryDeliveryCount.ToString(CultureInfo.InvariantCulture) + ".");
             var scopedInstanceIds = new HashSet<long>(instances.Select(element => element.Id.Value));
             var outOfScopeTypeIds = new HashSet<long>(allElectricalInstances
                 .Where(element => !scopedInstanceIds.Contains(element.Id.Value))
@@ -313,7 +307,6 @@ namespace CW.Assistant.Generated
                 }
             }
             var writes = new List<PendingWrite>();
-            var roomWrites = new List<RoomWriteRecord>();
             var scheduled = new HashSet<string>(StringComparer.Ordinal);
             var absentCounts = parameterNames.ToDictionary(name => name, _ => 0, StringComparer.Ordinal);
             int readOnlyCount = 0;
@@ -400,11 +393,9 @@ namespace CW.Assistant.Generated
                     }
                 }
 
-                PlanRoomParameterWrites(instance, writes, scheduled, roomWrites, log, ref readOnlyCount, ref unresolvedCount);
-
                 foreach (string name in parameterNames)
                 {
-                    if (RoomParameterNames.Contains(name, StringComparer.Ordinal))
+                    if (RoomParametersHandledOutsideRule3.Contains(name, StringComparer.Ordinal))
                     {
                         continue;
                     }
@@ -537,7 +528,6 @@ namespace CW.Assistant.Generated
                 }
             }
 
-            List<string[]> roomRowsBeforeTransaction = BuildRoomControlRows(instances, out _);
             try
             {
                 ValidateDrofusPlannedWrites(drofusReference, writes);
@@ -545,7 +535,8 @@ namespace CW.Assistant.Generated
             catch (Exception exception)
             {
                 log.Add("BLOKKERING: Planen bryter dRofus-identitetsvernet: " + exception.Message);
-                return SaveAndReturn(log, "Regel 3 stoppet før skriving: eksisterende dRofus-koblinger er beskyttet.", reportContext, roomRowsBeforeTransaction);
+                return SaveAndReturn(log, "Regel 3 stoppet før skriving: eksisterende dRofus-koblinger er beskyttet.", reportContext);
+                            return SaveAndReturn(log, "Regel 3 stoppet før skriving: eksisterende dRofus-koblinger er beskyttet.", reportContext);
             }
             int updated = 0;
             int failedWrites = 0;
@@ -562,7 +553,8 @@ namespace CW.Assistant.Generated
                         if (startStatus != TransactionStatus.Started)
                         {
                             log.Add("TRANSAKSJONSFEIL: transaksjonen startet ikke (" + startStatus + ").");
-                            return SaveAndReturn(log, "Regel 3: ingen verdier ble skrevet fordi transaksjonen ikke startet.", reportContext, roomRowsBeforeTransaction);
+                            return SaveAndReturn(log, "Regel 3: ingen verdier ble skrevet fordi transaksjonen ikke startet.", reportContext);
+                                        return SaveAndReturn(log, "Regel 3: ingen verdier ble skrevet fordi transaksjonen ikke startet.", reportContext);
                         }
 
                         try
@@ -609,7 +601,8 @@ namespace CW.Assistant.Generated
                             string result = rollbackStatus == TransactionStatus.RolledBack
                                 ? "Regel 3 ble rullet tilbake; ingen endringer ble lagret. " + exception.Message
                                 : "Regel 3 feilet, men rollback er ikke bekreftet (" + rollbackStatus + "); kontroller modellstatus før retry. " + exception.Message;
-                            return SaveAndReturn(log, result, reportContext, roomRowsBeforeTransaction);
+                            return SaveAndReturn(log, result, reportContext);
+                                        return SaveAndReturn(log, result, reportContext);
                         }
                     }
                     transactionCommitted = true;
@@ -641,13 +634,6 @@ namespace CW.Assistant.Generated
 
             (int parameterValuesChecked, int incompleteParameterValues, bool completenessCompleted) =
                 TryAppendParameterCompleteness(activeDocument, instances, parameterNames, log);
-            List<string[]> roomReportRows = BuildRoomControlRows(instances, out int roomParameterValuesChecked);
-            int roomFlagCount = roomReportRows.Count;
-            int roomCorrectionCount = transactionCommitted ? AppendRoomCorrectionRows(roomReportRows, roomWrites) : 0;
-            incompleteParameterValues += roomFlagCount;
-            log.Add(string.Format(CultureInfo.InvariantCulture,
-                "ROMKONTROLL: verdier kontrollert {0}; rettet og etterkontrollert {1}; flagg {2}; automatisk utfylling for øvrige instanser utført 0.",
-                roomParameterValuesChecked, roomCorrectionCount, roomFlagCount));
             foreach (KeyValuePair<string, int> absent in absentCounts.Where(pair => pair.Value > 0).OrderBy(pair => pair.Key, StringComparer.Ordinal))
             {
                 log.Add(string.Format(CultureInfo.InvariantCulture, "PARAMETER MANGLER: {0} instanser uten '{1}'.", absent.Value, absent.Key));
@@ -658,9 +644,9 @@ namespace CW.Assistant.Generated
                 instances.Count, excludedFromMasterLinkCount, excludedFromIfcCount, parameterNames.Count,
                 parameterValuesChecked, incompleteParameterValues, completenessCompleted, updated, preservedCount, readOnlyCount, unresolvedCount, failedWrites));
             return SaveAndReturn(log, string.Format(CultureInfo.InvariantCulture,
-                "Regel 3 v{0}: parameterverdier kontrollert {1}; ufullstendige {2}; kompletthetskontroll fullført {3}; oppdatert {4}; eksisterende verdier bevart {5}; romverdier kontrollert {8}; romrettet {9}; romflagg {10}; blokkeringer {6}; logg: {7}.",
+                "Regel 3 v{0}: parameterverdier kontrollert {1}; ufullstendige {2}; kompletthetskontroll fullført {3}; oppdatert {4}; eksisterende verdier bevart {5}; workset-unntak {8}; blokkeringer {6}; logg: {7}.",
                 ScriptVersion, parameterValuesChecked, incompleteParameterValues, completenessCompleted,
-                updated, preservedCount, unresolvedCount + failedWrites, LogPath, roomParameterValuesChecked, roomCorrectionCount, roomFlagCount), reportContext, roomReportRows);
+                updated, preservedCount, unresolvedCount + failedWrites, LogPath, excludedTemporaryDeliveryCount), reportContext);
         }
 
         private static (int CheckedValues, int IncompleteValues, bool Completed) TryAppendParameterCompleteness(
@@ -677,7 +663,7 @@ namespace CW.Assistant.Generated
                     if (!HasExactEnterprise(instance, "K5B")) continue;
                     foreach (string name in parameterNames)
                     {
-                        if (RoomParameterNames.Contains(name, StringComparer.Ordinal)) continue;
+                        if (RoomParametersHandledOutsideRule3.Contains(name, StringComparer.Ordinal)) continue;
                         bool revisionParameter = RevisionParameterNames.Contains(name, StringComparer.Ordinal);
                         if (string.Equals(name, StaOnlyParameterName, StringComparison.Ordinal) && !IsStaModel(document)) continue;
 
@@ -788,172 +774,6 @@ namespace CW.Assistant.Generated
             }
         }
 
-        private static void PlanRoomParameterWrites(
-            Element instance,
-            List<PendingWrite> writes,
-            HashSet<string> scheduled,
-            List<RoomWriteRecord> roomWrites,
-            List<string> log,
-            ref int readOnlyCount,
-            ref int unresolvedCount)
-        {
-            if (!RequiresRoomPlaceholder(instance)) return;
-            foreach (string name in RoomParameterNames)
-            {
-                IList<Parameter> parameters = instance.GetParameters(name);
-                if (parameters.Count != 1)
-                {
-                    unresolvedCount++;
-                    string issue = parameters.Count == 0 ? "parameter mangler" : "dupliserte instansparametere (" + parameters.Count.ToString(CultureInfo.InvariantCulture) + ")";
-                    log.Add(FormatIssue(instance, name, issue + "; målverdien skal være '--'"));
-                    continue;
-                }
-
-                Parameter parameter = parameters[0];
-                if (parameter.StorageType != StorageType.String)
-                {
-                    unresolvedCount++;
-                    log.Add(FormatIssue(instance, name, "feil lagringstype; målverdien skal være '--'"));
-                    continue;
-                }
-
-                string previousValue = parameter.AsString() ?? string.Empty;
-                if (string.Equals(previousValue, MissingMarker, StringComparison.Ordinal)) continue;
-                if (parameter.IsReadOnly)
-                {
-                    readOnlyCount++;
-                    unresolvedCount++;
-                    log.Add(FormatIssue(instance, name, "verdien skal være '--', men instansparameteren er skrivebeskyttet"));
-                    continue;
-                }
-
-                string key = instance.Id.Value.ToString(CultureInfo.InvariantCulture) + "|" + name;
-                if (!scheduled.Add(key))
-                {
-                    unresolvedCount++;
-                    log.Add(FormatIssue(instance, name, "romrettingen kolliderer med en allerede planlagt skriving"));
-                    continue;
-                }
-                writes.Add(new PendingWrite(instance, parameter, MissingMarker, "romkrav for trekkerør eller Infoelement"));
-                roomWrites.Add(new RoomWriteRecord(instance, name, previousValue));
-            }
-        }
-
-        private static List<string[]> BuildRoomControlRows(List<Element> instances, out int checkedValues)
-        {
-            checkedValues = 0;
-            var rows = new List<string[]>();
-            foreach (Element instance in instances.OrderBy(element => element.Id.Value))
-            {
-                string package = GetRoomContextValue(instance, PackageParameter);
-                string markString = GetRoomContextValue(instance, "FOB_Merkestreng");
-                foreach (string name in RoomParameterNames)
-                {
-                    bool requiresPlaceholder = RequiresRoomPlaceholder(instance);
-                    checkedValues++;
-                    IList<Parameter> parameters = instance.GetParameters(name);
-                    string value = string.Join(" | ", parameters.Select(GetRoomParameterValue));
-                    string issue;
-                    if (parameters.Count == 0)
-                    {
-                        issue = "parameter mangler";
-                    }
-                    else if (parameters.Count > 1)
-                    {
-                        issue = "dupliserte instansparametere (" + parameters.Count.ToString(CultureInfo.InvariantCulture) + ")";
-                    }
-                    else if (parameters[0].StorageType != StorageType.String)
-                    {
-                        issue = "feil lagringstype " + parameters[0].StorageType;
-                    }
-                    else if (requiresPlaceholder)
-                    {
-                        if (string.Equals(parameters[0].AsString(), MissingMarker, StringComparison.Ordinal)) continue;
-                        issue = parameters[0].IsReadOnly
-                            ? "trekkerør eller Infoelement krever nøyaktig '--'; parameteren er skrivebeskyttet"
-                            : "trekkerør eller Infoelement krever nøyaktig '--'";
-                    }
-                    else if (!parameters[0].HasValue || string.IsNullOrWhiteSpace(parameters[0].AsString()))
-                    {
-                        issue = "blank verdi";
-                    }
-                    else if (string.Equals(parameters[0].AsString()?.Trim(), MissingMarker, StringComparison.Ordinal))
-                    {
-                        issue = "verdien '--' er ikke gyldig";
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                    rows.Add(new[]
-                    {
-                        instance.Id.Value.ToString(CultureInfo.InvariantCulture),
-                        instance.Category?.Name ?? string.Empty,
-                        package,
-                        markString,
-                        name,
-                        value,
-                        issue
-                    });
-                }
-            }
-            return rows;
-        }
-
-        private static bool RequiresRoomPlaceholder(Element instance)
-        {
-            if (IsCategory(instance, BuiltInCategory.OST_Conduit)
-                || IsCategory(instance, BuiltInCategory.OST_ConduitFitting))
-            {
-                return true;
-            }
-
-            return TryGetSingleParameter(instance, "FOB_Eksistensstatus", out Parameter? existenceStatus, out _)
-                && existenceStatus is not null
-                && existenceStatus.StorageType == StorageType.String
-                && string.Equals(existenceStatus.AsString(), "Infoelement", StringComparison.Ordinal);
-        }
-
-        private static int AppendRoomCorrectionRows(List<string[]> rows, List<RoomWriteRecord> roomWrites)
-        {
-            int verified = 0;
-            foreach (RoomWriteRecord write in roomWrites)
-            {
-                IList<Parameter> parameters = write.Owner.GetParameters(write.ParameterName);
-                if (parameters.Count != 1 || parameters[0].StorageType != StorageType.String
-                    || !string.Equals(parameters[0].AsString(), MissingMarker, StringComparison.Ordinal))
-                {
-                    continue;
-                }
-
-                verified++;
-                rows.Add(new[]
-                {
-                    write.Owner.Id.Value.ToString(CultureInfo.InvariantCulture),
-                    write.Owner.Category?.Name ?? string.Empty,
-                    GetRoomContextValue(write.Owner, PackageParameter),
-                    GetRoomContextValue(write.Owner, "FOB_Merkestreng"),
-                    write.ParameterName,
-                    MissingMarker,
-                    "Rettet fra '" + EscapeLog(write.PreviousValue) + "' til '--'; etterkontroll bekreftet."
-                });
-            }
-            return verified;
-        }
-
-        private static string GetRoomContextValue(Element element, string parameterName)
-        {
-            IList<Parameter> parameters = element.GetParameters(parameterName);
-            return parameters.Count == 1 ? GetRoomParameterValue(parameters[0]) : string.Empty;
-        }
-
-        private static string GetRoomParameterValue(Parameter parameter)
-        {
-            string? value = parameter.StorageType == StorageType.String ? parameter.AsString() : parameter.AsValueString();
-            return value ?? string.Empty;
-        }
-
         private static bool IsMissingRevisionValue(string value)
         {
             return string.IsNullOrWhiteSpace(value)
@@ -1042,6 +862,7 @@ namespace CW.Assistant.Generated
             foreach (Element e in new FilteredElementCollector(document).OfCategory(BuiltInCategory.OST_CableTray).WhereElementIsNotElementType())
             {
                 if (uniqueIds.Contains(e.UniqueId)) continue;
+                if (IsTemporaryDeliveryException(e)) continue;
                 if (!IsK5BOrUnassigned(e)) continue;
                 ElementType? type = document.GetElement(e.GetTypeId()) as ElementType;
                 if (type is not null && (type.Name + " " + type.FamilyName).IndexOf("Strømskinne", StringComparison.OrdinalIgnoreCase) >= 0) continue;
@@ -1870,6 +1691,13 @@ namespace CW.Assistant.Generated
             return CenterLineCategoryIds.Contains(categoryId);
         }
 
+        private static bool IsTemporaryDeliveryException(Element element)
+        {
+            return string.Equals(element.Document.Title, "U_F_BAS_FBU_RIE_XXX", StringComparison.OrdinalIgnoreCase)
+                && string.Equals(element.Document.GetWorksetTable().GetWorkset(element.WorksetId)?.Name,
+                    "RIE Temp Varelevering", StringComparison.OrdinalIgnoreCase);
+        }
+
         private static bool IsExcludedFromIfc(Element element)
         {
             IList<Parameter> parameters = element.GetParameters(IfcExcludeParameterName);
@@ -2075,8 +1903,7 @@ namespace CW.Assistant.Generated
         private static string SaveAndReturn(
             List<string> lines,
             string result,
-            Dictionary<long, (string FamilyName, string MarkString)>? reportContext = null,
-            List<string[]>? roomReportRows = null)
+            Dictionary<long, (string FamilyName, string MarkString)>? reportContext = null)
         {
             string reportResult;
             try
@@ -2088,8 +1915,7 @@ namespace CW.Assistant.Generated
                 ExcelListReportWriter.Write(reportPath, new[]
                 {
                     new ExcelListReportWriter.WorksheetData("Regel 3", ExcelReportHeaders,
-                        lines.Select(line => ToExcelReportRow(line, reportContext)).ToList()),
-                    new ExcelListReportWriter.WorksheetData("Romkontroll", RoomReportHeaders, roomReportRows ?? new List<string[]>())
+                        lines.Select(line => ToExcelReportRow(line, reportContext)).ToList())
                 });
                 reportResult = "Excel-rapport: " + reportPath;
             }

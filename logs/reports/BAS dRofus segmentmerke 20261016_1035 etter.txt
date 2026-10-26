@@ -1,7 +1,0 @@
-2026-10-16T10:40:14.2107801+02:00
-Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt
-39 dokumenterte segmenter til P14-460-KAF-006. Bare merke/sekvens/område. Tre tomme representanter bevares.
-Ingen lagring, synk, referansegodkjenning eller kopiering av occurrence-ID.
-Transaksjon=Committed; segmenter=39; felt=78
-Gruppe=Committed; alle K5B-kabelbroer kontrollert, type/pin/kurve/dimensjoner/ID-er bevart.
-VERIFISERT: alle 39 har representantens merke/sekvens/område; øvrige verdier og segmenter uendret.

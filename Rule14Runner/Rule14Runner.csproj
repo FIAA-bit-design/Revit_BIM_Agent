@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ExtensionId>Rule14Runner</ExtensionId>
+    <Authors>AEC AB</Authors>
+    <Version>0.0.2</Version>
+      <Version>0.0.4</Version>
+    <Title>Rule14Runner</Title>
+    <Description>Read-only report of missing room information in the verified Revit models.</Description>
+    <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
+    <MainRevitVersion>2026</MainRevitVersion>
+    <LangVersion>12</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <AssemblyName>$(ExtensionId).2026.$(Version)</AssemblyName>
+    <PackageId>$(ExtensionId).2026</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2026.0.0" PrivateAssets="all" IncludeAssets="compile" />
+    <PackageReference Include="CW.Assistant.Extensions.Revit.2026" Version="26.*" PrivateAssets="all" IncludeAssets="compile" />
+    <Compile Include="../CSharpRules/Rule14MissingRoomInformationReport.cs" Link="Rule14MissingRoomInformationReport.cs" />
+    <Compile Include="../CSharpRules/Rule14ExceptionRules.cs" Link="Rule14ExceptionRules.cs" />
+    <Compile Include="../CSharpRules/Rule14RoomValueValidator.cs" Link="Rule14RoomValueValidator.cs" />
+    <Compile Include="../CSharpRules/ExcelListReportWriter.cs" Link="ExcelListReportWriter.cs" />
+    <Compile Remove="Tests/**/*.cs" />
+  </ItemGroup>
+</Project>

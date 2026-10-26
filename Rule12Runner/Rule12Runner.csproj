@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtensionId>Rule12Runner</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
+    <Version>0.0.6</Version>
     <Title>Rule12Runner</Title>
     <Description>Registers selected cable tray routes without model changes, exports an Excel queue, and applies confirmed view hiding in a separate batch. BAS Revit 2026 utility, outside the standard rule sequence.</Description>
     <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
@@ -16,5 +16,6 @@
     <Compile Include="..\CSharpRules\DrofusRouteQueueRunner.cs" Link="DrofusRouteQueueRunner.cs" />
     <Compile Include="..\CSharpRules\DrofusRouteQueueReport.cs" Link="DrofusRouteQueueReport.cs" />
     <Compile Include="..\CSharpRules\ExcelListReportWriter.cs" Link="ExcelListReportWriter.cs" />
+    <Compile Include="..\CSharpRules\DrofusConnectedFittingRoomTextFill.cs" Link="DrofusConnectedFittingRoomTextFill.cs" />
   </ItemGroup>
 </Project>

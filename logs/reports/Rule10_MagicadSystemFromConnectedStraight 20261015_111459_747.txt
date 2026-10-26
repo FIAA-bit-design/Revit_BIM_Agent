@@ -1,2 +1,0 @@
-=== Regel 10 Magicad v0.0.3 | 2026-10-15T11:14:59.3658885+02:00 | U_F_STA_FBU_RIE_XXX ===
-Oppsummering: føringsveifittings 967; kontrollert med manglende Magicad-verdi 0; oppdatert 0; eksisterende verdier bevart 1002; uavklart 0.

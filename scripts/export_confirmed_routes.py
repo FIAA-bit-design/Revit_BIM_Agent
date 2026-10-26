@@ -11,6 +11,7 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
+from validate_excel import save_excel
 
 ROOT = Path(__file__).resolve().parents[1]
 HEADERS = [
@@ -69,11 +70,14 @@ def export(snapshot, output):
     for row in registry:
         groups[row["Route"]].append(row)
     notes = {}
+    formula_notes = set()
     if output.exists():
         previous = load_workbook(output)
         try:
-            for values in list(previous["Segmenter"].values)[1:]:
-                notes[values[4]] = values[25]
+            for cells in previous["Segmenter"].iter_rows(min_row=2):
+                notes[cells[4].value] = cells[25].value
+                if cells[25].data_type == "f":
+                    formula_notes.add(cells[4].value)
             if set(notes) - set(by_uid):
                 raise ValueError("Previously reported segments are missing; refusing to drop notes")
         finally:
@@ -140,10 +144,14 @@ def export(snapshot, output):
                               "Romnummer", "Status"], summaries, "Routes")
     add_sheet(book, "Segmenter", HEADERS, segments, "Segments")
     add_sheet(book, "Avvik", HEADERS, [row for row in segments if row[22] != "Kontrollerte felt samsvarer i snapshot"], "Exceptions")
+    for name in ("Segmenter", "Avvik"):
+        for cells in book[name].iter_rows(min_row=2):
+            if cells[4].value in formula_notes:
+                cells[25].data_type = "f"
     if output.exists():
         backup = ROOT / "logs" / "reports" / f"BAS bekreftede strekk før oppdatering {datetime.now():%Y%m%d_%H%M%S_%f}.xlsx"
         shutil.copy2(output, backup)
-    book.save(output)
+    save_excel(book, output)
     book.close()
     check = load_workbook(output)
     try:

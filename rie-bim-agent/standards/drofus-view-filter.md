@@ -10,6 +10,10 @@ Strømskinner skal ikke inngå i filtrerte føringsveiview for dRofus eller i ko
 
 Unntaket gjelder bare føringsveiview for dRofus og tilhørende kontroll før synk. Andre BIM-kontroller og regler beholder sine egne omfang og filtre. Ikke endre eller slette strømskinner, parameterverdier eller geometri som følge av dette filteret.
 
+## Unntak i romteksthandlingen for bend og kryss
+
+Det samme familie-/typenavnfilteret brukes også i Rule12Runner-handlingen `FillFittingRoomText`: strømskinner, inkludert strømskinnebend, utelates både som mål og romkilde før romtekstplanlegging. Rapporten fører dem separat på fanen `Unntak` med status `EXCLUDED`, antall og ElementId, ikke som blokkerte restavvik eller kontrollerte ordinære kabelbrobend/kryss. Brukeren har bekreftet de åtte strømskinnebendene 16683440, 16683442, 16707932, 16707974, 16707976, 16708016, 16708019 og 16708020 i BAS K5B/LPE161. Bevar modellverdiene; ikke fyll romnavn, romnummer eller RoomID som følge av dette unntaket. Se [kjørerutinen](../../Rule12Runner/README.md#romnavn-og-romnummer-for-kabelbrobend-og-kryss). Andre BIM-kontroller beholder sine egne filtre; dette er ikke et generelt strømskinneunntak fra alle parameterkrav.
+
 ## C4 har egne dRofus-artikler
 
 C4 identifiseres etter typenavnet i Revit. C4-føringsveier skal ha egne artikler, ikke samme `dRofus_ItemID` som ordinære føringsveier med samme bredde. Artikkelvalget krever både riktig utførelse og faktisk instansbredde; ikke grupper ordinære og C4-segmenter som samme strekk bare fordi bredde eller merke er likt.

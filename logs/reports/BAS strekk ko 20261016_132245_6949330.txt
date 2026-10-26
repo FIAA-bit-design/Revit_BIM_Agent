@@ -1,6 +1,0 @@
-2026-10-16T13:22:45.6948996+02:00
-PreviewBatch
-Kun viewskjuling ved ApplyBatch. Ingen parameterendring, lagring, synk eller dRofus-sletting.
-Ko: 0 grupper; Pending=0; Applied=0; Blocked=0
-Excel (tidsstemplet, avledet rapport): D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS strekk ko 20261016_132245_6949330.xlsx
-Excel-normalapning er ikke testet inne i Revit-rutinen; valider rapporten med Test-ExcelWorkbook.ps1.

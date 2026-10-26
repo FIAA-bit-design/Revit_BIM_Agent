@@ -1,7 +1,0 @@
-2026-10-16T13:42:19.8218694+02:00
-RegisterSelection
-Kun viewskjuling ved ApplyBatch. Ingen parameterendring, lagring, synk eller dRofus-sletting.
-Markering lagret; modellen er ikke endret.
-Ko: 17 grupper; Pending=17; Applied=0; Blocked=0
-Excel (tidsstemplet, avledet rapport): D:\Revit\Python\Revit_BIM_Agent\logs\reports\BAS strekk ko 20261016_134219_8218892.xlsx
-Excel-normalapning er ikke testet inne i Revit-rutinen; valider rapporten med Test-ExcelWorkbook.ps1.

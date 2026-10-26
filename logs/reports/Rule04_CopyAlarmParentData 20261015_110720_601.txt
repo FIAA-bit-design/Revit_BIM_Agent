@@ -1,2 +1,0 @@
-=== Regel 4 v0.0.3 | 2026-10-15T11:07:18.7390993+02:00 | U_F_STA_FBU_RIE_XXX ===
-Regel 4 v0.0.3: child-elementer 0; kilder 46; matchet 0; fallback 0; uten match 0; verdier skrevet 0; uavklart 0; kilder med mangler/feil 0.

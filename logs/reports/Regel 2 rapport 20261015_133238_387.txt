@@ -1,2 +1,0 @@
-=== Regel 2 v0.0.7 | 2026-10-15T13:32:33.4881933+02:00 | U_F_BAS_FBU_RIE_XXX ===
-Elementer 103484; K5B-elementer 13418; ekskludert IFC 212; mål 0; kandidater 13206; parameter mangler 0; feil lagringstype 0; oppdatert 0; uavklart 0; skrivebeskyttet 0; fallback 0

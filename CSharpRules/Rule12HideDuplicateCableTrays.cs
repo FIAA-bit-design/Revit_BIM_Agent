@@ -62,7 +62,8 @@ public sealed class Rule12HideDuplicateCableTrays
             return "STOPP: aktiv BAS-modell kunne ikke bekreftes.";
         }
 
-        if (!string.Equals(viewName?.Trim(), TargetViewName, StringComparison.Ordinal))
+        string normalizedViewName = viewName?.Trim() ?? string.Empty;
+        if (!string.Equals(normalizedViewName, TargetViewName, StringComparison.Ordinal))
         {
             return "STOPP: Rule12Runner er avgrenset til viewet '" + TargetViewName + "'.";
         }
@@ -70,7 +71,7 @@ public sealed class Rule12HideDuplicateCableTrays
             .OfClass(typeof(View3D))
             .ToElements()
             .OfType<View3D>()
-            .Where(view => !view.IsTemplate && string.Equals(view.Name, viewName.Trim(), StringComparison.Ordinal))
+            .Where(view => !view.IsTemplate && string.Equals(view.Name, normalizedViewName, StringComparison.Ordinal))
             .ToArray();
         if (views.Length != 1) return "STOPP: forventet ett 3D-view med navn '" + viewName + "', fant " + views.Length.ToString(CultureInfo.InvariantCulture) + ".";
 
