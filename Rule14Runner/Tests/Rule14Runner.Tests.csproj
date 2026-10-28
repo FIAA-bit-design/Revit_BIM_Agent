@@ -9,5 +9,6 @@
   <ItemGroup>
     <Compile Include="../../CSharpRules/Rule14RoomValueValidator.cs" Link="Rule14RoomValueValidator.cs" />
     <Compile Include="../../CSharpRules/Rule14ExceptionRules.cs" Link="Rule14ExceptionRules.cs" />
+    <Compile Include="../../CSharpRules/ExcelListReportWriter.cs" Link="ExcelListReportWriter.cs" />
   </ItemGroup>
 </Project>

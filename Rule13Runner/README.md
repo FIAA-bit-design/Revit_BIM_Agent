@@ -69,7 +69,7 @@ Det opprinnelige Excel-snapshotet inkluderte elementer merket `MC Exclude From I
 
 ## Kontroller og begrensninger
 
-Fokuserte modellfrie tester for v0.0.5, uten Excel-skriving:
+Fokuserte modellfrie tester for Rule13Runner v0.0.7, uten Revit-modell eller Excel-skriving:
 
 ```powershell
 dotnet run --project Rule13Runner/Tests/Rule13Runner.Tests.csproj -- --jrp

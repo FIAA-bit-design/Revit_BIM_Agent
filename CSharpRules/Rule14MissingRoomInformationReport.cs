@@ -14,7 +14,7 @@ namespace CW.Assistant.Generated;
 
 internal sealed class Rule14MissingRoomInformationReport
 {
-    internal const string Version = "0.0.4";
+    internal const string Version = "0.0.8";
     internal const string BasModelTitle = "U_F_BAS_FBU_RIE_XXX";
     internal const string BasModelPath = "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt";
     internal const string StaModelTitle = "U_F_STA_FBU_RIE_XXX";
@@ -23,10 +23,26 @@ internal sealed class Rule14MissingRoomInformationReport
     internal static readonly string[] RoomParameterNames = { "Romnavn", "dRofus_RoomfunctionNo" };
     internal static readonly string[] Headers =
     {
-        "ElementId", "Revit-kategori", "Familienavn", "Type", "FOB_Entreprise",
-        "FOB_Leveransepakke", "FOB_Merkestreng", "Romnavn", "dRofus_RoomfunctionNo", "Avvik"
+        "Avvik", "ElementId", "Revit-kategori", "FOB_Leveransepakke", "FOB_Entreprise",
+        "FOB_Merkestreng", "Familienavn", "Type", "Romnavn", "dRofus_RoomfunctionNo"
     };
     internal static readonly string[] ExceptionHeaders = Headers.Append("Unntaksregel").ToArray();
+
+    private static readonly IReadOnlyDictionary<string, double> ReportColumnWidths =
+        new Dictionary<string, double>(StringComparer.Ordinal)
+        {
+            ["Avvik"] = 48,
+            ["ElementId"] = 14,
+            ["Revit-kategori"] = 24,
+            ["FOB_Leveransepakke"] = 22,
+            ["FOB_Entreprise"] = 16,
+            ["FOB_Merkestreng"] = 34,
+            ["Familienavn"] = 30,
+            ["Type"] = 30,
+            ["Romnavn"] = 24,
+            ["dRofus_RoomfunctionNo"] = 24,
+            ["Unntaksregel"] = 48
+        };
 
     private const string MissingMarker = "--";
     private const string IfcExcludeParameterName = "MC Exclude From IFC View";
@@ -65,7 +81,7 @@ internal sealed class Rule14MissingRoomInformationReport
         string reportDirectory = Path.Combine(root, "logs", "reports");
         Directory.CreateDirectory(reportDirectory);
         List<Rule14ExceptionRule> exceptionRules = Rule14ExceptionRules.ReadWorkbookExceptions(
-            Path.Combine(reportDirectory, Rule14ExceptionRules.WorkbookFileName));
+            Rule14ExceptionRules.GetWorkbookPath(root));
 
         int scopedCount = 0;
         var rows = new List<string[]>();
@@ -102,21 +118,22 @@ internal sealed class Rule14MissingRoomInformationReport
             string familyName = GetFamilyName(element);
             string[] row = new[]
             {
+                string.Join("; ", issues),
                 element.Id.Value.ToString(CultureInfo.InvariantCulture),
                 element.Category?.Name ?? string.Empty,
+                GetInstanceParameterText(element, "FOB_Leveransepakke"),
+                GetInstanceParameterText(element, "FOB_Entreprise"),
+                GetInstanceParameterText(element, "FOB_Merkestreng"),
                 familyName,
                 GetTypeName(element),
-                GetInstanceParameterText(element, "FOB_Entreprise"),
-                GetInstanceParameterText(element, "FOB_Leveransepakke"),
-                GetInstanceParameterText(element, "FOB_Merkestreng"),
                 values["Romnavn"],
-                values["dRofus_RoomfunctionNo"],
-                string.Join("; ", issues)
+                values["dRofus_RoomfunctionNo"]
             };
             bool isConduit = IsCategory(element, BuiltInCategory.OST_Conduit);
+            bool isConduitFitting = IsCategory(element, BuiltInCategory.OST_ConduitFitting);
             string? sizeValue = GetSingleStringInstanceParameter(element, "Size");
             Rule14ExceptionRule? exceptionRule = exceptionRules.FirstOrDefault(rule =>
-                rule.MatchesElement(familyName, isConduit, GetTypeName(element), sizeValue));
+                rule.MatchesElement(familyName, isConduit, isConduitFitting, GetTypeName(element), sizeValue));
             if (exceptionRule is null)
                 rows.Add(row);
             else
@@ -128,8 +145,8 @@ internal sealed class Rule14MissingRoomInformationReport
         string reportPath = Path.Combine(reportDirectory, "Mangler_rominformasjon " + timestamp + ".xlsx");
         ExcelListReportWriter.Write(reportPath, new[]
         {
-            new ExcelListReportWriter.WorksheetData("Mangler rominfo", Headers, rows),
-            new ExcelListReportWriter.WorksheetData("Unntak", ExceptionHeaders, exceptionRows)
+            new ExcelListReportWriter.WorksheetData("Mangler rominfo", Headers, rows, columnWidths: ReportColumnWidths),
+            new ExcelListReportWriter.WorksheetData("Unntak", ExceptionHeaders, exceptionRows, columnWidths: ReportColumnWidths)
         });
 
         return string.Format(CultureInfo.InvariantCulture,
@@ -153,6 +170,10 @@ internal sealed class Rule14MissingRoomInformationReport
     private static bool RequiresRoomPlaceholder(Element element)
     {
         if (UsesConduitSpaceRoom(element)) return false;
+        if (IsCategory(element, BuiltInCategory.OST_Conduit)
+            && !Rule14RoomValueValidator.RequiresConduitPlaceholder(
+                GetInstanceParameterText(element, "FOB_Entreprise"),
+                GetSingleStringInstanceParameter(element, "Size"))) return false;
         if (IsCategory(element, BuiltInCategory.OST_Conduit)
             || IsCategory(element, BuiltInCategory.OST_ConduitFitting)) return true;
 
@@ -270,4 +291,10 @@ internal sealed class Rule14MissingRoomInformationReport
         if (!Directory.Exists(root)) throw new DirectoryNotFoundException("Fant ikke arbeidsområderoten: " + root);
         return root;
     }
+}
+
+public static class Rule14PythonActionBridge
+{
+    public static string Execute(Document document, string workspaceRoot) =>
+        new Rule14MissingRoomInformationReport().Execute(document, workspaceRoot, CancellationToken.None);
 }

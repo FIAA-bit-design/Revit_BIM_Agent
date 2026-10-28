@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace CW.Assistant.Generated;
@@ -12,7 +13,9 @@ internal sealed class Rule14ExceptionRule
 {
     private const string DescriptionPrefix = "Alle familier som begynner med ";
     private const string TypeDescriptionPrefix = "Alle typenavn som begynner med ";
+    private const string FamilyAndTypeDescriptionPrefix = "Alle familier og typenavn som begynner med ";
     internal const string ConduitTwentyFiveMmDescription = "Alle typenavn for Conduit som inneholder 25mm eller har Size 25mm";
+    internal const string ConduitBendTwentyFiveMmDescription = "Alle trekkerør bend som er 25 mm";
 
     internal string Description { get; }
     internal string FamilyPrefix { get; }
@@ -30,6 +33,14 @@ internal sealed class Rule14ExceptionRule
     internal static Rule14ExceptionRule Parse(string description)
     {
         string normalized = description?.Trim() ?? string.Empty;
+        if (normalized.StartsWith(FamilyAndTypeDescriptionPrefix, StringComparison.OrdinalIgnoreCase))
+        {
+            string prefix = normalized.Substring(FamilyAndTypeDescriptionPrefix.Length).Trim();
+            if (string.IsNullOrWhiteSpace(prefix))
+                throw new InvalidDataException("Unntaksregelen mangler familie-/typenavnprefiks.");
+            return new Rule14ExceptionRule(normalized, prefix, prefix, "familie-type:" + prefix);
+        }
+
         if (normalized.StartsWith(DescriptionPrefix, StringComparison.OrdinalIgnoreCase))
         {
             string familyPrefix = normalized.Substring(DescriptionPrefix.Length).Trim();
@@ -49,6 +60,9 @@ internal sealed class Rule14ExceptionRule
         if (string.Equals(normalized, ConduitTwentyFiveMmDescription, StringComparison.OrdinalIgnoreCase))
             return new Rule14ExceptionRule(normalized, string.Empty, string.Empty, "conduit-size-25mm");
 
+        if (string.Equals(normalized, ConduitBendTwentyFiveMmDescription, StringComparison.OrdinalIgnoreCase))
+            return new Rule14ExceptionRule(normalized, string.Empty, string.Empty, "conduit-bend-size-25mm");
+
         throw new InvalidDataException("Ukjent format i unntaksfanen: " + normalized);
     }
 
@@ -56,15 +70,26 @@ internal sealed class Rule14ExceptionRule
         FamilyPrefix.Length > 0
         && (familyName ?? string.Empty).Trim().StartsWith(FamilyPrefix, StringComparison.OrdinalIgnoreCase);
 
-    internal bool MatchesElement(string familyName, bool isConduit, string typeName, string? sizeValue) =>
-        FamilyPrefix.Length > 0 ? MatchesFamily(familyName)
-            : TypePrefix.Length > 0
-                ? (typeName ?? string.Empty).Trim().StartsWith(TypePrefix, StringComparison.OrdinalIgnoreCase)
-                : isConduit && (ContainsTwentyFiveMm(typeName) || ContainsTwentyFiveMm(sizeValue));
+    internal bool MatchesElement(string familyName, bool isConduit, bool isConduitFitting, string typeName, string? sizeValue)
+    {
+        bool familyMatch = FamilyPrefix.Length > 0 && MatchesFamily(familyName);
+        bool typeMatch = TypePrefix.Length > 0
+            && (typeName ?? string.Empty).Trim().StartsWith(TypePrefix, StringComparison.OrdinalIgnoreCase);
+        if (FamilyPrefix.Length > 0 || TypePrefix.Length > 0) return familyMatch || typeMatch;
+
+        if (RuleKey == "conduit-bend-size-25mm")
+        {
+            bool isTrekkerorBend = (familyName ?? string.Empty).IndexOf("Trekkerør bend", StringComparison.OrdinalIgnoreCase) >= 0
+                || (typeName ?? string.Empty).IndexOf("Trekkerør bend", StringComparison.OrdinalIgnoreCase) >= 0;
+            return isConduitFitting && isTrekkerorBend
+                && (ContainsTwentyFiveMm(typeName) || ContainsTwentyFiveMm(sizeValue));
+        }
+
+        return isConduit && (ContainsTwentyFiveMm(typeName) || ContainsTwentyFiveMm(sizeValue));
+    }
 
     private static bool ContainsTwentyFiveMm(string? value) =>
-        new string((value ?? string.Empty).Where(character => !char.IsWhiteSpace(character)).ToArray())
-            .Contains("25mm", StringComparison.OrdinalIgnoreCase);
+        Regex.IsMatch(value ?? string.Empty, @"(?<!\d)25\s*mm(?!\d)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 }
 
 internal static class Rule14ExceptionRules
@@ -74,6 +99,9 @@ internal static class Rule14ExceptionRules
     private const string MainNamespace = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
     private const string DocumentRelationshipNamespace = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
     private const string PackageRelationshipNamespace = "http://schemas.openxmlformats.org/package/2006/relationships";
+
+    internal static string GetWorkbookPath(string workspaceRoot) =>
+        Path.Combine(workspaceRoot, "config", WorkbookFileName);
 
     internal static List<Rule14ExceptionRule> ReadWorkbookExceptions(string workbookPath)
     {
