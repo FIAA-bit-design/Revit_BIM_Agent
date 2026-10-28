@@ -14,6 +14,7 @@ internal sealed class Rule14ExceptionRule
     private const string DescriptionPrefix = "Alle familier som begynner med ";
     private const string TypeDescriptionPrefix = "Alle typenavn som begynner med ";
     private const string FamilyAndTypeDescriptionPrefix = "Alle familier og typenavn som begynner med ";
+    internal const string NumberedDetailArrowTypePrefix = "3D Detaljpil nummer ";
     internal const string ConduitTwentyFiveMmDescription = "Alle typenavn for Conduit som inneholder 25mm eller har Size 25mm";
     internal const string ConduitBendTwentyFiveMmDescription = "Alle trekkerør bend som er 25 mm";
 
@@ -54,6 +55,8 @@ internal sealed class Rule14ExceptionRule
             string typePrefix = normalized.Substring(TypeDescriptionPrefix.Length).Trim();
             if (string.IsNullOrWhiteSpace(typePrefix))
                 throw new InvalidDataException("Unntaksregelen mangler typenavnprefiks.");
+            if (string.Equals(typePrefix, NumberedDetailArrowTypePrefix.TrimEnd(), StringComparison.OrdinalIgnoreCase))
+                typePrefix = NumberedDetailArrowTypePrefix;
             return new Rule14ExceptionRule(normalized, string.Empty, typePrefix, "type:" + typePrefix);
         }
 

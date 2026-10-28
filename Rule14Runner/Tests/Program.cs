@@ -68,13 +68,23 @@ CheckCondition(strømskinneTypeRule.MatchesElement("Cable Tray with Fittings", f
     "Strømskinne 2500A 200 mm x 350 mm", null), "Strømskinne-unntak matcher typenavn når familienavnet er annerledes.");
 CheckCondition(!strømskinneTypeRule.MatchesElement("Strømskinne", false, false, "Kabelbro rett", null),
     "Strømskinne-typeunntaket matcher ikke bare familienavnet.");
-Rule14ExceptionRule aspirationRule = Rule14ExceptionRule.Parse("Alle familier og typenavn som begynner med Aspirasjonrør");
-Check(aspirationRule.FamilyPrefix, "Aspirasjonrør", "Aspirasjonrør-regelen matcher familienavn.");
+Rule14ExceptionRule aspirationRule = Rule14ExceptionRule.Parse("Alle typenavn som begynner med Aspirasjonrør");
+Check(aspirationRule.FamilyPrefix, "", "Aspirasjonrør-regelen utelater hele Conduit-familien.");
 Check(aspirationRule.TypePrefix, "Aspirasjonrør", "Aspirasjonrør-regelen matcher typenavn.");
 CheckCondition(aspirationRule.MatchesElement("M_Conduit Elbow - without Fittings - RNC", false, true,
     "Aspirasjonrør bend", "ø=25 mmxø=25 mm"), "Aspirasjonrør-bend fanges via typenavn.");
-CheckCondition(aspirationRule.MatchesElement("Aspirasjonrør sensor", false, false,
-    "Standard", null), "Aspirasjonrør-familie fanges via familienavn.");
+CheckCondition(!aspirationRule.MatchesElement("Conduit with Fittings", true, false,
+    "Standard", null), "Aspirasjonrør-regelen fanger ikke hele Conduit-familien.");
+Rule14ExceptionRule detailArrowRule = Rule14ExceptionRule.Parse(
+    "Alle typenavn som begynner med 3D Detaljpil nummer");
+Check(detailArrowRule.TypePrefix, Rule14ExceptionRule.NumberedDetailArrowTypePrefix,
+    "3D Detaljpil-prefixet beholder avsluttende mellomrom internt.");
+CheckCondition(detailArrowRule.MatchesElement("Detail Components", false, false,
+    "3D Detaljpil nummer 01", null), "Nummerert 3D Detaljpil-type fanges.");
+CheckCondition(!detailArrowRule.MatchesElement("Detail Components", false, false,
+    "3D Detaljpil nummerert", null), "3D Detaljpil-prefixet krever mellomrom etter nummer.");
+CheckCondition(!detailArrowRule.MatchesElement("Detail Components", false, false,
+    "3D Detaljpil 01", null), "3D Detaljpil uten nummer-prefix fanges ikke.");
 Rule14ExceptionRule conduitBendRule = Rule14ExceptionRule.Parse(Rule14ExceptionRule.ConduitBendTwentyFiveMmDescription);
 CheckCondition(conduitBendRule.MatchesElement("M_Conduit Elbow - without Fittings - RNC", false, true,
     "Trekkerør bend 25 mm K5B", "ø=25 mmxø=25 mm"), "25 mm-trekkerørsbend fanges fra type og Size.");

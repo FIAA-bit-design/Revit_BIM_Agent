@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtensionId>Rule14Runner</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.8</Version>
+    <Version>0.0.9</Version>
     <Title>Rule14Runner</Title>
     <Description>Read-only report of missing room information in the verified Revit models.</Description>
     <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>

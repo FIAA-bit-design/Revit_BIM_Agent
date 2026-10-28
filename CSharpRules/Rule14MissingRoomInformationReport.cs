@@ -14,7 +14,7 @@ namespace CW.Assistant.Generated;
 
 internal sealed class Rule14MissingRoomInformationReport
 {
-    internal const string Version = "0.0.8";
+    internal const string Version = "0.0.9";
     internal const string BasModelTitle = "U_F_BAS_FBU_RIE_XXX";
     internal const string BasModelPath = "Autodesk Docs://Fornebubanen/U_F_BAS_FBU_RIE_XXX.rvt";
     internal const string StaModelTitle = "U_F_STA_FBU_RIE_XXX";

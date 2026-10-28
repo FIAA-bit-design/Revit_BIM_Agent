@@ -1,5 +1,5 @@
-# Rule14Runner v0.0.8
-Familieunntak følger formatet `Alle familier som begynner med <prefiks>`. Typenavnprefikser følger formatet `Alle typenavn som begynner med <prefiks>`. Conduit-unntaket matcher 25 mm i typenavn eller instansparameteren `Size`, uten hensyn til mellomrom eller store/små bokstaver. Ukjent format, manglende ark eller dupliserte regler stopper rapporten før elementlesing.
+# Rule14Runner v0.0.9
+Familieunntak følger formatet `Alle familier som begynner med <prefiks>`. Typenavnprefikser følger formatet `Alle typenavn som begynner med <prefiks>`. Aspirasjonrør filtreres bare via typenavn. Trekkerørsbend har en avgrenset 25 mm-regel. `3D Detaljpil nummer` bruker en påkrevd mellomromsgrense etter `nummer`, slik at bare nummererte typer unntas. Conduit-unntaket matcher 25 mm i typenavn eller instansparameteren `Size`, uten hensyn til mellomrom eller store/små bokstaver. Ukjent format, manglende ark eller dupliserte regler stopper rapporten før elementlesing.
 	return results
 Separat, lesende Assistant-verktøy for Revit 2026. Det lager en tidsstemplet Excel-liste over elementer med manglende eller ugyldig rominformasjon. Det inngår ikke i standard BIM-sekvens og utfører ingen transaksjoner eller modellendringer.
 
